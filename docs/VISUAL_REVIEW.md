@@ -1,3 +1,23 @@
+# Current targeted Phase 02 review fixes — 2026-10-29
+
+Private source `2155872cc626d7463d94500b678d875bec0e4dc6` was corrected in the original project and exported without private history/assets. Homepage/Booking visual design is preserved; original public placeholders/system fonts remain unchanged. Canonical slot/generation validation, branch offerings and policy compatibility are documented in [BOOKING_REVIEW_FIXES.md](BOOKING_REVIEW_FIXES.md).
+
+Current public typecheck/build: exit 0. Installed-Chrome Playwright against the dedicated public Next.js app on 3010: **92 passed**, zero failed/skipped/flaky, 179.9s across all four required viewports. Original private source separately passed 92 tests in 192.7s. No visual redesign, private asset/history publication, merge or Phase 03.
+
+Current sanitization and actual public evidence: [PHASE02_PUBLIC_REVIEW.md](PHASE02_PUBLIC_REVIEW.md), [PHASE02_PUBLIC_REVIEW_RESULTS.json](PHASE02_PUBLIC_REVIEW_RESULTS.json). All earlier results below are historical. Draft PR #1 remains unmerged; no Phase 03.
+
+---
+
+# Historical initial public Phase 02 review — 2026-10-29
+
+This branch exports the completed private Booking frontend for code review. Current public-copy commands/results and exact sanitization are in [PHASE02_PUBLIC_REVIEW.md](PHASE02_PUBLIC_REVIEW.md). Public main’s placeholders/system fonts are preserved. No private screenshots/assets/history are included. Photographic fidelity cannot be approved from this copy. No merge or Phase 03.
+
+Actual public-copy verification: npm ci, typecheck and build exit 0; npm run test:ui with installed Chrome and a dedicated Next.js server on port 3010: **48 passed**, zero failed/skipped/flaky, 163.3s across 1440×900, 1024×768, 390×844 and 375×812. Original public placeholders/system-font files remain unchanged. Only image descriptions/caption and the no-JS test endpoint differ from private Booking source. No booking behavior was changed. Local public captures were inspected; no internal screenshot was copied/published. Two existing Next/PostCSS dependency audit findings remain. Full normalized command/test evidence: [PHASE02_PUBLIC_REVIEW_RESULTS.json](PHASE02_PUBLIC_REVIEW_RESULTS.json).
+
+The original Phase 01 review below is historical internal-source evidence. Its private fonts/images, screenshot links and earlier phase gate do not describe the current sanitized public app.
+
+---
+
 # Visual review — Task 01 / Phase 1 Homepage
 
 Reviewed 2026-10-28. Technical gates pass. **Owner visual approval is pending; stop before Phase 2.** All screenshots described below are from the actual Next.js React app at `http://127.0.0.1:3000/`, launched with `npm run dev`, not from the static HTML preview.

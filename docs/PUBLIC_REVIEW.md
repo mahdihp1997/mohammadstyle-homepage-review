@@ -1,5 +1,7 @@
 # Public review export — 2026-10-29
 
+> Historical Phase 01 export record. For the current Phase 02 review branch, see `PHASE02_PUBLIC_REVIEW.md`. The original public placeholders, system fonts and independent ancestry described here remain preserved.
+
 Origin: internal commit `ec033307f82ef1160b188fdd6e405ba7bcdde06f`. This is a new, independent Git root; historical commits containing private binaries must never be pushed here.
 
 ## Deliberate differences

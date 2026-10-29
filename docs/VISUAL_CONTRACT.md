@@ -41,3 +41,9 @@ A Codex implementation fails review if it replaces this reference style with its
 The owner explicitly requested generating relevant photographs for the remaining services: فیشیال صورت، ماساژ، مانیکور، پدیکور. These four service-card illustrations may therefore use newly generated photographic concepts matching the locked charcoal/champagne treatment. They must be visibly labeled as conceptual, have accurate alt text and provenance, and must not be represented as real clients, real salon equipment/interiors, Before/After results or staff. Keep generated illustrations out of the authentic portfolio gallery. Existing client-photo consent restrictions and the Phase 1 owner visual-approval gate remain in force.
 
 The owner also identified the person in `groom-look.webp` as the barber: label that asset as the barber's portrait, not a customer grooming result or groom-service sample. No staff name or credentials are inferred.
+
+## Owner-authorized Phase 02 and public export — 2026-10-29
+
+The owner authorized the existing private Homepage as the visual baseline for the dedicated five-step `/booking` frontend. Explicitly labeled fictional fixtures demonstrate staff eligibility, demo times and opt-in prices/durations/policy arithmetic; default real values remain unknown. No real appointments, policy enforcement, transactions, APIs, database or messaging are implemented.
+
+This public review export intentionally retains sanitized Phase 01 placeholders and Tahoma/Arial/system fonts. Private photographs, font binaries, reference images and screenshot evidence are withheld. Placeholder alt text/captions disclose the substitution. Layout/color/booking CSS remain from the original implementation; do not infer pixel-level photographic or typographic fidelity from this copy. See `PHASE02_PUBLIC_REVIEW.md` for the exact differences. Stop at a draft review PR; no merge or Phase 03.
