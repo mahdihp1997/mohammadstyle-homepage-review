@@ -1,0 +1,37 @@
+{
+  "status": "B3_COMPLETE_B4_BINDING_DISABLED",
+  "schema": "MS_COMMERCIAL_PROPOSAL_V1",
+  "finalHashVersionReserved": "MS_QUOTE_CONTENT_V2",
+  "capacityReserved": false,
+  "bookable": false,
+  "finalQuoteAvailable": false,
+  "actualTests": {
+    "passed": 78,
+    "failed": 0,
+    "expectedDenials": 52
+  },
+  "actualNaturalExpiration": {
+    "expiresAt": "2026-10-29T23:34:40.530Z",
+    "verifiedAt": "2026-10-29T23:34:40.670Z",
+    "waitedMs": 52562,
+    "identityAndExpiryPreserved": true
+  },
+  "actualConcurrency": {
+    "cas": {
+      "connections": 2,
+      "committed": 1,
+      "rejected": 1
+    },
+    "idempotency": {
+      "connections": 2,
+      "responses": 2,
+      "identities": 1
+    }
+  },
+  "actualRestore": {
+    "bytes": 394915,
+    "sha256": "86460a5b98cba211a2fafe523444a18a271974d9cf5e95cbef3aede1c1dd84cd",
+    "rowsAndCatalogEqual": true,
+    "tables": 38
+  }
+}

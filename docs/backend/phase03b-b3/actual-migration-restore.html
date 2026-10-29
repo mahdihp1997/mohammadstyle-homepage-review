@@ -1,0 +1,36 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>actual-migration-restore</title><style>*{box-sizing:border-box}body{margin:0;padding:38px;background:#111b24;color:#f1f5f9;font:20px/1.5 Arial}h1,h2,a{color:#dfcda5}h1{font-size:34px}h2{font-size:25px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:24px}pre,section{background:#213444;padding:24px;border-radius:10px;white-space:pre-wrap;overflow-wrap:anywhere;font:18px/1.55 Consolas,monospace}.tests{columns:2;column-gap:34px;font-size:17px}.tests li{break-inside:avoid;margin-bottom:8px}strong{color:#dfcda5}</style><body><h1>Actual B3 migration and independent restore</h1><p>Real PostgreSQL18.6 execution records; parser checks are separately reported. No dump, credentials or session tokens are included.</p><div class="cards"><section><h2>Native schema and migration</h2><pre>{
+  "catalog": {
+    "status": "PASS",
+    "sha256": "2a3ce8aab5a51bffb6953b9c8562fae470c5eaeb022b9afdb249d9d2e0fc3e8b",
+    "tables": 38,
+    "indexes": 115,
+    "functions": 34,
+    "foreignKeys": 111,
+    "checks": 143,
+    "exclusions": 3,
+    "apiEntryPoints": 8,
+    "publicExecute": false,
+    "apiHasOwnerRole": false
+  },
+  "upgradeApplied": [
+    "0010_b3_commercial_foundation",
+    "0011_b3_pricing_policy_boundary"
+  ],
+  "freshVersions": 11,
+  "originalMigrationsUnchanged": 9,
+  "originalDatabasesUnchanged": 5,
+  "noop": "PASS",
+  "driftDetection": "PASS",
+  "failedMigrationRollback": "PASS",
+  "bookable": false
+}</pre></section><section><h2>Actual pg_dump / separate pg_restore</h2><pre>{
+  "backupFormat": "pg_dump custom",
+  "bytes": 394915,
+  "archiveSha256": "86460a5b98cba211a2fafe523444a18a271974d9cf5e95cbef3aede1c1dd84cd",
+  "source": "ms_b3_dev",
+  "destination": "ms_b3_restore",
+  "sourceUntouched": true,
+  "rowsAndCatalogEqual": true,
+  "tables": 38,
+  "restoredApiNegatives": "PASS"
+}</pre><p>Full ordered row fingerprints, checks, grants and actual logs are linked in evidence/. No production migration is claimed.</p><h2>Hard boundary</h2><p>No booking, final pricing_quote, hold, allocation or payment tables. B3 remains a commercial precursor until the approved B4 plan/acceptance binding.</p></section></div></body></html>

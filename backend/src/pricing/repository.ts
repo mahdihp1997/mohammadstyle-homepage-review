@@ -1,0 +1,13 @@
+import {Pool}from'pg';import type{SessionView,ResourceKind,PageQuery,WriteDto,CommandResult}from'../admin/contracts.js';import type{Operation,PricingReceipt}from'./contracts.js';
+export interface PricingOptions {host:'127.0.0.1';port:55444;database:'ms_b3_dev'|'ms_b3_restore';user:'ms_b1b_api';password:string;origin:'http://127.0.0.1:3108'}
+export class PricingRepository {
+ private readonly pool:Pool;
+ constructor(o:PricingOptions){if(process.env.NODE_ENV==='production'||process.env.APP_ENV==='production'||o.host!=='127.0.0.1'||o.port!==55444||!['ms_b3_dev','ms_b3_restore'].includes(o.database)||o.user!=='ms_b1b_api'||o.origin!=='http://127.0.0.1:3108'||!/^[a-f0-9]{64}$/.test(o.password))throw Error('B3 isolated local profile required');const{origin:_origin,...connection}=o;this.pool=new Pool({...connection,max:4,connectionTimeoutMillis:2000,statement_timeout:15000,idle_in_transaction_session_timeout:15000});this.pool.on('error',()=>{});}
+ async onModuleInit(){const r=(await this.pool.query("SELECT has_function_privilege(current_user,to_regprocedure('ms_b1_design.b3_command(bytea,bytea,text,uuid,uuid,bigint,text,uuid,jsonb)'),'EXECUTE') ready")).rows[0];if(r?.ready!==true)throw Error('Reviewed B3 migrations required before startup');}
+ async session(h:Buffer):Promise<SessionView>{return(await this.pool.query('SELECT ms_b1_design.b1b_session($1) result',[h])).rows[0].result;}
+ async legacyRead(h:Buffer,k:ResourceKind|'business',b:string|null,p:PageQuery):Promise<unknown>{return(await this.pool.query('SELECT ms_b1_design.b1b_read($1,$2,$3,$4,$5,$6) result',[h,k,b,p.limit,p.offset,p.sort])).rows[0].result;}
+ async legacyCommand(h:Buffer,c:Buffer,k:ResourceKind|'session',id:string|null,b:string|null,v:string|null,key:string,r:string,d:WriteDto|Record<string,never>):Promise<CommandResult>{return(await this.pool.query('SELECT ms_b1_design.b1b_command($1,$2,$3,$4,$5,$6,$7,$8,$9) result',[h,c,k,id,b,v,key,r,d])).rows[0].result;}
+ async read(h:Buffer,k:string,b:string|null,id:string|null,history:boolean,offset=0):Promise<Record<string,unknown>>{return(await this.pool.query('SELECT ms_b1_design.b3_read($1,$2,$3,$4,$5,$6) result',[h,k,b,id,history,offset])).rows[0].result;}
+ async command(h:Buffer,c:Buffer,op:Operation,b:string|null,id:string|null,v:string,key:string,r:string,d:Record<string,unknown>):Promise<PricingReceipt>{for(let attempt=0;;attempt++)try{return(await this.pool.query('SELECT ms_b1_design.b3_command($1,$2,$3,$4,$5,$6,$7,$8,$9) result',[h,c,op,b,id,v,key,r,d])).rows[0].result;}catch(e){if(attempt>=2||!['40001','40P01'].includes((e as{code?:string}).code??''))throw e;await new Promise(resolve=>setTimeout(resolve,20*(attempt+1)));}}
+ async onApplicationShutdown(){await this.pool.end();}
+}

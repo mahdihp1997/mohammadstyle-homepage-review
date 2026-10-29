@@ -1,0 +1,758 @@
+{
+  "kind": "ACTUAL_B3_PRICING_POLICY_POSTGRES_NEST",
+  "executedAt": "2026-10-29T23:33:38.142Z",
+  "tests": [
+    {
+      "name": "upgrade nine-to-eleven preserves existing application rows",
+      "status": "PASS",
+      "observed": {
+        "applied": [
+          "0010_b3_commercial_foundation",
+          "0011_b3_pricing_policy_boundary"
+        ],
+        "currentVersion": "0011_b3_pricing_policy_boundary",
+        "catalog": {
+          "sha256": "2a3ce8aab5a51bffb6953b9c8562fae470c5eaeb022b9afdb249d9d2e0fc3e8b",
+          "tables": 38,
+          "indexes": 115,
+          "functions": 34,
+          "foreignKeys": 111,
+          "checks": 143
+        }
+      }
+    },
+    {
+      "name": "fixed deposit uses server price and immutable disclosed terms",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "multiple branch services sum exactly",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "branch-specific offering prices remain separate",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "percentage deposits use integer half-up whole-Toman-compatible rounding",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "exact half increment rounds up without floating point",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "explicit percentage minimum bound applies",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "explicit percentage maximum bound applies",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "optional declined deposit remains zero",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "optional chosen deposit is calculated",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "explicit NONE carries no hidden deposit",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "deposit larger than total is rejected rather than clamped",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "no optional choice can alter required deposit semantics",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "branch override outranks higher-priority business default",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "service override outranks branch override",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "mixed service winners fail POLICY_CONFLICT",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "explicit exact-set whole-booking policy resolves only configured compatible winners",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "whole-booking assignment never applies to an unrelated subset",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "whole policy cannot hide a changed incompatible service winner",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "whole policy requires explicit override permission",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "staff-specific policy outranks service policy for a verified eligible provider",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "staff-service scope is more specific than staff scope",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "forged provider and missing service eligibility fail closed",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "ending provider membership invalidates staff-selected commercial context",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "qualification version changes stale a provider-selected proposal",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "overlapping exact-rank scope assignments are rejected natively",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "missing policy fails closed",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "new version number is monotonic and old quote terms do not change",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "published policy content and refund windows cannot be rewritten",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "draft replacement validates and publishes the replacement",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "retired versions remain in authorized history, excluded from current",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "invalid refund modes/windows and duplicate thresholds are rejected",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "cancellation/refund boundary minutes=1440",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "cancellation/refund boundary minutes=1439",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "cancellation/refund boundary minutes=60",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "cancellation/refund boundary minutes=59",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "cancellation/refund boundary minutes=-1",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "flat PARTIAL refund uses frozen snapshot and exact amount",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "NONE refund is explicit zero and ALL_PAID preview is labeled hypothetical",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "effective policy end is exclusive and entire candidate must fit",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "independent actors may receive identical hash with different quote identities",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "same idempotency key replays exact identity and original expiry",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "same key with different request fails rather than mutating quote",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "client amounts and duration fields are rejected",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "stale offering versions and duplicate offerings are rejected",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "valid current proposal can be checked but never binds a booking",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "tampered hash fails before returning a current result",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "configuration changes stale unaccepted quote without changing stored terms",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "expired immutable fixture uses database clock and replay does not extend TTL",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "immutable quote artifacts/items reject updates and deletion",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "integer precision above Number safe range survives PostgreSQL and JSON",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "aggregate bigint overflow fails closed",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "invalid currency precision, exponent, negative and overflow input rejected",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "branch manager cannot configure global terms or other branch",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "authorized manager creates only own branch scoped policy/version",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "branch read cannot disclose unrelated unassigned global policy versions",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "cross-tenant branch and quote selectors never widen session tenant",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "forged branch/offering selector cannot cross branch prices",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "API role cannot read tables, execute private helpers or become owner",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "concurrent configuration changes yield one CAS winner",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "concurrent same-key quote requests create exactly one durable proposal",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "audit/outbox/data/idempotency rollback atomically on outbox failure",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "Nest real authenticated create/quote/read flow",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "Nest exposes exact policy conflict diagnostic",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "Nest rejects missing session, CSRF, origin and If-Match",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "Nest rejects duplicate JSON keys and malformed Unicode before DTO construction",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "Nest rejects forged tenant envelope and unknown command",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "SQL/JS canonical commercial hashes agree including Unicode",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "approved final V2 content hash vectors remain exact; identity is not hash input",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "fresh eleven-version install and verified no-op",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "old nine checksums remain exact",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "catalog drift rejected without automatic repair",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "failed forward migration rolls DDL/history back",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "bookability stays disabled and forbidden B4 tables do not exist",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "old databases are outside B3 reset allowlist",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "actual 60-second quote expiration and expired same-key replay retain original expiry",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "real custom backup and independent restore preserve all38 tables and grants",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "restored Nest API and SQL boundary retain immutable commercial evidence",
+      "status": "PASS",
+      "observed": "assertions passed"
+    }
+  ],
+  "denials": [
+    {
+      "sqlstate": "MS422",
+      "reason": "POLICY_UNCALCULABLE"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "OPTIONAL_CHOICE_NOT_APPLICABLE"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "POLICY_CONFLICT"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "POLICY_CONFLICT"
+    },
+    {
+      "sqlstate": "MS403",
+      "reason": "FORBIDDEN"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "STAFF_NOT_APPLICABLE"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "STAFF_NOT_ELIGIBLE"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "STAFF_NOT_APPLICABLE"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "QUOTE_STALE"
+    },
+    {
+      "sqlstate": "23P01",
+      "reason": "expected rejection"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "POLICY_REQUIRED"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "IMMUTABLE_POLICY"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "IMMUTABLE_POLICY"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "IMMUTABLE_POLICY"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "INVALID_REFUND_WINDOWS"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "INVALID_REFUND_WINDOWS"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "IDEMPOTENCY_CONFLICT"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "INVALID_FIELDS"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "INVALID_FIELDS"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "INVALID_FIELDS"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "INVALID_FIELDS"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "INVALID_FIELDS"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "QUOTE_STALE"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "DUPLICATE_SERVICE"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "QUOTE_TAMPERED"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "QUOTE_STALE"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "QUOTE_EXPIRED"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "IMMUTABLE_SNAPSHOT"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "IMMUTABLE_SNAPSHOT"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "MONEY_OVERFLOW"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "expected rejection"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "expected rejection"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "expected rejection"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "expected rejection"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "expected rejection"
+    },
+    {
+      "sqlstate": "MS403",
+      "reason": "FORBIDDEN"
+    },
+    {
+      "sqlstate": "MS403",
+      "reason": "FORBIDDEN"
+    },
+    {
+      "sqlstate": "MS404",
+      "reason": "expected rejection"
+    },
+    {
+      "sqlstate": "MS404",
+      "reason": "expected rejection"
+    },
+    {
+      "sqlstate": "MS404",
+      "reason": "expected rejection"
+    },
+    {
+      "sqlstate": "MS404",
+      "reason": "OFFERING_NOT_FOUND"
+    },
+    {
+      "sqlstate": "MS403",
+      "reason": "FORBIDDEN"
+    },
+    {
+      "sqlstate": "42501",
+      "reason": "expected rejection"
+    },
+    {
+      "sqlstate": "42501",
+      "reason": "expected rejection"
+    },
+    {
+      "sqlstate": "42501",
+      "reason": "expected rejection"
+    },
+    {
+      "sqlstate": "42501",
+      "reason": "expected rejection"
+    },
+    {
+      "sqlstate": "42501",
+      "reason": "expected rejection"
+    },
+    {
+      "sqlstate": "P0001",
+      "reason": "B3_SYNTHETIC_OUTBOX_FAILURE"
+    },
+    {
+      "sqlstate": "B3_DRIFT",
+      "reason": "expected rejection"
+    },
+    {
+      "sqlstate": "22012",
+      "reason": "expected rejection"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "QUOTE_EXPIRED"
+    },
+    {
+      "sqlstate": "42501",
+      "reason": "expected rejection"
+    }
+  ],
+  "boundaries": [
+    "All prices/names/rules are synthetic test fixtures, never salon facts",
+    "Fixture/session provisioning uses trusted migration credentials; business commands run production entrypoints with EXECUTE-only API role",
+    "Commercial proposals are not final MS_QUOTE_CONTENT_V2 quotes and never reserve capacity; B4 planner binding remains closed"
+  ],
+  "migration": {
+    "applied": [
+      "0010_b3_commercial_foundation",
+      "0011_b3_pricing_policy_boundary"
+    ],
+    "currentVersion": "0011_b3_pricing_policy_boundary",
+    "catalog": {
+      "sha256": "2a3ce8aab5a51bffb6953b9c8562fae470c5eaeb022b9afdb249d9d2e0fc3e8b",
+      "tables": 38,
+      "indexes": 115,
+      "functions": 34,
+      "foreignKeys": 111,
+      "checks": 143
+    }
+  },
+  "example": {
+    "id": "b16a6afa-12d6-49e4-bf81-d00af5a9566a",
+    "content": {
+      "items": [
+        {
+          "position": "1",
+          "quantity": "1",
+          "serviceId": "f5f7be3b-7af0-44f4-9e9f-25e2b9b25b19",
+          "offeringId": "4732a568-e90d-40ae-b04a-3aafde29a40f",
+          "displayName": "B3 SYNTHETIC service1",
+          "unitPriceRial": "1000",
+          "serviceVersion": "1",
+          "durationMinutes": "30",
+          "offeringVersion": "1",
+          "bufferAfterMinutes": "0",
+          "bufferBeforeMinutes": "0"
+        }
+      ],
+      "endsAt": "2027-06-01T10:30:00.000Z",
+      "policy": {
+        "terms": {
+          "fixedRial": "200",
+          "termsText": "B3 SYNTHETIC disclosed terms — not salon rules",
+          "amountKind": "FIXED",
+          "refundBase": "DEPOSIT_PAID",
+          "basisPoints": null,
+          "effectiveTo": null,
+          "maximumRial": null,
+          "minimumRial": null,
+          "termsLocale": "fa",
+          "effectiveFrom": "2026-01-01T00:00:00.000Z",
+          "refundWindows": [],
+          "refundability": "FULL",
+          "outsideRefundBps": "10000",
+          "depositRequirement": "REQUIRED",
+          "cancellationDeadlineMinutes": "60"
+        },
+        "versionId": "e5cf8e32-6680-4ae8-bfad-cae1c6733b3b",
+        "contentHash": "f8ef96a9ac1d57803fdf985a715a73ccb5b6222d5b7a09f5aaadabbeaff3c045",
+        "versionNumber": "1",
+        "resolverVersion": "B3_RESOLVER_V1",
+        "sourceAssignments": [
+          {
+            "versionId": "e5cf8e32-6680-4ae8-bfad-cae1c6733b3b",
+            "assignmentId": "5b33ac11-5980-4ab4-962f-6a851a437eb3",
+            "quoteItemPosition": "1"
+          }
+        ]
+      },
+      "schema": "MS_COMMERCIAL_PROPOSAL_V1",
+      "source": "SERVER",
+      "staffId": null,
+      "branchId": "bddd497c-1cf4-46c3-a781-ccdb10f28b1e",
+      "currency": "IRR",
+      "startsAt": "2027-06-01T10:00:00.000Z",
+      "timeZone": "Asia/Tehran",
+      "totalRial": "1000",
+      "businessId": "3dd0728a-8481-4370-92d3-c17a6c3d6029",
+      "depositRial": "200",
+      "unitVersion": "IRR_RIAL_V1",
+      "remainingRial": "800",
+      "optionalDepositChosen": false,
+      "configurationFingerprint": "84a21214f486b5dc920ed3d3e4612f3847c0d436c0857acc9389fcc358a71409"
+    },
+    "contentHash": "eb59c21d9cad9f3d0b3fb66c2f3887d83fa58b5e1efeffece8b688abc8f1bebc",
+    "expiresAt": "2026-10-29T23:34:40.530Z"
+  },
+  "concurrentCas": {
+    "connections": 2,
+    "committed": 1,
+    "rejected": 1
+  },
+  "concurrentIdempotency": {
+    "connections": 2,
+    "responses": 2,
+    "identities": 1
+  },
+  "fresh": {
+    "applied": [
+      "0001_b1_foundation",
+      "0002_b1a_runtime_boundary",
+      "0003_b1b_admin_boundary",
+      "0004_b2a_workforce_foundation",
+      "0005_b2a_history_guards",
+      "0006_b2b_scheduling_boundary",
+      "0007_b2b_scheduling_commands",
+      "0008_b2b_scheduling_reads",
+      "0009_b2b_read_scope_hardening",
+      "0010_b3_commercial_foundation",
+      "0011_b3_pricing_policy_boundary"
+    ],
+    "currentVersion": "0011_b3_pricing_policy_boundary",
+    "catalog": {
+      "sha256": "2a3ce8aab5a51bffb6953b9c8562fae470c5eaeb022b9afdb249d9d2e0fc3e8b",
+      "tables": 38,
+      "indexes": 115,
+      "functions": 34,
+      "foreignKeys": 111,
+      "checks": 143
+    }
+  },
+  "naturalExpiration": {
+    "expiresAt": "2026-10-29T23:34:40.530Z",
+    "verifiedAt": "2026-10-29T23:34:40.670Z",
+    "waitedMs": 52562,
+    "identityAndExpiryPreserved": true
+  },
+  "restore": {
+    "bytes": 394915,
+    "sha256": "86460a5b98cba211a2fafe523444a18a271974d9cf5e95cbef3aede1c1dd84cd",
+    "rowsAndCatalogEqual": true,
+    "tables": 38
+  },
+  "summary": {
+    "passed": 78,
+    "failed": 0,
+    "expectedDenials": 52
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "kind": "ACTUAL_FRONTEND_INITIAL_RUN",
+  "stats": {
+    "startTime": "2026-10-29T23:27:25.258Z",
+    "duration": 213473.408,
+    "expected": 91,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "issue": "One mobile Homepage image request failed with Chromium net::ERR_NO_BUFFER_SPACE; unchanged full rerun passed; no test/assertion/source change"
+}

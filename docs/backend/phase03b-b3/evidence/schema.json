@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "sha256": "2a3ce8aab5a51bffb6953b9c8562fae470c5eaeb022b9afdb249d9d2e0fc3e8b",
+  "tables": 38,
+  "indexes": 115,
+  "functions": 34,
+  "foreignKeys": 111,
+  "checks": 143,
+  "exclusions": 3,
+  "apiEntryPoints": 8,
+  "publicExecute": false,
+  "apiHasOwnerRole": false
+}

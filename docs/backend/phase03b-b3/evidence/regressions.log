@@ -1,0 +1,811 @@
+Created ignored random B2H credentials; values withheld
+B2H isolated cluster/roles/database prepared; no application migration applied
+ Network mohammadstyle-b3-b2h-baseline_b2h Creating
+ Network mohammadstyle-b3-b2h-baseline_b2h Created
+ Container mohammadstyle-b3-b2h-baseline-postgres-1 Creating
+ Container mohammadstyle-b3-b2h-baseline-postgres-1 Created
+ Container mohammadstyle-b3-b2h-baseline-postgres-1 Starting
+ Container mohammadstyle-b3-b2h-baseline-postgres-1 Started
+ Container mohammadstyle-b3-b2h-baseline-postgres-1 Waiting
+ Container mohammadstyle-b3-b2h-baseline-postgres-1 Healthy
+PASS BEFORE: actual migration0008 reproduces former-branch time-off disclosure
+PASS BEFORE: actual migration0008 current calendar includes draft and withdrawn evidence
+PASS hardened API startup fails closed before migration0009 exists
+PASS upgrade from unchanged0001..0008 applies only0009 and preserves application rows
+PASS A: former Branch A manager cannot read later Branch B time off through SQL
+{"time":"2026-10-29T23:26:05.655Z","event":"http.completed","requestId":"ab690ef0-1240-40cf-9059-8373a480783e","method":"GET","status":200}
+PASS A: actual Nest Branch A exceptions deny former-member disclosure
+PASS B/C: managers see only genuine membership-period time off
+PASS former-branch staff and qualification projections cannot reveal current global metadata
+PASS global staff metadata remains available only with explicit business-wide permission
+PASS D: concurrent valid memberships grant only corresponding clipped intervals
+PASS disjoint same-branch stints produce separate slices and never expose the gap
+PASS E: voided membership grants no current or historical exception visibility
+PASS E: inactive open-ended membership does not confer future history access
+PASS archived closed past membership requires explicit historical permission
+PASS F: exact Tehran exclusive midnight splits global leave without overlap
+PASS F: time off starting at membership exclusive end is invisible
+PASS query-local midnight clipping eliminates padded UTC disclosure
+{"time":"2026-10-29T23:26:12.364Z","event":"http.completed","requestId":"545d99df-0e09-46b0-8b61-41cd0a32fc55","method":"GET","status":200}
+PASS G: current calendar excludes draft/withdrawn shifts through SQL and Nest
+{"time":"2026-10-29T23:26:12.468Z","event":"http.completed","requestId":"42311ecb-d77b-4c68-8522-85821150c452","method":"GET","status":200}
+PASS H: explicit history shows all retained evidence with distinguishable state
+{"time":"2026-10-29T23:26:12.483Z","event":"b1b.http.denied_or_failed","requestId":"6ac3c248-7a10-4882-9325-d5b55de0e64c","status":403}
+{"time":"2026-10-29T23:26:12.484Z","event":"http.completed","requestId":"6ac3c248-7a10-4882-9325-d5b55de0e64c","method":"GET","status":403}
+PASS H: current permission alone cannot request history through SQL or Nest
+PASS history grants remain branch-scoped
+PASS mutable staff/qualification records cannot masquerade as historical snapshots
+{"time":"2026-10-29T23:26:12.523Z","event":"b1b.http.denied_or_failed","requestId":"b619a0ab-f778-4ca5-a8e6-9d709115217d","status":403}
+{"time":"2026-10-29T23:26:12.523Z","event":"http.completed","requestId":"b619a0ab-f778-4ca5-a8e6-9d709115217d","method":"GET","status":403}
+{"time":"2026-10-29T23:26:12.547Z","event":"b1b.http.denied_or_failed","requestId":"927525e6-d591-420c-a76a-0ac1f9cd71ec","status":422}
+{"time":"2026-10-29T23:26:12.548Z","event":"http.completed","requestId":"927525e6-d591-420c-a76a-0ac1f9cd71ec","method":"GET","status":422}
+{"time":"2026-10-29T23:26:12.554Z","event":"b1b.http.denied_or_failed","requestId":"fcde4d54-35ec-4a68-a424-3a4dfa79a54e","status":422}
+{"time":"2026-10-29T23:26:12.554Z","event":"http.completed","requestId":"fcde4d54-35ec-4a68-a424-3a4dfa79a54e","method":"GET","status":422}
+{"time":"2026-10-29T23:26:12.918Z","event":"http.completed","requestId":"67bb21e7-7694-4938-87cd-e550ad800e5f","method":"GET","status":200}
+{"time":"2026-10-29T23:26:12.924Z","event":"b1b.http.denied_or_failed","requestId":"0043b5c9-3632-4c91-959f-d15217943ff4","status":422}
+{"time":"2026-10-29T23:26:12.925Z","event":"http.completed","requestId":"0043b5c9-3632-4c91-959f-d15217943ff4","method":"GET","status":422}
+PASS I: forged branch/staff/tenant selectors cannot broaden actual HTTP scope
+PASS I: direct SQL session tenant cannot be replaced by caller context
+PASS J: API role cannot query protected tables or private read helpers
+PASS legacy offering staff IDs exclude former branch members
+PASS DST local-day window uses real IANA midnight instants rather than UTC padding
+PASS ambiguous local-midnight membership boundaries confer no guessed visibility
+PASS inactive finite future membership cannot authorize future historical leave
+PASS archived exception evidence is confined to explicit history and still clipped
+{"time":"2026-10-29T23:26:15.144Z","event":"http.completed","requestId":"231e3da2-cebd-4bf9-8c6b-dc2112c75145","method":"GET","status":200}
+{"time":"2026-10-29T23:26:15.154Z","event":"b1b.http.denied_or_failed","requestId":"2a1fc88a-bfb6-44a6-a1c8-ffca5a0c0d49","status":403}
+{"time":"2026-10-29T23:26:15.155Z","event":"http.completed","requestId":"2a1fc88a-bfb6-44a6-a1c8-ffca5a0c0d49","method":"GET","status":403}
+{"time":"2026-10-29T23:26:15.187Z","event":"b1b.http.denied_or_failed","requestId":"6d026ef3-c329-4fde-8a65-5e62373c8be1","status":403}
+{"time":"2026-10-29T23:26:15.188Z","event":"http.completed","requestId":"6d026ef3-c329-4fde-8a65-5e62373c8be1","method":"GET","status":403}
+PASS Barber own schedule excludes draft/history and rejects other staff selectors
+{"time":"2026-10-29T23:26:15.304Z","event":"http.completed","requestId":"2b3fab8e-1610-4571-b3aa-212b64e598f4","method":"GET","status":200}
+PASS current staff schedule route also excludes withdrawn/draft evidence
+PASS slice pagination preserves deterministic membership-scoped ordering
+PASS fresh install nine versions; no new tables or broad grants
+PASS repeat migration is verified no-op
+PASS original eight registry entries/checksums remain exact
+PASS catalog drift detected without repair
+PASS failed forward migration atomically rolls DDL/history back
+PASS old databases are outside the hardening lifecycle allowlist
+PASS membership writer waits for a coherent branch-scoped read transaction
+PASS actual custom backup and separate restore preserve all rows/catalog/grants
+PASS restored API preserves the denial and current/history distinction
+{"passed":42,"failed":0,"expectedDenials":17}
+Created ignored random B2B credentials; values withheld
+B2B isolated cluster/roles/database prepared; no application migration applied
+ Network mohammadstyle-b2h-b2b-baseline_b2b Creating
+ Network mohammadstyle-b2h-b2b-baseline_b2b Created
+ Container mohammadstyle-b2h-b2b-baseline-postgres-1 Creating
+ Container mohammadstyle-b2h-b2b-baseline-postgres-1 Created
+ Container mohammadstyle-b2h-b2b-baseline-postgres-1 Starting
+ Container mohammadstyle-b2h-b2b-baseline-postgres-1 Started
+ Container mohammadstyle-b2h-b2b-baseline-postgres-1 Waiting
+ Container mohammadstyle-b2h-b2b-baseline-postgres-1 Healthy
+PASS fresh install eight checksummed migrations,28 tables
+PASS migration rerun no-op with catalog verification
+PASS 0001..0005 registry/source exactly preserved
+PASS upgrade from B2A preserves rows and leaves legacy approvals explicitly unreviewed
+PASS failed forward migration rolls back all DDL and history
+{"time":"2026-10-29T23:26:28.794Z","event":"http.completed","requestId":"f91cb07d-a452-480d-aa12-b1a1572a7095","method":"POST","status":200}
+PASS Nest Owner creates inactive global staff/resource
+{"time":"2026-10-29T23:26:28.818Z","event":"b1b.http.denied_or_failed","requestId":"24144e38-fc07-4984-8067-3ede428318fd","status":403}
+{"time":"2026-10-29T23:26:28.819Z","event":"http.completed","requestId":"24144e38-fc07-4984-8067-3ede428318fd","method":"POST","status":403}
+PASS Nest branch manager cannot modify other branch
+{"time":"2026-10-29T23:26:28.860Z","event":"b1b.http.denied_or_failed","requestId":"6cd1ac16-f92d-492c-8522-261422294503","status":403}
+{"time":"2026-10-29T23:26:28.861Z","event":"http.completed","requestId":"6cd1ac16-f92d-492c-8522-261422294503","method":"POST","status":403}
+PASS Nest receptionist cannot publish
+{"time":"2026-10-29T23:26:28.908Z","event":"b1b.http.denied_or_failed","requestId":"cf8522d9-1882-45fd-8318-0b24d57e1bb6","status":403}
+{"time":"2026-10-29T23:26:28.909Z","event":"http.completed","requestId":"cf8522d9-1882-45fd-8318-0b24d57e1bb6","method":"GET","status":403}
+PASS Nest customer has no administrative access
+{"time":"2026-10-29T23:26:28.953Z","event":"b1b.http.denied_or_failed","requestId":"9114942f-756c-4215-ba4e-7fcd1b4ae7d8","status":422}
+{"time":"2026-10-29T23:26:28.953Z","event":"http.completed","requestId":"9114942f-756c-4215-ba4e-7fcd1b4ae7d8","method":"POST","status":422}
+PASS Nest rejects forged role/businessId and unknown fields
+{"time":"2026-10-29T23:26:28.966Z","event":"b1b.http.denied_or_failed","requestId":"e47199e0-bc87-492e-82f7-3f7816374849","status":403}
+{"time":"2026-10-29T23:26:28.967Z","event":"http.completed","requestId":"e47199e0-bc87-492e-82f7-3f7816374849","method":"POST","status":403}
+{"time":"2026-10-29T23:26:28.984Z","event":"b1b.http.denied_or_failed","requestId":"9acecf71-2207-4b89-96c7-dd1d0bd903bf","status":403}
+{"time":"2026-10-29T23:26:28.984Z","event":"http.completed","requestId":"9acecf71-2207-4b89-96c7-dd1d0bd903bf","method":"POST","status":403}
+{"time":"2026-10-29T23:26:29.055Z","event":"b1b.http.denied_or_failed","requestId":"b0ea1c49-1da0-4c4f-b279-d18ee5838725","status":412}
+{"time":"2026-10-29T23:26:29.055Z","event":"http.completed","requestId":"b0ea1c49-1da0-4c4f-b279-d18ee5838725","method":"POST","status":412}
+PASS Nest enforces Origin/CSRF and mandatory If-Match
+{"time":"2026-10-29T23:26:29.084Z","event":"b1b.http.denied_or_failed","requestId":"307f363f-5784-4a5f-9348-5875d1f57b61","status":404}
+{"time":"2026-10-29T23:26:29.085Z","event":"http.completed","requestId":"307f363f-5784-4a5f-9348-5875d1f57b61","method":"POST","status":404}
+PASS Nest branch scope cannot select foreign tenant
+PASS API direct field allowlist independently denies mass assignment
+PASS qualification/rule does not automatically publish availability
+{"time":"2026-10-29T23:26:29.301Z","event":"http.completed","requestId":"3453fd35-d698-4491-ae62-2514f4b65c1d","method":"POST","status":200}
+PASS Nest publishes reviewed UTC shift with local evidence and source version
+{"time":"2026-10-29T23:26:29.313Z","event":"http.completed","requestId":"4cee96af-eddc-4379-97ff-ec5a8c378994","method":"GET","status":200}
+PASS Nest read-only calendar contains published shift and no reservation claim
+PASS membership closure conflicting with published shift is rejected
+PASS qualification revocation cannot silently invalidate published shifts
+PASS staff deactivation cannot invalidate published shifts
+PASS opening-hour rewrite with published shifts requires explicit review
+PASS published shift content cannot be edited directly by migration owner
+PASS legacy timezone/catalog command refuses configured calendar context
+PASS out-of-membership publication denied
+PASS inactive staff/resource cannot publish
+PASS stale source rule version denied
+PASS offering-specific qualification alone does not grant eligibility
+{"time":"2026-10-29T23:26:30.223Z","event":"http.completed","requestId":"f636fbca-87b4-47aa-b051-426fe8242e31","method":"POST","status":200}
+{"time":"2026-10-29T23:26:30.234Z","event":"http.completed","requestId":"e9149c6e-458b-4d94-962e-6d17712cdb6b","method":"POST","status":200}
+PASS approved time off blocks publication; request alone is not approval
+PASS time-off approval conflicting with published shifts fails closed
+PASS branch manager cannot approve global staff time off
+{"time":"2026-10-29T23:26:30.430Z","event":"http.completed","requestId":"4e43564e-a17b-4f54-b7b6-7679f5798145","method":"POST","status":200}
+{"time":"2026-10-29T23:26:30.442Z","event":"http.completed","requestId":"62bf3f66-e235-4483-bc2f-e991c04583da","method":"POST","status":200}
+PASS reviewed closure blocks publication
+PASS closure approval conflicting with published shifts fails closed
+PASS DST gap fails closed in actual production materializer
+PASS DST fold requires explicit reviewed resolution
+PASS coherent overnight local segments publish atomically across midnight
+PASS incomplete overnight plan rolls back all inserted shifts
+PASS invalid recurrence weekday/window rejected by DB checks
+PASS same idempotency key replays one publication and one audit/outbox
+PASS versioned correction explicitly archives reviewed IDs and inserts new plan
+PASS explicit withdrawal preserves history before leave/rejoin with new UUID
+PASS adjacent cross-branch shifts reject unknown transfer feasibility
+{"time":"2026-10-29T23:26:32.570Z","event":"http.completed","requestId":"41b5df29-6e0e-4d69-a179-a7fdba94cab0","method":"POST","status":200}
+{"time":"2026-10-29T23:26:32.579Z","event":"http.completed","requestId":"eda87b46-000d-4bfd-ab16-2c0ff24faca6","method":"GET","status":200}
+{"time":"2026-10-29T23:26:32.587Z","event":"b1b.http.denied_or_failed","requestId":"f3dc0c5f-cfdc-4ceb-ab89-4e9b21f224ef","status":403}
+{"time":"2026-10-29T23:26:32.587Z","event":"http.completed","requestId":"f3dc0c5f-cfdc-4ceb-ab89-4e9b21f224ef","method":"GET","status":403}
+PASS verified identity link requires persisted verified identity and membership
+{"time":"2026-10-29T23:26:32.623Z","event":"http.completed","requestId":"6263aafe-d1a1-4c58-b7c9-0a8ee5965122","method":"POST","status":200}
+{"time":"2026-10-29T23:26:32.637Z","event":"http.completed","requestId":"99edbfb6-d1cd-47f2-a5fc-e2082a656239","method":"PUT","status":200}
+{"time":"2026-10-29T23:26:32.651Z","event":"http.completed","requestId":"b4de07d8-1b00-4b93-87fb-f9ceb767ad69","method":"GET","status":200}
+{"time":"2026-10-29T23:26:32.662Z","event":"http.completed","requestId":"eb07c05b-502b-4d5d-8702-0317cd907f57","method":"PUT","status":200}
+PASS physical resource and inactive configuration commands work through Nest
+PASS API lacks direct tables/private helpers/DDL/role escalation
+PASS bookability gates and forbidden future tables remain
+PASS late outbox failure rolls data/audit/idempotency/calendar version back together
+PASS two concurrent publishers cannot both commit stale calendar versions
+PASS membership close vs publication serializes and revalidates
+PASS approved time off vs publication serializes and revalidates
+PASS closure vs publication serializes and revalidates
+PASS qualification revoke vs publication serializes and revalidates
+PASS two If-Match configuration writers have one winner
+PASS concurrent identical idempotency key replays without duplication
+PASS cross-branch simultaneous publication has one winner and safe transfer rejection
+{"time":"2026-10-29T23:26:34.873Z","event":"http.completed","requestId":"60b3126b-84aa-46b8-8876-b2660bb4233b","method":"GET","status":200}
+{"time":"2026-10-29T23:26:34.883Z","event":"http.completed","requestId":"d075eacf-b10c-4dde-8f7a-2c0911f33e9f","method":"GET","status":200}
+{"time":"2026-10-29T23:26:34.890Z","event":"http.completed","requestId":"b4d5f4a6-09cd-4f7c-aafa-ca2658abca2e","method":"GET","status":200}
+{"time":"2026-10-29T23:26:34.898Z","event":"http.completed","requestId":"db007f55-8963-4bab-9319-66ac369a20c8","method":"GET","status":200}
+{"time":"2026-10-29T23:26:34.905Z","event":"http.completed","requestId":"e4876d79-25f3-4740-bfce-c48131000407","method":"GET","status":200}
+{"time":"2026-10-29T23:26:34.914Z","event":"http.completed","requestId":"cffddda2-27a6-400e-ac76-f0a683d35203","method":"GET","status":200}
+{"time":"2026-10-29T23:26:34.922Z","event":"http.completed","requestId":"6ed2c23a-d2bc-4d4d-a880-8b7ea0c7cb4b","method":"GET","status":200}
+{"time":"2026-10-29T23:26:34.928Z","event":"http.completed","requestId":"bac7f2c2-94df-4450-8a69-6255c55edcec","method":"GET","status":200}
+{"time":"2026-10-29T23:26:34.936Z","event":"http.completed","requestId":"e84af7e5-d050-4b3f-a8f4-87d9868e00a8","method":"GET","status":200}
+{"time":"2026-10-29T23:26:34.943Z","event":"http.completed","requestId":"6f18bc59-1b5e-4e59-9978-ab23fca715a7","method":"GET","status":200}
+PASS every administrative GET contract executes on actual Nest
+{"time":"2026-10-29T23:26:34.948Z","event":"http.completed","requestId":"1e215dcd-776a-4554-a950-15091eae494e","method":"GET","status":200}
+{"time":"2026-10-29T23:26:34.956Z","event":"http.completed","requestId":"0233e248-d84a-4890-a9d8-45028e316a8a","method":"GET","status":200}
+{"time":"2026-10-29T23:26:34.963Z","event":"http.completed","requestId":"fba6bb5b-0d53-4b22-937c-08acb6531068","method":"GET","status":200}
+{"time":"2026-10-29T23:26:34.969Z","event":"http.completed","requestId":"fab4668a-5ab1-4838-83f7-231093e01e96","method":"GET","status":200}
+{"time":"2026-10-29T23:26:34.977Z","event":"http.completed","requestId":"47bd71fc-edfb-4e4c-b54f-5cb4914f0b9a","method":"GET","status":200}
+PASS unchanged B1B session/config controllers run through isolated B2B adapter
+{"time":"2026-10-29T23:26:34.987Z","event":"http.completed","requestId":"7d7b762e-f549-4613-9a12-97036d3a2798","method":"POST","status":200}
+{"time":"2026-10-29T23:26:34.991Z","event":"b1b.http.denied_or_failed","requestId":"4dc26cff-2ab7-4edd-bc46-94a929247894","status":401}
+{"time":"2026-10-29T23:26:34.991Z","event":"http.completed","requestId":"4dc26cff-2ab7-4edd-bc46-94a929247894","method":"GET","status":401}
+PASS unchanged B1B self-session revoke works on B2B without privileged grants
+{"time":"2026-10-29T23:26:35.017Z","event":"b2b.http.rejected","requestId":"b182c8fb-abc9-4f5a-8475-a2c2369b8f83","status":422}
+{"time":"2026-10-29T23:26:35.017Z","event":"http.completed","requestId":"b182c8fb-abc9-4f5a-8475-a2c2369b8f83","method":"GET","status":422}
+{"time":"2026-10-29T23:26:35.039Z","event":"b1b.http.denied_or_failed","requestId":"baebe9db-d12b-4bd9-b1b8-a25b73d3f2a4","status":422}
+{"time":"2026-10-29T23:26:35.039Z","event":"http.completed","requestId":"baebe9db-d12b-4bd9-b1b8-a25b73d3f2a4","method":"GET","status":422}
+{"time":"2026-10-29T23:26:35.044Z","event":"b1b.http.denied_or_failed","requestId":"55f686f9-73a4-4f0a-abdd-929850c2649b","status":422}
+{"time":"2026-10-29T23:26:35.044Z","event":"http.completed","requestId":"55f686f9-73a4-4f0a-abdd-929850c2649b","method":"GET","status":422}
+PASS bounded calendar query rejects oversized horizon and unknown selectors
+PASS requested time off is explicit pending evidence and does not block shifts
+PASS review rejection is a new immutable exception revision
+PASS partial overnight withdrawal cannot break coherent reviewed plan
+PASS null membership end cannot masquerade as a departure
+PASS nested rule/materialization mass assignment is rejected
+PASS opening hours fully cover every local minute of published shift
+PASS qualification verification retains actor and evidence digest without raw reference
+PASS legacy runtime cannot mutate workforce or call publication boundary
+PASS tenant-safe rule qualification FK rejects incompatible staff context
+PASS applied checksum tampering is detected without repair
+PASS catalog drift detected; no automatic repair
+PASS original databases are outside B2B lifecycle allowlist
+PASS actual backup/custom archive and separate restore preserve rows/catalog/grants
+PASS restored API role executes production schedule read and retains table denial
+{"passed":71,"failed":0,"rejections":54,"actualRaces":8}
+Created ignored random B2A credentials; values withheld
+B2A isolated cluster/roles/database prepared; no application migration applied
+ Network mohammadstyle-b2b-b2a-baseline_b2a Creating
+ Network mohammadstyle-b2b-b2a-baseline_b2a Created
+ Container mohammadstyle-b2b-b2a-baseline-postgres-1 Creating
+ Container mohammadstyle-b2b-b2a-baseline-postgres-1 Created
+ Container mohammadstyle-b2b-b2a-baseline-postgres-1 Starting
+ Container mohammadstyle-b2b-b2a-baseline-postgres-1 Started
+ Container mohammadstyle-b2b-b2a-baseline-postgres-1 Waiting
+ Container mohammadstyle-b2b-b2a-baseline-postgres-1 Healthy
+PASS fresh installation applies five checksummed versions /27 tables
+PASS repeat migration verifies catalog and is a no-op
+PASS original B0/B1A/B1B databases cannot be reset by B2A lifecycle
+PASS new registry exactly preserves first three migration checksums
+PASS all indexes and FK constraints are valid; two generated ranges/exclusions present
+PASS one global staff identity/resource belongs to two branches
+PASS staff resource cannot be duplicated per branch
+PASS known staff user cannot receive second global identity in business
+PASS global STAFF resource maps to at most one staff identity
+PASS physical CHAIR ROOM DEVICE are distinct branch capacity units
+PASS physical resource requires exactly one branch
+PASS cross-tenant physical branch reference rejected
+PASS overlapping same-branch membership rejected
+PASS leaving closes a stint and rejoining creates a new adjacent historical UUID
+PASS inactive and archived membership still prevents historical overlap
+PASS closed membership cannot reopen or extend
+PASS membership stable identity cannot be reparented
+PASS infinite/empty membership periods rejected
+PASS two membership writers serialize through native GiST exclusion
+PASS qualification does not automatically create branch offering eligibility
+PASS offering eligibility binds exact qualification staff service and membership stint
+PASS returning staff gets new eligibility row and old assignment reference remains
+PASS active qualification requires verification evidence
+PASS published overlapping shifts for same staff fail
+PASS different-branch published overlap fails globally
+PASS cross-branch concurrent published shift waits then fails23P01
+PASS adjacent cross-branch shifts accepted under half-open semantics
+PASS unpublished overlapping draft shifts do not claim availability
+PASS same-stint shift-to-rule composite FK rejects mismatched assignment
+PASS rule revisions preserve old published references
+PASS published instants/version cannot be overwritten or silently unpublished
+PASS stored generated ranges cannot be forged by direct writes
+PASS archiving retains shift and forbids unarchive/delete history
+PASS invalid timezone fails at database boundary, not only HTTP DTO
+PASS invalid recurrence weekday rejected
+PASS invalid recurrence overnight wrap rejected
+PASS invalid recurrence end beyond1440 rejected
+PASS invalid recurrence infinite date rejected
+PASS invalid recurrence zero config version rejected
+PASS overnight working hours split into two explicit local-day entries
+PASS working hours invalid weekday/finite dates fail
+PASS time-off binds exact global staff resource and bounded instants
+PASS branch closure finite positive interval and tenant FK enforced
+PASS time-off/closure content is immutable; correction needs retained successor
+PASS known gap: time-off/closure overlap is recorded without claiming ledger enforcement
+PASS known gap: membership FK is identity, not temporal containment
+PASS unknown availability configuration stays null and disabled
+PASS enabling incomplete configuration fails scalar completeness check
+PASS configuration and row versions must both advance exactly once
+PASS two actual CAS writers cannot silently overwrite same revision
+PASS blind stale version update also fails native version guard
+PASS resource identity cannot move branches or change kind
+PASS staff/resource deactivation retains stable historical references
+PASS unreferenced correction keeps voided membership and cannot silently unvoid
+PASS failed multi-table transaction leaves no resource/staff orphan
+PASS both B1 inactive booking constraints remain enforced
+PASS runtime cannot read or mutate any of11 new tables
+PASS api cannot read or mutate any of11 new tables
+PASS API function grants remain exactly three without new table privileges
+PASS catalog drift detects generated expression, exclusion or trigger change
+PASS concurrent migration attempts apply once using transaction advisory lock
+PASS B1B upgrade retains existing row evidence and applies only0004/0005
+PASS failed forward migration rolls back new DDL and history
+PASS tampered checksum and unknown history fail closed
+PASS synthetic fixtures cover all11 new tables without actual staff or tariffs
+PASS existing B1B session/read/atomic command entry points work on upgraded27-table schema
+PASS actual custom-format pg_dump contains verified B2A source snapshot
+PASS actual separate pg_restore preserves all27 tables, generated ranges and grants
+PASS restored exclusion and historical/version triggers remain executable
+{"passed":69,"failed":0,"expectedSQLRejections":100,"observedConcurrencyCases":3}
+Created ignored random B1B credentials; values withheld
+B1B isolated cluster/roles/database prepared; no application migration applied
+ Network mohammadstyle-b2a-b1b-baseline_b1b Creating
+ Network mohammadstyle-b2a-b1b-baseline_b1b Created
+ Container mohammadstyle-b2a-b1b-baseline-postgres-1 Creating
+ Container mohammadstyle-b2a-b1b-baseline-postgres-1 Created
+ Container mohammadstyle-b2a-b1b-baseline-postgres-1 Starting
+ Container mohammadstyle-b2a-b1b-baseline-postgres-1 Started
+ Container mohammadstyle-b2a-b1b-baseline-postgres-1 Waiting
+ Container mohammadstyle-b2a-b1b-baseline-postgres-1 Healthy
+PASS fresh install applies three checksummed migrations, preserves16 tables/gates
+PASS repeat migration is verified no-op
+PASS original B0/B1A names cannot be reset by B1B provisioner
+{"time":"2026-10-29T23:26:57.939Z","event":"b1b.http.denied_or_failed","requestId":"e75900e5-7a9e-4da2-8e7f-0f0f5ce5de0f","status":401}
+{"time":"2026-10-29T23:26:57.942Z","event":"http.completed","requestId":"e75900e5-7a9e-4da2-8e7f-0f0f5ce5de0f","method":"GET","status":401}
+PASS anonymous requests denied
+{"time":"2026-10-29T23:26:57.977Z","event":"b1b.http.denied_or_failed","requestId":"b567ce9a-8e05-4e2f-94bd-9244b56f9bcb","status":401}
+{"time":"2026-10-29T23:26:57.977Z","event":"http.completed","requestId":"b567ce9a-8e05-4e2f-94bd-9244b56f9bcb","method":"GET","status":401}
+PASS invalid opaque session denied
+{"time":"2026-10-29T23:26:57.981Z","event":"b1b.http.denied_or_failed","requestId":"bfe430e7-84d7-44a8-8709-a3780748dc1d","status":401}
+{"time":"2026-10-29T23:26:57.981Z","event":"http.completed","requestId":"bfe430e7-84d7-44a8-8709-a3780748dc1d","method":"GET","status":401}
+{"time":"2026-10-29T23:26:57.984Z","event":"b1b.http.denied_or_failed","requestId":"c324e754-ff2e-43c7-bfcf-d819420a677f","status":401}
+{"time":"2026-10-29T23:26:57.985Z","event":"http.completed","requestId":"c324e754-ff2e-43c7-bfcf-d819420a677f","method":"GET","status":401}
+PASS malformed and duplicate cookie identities denied
+{"time":"2026-10-29T23:26:58.011Z","event":"http.completed","requestId":"88e675d3-d88f-4f94-8aec-79f2af0acfbe","method":"GET","status":200}
+PASS valid server session derives actor/business/permissions without hashes
+{"time":"2026-10-29T23:26:58.017Z","event":"http.completed","requestId":"a85bb043-9629-4675-9c2e-f9199d66e765","method":"GET","status":200}
+PASS caller business/role headers cannot elevate or switch context
+{"time":"2026-10-29T23:26:58.024Z","event":"b1b.http.denied_or_failed","requestId":"15e3cb56-e433-4f6e-a160-3478aa12d73a","status":401}
+{"time":"2026-10-29T23:26:58.024Z","event":"http.completed","requestId":"15e3cb56-e433-4f6e-a160-3478aa12d73a","method":"GET","status":401}
+PASS expired session denied
+{"time":"2026-10-29T23:26:58.077Z","event":"b1b.http.denied_or_failed","requestId":"4d288d61-9ef7-49f6-be17-ba156e59c056","status":401}
+{"time":"2026-10-29T23:26:58.078Z","event":"http.completed","requestId":"4d288d61-9ef7-49f6-be17-ba156e59c056","method":"GET","status":401}
+PASS idle-expired session denied
+{"time":"2026-10-29T23:26:58.127Z","event":"b1b.http.denied_or_failed","requestId":"ce5a1058-1b30-4c5c-9ffb-2564f6bdc486","status":401}
+{"time":"2026-10-29T23:26:58.127Z","event":"http.completed","requestId":"ce5a1058-1b30-4c5c-9ffb-2564f6bdc486","method":"GET","status":401}
+PASS suspended user denied even with valid session
+{"time":"2026-10-29T23:26:58.158Z","event":"http.completed","requestId":"86e5d1e0-04a3-4336-8fdc-953cb5d0f4c2","method":"GET","status":200}
+PASS Business config read is tenant scoped and nullable
+{"time":"2026-10-29T23:26:58.279Z","event":"http.completed","requestId":"d3f54b64-08c6-4da0-bdf7-96ef4bf80c18","method":"POST","status":201}
+PASS valid owner creates branch and returns version/ETag
+PASS successful data audit outbox share actor/aggregate and are committed atomically
+{"time":"2026-10-29T23:26:58.299Z","event":"http.completed","requestId":"18ba5051-d8ba-47a9-b49f-8595202d2912","method":"GET","status":200}
+PASS branch manager lists only assigned branch
+{"time":"2026-10-29T23:26:58.370Z","event":"b1b.http.denied_or_failed","requestId":"8a34d2ff-2ed9-4e76-9635-a2a239ba580e","status":403}
+{"time":"2026-10-29T23:26:58.371Z","event":"http.completed","requestId":"8a34d2ff-2ed9-4e76-9635-a2a239ba580e","method":"POST","status":403}
+PASS branch manager cannot create business-wide branch
+{"time":"2026-10-29T23:26:58.459Z","event":"b1b.http.denied_or_failed","requestId":"e1c85821-9103-4c38-b7d9-96ed7c2fb664","status":403}
+{"time":"2026-10-29T23:26:58.460Z","event":"http.completed","requestId":"e1c85821-9103-4c38-b7d9-96ed7c2fb664","method":"PUT","status":403}
+PASS branch manager cannot edit unrelated branch
+{"time":"2026-10-29T23:26:58.542Z","event":"http.completed","requestId":"0a4cb52f-6fd5-4c57-9cfa-a9cb080593b5","method":"PUT","status":200}
+PASS branch manager edits assigned branch with exact permission
+{"time":"2026-10-29T23:26:58.599Z","event":"b1b.http.denied_or_failed","requestId":"f28471c1-6198-40b1-bccb-ae4a16014471","status":404}
+{"time":"2026-10-29T23:26:58.599Z","event":"http.completed","requestId":"f28471c1-6198-40b1-bccb-ae4a16014471","method":"PUT","status":404}
+PASS cross-tenant branch update hidden from owner scope
+{"time":"2026-10-29T23:26:58.628Z","event":"b1b.http.denied_or_failed","requestId":"19a8b63d-5c60-4add-a8bf-463a80028e52","status":403}
+{"time":"2026-10-29T23:26:58.629Z","event":"http.completed","requestId":"19a8b63d-5c60-4add-a8bf-463a80028e52","method":"GET","status":403}
+PASS unauthorized caller cannot read another tenant offerings
+{"time":"2026-10-29T23:26:58.654Z","event":"b1b.http.denied_or_failed","requestId":"ed99a9cd-a214-4334-bc86-9474a3c6f9f2","status":404}
+{"time":"2026-10-29T23:26:58.654Z","event":"http.completed","requestId":"ed99a9cd-a214-4334-bc86-9474a3c6f9f2","method":"GET","status":404}
+PASS visible owner cannot discover foreign tenant offerings
+{"time":"2026-10-29T23:26:58.683Z","event":"b1b.http.denied_or_failed","requestId":"43153420-df6c-4aba-9963-ed04efc57514","status":422}
+{"time":"2026-10-29T23:26:58.683Z","event":"http.completed","requestId":"43153420-df6c-4aba-9963-ed04efc57514","method":"POST","status":422}
+{"time":"2026-10-29T23:26:58.690Z","event":"b1b.http.denied_or_failed","requestId":"e57fb49c-769a-4725-92af-ee74ffab24e1","status":422}
+{"time":"2026-10-29T23:26:58.690Z","event":"http.completed","requestId":"e57fb49c-769a-4725-92af-ee74ffab24e1","method":"POST","status":422}
+PASS forged businessId and role body rejected by strict DTO
+{"time":"2026-10-29T23:26:58.702Z","event":"b1b.http.denied_or_failed","requestId":"751892d4-0bbc-4bd5-acd4-f7fddeb9531d","status":403}
+{"time":"2026-10-29T23:26:58.703Z","event":"http.completed","requestId":"751892d4-0bbc-4bd5-acd4-f7fddeb9531d","method":"POST","status":403}
+PASS receptionist cannot create global service
+{"time":"2026-10-29T23:26:58.732Z","event":"b1b.http.denied_or_failed","requestId":"cb0844f4-8be2-4c5f-a2c1-0c7cb1fd4dd0","status":403}
+{"time":"2026-10-29T23:26:58.732Z","event":"http.completed","requestId":"cb0844f4-8be2-4c5f-a2c1-0c7cb1fd4dd0","method":"GET","status":403}
+{"time":"2026-10-29T23:26:58.765Z","event":"b1b.http.denied_or_failed","requestId":"0f5065b3-7ec3-4e19-b548-4dd2d6e3a1cf","status":403}
+{"time":"2026-10-29T23:26:58.765Z","event":"http.completed","requestId":"0f5065b3-7ec3-4e19-b548-4dd2d6e3a1cf","method":"GET","status":403}
+PASS barber/customer missing administrative permissions denied
+{"time":"2026-10-29T23:26:58.769Z","event":"b1b.http.denied_or_failed","requestId":"9a50fc96-4e99-4c6d-81ff-467cb9c1b5de","status":404}
+{"time":"2026-10-29T23:26:58.770Z","event":"http.completed","requestId":"9a50fc96-4e99-4c6d-81ff-467cb9c1b5de","method":"POST","status":404}
+PASS role escalation endpoint absent
+{"time":"2026-10-29T23:26:58.794Z","event":"b1b.http.denied_or_failed","requestId":"9f824f8d-68bb-42f4-8f4e-ad525efdad48","status":403}
+{"time":"2026-10-29T23:26:58.795Z","event":"http.completed","requestId":"9f824f8d-68bb-42f4-8f4e-ad525efdad48","method":"POST","status":403}
+PASS missing Origin rejected
+{"time":"2026-10-29T23:26:58.800Z","event":"b1b.http.denied_or_failed","requestId":"40844ecf-1bcd-48b1-840d-7138723a9468","status":403}
+{"time":"2026-10-29T23:26:58.800Z","event":"http.completed","requestId":"40844ecf-1bcd-48b1-840d-7138723a9468","method":"POST","status":403}
+{"time":"2026-10-29T23:26:58.806Z","event":"b1b.http.denied_or_failed","requestId":"2f60154d-be09-453d-bed7-44eb91847774","status":403}
+{"time":"2026-10-29T23:26:58.806Z","event":"http.completed","requestId":"2f60154d-be09-453d-bed7-44eb91847774","method":"POST","status":403}
+PASS foreign Origin and cross-site fetch rejected
+{"time":"2026-10-29T23:26:58.811Z","event":"b1b.http.denied_or_failed","requestId":"56c7bf54-2b02-46cc-8010-fb5b94a209fb","status":403}
+{"time":"2026-10-29T23:26:58.811Z","event":"http.completed","requestId":"56c7bf54-2b02-46cc-8010-fb5b94a209fb","method":"POST","status":403}
+{"time":"2026-10-29T23:26:58.819Z","event":"b1b.http.denied_or_failed","requestId":"6f624121-1bcf-4601-8c93-4168e28edf4f","status":403}
+{"time":"2026-10-29T23:26:58.820Z","event":"http.completed","requestId":"6f624121-1bcf-4601-8c93-4168e28edf4f","method":"POST","status":403}
+PASS missing/incorrect CSRF denied
+{"time":"2026-10-29T23:26:58.842Z","event":"b1b.http.denied_or_failed","requestId":"36c153a4-1020-433b-8383-a57ef3eaa99e","status":403}
+{"time":"2026-10-29T23:26:58.842Z","event":"http.completed","requestId":"36c153a4-1020-433b-8383-a57ef3eaa99e","method":"POST","status":403}
+PASS simple content type cannot mutate
+{"time":"2026-10-29T23:26:58.857Z","event":"http.completed","requestId":"2a2dd4c5-259f-4308-971e-e49ae9adc95a","method":"POST","status":201}
+PASS owner creates global service, unknown description remains null
+{"time":"2026-10-29T23:26:58.869Z","event":"b1b.http.denied_or_failed","requestId":"6c375573-181a-40ad-947c-356d540bfee8","status":409}
+{"time":"2026-10-29T23:26:58.869Z","event":"http.completed","requestId":"6c375573-181a-40ad-947c-356d540bfee8","method":"POST","status":409}
+{"time":"2026-10-29T23:26:58.952Z","event":"b1b.http.denied_or_failed","requestId":"2efc90ac-eee3-4959-8461-77e2a6fa312b","status":409}
+{"time":"2026-10-29T23:26:58.953Z","event":"http.completed","requestId":"2efc90ac-eee3-4959-8461-77e2a6fa312b","method":"POST","status":409}
+PASS duplicate service/branch stable code rejected
+{"time":"2026-10-29T23:26:58.987Z","event":"b1b.http.denied_or_failed","requestId":"4cd54987-4b01-4dfb-9e0d-a68dce1c1faf","status":422}
+{"time":"2026-10-29T23:26:58.988Z","event":"http.completed","requestId":"4cd54987-4b01-4dfb-9e0d-a68dce1c1faf","method":"PUT","status":422}
+{"time":"2026-10-29T23:26:59.081Z","event":"b1b.http.denied_or_failed","requestId":"722ebc5c-fa71-4e5e-bb1b-a2a1b666d494","status":422}
+{"time":"2026-10-29T23:26:59.081Z","event":"http.completed","requestId":"722ebc5c-fa71-4e5e-bb1b-a2a1b666d494","method":"PUT","status":422}
+PASS stable service/branch codes cannot be renamed by update
+{"time":"2026-10-29T23:26:59.108Z","event":"b1b.http.denied_or_failed","requestId":"6120557d-f4a2-411f-bcf1-108ea2d6d349","status":412}
+{"time":"2026-10-29T23:26:59.108Z","event":"http.completed","requestId":"6120557d-f4a2-411f-bcf1-108ea2d6d349","method":"PUT","status":412}
+PASS missing If-Match prevents update
+{"time":"2026-10-29T23:26:59.115Z","event":"b1b.http.denied_or_failed","requestId":"a5ff06a5-ccbe-48d6-bae5-a4454a94a6cf","status":412}
+{"time":"2026-10-29T23:26:59.116Z","event":"http.completed","requestId":"a5ff06a5-ccbe-48d6-bae5-a4454a94a6cf","method":"PUT","status":412}
+PASS invalid quoted version rejected
+{"time":"2026-10-29T23:26:59.132Z","event":"http.completed","requestId":"7407002f-8222-44a4-ad61-dd49adf72aff","method":"PUT","status":200}
+PASS valid service update uses optimistic version
+{"time":"2026-10-29T23:26:59.143Z","event":"b1b.http.denied_or_failed","requestId":"f1a58519-acaf-4c54-bcd2-811c6a4a9122","status":412}
+{"time":"2026-10-29T23:26:59.143Z","event":"http.completed","requestId":"f1a58519-acaf-4c54-bcd2-811c6a4a9122","method":"PUT","status":412}
+PASS stale version cannot overwrite
+{"time":"2026-10-29T23:26:59.183Z","event":"http.completed","requestId":"f49c0aac-0edd-4d46-8721-86717ecdb33b","method":"PUT","status":200}
+{"time":"2026-10-29T23:26:59.184Z","event":"b1b.http.denied_or_failed","requestId":"a946920f-407c-4dab-8e12-5518b50cf833","status":412}
+{"time":"2026-10-29T23:26:59.185Z","event":"http.completed","requestId":"a946920f-407c-4dab-8e12-5518b50cf833","method":"PUT","status":412}
+PASS two independent authenticated writers: exactly one wins same version
+{"time":"2026-10-29T23:26:59.195Z","event":"http.completed","requestId":"2528fdac-2484-4b43-8938-742a46dc20cb","method":"POST","status":201}
+{"time":"2026-10-29T23:26:59.205Z","event":"http.completed","requestId":"94feb566-7b42-4639-898b-206201825317","method":"POST","status":201}
+{"time":"2026-10-29T23:26:59.213Z","event":"b1b.http.denied_or_failed","requestId":"b8fc42ed-4515-48b8-8953-c0cb5e85693b","status":409}
+{"time":"2026-10-29T23:26:59.214Z","event":"http.completed","requestId":"b8fc42ed-4515-48b8-8953-c0cb5e85693b","method":"POST","status":409}
+PASS Idempotency-Key replays exact result without extra evidence writes
+{"time":"2026-10-29T23:26:59.259Z","event":"http.completed","requestId":"abc65db5-8b2c-4e67-9931-31975d34f4c3","method":"POST","status":201}
+{"time":"2026-10-29T23:26:59.262Z","event":"http.completed","requestId":"6d4a0547-47ad-417e-bc7b-1806feadf38b","method":"POST","status":201}
+PASS concurrent duplicate command stores one result/evidence set
+{"time":"2026-10-29T23:26:59.278Z","event":"http.completed","requestId":"39b4a8bb-ba96-4444-80a6-9640fb701d56","method":"POST","status":201}
+PASS branch offering creates unknown price/duration as explicit null
+{"time":"2026-10-29T23:26:59.287Z","event":"b1b.http.denied_or_failed","requestId":"85db65a6-7126-4b43-b0d8-a8b636353e83","status":403}
+{"time":"2026-10-29T23:26:59.288Z","event":"http.completed","requestId":"85db65a6-7126-4b43-b0d8-a8b636353e83","method":"PUT","status":403}
+PASS receptionist cannot change service pricing
+{"time":"2026-10-29T23:26:59.297Z","event":"b1b.http.denied_or_failed","requestId":"fb1b32fe-9cfa-44bb-a723-9614be3bdfb8","status":403}
+{"time":"2026-10-29T23:26:59.297Z","event":"http.completed","requestId":"fb1b32fe-9cfa-44bb-a723-9614be3bdfb8","method":"PUT","status":403}
+PASS manager cannot edit offerings in unrelated branch
+{"time":"2026-10-29T23:26:59.328Z","event":"b1b.http.denied_or_failed","requestId":"87143ac6-9088-4250-bb91-ed8d67111400","status":404}
+{"time":"2026-10-29T23:26:59.329Z","event":"http.completed","requestId":"87143ac6-9088-4250-bb91-ed8d67111400","method":"PUT","status":404}
+PASS offering ID cannot be moved across branches
+{"time":"2026-10-29T23:26:59.366Z","event":"b1b.http.denied_or_failed","requestId":"a72d044d-23c6-4286-8718-08c8ad3c97d2","status":404}
+{"time":"2026-10-29T23:26:59.366Z","event":"http.completed","requestId":"a72d044d-23c6-4286-8718-08c8ad3c97d2","method":"POST","status":404}
+PASS cross-tenant service association rejected
+{"time":"2026-10-29T23:26:59.397Z","event":"b1b.http.denied_or_failed","requestId":"76e384db-3e43-4740-9675-b9331eda0a29","status":422}
+{"time":"2026-10-29T23:26:59.397Z","event":"http.completed","requestId":"76e384db-3e43-4740-9675-b9331eda0a29","method":"PUT","status":422}
+{"time":"2026-10-29T23:26:59.402Z","event":"b1b.http.denied_or_failed","requestId":"4615d8e5-76f1-4768-850d-f89ac79b3128","status":422}
+{"time":"2026-10-29T23:26:59.402Z","event":"http.completed","requestId":"4615d8e5-76f1-4768-850d-f89ac79b3128","method":"PUT","status":422}
+{"time":"2026-10-29T23:26:59.408Z","event":"b1b.http.denied_or_failed","requestId":"d879b0b4-5d7c-4fa4-b520-62f7657ea411","status":422}
+{"time":"2026-10-29T23:26:59.408Z","event":"http.completed","requestId":"d879b0b4-5d7c-4fa4-b520-62f7657ea411","method":"PUT","status":422}
+{"time":"2026-10-29T23:26:59.414Z","event":"b1b.http.denied_or_failed","requestId":"e0dcbf75-0cf9-4ea7-84f6-2e89c90ac468","status":422}
+{"time":"2026-10-29T23:26:59.414Z","event":"http.completed","requestId":"e0dcbf75-0cf9-4ea7-84f6-2e89c90ac468","method":"PUT","status":422}
+{"time":"2026-10-29T23:26:59.420Z","event":"b1b.http.denied_or_failed","requestId":"e0e48a91-1556-4850-971e-39586b0f0eec","status":422}
+{"time":"2026-10-29T23:26:59.421Z","event":"http.completed","requestId":"e0e48a91-1556-4850-971e-39586b0f0eec","method":"PUT","status":422}
+{"time":"2026-10-29T23:26:59.426Z","event":"b1b.http.denied_or_failed","requestId":"28143d2a-1e21-4823-9dc9-c3c71e3a24ec","status":422}
+{"time":"2026-10-29T23:26:59.426Z","event":"http.completed","requestId":"28143d2a-1e21-4823-9dc9-c3c71e3a24ec","method":"PUT","status":422}
+{"time":"2026-10-29T23:26:59.430Z","event":"b1b.http.denied_or_failed","requestId":"cb665f28-7e6d-4619-af26-677f4613f624","status":422}
+{"time":"2026-10-29T23:26:59.430Z","event":"http.completed","requestId":"cb665f28-7e6d-4619-af26-677f4613f624","method":"PUT","status":422}
+{"time":"2026-10-29T23:26:59.434Z","event":"b1b.http.denied_or_failed","requestId":"d8f0aaf6-c05e-4066-8d80-6797b1fe8299","status":422}
+{"time":"2026-10-29T23:26:59.434Z","event":"http.completed","requestId":"d8f0aaf6-c05e-4066-8d80-6797b1fe8299","method":"PUT","status":422}
+{"time":"2026-10-29T23:26:59.439Z","event":"b1b.http.denied_or_failed","requestId":"c1e9b970-923e-4e20-8655-fecb9ae3386e","status":422}
+{"time":"2026-10-29T23:26:59.439Z","event":"http.completed","requestId":"c1e9b970-923e-4e20-8655-fecb9ae3386e","method":"PUT","status":422}
+{"time":"2026-10-29T23:26:59.443Z","event":"b1b.http.denied_or_failed","requestId":"207d3cc8-b90f-4267-aada-d7225c6028fa","status":422}
+{"time":"2026-10-29T23:26:59.443Z","event":"http.completed","requestId":"207d3cc8-b90f-4267-aada-d7225c6028fa","method":"PUT","status":422}
+PASS invalid/overflow/fraction/number money and bad duration rejected
+{"time":"2026-10-29T23:26:59.464Z","event":"http.completed","requestId":"89e5bdc1-d41f-4280-b25c-bd716f466809","method":"PUT","status":200}
+PASS valid synthetic offering money is lossless decimal string; stays inactive
+{"time":"2026-10-29T23:26:59.470Z","event":"b1b.http.denied_or_failed","requestId":"4070f0c0-20e2-4858-8fd3-f761e63caf21","status":422}
+{"time":"2026-10-29T23:26:59.470Z","event":"http.completed","requestId":"4070f0c0-20e2-4858-8fd3-f761e63caf21","method":"POST","status":422}
+{"time":"2026-10-29T23:26:59.474Z","event":"b1b.http.denied_or_failed","requestId":"678726da-72fc-4eb1-89f4-477e1a725e7a","status":422}
+{"time":"2026-10-29T23:26:59.475Z","event":"http.completed","requestId":"678726da-72fc-4eb1-89f4-477e1a725e7a","method":"POST","status":422}
+PASS API cannot activate branch bookability/offering operations
+PASS database still enforces both B1 gates for migration owner
+{"time":"2026-10-29T23:26:59.484Z","event":"b1b.http.denied_or_failed","requestId":"724f3499-2281-4e68-abba-8fcec194f29b","status":422}
+{"time":"2026-10-29T23:26:59.484Z","event":"http.completed","requestId":"724f3499-2281-4e68-abba-8fcec194f29b","method":"PUT","status":422}
+PASS deferred staff/resource payloads fail closed without pretending persisted
+{"time":"2026-10-29T23:26:59.499Z","event":"http.completed","requestId":"71a3f8f7-d8e9-4eef-8df8-2a95980323f1","method":"GET","status":200}
+{"time":"2026-10-29T23:26:59.506Z","event":"b1b.http.denied_or_failed","requestId":"6b084687-d52d-43e7-8349-857c76cf3d55","status":422}
+{"time":"2026-10-29T23:26:59.506Z","event":"http.completed","requestId":"6b084687-d52d-43e7-8349-857c76cf3d55","method":"PUT","status":422}
+PASS existing resource requirements read honestly and cannot be silently overwritten
+{"time":"2026-10-29T23:26:59.530Z","event":"b1b.http.denied_or_failed","requestId":"7aedd787-890a-4c75-a559-592e25f8ccc1","status":422}
+{"time":"2026-10-29T23:26:59.531Z","event":"http.completed","requestId":"7aedd787-890a-4c75-a559-592e25f8ccc1","method":"POST","status":422}
+PASS IANA timezone invalid names rejected
+{"time":"2026-10-29T23:26:59.543Z","event":"http.completed","requestId":"1ac837d1-21d6-49da-ad10-f0f5d1638703","method":"GET","status":200}
+{"time":"2026-10-29T23:26:59.547Z","event":"b1b.http.denied_or_failed","requestId":"6bcbdb24-4808-4790-8b70-8d7b9286d04a","status":422}
+{"time":"2026-10-29T23:26:59.548Z","event":"http.completed","requestId":"6bcbdb24-4808-4790-8b70-8d7b9286d04a","method":"GET","status":422}
+{"time":"2026-10-29T23:26:59.553Z","event":"b1b.http.denied_or_failed","requestId":"5c6bc85a-4b77-44cc-a195-f787244299ac","status":422}
+{"time":"2026-10-29T23:26:59.553Z","event":"http.completed","requestId":"5c6bc85a-4b77-44cc-a195-f787244299ac","method":"GET","status":422}
+{"time":"2026-10-29T23:26:59.559Z","event":"b1b.http.denied_or_failed","requestId":"06e4025e-5bb1-4be9-bcef-f8342e9f32eb","status":422}
+{"time":"2026-10-29T23:26:59.560Z","event":"http.completed","requestId":"06e4025e-5bb1-4be9-bcef-f8342e9f32eb","method":"GET","status":422}
+PASS pagination/sort bounded and lists scoped before limit
+{"time":"2026-10-29T23:26:59.709Z","event":"http.completed","requestId":"3c65f8d4-9342-490e-92eb-5877c6580b9a","method":"POST","status":201}
+PASS SQL injection remains text data
+{"time":"2026-10-29T23:26:59.742Z","event":"b1b.http.denied_or_failed","requestId":"6e5d4935-bcfd-4392-a337-76527d8bcd44","status":503}
+{"time":"2026-10-29T23:26:59.742Z","event":"http.completed","requestId":"6e5d4935-bcfd-4392-a337-76527d8bcd44","method":"POST","status":503}
+PASS failed command with late outbox failure rolls back data/audit/idempotency
+PASS API runtime denied direct SQL read IAM
+PASS API runtime denied direct SQL read configuration
+PASS API runtime denied direct SQL write configuration
+PASS API runtime denied direct SQL audit tamper
+PASS API runtime denied direct SQL outbox tamper
+PASS API runtime denied direct SQL idempotency tamper
+PASS API runtime denied direct SQL DDL
+PASS API runtime denied direct SQL metadata
+PASS API runtime denied direct SQL private helper
+PASS API runtime denied direct SQL role elevation
+PASS custom RLS tenant variable cannot authorize API raw reads
+PASS direct function call cannot forge actor/tenant or bypass permission
+PASS direct function DTO mass assignment rejected independently of Nest
+{"time":"2026-10-29T23:27:00.127Z","event":"b1b.http.denied_or_failed","requestId":"350aaf1c-d7ac-41ef-98a9-253d66af2d9f","status":403}
+{"time":"2026-10-29T23:27:00.127Z","event":"http.completed","requestId":"350aaf1c-d7ac-41ef-98a9-253d66af2d9f","method":"GET","status":403}
+PASS revoked role assignment takes effect on next command
+{"time":"2026-10-29T23:27:00.329Z","event":"http.completed","requestId":"0ed31896-3cbc-4a8c-9961-439aeff25eb5","method":"PUT","status":200}
+{"time":"2026-10-29T23:27:00.336Z","event":"b1b.http.denied_or_failed","requestId":"3472e246-4474-490e-9dee-330c0c6760e6","status":403}
+{"time":"2026-10-29T23:27:00.337Z","event":"http.completed","requestId":"3472e246-4474-490e-9dee-330c0c6760e6","method":"PUT","status":403}
+PASS replay rechecks permissions before returning stored result
+{"time":"2026-10-29T23:27:00.371Z","event":"http.completed","requestId":"f84bfe14-500f-43c6-8fef-2f2777606755","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.378Z","event":"http.completed","requestId":"8ff8a36a-9701-4cdc-933b-55a4c5ccb561","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.397Z","event":"http.completed","requestId":"0999f24d-89d0-4ad7-abe5-1af034a49684","method":"POST","status":200}
+{"time":"2026-10-29T23:27:00.403Z","event":"b1b.http.denied_or_failed","requestId":"83eff014-b5ed-4767-b513-09f0737e684e","status":401}
+{"time":"2026-10-29T23:27:00.403Z","event":"http.completed","requestId":"83eff014-b5ed-4767-b513-09f0737e684e","method":"GET","status":401}
+PASS repeated valid session works until explicit invalidation
+{"time":"2026-10-29T23:27:00.519Z","event":"b1b.http.denied_or_failed","requestId":"43971383-65c7-421b-8e8f-7cabc0020ed3","status":401}
+{"time":"2026-10-29T23:27:00.520Z","event":"http.completed","requestId":"43971383-65c7-421b-8e8f-7cabc0020ed3","method":"GET","status":401}
+{"time":"2026-10-29T23:27:00.540Z","event":"http.completed","requestId":"628bec1d-f521-4efe-93d4-f5069a9a8827","method":"GET","status":200}
+PASS rotation never adopts client token and revokes old privileged session
+PASS session storage contains hashes only and constrained business scope
+PASS test provisioning and API options impossible in production configuration
+{"time":"2026-10-29T23:27:00.548Z","event":"http.completed","requestId":"f72e058d-318d-47ad-989a-5a5fc087cc4b","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.552Z","event":"http.completed","requestId":"e3c43a8e-c311-4540-b9cc-6ada4db84f08","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.557Z","event":"http.completed","requestId":"6fa52c28-c206-4ae1-9065-efa9e21ad426","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.561Z","event":"http.completed","requestId":"4d7f856c-301d-47f0-ab24-a0f9cb794ca3","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.565Z","event":"http.completed","requestId":"6d3747bb-ad10-4d0b-9237-0df3b4a1527e","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.568Z","event":"http.completed","requestId":"22a43ded-a912-437f-ac6c-8a48215d0157","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.571Z","event":"http.completed","requestId":"acc22115-71d2-43ee-9faf-26ccf274ae3e","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.574Z","event":"http.completed","requestId":"fe1ccfec-a3c0-4fa3-8b88-6aa524c6ea38","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.577Z","event":"http.completed","requestId":"5f279409-696b-4cdc-b591-e961b29f144b","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.580Z","event":"http.completed","requestId":"76c93d78-df76-4509-a924-0cfa6b546379","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.583Z","event":"http.completed","requestId":"6e427489-e4ef-4600-a199-f7a1a163f768","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.587Z","event":"http.completed","requestId":"2f84be01-65ae-4b75-b0b6-16b7662be742","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.591Z","event":"http.completed","requestId":"0fe74de4-771a-4f4b-99f2-7b3cdf082702","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.594Z","event":"http.completed","requestId":"9e1502e4-004c-4647-a752-4cf11647aad0","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.598Z","event":"http.completed","requestId":"97953441-431f-4270-b260-3887994f782a","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.601Z","event":"http.completed","requestId":"d5cfa4c5-adcc-4bda-8e9e-fb4a0f66415d","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.604Z","event":"http.completed","requestId":"ad1407d6-5637-4564-8f96-4f2f08b19044","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.607Z","event":"http.completed","requestId":"0cdcf6ee-5273-4655-97d2-b9e266622bdd","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.610Z","event":"http.completed","requestId":"ab5ec635-af4d-4141-adda-06346e622ae9","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.614Z","event":"http.completed","requestId":"32e99907-146d-4eff-bf35-525900e455a1","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.617Z","event":"http.completed","requestId":"5acbd63b-077a-463d-ac9c-3c53030c118c","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.620Z","event":"http.completed","requestId":"d294bbd2-651f-4282-a5a1-9fdaa683849e","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.625Z","event":"http.completed","requestId":"ad3c94db-ed4e-4889-9586-11b7ab33384e","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.629Z","event":"http.completed","requestId":"82a128e7-e2de-425c-ae32-31f70f919366","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.632Z","event":"http.completed","requestId":"070afb9e-a3b7-428a-ac27-35d81081fcc6","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.636Z","event":"http.completed","requestId":"064608dc-76c5-4aa1-a658-1809bb809493","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.639Z","event":"http.completed","requestId":"d30fba23-ecad-41ea-a48a-5374b8221dcc","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.643Z","event":"http.completed","requestId":"838e731a-0506-4e50-aca9-a92b7f536000","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.646Z","event":"http.completed","requestId":"db1b5378-d18c-4c99-bc1b-150bfb50b6b1","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.649Z","event":"http.completed","requestId":"d15f3323-6fe3-4534-adf2-da4067c46227","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.654Z","event":"http.completed","requestId":"15f7240d-8980-40a1-96a3-017290316b74","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.657Z","event":"http.completed","requestId":"d3d2d8d0-a3ab-4948-87b6-b93ca5442128","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.661Z","event":"http.completed","requestId":"08ae89f6-6c62-4912-8a62-e7de360012d5","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.664Z","event":"http.completed","requestId":"12732716-d8fe-4e3b-aa0e-cb997a7b54d2","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.668Z","event":"http.completed","requestId":"ca75e506-1c0d-4163-960a-71ac6838b1b1","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.672Z","event":"http.completed","requestId":"644e642b-8d79-42a5-8989-a68b8bfbe334","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.676Z","event":"http.completed","requestId":"2cb0a62a-fa76-457a-aacd-bca580ac8326","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.679Z","event":"http.completed","requestId":"038034e0-2767-4ea2-8589-f19c2ce3b70c","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.683Z","event":"http.completed","requestId":"04f47517-91a6-4d5c-aacd-d1388cbbea03","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.687Z","event":"http.completed","requestId":"70288b97-625d-4e5d-bfd7-8bbfed7256f2","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.691Z","event":"http.completed","requestId":"5d459461-13e5-47bb-ba6b-0942ee17f93c","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.695Z","event":"http.completed","requestId":"69dade85-f1ae-4ed4-abfa-a902940e06cc","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.698Z","event":"http.completed","requestId":"49bb0f5a-b592-44e3-b4ee-084e57453900","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.701Z","event":"http.completed","requestId":"e85b046b-1274-49cc-b482-1eeb775be113","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.705Z","event":"http.completed","requestId":"c4b21b0a-6ecc-4ef0-99a6-cb5504e62760","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.709Z","event":"http.completed","requestId":"825c204b-122b-4a39-bc61-cc0308d6632c","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.713Z","event":"http.completed","requestId":"bda6c6db-3c5d-4ebd-9386-0da73d7689ad","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.716Z","event":"http.completed","requestId":"60308f0f-27bb-466c-b5eb-6ea3fb2e2cef","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.720Z","event":"http.completed","requestId":"ec70b41a-68c7-4fcd-82e4-e5dcf4de5263","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.725Z","event":"http.completed","requestId":"6807155c-dc3f-47ba-b568-d915743be806","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.728Z","event":"http.completed","requestId":"c1a90831-512e-4a4c-8586-92c9c6cd8ee8","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.732Z","event":"http.completed","requestId":"dcf630b8-3088-4bd2-8d5e-bada4adb6d1e","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.735Z","event":"http.completed","requestId":"4f972b1a-ad17-45dc-bff8-de053d2fcc04","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.739Z","event":"http.completed","requestId":"233479a2-3bf5-411c-bceb-3a8250cf50f9","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.743Z","event":"http.completed","requestId":"bb3aac43-644a-44b8-9e50-645829b870e0","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.747Z","event":"http.completed","requestId":"7cb0a9b9-a86a-41c0-91a4-21ff7522da24","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.750Z","event":"http.completed","requestId":"ae843c7f-f759-4ac9-9c40-e8ca66263015","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.756Z","event":"http.completed","requestId":"1822d3ad-d22d-49f3-9e6b-1afa65bff82f","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.760Z","event":"http.completed","requestId":"2a61b8a4-454e-4c7c-8e1f-2db84458d6ac","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.764Z","event":"http.completed","requestId":"98f0d716-04c1-40db-9463-5d33926a0e1a","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.768Z","event":"http.completed","requestId":"66f3db0c-a1c0-432a-aac0-d0df7d79f7d1","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.771Z","event":"http.completed","requestId":"eb8389fe-8b56-4a46-b406-2c1803486cf1","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.774Z","event":"http.completed","requestId":"4b1dab48-ef51-4a07-8dca-c46a85a727dd","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.779Z","event":"http.completed","requestId":"468df230-a211-405a-b406-2183fbbfeb17","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.783Z","event":"http.completed","requestId":"dda82a2d-edca-42e3-bd21-70fba9384c3c","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.787Z","event":"http.completed","requestId":"06911f8d-8015-43d3-bd60-4c0f1697e6c2","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.792Z","event":"http.completed","requestId":"d7f09d6f-0c40-4e73-ac71-9c8e60435d0b","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.796Z","event":"http.completed","requestId":"56ec84ca-2c26-49b5-a64a-57d9530c4bb8","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.800Z","event":"http.completed","requestId":"f7240dba-9cb0-4565-a104-a3cac94c7ffa","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.804Z","event":"http.completed","requestId":"173d8f3b-88c1-4227-acd0-2c61de46aae7","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.807Z","event":"http.completed","requestId":"f05e8e9d-223e-49c8-8216-df3933c4e413","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.811Z","event":"http.completed","requestId":"20e6ef5a-c615-4290-b15d-7525675716af","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.814Z","event":"http.completed","requestId":"3eaa4d12-2ba5-4f37-92c9-237e57b9927f","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.820Z","event":"http.completed","requestId":"e96cc548-c4bc-4d4a-8720-0970f5336aa4","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.824Z","event":"http.completed","requestId":"9ef9dbd9-14bc-4bcc-a78d-aa9972ce3e65","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.828Z","event":"http.completed","requestId":"2bd9fee1-055a-4aa0-836b-aad066831d08","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.831Z","event":"http.completed","requestId":"d68505eb-6360-4114-8b4b-71f88d2e6b52","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.835Z","event":"http.completed","requestId":"68e3bf34-c2f1-4573-8af5-4d311c0262c3","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.838Z","event":"http.completed","requestId":"b420f53e-1030-4288-923e-43c7d79b8676","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.841Z","event":"http.completed","requestId":"4f326623-5235-47b5-a7eb-17f3ee2dfbf3","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.843Z","event":"http.completed","requestId":"938e8f4e-f55e-496b-b497-04b45fdf14da","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.846Z","event":"http.completed","requestId":"22bc9c0e-496a-45d1-987c-d57aed7b6d26","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.850Z","event":"http.completed","requestId":"075541a2-307a-4f51-bac5-23e48f3d97d7","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.854Z","event":"http.completed","requestId":"f80ac8c6-6b37-4770-9c6b-8e7855a50538","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.858Z","event":"http.completed","requestId":"3aba5ddc-55ac-47dd-9e45-9139487c17c5","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.862Z","event":"http.completed","requestId":"5fa10159-93f1-486f-bc17-fdb06a013314","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.866Z","event":"http.completed","requestId":"45da397a-3bd1-4bd9-9902-243e903b7140","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.871Z","event":"http.completed","requestId":"0fc2aa4f-3506-4b34-8017-7270f259edcd","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.874Z","event":"http.completed","requestId":"daeafdcf-ae61-4ffb-9fff-342e8ac9827e","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.879Z","event":"http.completed","requestId":"539e027d-f405-46c0-833b-75c242a3e686","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.883Z","event":"http.completed","requestId":"5b584da9-f4f1-4f97-bf5f-43ad394c627d","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.888Z","event":"http.completed","requestId":"9a95fb05-8c33-44b6-af0c-39726e039049","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.892Z","event":"http.completed","requestId":"8250033a-72af-4a2c-9a04-8d8d689ac61c","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.895Z","event":"http.completed","requestId":"d3c0b1f8-366e-4d13-bee1-7c913d6c6b4a","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.898Z","event":"http.completed","requestId":"6406047a-8787-46a1-94ca-a23d51319d10","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.902Z","event":"http.completed","requestId":"8f48b3b7-954c-473e-885a-b00d2d1e0c3f","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.906Z","event":"http.completed","requestId":"8ec6ac2a-3ebd-4004-b6b0-e35685f4b17b","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.910Z","event":"http.completed","requestId":"6524871b-51c5-4403-be23-da11e0429bc1","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.914Z","event":"http.completed","requestId":"ac6fbfe7-362e-4dc3-b0ac-cbaf7aca6e5e","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.918Z","event":"http.completed","requestId":"068eef1f-722a-4852-9981-27a8f85555e0","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.922Z","event":"http.completed","requestId":"83591c0e-41ec-4f55-b069-9dd4485adbbf","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.926Z","event":"http.completed","requestId":"bfb89996-8bff-4d8d-a517-bfcfa9bf679a","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.930Z","event":"http.completed","requestId":"b65fd76a-ac39-4955-8e9c-3c87cafa2734","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.934Z","event":"http.completed","requestId":"72350b47-3f34-47ae-a073-9c9cefaa3a82","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.939Z","event":"http.completed","requestId":"6474bba9-036c-47d4-af10-c16a87c7010f","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.942Z","event":"http.completed","requestId":"08db5bba-89d1-4f4d-885e-b25ea6895628","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.946Z","event":"http.completed","requestId":"4128be16-7d54-4b90-986a-60838dfaf93b","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.950Z","event":"http.completed","requestId":"c3ed591d-24fc-48bc-99a2-5cbf7572f77f","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.955Z","event":"http.completed","requestId":"f9f84e34-5dda-4fcb-bdad-1079afff86de","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.959Z","event":"http.completed","requestId":"c1f8fc01-78f1-41d8-b3f0-b16a5a9a12c7","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.963Z","event":"http.completed","requestId":"21a8547a-6ceb-43ce-a45b-7b96d20025df","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.966Z","event":"http.completed","requestId":"11e86aa1-1e30-491c-a5d9-4c828f8b1ff4","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.970Z","event":"http.completed","requestId":"430f052f-3d1e-40d0-ac6f-b42bfda0bde7","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.974Z","event":"http.completed","requestId":"e7777d04-1cec-4cc9-b8bc-30251afd1514","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.977Z","event":"http.completed","requestId":"c36f06a9-4a52-49b4-86eb-d5ba17613474","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.981Z","event":"http.completed","requestId":"eb5c19c6-05a5-4ff9-91c8-8f0f42949b2c","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.985Z","event":"http.completed","requestId":"cbfbbd40-1f1d-4d22-b11c-ed9f3f442bb9","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.989Z","event":"http.completed","requestId":"082df27a-6766-485f-adef-c704e621d484","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.996Z","event":"http.completed","requestId":"e5307e06-5c93-4181-aeb6-d2b41a12283f","method":"GET","status":200}
+{"time":"2026-10-29T23:27:00.998Z","event":"b1b.http.denied_or_failed","requestId":"8f6e264d-2e5a-4f2e-bf17-06f9d77f14fc","status":429}
+{"time":"2026-10-29T23:27:00.998Z","event":"http.completed","requestId":"8f6e264d-2e5a-4f2e-bf17-06f9d77f14fc","method":"GET","status":429}
+PASS session rate limit bounds repeated requests
+{"time":"2026-10-29T23:27:01.040Z","event":"b1b.http.denied_or_failed","requestId":"f6b77361-bb79-4693-9ef3-36c11e53060f","status":503}
+{"time":"2026-10-29T23:27:01.041Z","event":"http.completed","requestId":"f6b77361-bb79-4693-9ef3-36c11e53060f","method":"GET","status":503}
+PASS actual failed PostgreSQL connection returns sanitized503
+PASS catalog detects dangerous function EXECUTE grant drift
+PASS catalog detects missing inactive gate
+PASS upgrade existing B1A schema retains data then applies only0003
+PASS failed forward migration rolls back DDL and history
+PASS tampered migration checksum refuses execution
+PASS actual custom pg_dump backup passes source/identity/checksum guards
+PASS actual pg_restore preserves rows, functions and effective permissions
+PASS restored API role still cannot read IAM directly
+{"passed":83,"failed":0}
+Created ignored random B1A credentials; values withheld
+B1A isolated cluster/roles/database prepared; no application migration applied
+ Network mohammadstyle-b1b-baseline_b1a Creating
+ Network mohammadstyle-b1b-baseline_b1a Created
+ Container mohammadstyle-b1b-baseline-postgres-1 Creating
+ Container mohammadstyle-b1b-baseline-postgres-1 Created
+ Container mohammadstyle-b1b-baseline-postgres-1 Starting
+ Container mohammadstyle-b1b-baseline-postgres-1 Started
+ Container mohammadstyle-b1b-baseline-postgres-1 Waiting
+ Container mohammadstyle-b1b-baseline-postgres-1 Healthy
+PASS fresh installation: exactly16 foundation tables and2 tracked migrations
+PASS destructive provisioning refuses every B0 database name
+PASS repeated migration invocation is a verified no-op
+PASS catalog preserves40 FK,43 CHECK,44 indexes and4 RLS policies
+PASS synthetic fixtures cover all16 tables with no real tariffs or customers
+PASS tenant composite FK rejects a foreign branch
+PASS duplicate branch code rejected
+PASS NULL-safe partial unique index rejects duplicate unscoped role
+PASS invalid offering price_rial rejected
+PASS invalid offering duration_minutes rejected
+PASS invalid offering buffer_before_minutes rejected
+PASS missing branch timezone rejected
+PASS B1 inactive branch gate cannot be lifted with scalar activation
+PASS B1 inactive offering gate retained even with complete synthetic scalars
+PASS repository ports read only the scoped tenant and preserve unknown amounts
+PASS explicit Nest persistence module resolves DI without changing health AppModule
+PASS RLS prevents unscoped raw reads from crossing tenant context
+PASS runtime with no tenant context fails closed to zero rows
+PASS runtime denied DDL
+PASS runtime denied public DDL
+PASS runtime denied metadata
+PASS runtime denied auth sessions
+PASS runtime denied audit mutation
+PASS runtime denied delete
+PASS runtime denied truncate
+PASS runtime denied business field mutation
+PASS runtime denied booking gate mutation
+PASS runtime denied role elevation
+PASS runtime denied RLS disable
+PASS transaction-local tenant context does not leak between uses
+PASS two concurrent sessions use CAS version; exactly one writer succeeds
+PASS stale version cannot overwrite a committed version
+PASS failed SQL transaction rolls back version write and pool remains usable
+PASS transaction scope cannot be used after callback ends
+PASS invalid tenant context rejected before SQL
+PASS runtime cannot bypass RLS with row_security=off
+PASS drift in a safety constraint is detected and not automatically repaired
+PASS runtime privilege drift is detected
+PASS required index drift is detected
+PASS simultaneous migration sessions serialize and apply each version once
+PASS unknown migration version is rejected
+PASS tampered applied checksum is rejected
+PASS failed migration rolls back DDL and version history atomically
+PASS fresh untracked schema cannot be silently adopted
+PASS actual pg_dump produces a verified custom archive
+PASS actual pg_restore into separate database preserves every row/catalog/constraint
+PASS restored schema retains runtime RLS and denied metadata permissions
+{"passed":47,"failed":0,"expectedRejections":30}
+ Container mohammadstyle-b1b-baseline-postgres-1 Stopping
+ Container mohammadstyle-b1b-baseline-postgres-1 Stopped
+ Container mohammadstyle-b1b-baseline-postgres-1 Removing
+ Container mohammadstyle-b1b-baseline-postgres-1 Removed
+ Network mohammadstyle-b1b-baseline_b1a Removing
+ Network mohammadstyle-b1b-baseline_b1a Removed
+✔ isolated local configuration accepted (2.4404ms)
+✔ invalid APP_ENV fails without leaking value (1.0188ms)
+✔ invalid API_HOST fails without leaking value (0.452ms)
+✔ invalid API_PORT fails without leaking value (0.4473ms)
+✔ invalid PGHOST fails without leaking value (0.2288ms)
+✔ invalid PGDATABASE fails without leaking value (0.211ms)
+✔ invalid PGUSER fails without leaking value (0.1934ms)
+✔ invalid PGPASSWORD fails without leaking value (0.186ms)
+✔ invalid PGPORT fails without leaking value (0.2679ms)
+✔ missing configuration lists keys without values (0.6796ms)
+✔ real least-privilege database connection and denied DDL (122.6099ms)
+✔ backend startup, readiness, request identity, safe centralized 404 (1745.6981ms)
+✔ database outage leaves liveness up and readiness fails closed (1520.3248ms)
+✔ invalid startup configuration exits nonzero without logging secrets (1482.8882ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5894.8267
+PASS B1: cross-tenant composite FK rejects foreign branch
+PASS B1: per-tenant branch code uniqueness
+PASS B1: absent mandatory timezone rejected
+PASS B1: negative price rejected
+PASS B1: zero duration rejected
+PASS B1: transaction rollback removes synthetic write
+PASS B1: FK deferral supports child-before-parent commit
+PASS B1: unresolved deferred FK fails COMMIT and rolls back
+PASS B1: bookable branch gate even with active branch
+PASS B1: active offering gate even with all scalar configuration
+PASS FULL: cross-tenant composite FK rejects foreign branch
+PASS FULL: per-tenant branch code uniqueness
+PASS FULL: absent mandatory timezone rejected
+PASS FULL: negative price rejected
+PASS FULL: zero duration rejected
+PASS FULL: transaction rollback removes synthetic write
+PASS FULL: FK deferral supports child-before-parent commit
+PASS FULL: unresolved deferred FK fails COMMIT and rolls back
+PASS FULL: activating missing offering configuration fails closed
+PASS FULL: independent customers may retain identical content hashes
+PASS FULL: inactive archived membership overlap still rejected
+PASS FULL: adjacent rejoin creates new historical stint and generated range
+PASS FULL: unreasoned void rejected
+PASS FULL: global staff shift exclusion across different branches
+PASS FULL: policy scope/range generation and equal-rank exclusion
+PASS FULL: revisionless DRAFT row representable
+PASS FULL: revisionless CANCELLED row representable
+PASS FULL: revisionless EXPIRED row representable
+PASS FULL: revisionless confirmed state rejected
+PASS FULL: draft without finite expiry rejected
+PASS FULL: live resource overlap rejected
+PASS FULL: adjacent half-open occupancy accepted
+PASS FULL: released ledger history does not block new live interval
+PASS FULL: separate sessions block then reject overlapping uncommitted interval
+PASS FULL: real catalog has all generated and exclusion definitions; indexes valid
+{"passed":35,"failed":0,"unexpectedSqlErrors":0,"expectedSqlRejections":23}
+{"status":"PASS","version":"7.10.1","commands":[{"command":"prisma validate","status":0},{"command":"prisma generate","status":0},{"command":"prisma db pull --print","status":0}],"assertions":["Real 72-table introspection returns Unsupported daterange/tstzrange fields","Selected Prisma release actually introspects partial unique and non-unique indexes with where: raw","Generated scope_key appears as optional dbgenerated default; PSL alone does not preserve GENERATED ALWAYS STORED semantics","Generated Prisma client ordinary model read: 2 synthetic businesses","Interactive transaction actually reports serializable","Parameterized native range SQL with text projection works","Validate/generate/introspect/read/transaction leave constraints, indexes and generated expressions unchanged"]}
+ Network mohammadstyle-b1a-regression_default Creating
+ Network mohammadstyle-b1a-regression_default Created
+ Container mohammadstyle-b1a-regression-postgres-1 Creating
+ Container mohammadstyle-b1a-regression-postgres-1 Created
+ Container mohammadstyle-b1a-regression-postgres-1 Starting
+ Container mohammadstyle-b1a-regression-postgres-1 Started
+ Container mohammadstyle-b1a-regression-postgres-1 Waiting
+ Container mohammadstyle-b1a-regression-postgres-1 Healthy
+ Container mohammadstyle-b1a-regression-postgres-1 Stopping
+ Container mohammadstyle-b1a-regression-postgres-1 Stopped
+ Container mohammadstyle-b1a-regression-postgres-1 Removing
+ Container mohammadstyle-b1a-regression-postgres-1 Removed
+ Network mohammadstyle-b1a-regression_default Removing
+ Network mohammadstyle-b1a-regression_default Removed
+ Container mohammadstyle-b2a-b1b-baseline-postgres-1 Stopping
+ Container mohammadstyle-b2a-b1b-baseline-postgres-1 Stopped
+ Container mohammadstyle-b2a-b1b-baseline-postgres-1 Removing
+ Container mohammadstyle-b2a-b1b-baseline-postgres-1 Removed
+ Network mohammadstyle-b2a-b1b-baseline_b1b Removing
+ Network mohammadstyle-b2a-b1b-baseline_b1b Removed
+ Container mohammadstyle-b2b-b2a-baseline-postgres-1 Stopping
+ Container mohammadstyle-b2b-b2a-baseline-postgres-1 Stopped
+ Container mohammadstyle-b2b-b2a-baseline-postgres-1 Removing
+ Container mohammadstyle-b2b-b2a-baseline-postgres-1 Removed
+ Network mohammadstyle-b2b-b2a-baseline_b2a Removing
+ Network mohammadstyle-b2b-b2a-baseline_b2a Removed
+ Container mohammadstyle-b2h-b2b-baseline-postgres-1 Stopping
+ Container mohammadstyle-b2h-b2b-baseline-postgres-1 Stopped
+ Container mohammadstyle-b2h-b2b-baseline-postgres-1 Removing
+ Container mohammadstyle-b2h-b2b-baseline-postgres-1 Removed
+ Network mohammadstyle-b2h-b2b-baseline_b2b Removing
+ Network mohammadstyle-b2h-b2b-baseline_b2b Removed
+ Container mohammadstyle-b3-b2h-baseline-postgres-1 Stopping
+ Container mohammadstyle-b3-b2h-baseline-postgres-1 Stopped
+ Container mohammadstyle-b3-b2h-baseline-postgres-1 Removing
+ Container mohammadstyle-b3-b2h-baseline-postgres-1 Removed
+ Network mohammadstyle-b3-b2h-baseline_b2h Removing
+ Network mohammadstyle-b3-b2h-baseline_b2h Removed

@@ -1,0 +1,42 @@
+{
+  "kind": "ACTUAL_NEXT_FRONTEND_PLAYWRIGHT",
+  "stats": {
+    "startTime": "2026-10-29T23:32:42.638Z",
+    "duration": 204174.668,
+    "expected": 92,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "projects": [
+    {
+      "name": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "name": "tablet",
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      }
+    },
+    {
+      "name": "mobile",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "name": "mobile-small",
+      "viewport": {
+        "width": 375,
+        "height": 812
+      }
+    }
+  ],
+  "sourceAndAssertionsUnchanged": true
+}

@@ -1,0 +1,12 @@
+digraph {graph [bgcolor="#111b24",pad="0.4",ranksep="0.5",nodesep="0.35"];node [shape=box,style="rounded,filled",fillcolor="#213444",color="#c9b58b",fontcolor="#f1f5f9",fontname="Arial",fontsize=18,margin="0.18"];edge [color="#d8c699",arrowsize=0.8];a[label="Verified session -> business + branch permissions
+Client IDs/versions are selectors, never prices"];b[label="Lock pricing revision + shared branch/offering/service/staff
+Read server prices; validate configured amounts, duration, versions"];c[label="Per-item temporal routing
+STAFF_SERVICE > STAFF > SERVICE > BRANCH > BUSINESS
+Then branch specificity, then priority; ties fail closed"];d[label="All items resolve to the same policy version?"];e[label="Different winners: POLICY_CONFLICT
+Only explicit exact-service-set + compatible-version-set
+WHOLE_BOOKING assignment with permission/reason can override"];f[label="Frozen published terms + integer Rial arithmetic
+Fixed or integer-bps percentage; explicit min/max
+REQUIRED / OPTIONAL choice / explicit NONE"];g[label="Immutable commercial proposal, items and routing sources
+Total/deposit/remaining + exact terms + content digest
+Atomic data + audit + command outbox + actor/key receipt"];h[label="Not availability or a final B4 quote
+No capacity, acceptance, capture or refund execution"];a->b->c->d;d->e[label="different",fontcolor="#d8c699"];d->f[label="same",fontcolor="#d8c699"];e->f[label="explicit compatible override only",fontcolor="#d8c699"];f->g->h;}

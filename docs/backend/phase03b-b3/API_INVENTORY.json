@@ -1,0 +1,92 @@
+{
+  "newOperations": 15,
+  "legacyOperations": 12,
+  "inventory": [
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/pricing/quotes/{id}",
+      "permission": "pricing.quote + actor ownership"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/pricing/assignments",
+      "permission": "policy.read; history additionally policy.history.read instead of ordinary read"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/pricing/policies",
+      "permission": "policy.read; history additionally policy.history.read instead of ordinary read"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/pricing/context",
+      "permission": "policy.read; history additionally policy.history.read instead of ordinary read"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/pricing/commands/policy.create",
+      "operation": "policy.create",
+      "permission": "policy.manage"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/pricing/commands/version.create",
+      "operation": "version.create",
+      "permission": "policy.manage"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/pricing/commands/version.replace",
+      "operation": "version.replace",
+      "permission": "policy.manage"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/pricing/commands/version.publish",
+      "operation": "version.publish",
+      "permission": "policy.manage"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/pricing/commands/version.retire",
+      "operation": "version.retire",
+      "permission": "policy.manage"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/pricing/commands/assignment.create",
+      "operation": "assignment.create",
+      "permission": "policy.manage; WHOLE_BOOKING additionally policy.override"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/pricing/commands/assignment.revoke",
+      "operation": "assignment.revoke",
+      "permission": "policy.manage"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/pricing/commands/configuration.set",
+      "operation": "configuration.set",
+      "permission": "policy.manage"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/pricing/commands/quote.create",
+      "operation": "quote.create",
+      "permission": "pricing.quote"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/pricing/commands/quote.validate",
+      "operation": "quote.validate",
+      "permission": "pricing.quote"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/pricing/commands/quote.cancellation-preview",
+      "operation": "quote.cancellation-preview",
+      "permission": "pricing.quote"
+    }
+  ]
+}
