@@ -1,0 +1,869 @@
+{
+  "executedAt": "2026-10-29T18:55:33.623Z",
+  "kind": "ACTUAL_POSTGRESQL_B1A_INTEGRATION",
+  "tests": [
+    {
+      "name": "fresh installation: exactly16 foundation tables and2 tracked migrations",
+      "status": "PASS",
+      "observed": {
+        "applied": [
+          "0001_b1_foundation",
+          "0002_b1a_runtime_boundary"
+        ],
+        "currentVersion": "0002_b1a_runtime_boundary",
+        "catalog": {
+          "sha256": "110267d147a6110bf77e3b79039eae55475212952a9fbf948825f9ec96797900",
+          "tables": 16,
+          "indexes": 44,
+          "foreignKeys": 40,
+          "checks": 43,
+          "rlsPolicies": 4
+        }
+      }
+    },
+    {
+      "name": "destructive provisioning refuses every B0 database name",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "repeated migration invocation is a verified no-op",
+      "status": "PASS",
+      "observed": "0002_b1a_runtime_boundary"
+    },
+    {
+      "name": "catalog preserves40 FK,43 CHECK,44 indexes and4 RLS policies",
+      "status": "PASS",
+      "observed": {
+        "sha256": "110267d147a6110bf77e3b79039eae55475212952a9fbf948825f9ec96797900",
+        "tables": 16,
+        "indexes": 44,
+        "foreignKeys": 40,
+        "checks": 43,
+        "rlsPolicies": 4
+      }
+    },
+    {
+      "name": "synthetic fixtures cover all16 tables with no real tariffs or customers",
+      "status": "PASS",
+      "observed": [
+        {
+          "table": "ms_b1_design.app_user",
+          "count": 1
+        },
+        {
+          "table": "ms_b1_design.audit_log",
+          "count": 1
+        },
+        {
+          "table": "ms_b1_design.auth_identity",
+          "count": 1
+        },
+        {
+          "table": "ms_b1_design.auth_session",
+          "count": 1
+        },
+        {
+          "table": "ms_b1_design.branch",
+          "count": 2
+        },
+        {
+          "table": "ms_b1_design.branch_service_offering",
+          "count": 1
+        },
+        {
+          "table": "ms_b1_design.business",
+          "count": 2
+        },
+        {
+          "table": "ms_b1_design.consumer_inbox",
+          "count": 1
+        },
+        {
+          "table": "ms_b1_design.idempotency_record",
+          "count": 1
+        },
+        {
+          "table": "ms_b1_design.offering_resource_requirement",
+          "count": 1
+        },
+        {
+          "table": "ms_b1_design.outbox_event",
+          "count": 1
+        },
+        {
+          "table": "ms_b1_design.permission",
+          "count": 1
+        },
+        {
+          "table": "ms_b1_design.role",
+          "count": 1
+        },
+        {
+          "table": "ms_b1_design.role_permission",
+          "count": 1
+        },
+        {
+          "table": "ms_b1_design.service",
+          "count": 2
+        },
+        {
+          "table": "ms_b1_design.user_role_assignment",
+          "count": 1
+        },
+        {
+          "table": "ms_b1_meta.schema_migration",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "name": "tenant composite FK rejects a foreign branch",
+      "status": "PASS",
+      "observed": {
+        "code": "23503",
+        "constraint": "fk_branch_service_offering_2"
+      }
+    },
+    {
+      "name": "duplicate branch code rejected",
+      "status": "PASS",
+      "observed": {
+        "code": "23505",
+        "constraint": "uq_branch_1"
+      }
+    },
+    {
+      "name": "NULL-safe partial unique index rejects duplicate unscoped role",
+      "status": "PASS",
+      "observed": {
+        "code": "23505",
+        "constraint": "ix_user_role_assignment_integrity_0"
+      }
+    },
+    {
+      "name": "invalid offering price_rial rejected",
+      "status": "PASS",
+      "observed": {
+        "code": "23514",
+        "constraint": "ck_branch_service_offering_1"
+      }
+    },
+    {
+      "name": "invalid offering duration_minutes rejected",
+      "status": "PASS",
+      "observed": {
+        "code": "23514",
+        "constraint": "ck_branch_service_offering_2"
+      }
+    },
+    {
+      "name": "invalid offering buffer_before_minutes rejected",
+      "status": "PASS",
+      "observed": {
+        "code": "23514",
+        "constraint": "ck_branch_service_offering_3"
+      }
+    },
+    {
+      "name": "missing branch timezone rejected",
+      "status": "PASS",
+      "observed": {
+        "code": "23502",
+        "constraint": null
+      }
+    },
+    {
+      "name": "B1 inactive branch gate cannot be lifted with scalar activation",
+      "status": "PASS",
+      "observed": {
+        "code": "23514",
+        "constraint": "b1_branch_inactive"
+      }
+    },
+    {
+      "name": "B1 inactive offering gate retained even with complete synthetic scalars",
+      "status": "PASS",
+      "observed": {
+        "code": "23514",
+        "constraint": "b1_branch_service_offering_inactive"
+      }
+    },
+    {
+      "name": "repository ports read only the scoped tenant and preserve unknown amounts",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "explicit Nest persistence module resolves DI without changing health AppModule",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "RLS prevents unscoped raw reads from crossing tenant context",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "runtime with no tenant context fails closed to zero rows",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "runtime denied DDL",
+      "status": "PASS",
+      "observed": {
+        "code": "42501",
+        "constraint": null
+      }
+    },
+    {
+      "name": "runtime denied public DDL",
+      "status": "PASS",
+      "observed": {
+        "code": "42501",
+        "constraint": null
+      }
+    },
+    {
+      "name": "runtime denied metadata",
+      "status": "PASS",
+      "observed": {
+        "code": "42501",
+        "constraint": null
+      }
+    },
+    {
+      "name": "runtime denied auth sessions",
+      "status": "PASS",
+      "observed": {
+        "code": "42501",
+        "constraint": null
+      }
+    },
+    {
+      "name": "runtime denied audit mutation",
+      "status": "PASS",
+      "observed": {
+        "code": "42501",
+        "constraint": null
+      }
+    },
+    {
+      "name": "runtime denied delete",
+      "status": "PASS",
+      "observed": {
+        "code": "42501",
+        "constraint": null
+      }
+    },
+    {
+      "name": "runtime denied truncate",
+      "status": "PASS",
+      "observed": {
+        "code": "42501",
+        "constraint": null
+      }
+    },
+    {
+      "name": "runtime denied business field mutation",
+      "status": "PASS",
+      "observed": {
+        "code": "42501",
+        "constraint": null
+      }
+    },
+    {
+      "name": "runtime denied booking gate mutation",
+      "status": "PASS",
+      "observed": {
+        "code": "42501",
+        "constraint": null
+      }
+    },
+    {
+      "name": "runtime denied role elevation",
+      "status": "PASS",
+      "observed": {
+        "code": "42501",
+        "constraint": null
+      }
+    },
+    {
+      "name": "runtime denied RLS disable",
+      "status": "PASS",
+      "observed": {
+        "code": "42501",
+        "constraint": null
+      }
+    },
+    {
+      "name": "transaction-local tenant context does not leak between uses",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "two concurrent sessions use CAS version; exactly one writer succeeds",
+      "status": "PASS",
+      "observed": {
+        "pids": [
+          110,
+          121
+        ],
+        "outcomes": [
+          "2",
+          null
+        ]
+      }
+    },
+    {
+      "name": "stale version cannot overwrite a committed version",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "failed SQL transaction rolls back version write and pool remains usable",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "transaction scope cannot be used after callback ends",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "invalid tenant context rejected before SQL",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "runtime cannot bypass RLS with row_security=off",
+      "status": "PASS",
+      "observed": {
+        "code": "42501",
+        "constraint": null
+      }
+    },
+    {
+      "name": "drift in a safety constraint is detected and not automatically repaired",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "runtime privilege drift is detected",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "required index drift is detected",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "simultaneous migration sessions serialize and apply each version once",
+      "status": "PASS",
+      "observed": [
+        [
+          "0001_b1_foundation",
+          "0002_b1a_runtime_boundary"
+        ],
+        []
+      ]
+    },
+    {
+      "name": "unknown migration version is rejected",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "tampered applied checksum is rejected",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "failed migration rolls back DDL and version history atomically",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "fresh untracked schema cannot be silently adopted",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "actual pg_dump produces a verified custom archive",
+      "status": "PASS",
+      "observed": {
+        "bytes": 68300,
+        "archiveSha256": "a1c20e226f6b98c938d96ffc5dae1152e34e9547d9d246a46118fe0bf787ca58",
+        "version": "pg_dump (PostgreSQL) 18.6 (Debian 18.6-1.pgdg12+2)"
+      }
+    },
+    {
+      "name": "actual pg_restore into separate database preserves every row/catalog/constraint",
+      "status": "PASS",
+      "observed": {
+        "status": "PASS",
+        "executedAt": "2026-10-29T18:55:40.161Z",
+        "source": "ms_b1a_dev",
+        "destination": "ms_b1a_restore",
+        "sourceUntouched": true,
+        "rowsAndCatalogEqual": true,
+        "archiveSha256": "a1c20e226f6b98c938d96ffc5dae1152e34e9547d9d246a46118fe0bf787ca58",
+        "summary": {
+          "sha256": "110267d147a6110bf77e3b79039eae55475212952a9fbf948825f9ec96797900",
+          "tables": 16,
+          "indexes": 44,
+          "foreignKeys": 40,
+          "checks": 43,
+          "rlsPolicies": 4
+        },
+        "snapshot": {
+          "catalogSha256": "110267d147a6110bf77e3b79039eae55475212952a9fbf948825f9ec96797900",
+          "tables": 16,
+          "rows": [
+            {
+              "table": "ms_b1_design.app_user",
+              "count": 1,
+              "sha256": "5ad1a3f8b52a8f2fd4a1354b3f08ca294499fd290d3019ed5305fcb4d8bf8384"
+            },
+            {
+              "table": "ms_b1_design.audit_log",
+              "count": 1,
+              "sha256": "32a2be8a0e0911872e7617d7e4d9617b28c0d7713f2fadc2059de52c077c1af6"
+            },
+            {
+              "table": "ms_b1_design.auth_identity",
+              "count": 1,
+              "sha256": "77e70ef98edea36d9df16a2baf9b94d66a9a99aeefac8c2e2716d0647c6423df"
+            },
+            {
+              "table": "ms_b1_design.auth_session",
+              "count": 1,
+              "sha256": "a33545935466747d2e559454510f91b06355f864f8dd684523434367303ceaff"
+            },
+            {
+              "table": "ms_b1_design.branch",
+              "count": 2,
+              "sha256": "2eeaa5953e9a1da94e499551e27342d3951b37aea3499ff1ebff9064b7c2748f"
+            },
+            {
+              "table": "ms_b1_design.branch_service_offering",
+              "count": 1,
+              "sha256": "38ab42eadda0232f2493dbf1aab9b96c416f62bef8cdee35da46d16b627c7ef7"
+            },
+            {
+              "table": "ms_b1_design.business",
+              "count": 2,
+              "sha256": "d0bdaaa7c8466edca22e0b2dcbf97def331ac62ba30c0c2d27146749b437a5be"
+            },
+            {
+              "table": "ms_b1_design.consumer_inbox",
+              "count": 1,
+              "sha256": "1b38ba72486f954fa7ebd5492785801b6dd525919b830078e89600c82f5850a4"
+            },
+            {
+              "table": "ms_b1_design.idempotency_record",
+              "count": 1,
+              "sha256": "dce34552907bd876da52d0864a1981e786f5bb619c3c1a392cc4e7a45d397cac"
+            },
+            {
+              "table": "ms_b1_design.offering_resource_requirement",
+              "count": 1,
+              "sha256": "c3b3ee159b2c753568db13f3b99c5b061397d886899a6b26f52f1942facf75e8"
+            },
+            {
+              "table": "ms_b1_design.outbox_event",
+              "count": 1,
+              "sha256": "57123bcb0bfaae4a66340373886253f76722b543dc4f37cf3eb151ba3c5a6f0a"
+            },
+            {
+              "table": "ms_b1_design.permission",
+              "count": 1,
+              "sha256": "108a984299249cb000b5b8bc03f37d34c61a977253d2dd8ae19eeaab1d173762"
+            },
+            {
+              "table": "ms_b1_design.role",
+              "count": 1,
+              "sha256": "4d9ecffd74c61709c54522422f1271596f2a50401c5a27209709ca1c0efde0bd"
+            },
+            {
+              "table": "ms_b1_design.role_permission",
+              "count": 1,
+              "sha256": "f170311cb39b946e7b38c8dc964fa81e0fd2742b7eb04f14a7805e5841259994"
+            },
+            {
+              "table": "ms_b1_design.service",
+              "count": 2,
+              "sha256": "24fb4ae1eb70ac13d86cb4fd6cbf73b2305188cd58f1f78f0b32e7bc9b40b1ec"
+            },
+            {
+              "table": "ms_b1_design.user_role_assignment",
+              "count": 1,
+              "sha256": "19da30cd8947a9e37ded3e3ee3da1f6deb9a52b0187127cca75a0ee3d0de539f"
+            },
+            {
+              "table": "ms_b1_meta.schema_migration",
+              "count": 2,
+              "sha256": "a3ff4985494daf300f438640fa6c280adabac13f932a502a2a8628134999b87d"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "restored schema retains runtime RLS and denied metadata permissions",
+      "status": "PASS",
+      "observed": "assertions passed"
+    }
+  ],
+  "rejections": [
+    {
+      "sqlstate": "23503",
+      "code": "23503",
+      "statement": "INSERT branch_service_offering with another tenant branch",
+      "rootCause": "insert or update on table \"branch_service_offering\" violates foreign key constraint \"fk_branch_service_offering_2\"",
+      "expectedCode": "23503",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "23505",
+      "code": "23505",
+      "statement": "INSERT duplicate branch code",
+      "rootCause": "duplicate key value violates unique constraint \"uq_branch_1\"",
+      "expectedCode": "23505",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "23505",
+      "code": "23505",
+      "statement": "INSERT duplicate active role assignment with NULL branch",
+      "rootCause": "duplicate key value violates unique constraint \"ix_user_role_assignment_integrity_0\"",
+      "expectedCode": "23505",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "23514",
+      "code": "23514",
+      "statement": "UPDATE offering price_rial",
+      "rootCause": "new row for relation \"branch_service_offering\" violates check constraint \"ck_branch_service_offering_1\"",
+      "expectedCode": "23514",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "23514",
+      "code": "23514",
+      "statement": "UPDATE offering duration_minutes",
+      "rootCause": "new row for relation \"branch_service_offering\" violates check constraint \"ck_branch_service_offering_2\"",
+      "expectedCode": "23514",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "23514",
+      "code": "23514",
+      "statement": "UPDATE offering buffer_before_minutes",
+      "rootCause": "new row for relation \"branch_service_offering\" violates check constraint \"ck_branch_service_offering_3\"",
+      "expectedCode": "23514",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "23502",
+      "code": "23502",
+      "statement": "INSERT branch without timezone",
+      "rootCause": "null value in column \"time_zone\" of relation \"branch\" violates not-null constraint",
+      "expectedCode": "23502",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "23514",
+      "code": "23514",
+      "statement": "UPDATE branch active=true,bookable=true",
+      "rootCause": "new row for relation \"branch\" violates check constraint \"b1_branch_inactive\"",
+      "expectedCode": "23514",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "23514",
+      "code": "23514",
+      "statement": "UPDATE fully populated synthetic offering active=true",
+      "rootCause": "new row for relation \"branch_service_offering\" violates check constraint \"b1_branch_service_offering_inactive\"",
+      "expectedCode": "23514",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "42501",
+      "code": "42501",
+      "statement": "CREATE TABLE ms_b1_design.denied(id int)",
+      "rootCause": "permission denied for schema ms_b1_design",
+      "expectedCode": "42501",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "42501",
+      "code": "42501",
+      "statement": "CREATE TABLE public.denied(id int)",
+      "rootCause": "permission denied for schema public",
+      "expectedCode": "42501",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "42501",
+      "code": "42501",
+      "statement": "SELECT * FROM ms_b1_meta.schema_migration",
+      "rootCause": "permission denied for schema ms_b1_meta",
+      "expectedCode": "42501",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "42501",
+      "code": "42501",
+      "statement": "SELECT * FROM ms_b1_design.auth_session",
+      "rootCause": "permission denied for table auth_session",
+      "expectedCode": "42501",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "42501",
+      "code": "42501",
+      "statement": "DELETE FROM ms_b1_design.audit_log",
+      "rootCause": "permission denied for table audit_log",
+      "expectedCode": "42501",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "42501",
+      "code": "42501",
+      "statement": "DELETE FROM ms_b1_design.service",
+      "rootCause": "permission denied for table service",
+      "expectedCode": "42501",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "42501",
+      "code": "42501",
+      "statement": "TRUNCATE ms_b1_design.service",
+      "rootCause": "permission denied for table service",
+      "expectedCode": "42501",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "42501",
+      "code": "42501",
+      "statement": "UPDATE ms_b1_design.service SET display_name='FORBIDDEN'",
+      "rootCause": "permission denied for table service",
+      "expectedCode": "42501",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "42501",
+      "code": "42501",
+      "statement": "UPDATE ms_b1_design.branch SET bookable=true",
+      "rootCause": "permission denied for table branch",
+      "expectedCode": "42501",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "42501",
+      "code": "42501",
+      "statement": "SET ROLE ms_b1a_migrator",
+      "rootCause": "permission denied to set role \"ms_b1a_migrator\"",
+      "expectedCode": "42501",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "42501",
+      "code": "42501",
+      "statement": "ALTER TABLE ms_b1_design.branch DISABLE ROW LEVEL SECURITY",
+      "rootCause": "must be owner of table branch",
+      "expectedCode": "42501",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "22012",
+      "code": "22012",
+      "statement": "SELECT 1/0 after version write",
+      "rootCause": "division by zero",
+      "expectedCode": "22012",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "42501",
+      "code": "42501",
+      "statement": "SET LOCAL row_security=off;SELECT branch",
+      "rootCause": "query would be affected by row-level security policy for table \"branch\"",
+      "expectedCode": "42501",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": null,
+      "code": "B1A_DRIFT",
+      "statement": "catalog verification after dropping gate",
+      "rootCause": "B1A catalog drift detected; no automatic repair allowed",
+      "expectedCode": "B1A_DRIFT",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": null,
+      "code": "B1A_DRIFT",
+      "statement": "catalog verification after extra runtime grant",
+      "rootCause": "B1A catalog drift detected; no automatic repair allowed",
+      "expectedCode": "B1A_DRIFT",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": null,
+      "code": "B1A_DRIFT",
+      "statement": "catalog verification after dropping FK-support index",
+      "rootCause": "B1A catalog drift detected; no automatic repair allowed",
+      "expectedCode": "B1A_DRIFT",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": null,
+      "code": "B1A_HISTORY",
+      "statement": "BEGIN",
+      "rootCause": "Unknown, missing or out-of-order migration history",
+      "expectedCode": "B1A_HISTORY",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": null,
+      "code": "B1A_CHECKSUM",
+      "statement": "BEGIN",
+      "rootCause": "Applied migration checksum differs from reviewed source",
+      "expectedCode": "B1A_CHECKSUM",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "22012",
+      "code": "22012",
+      "statement": "SELECT 1/0;",
+      "rootCause": "division by zero",
+      "expectedCode": "22012",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": null,
+      "code": "B1A_UNTRACKED_SCHEMA",
+      "statement": "BEGIN",
+      "rootCause": "Untracked application schema; refuse implicit adoption",
+      "expectedCode": "B1A_UNTRACKED_SCHEMA",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    },
+    {
+      "sqlstate": "42501",
+      "code": "42501",
+      "statement": "restored runtime SELECT migration metadata",
+      "rootCause": "permission denied for schema ms_b1_meta",
+      "expectedCode": "42501",
+      "correction": "Expected negative fixture: reject invalid input/state or unauthorized operation; no automatic schema/permission repair"
+    }
+  ],
+  "server": "PostgreSQL 18.6 (Debian 18.6-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+  "finalCatalog": {
+    "sha256": "110267d147a6110bf77e3b79039eae55475212952a9fbf948825f9ec96797900",
+    "tables": 16,
+    "indexes": 44,
+    "foreignKeys": 40,
+    "checks": 43,
+    "rlsPolicies": 4
+  },
+  "rowSnapshot": {
+    "catalogSha256": "110267d147a6110bf77e3b79039eae55475212952a9fbf948825f9ec96797900",
+    "tables": 16,
+    "rows": [
+      {
+        "table": "ms_b1_design.app_user",
+        "count": 1,
+        "sha256": "5ad1a3f8b52a8f2fd4a1354b3f08ca294499fd290d3019ed5305fcb4d8bf8384"
+      },
+      {
+        "table": "ms_b1_design.audit_log",
+        "count": 1,
+        "sha256": "32a2be8a0e0911872e7617d7e4d9617b28c0d7713f2fadc2059de52c077c1af6"
+      },
+      {
+        "table": "ms_b1_design.auth_identity",
+        "count": 1,
+        "sha256": "77e70ef98edea36d9df16a2baf9b94d66a9a99aeefac8c2e2716d0647c6423df"
+      },
+      {
+        "table": "ms_b1_design.auth_session",
+        "count": 1,
+        "sha256": "a33545935466747d2e559454510f91b06355f864f8dd684523434367303ceaff"
+      },
+      {
+        "table": "ms_b1_design.branch",
+        "count": 2,
+        "sha256": "2eeaa5953e9a1da94e499551e27342d3951b37aea3499ff1ebff9064b7c2748f"
+      },
+      {
+        "table": "ms_b1_design.branch_service_offering",
+        "count": 1,
+        "sha256": "38ab42eadda0232f2493dbf1aab9b96c416f62bef8cdee35da46d16b627c7ef7"
+      },
+      {
+        "table": "ms_b1_design.business",
+        "count": 2,
+        "sha256": "d0bdaaa7c8466edca22e0b2dcbf97def331ac62ba30c0c2d27146749b437a5be"
+      },
+      {
+        "table": "ms_b1_design.consumer_inbox",
+        "count": 1,
+        "sha256": "1b38ba72486f954fa7ebd5492785801b6dd525919b830078e89600c82f5850a4"
+      },
+      {
+        "table": "ms_b1_design.idempotency_record",
+        "count": 1,
+        "sha256": "dce34552907bd876da52d0864a1981e786f5bb619c3c1a392cc4e7a45d397cac"
+      },
+      {
+        "table": "ms_b1_design.offering_resource_requirement",
+        "count": 1,
+        "sha256": "c3b3ee159b2c753568db13f3b99c5b061397d886899a6b26f52f1942facf75e8"
+      },
+      {
+        "table": "ms_b1_design.outbox_event",
+        "count": 1,
+        "sha256": "57123bcb0bfaae4a66340373886253f76722b543dc4f37cf3eb151ba3c5a6f0a"
+      },
+      {
+        "table": "ms_b1_design.permission",
+        "count": 1,
+        "sha256": "108a984299249cb000b5b8bc03f37d34c61a977253d2dd8ae19eeaab1d173762"
+      },
+      {
+        "table": "ms_b1_design.role",
+        "count": 1,
+        "sha256": "4d9ecffd74c61709c54522422f1271596f2a50401c5a27209709ca1c0efde0bd"
+      },
+      {
+        "table": "ms_b1_design.role_permission",
+        "count": 1,
+        "sha256": "f170311cb39b946e7b38c8dc964fa81e0fd2742b7eb04f14a7805e5841259994"
+      },
+      {
+        "table": "ms_b1_design.service",
+        "count": 2,
+        "sha256": "24fb4ae1eb70ac13d86cb4fd6cbf73b2305188cd58f1f78f0b32e7bc9b40b1ec"
+      },
+      {
+        "table": "ms_b1_design.user_role_assignment",
+        "count": 1,
+        "sha256": "19da30cd8947a9e37ded3e3ee3da1f6deb9a52b0187127cca75a0ee3d0de539f"
+      },
+      {
+        "table": "ms_b1_meta.schema_migration",
+        "count": 2,
+        "sha256": "a3ff4985494daf300f438640fa6c280adabac13f932a502a2a8628134999b87d"
+      }
+    ]
+  },
+  "summary": {
+    "passed": 47,
+    "failed": 0,
+    "expectedRejections": 30
+  },
+  "originalB1ADatabasesTouched": false,
+  "harness": "Exact test body; routing only in ignored copy; tmpfs55437"
+}

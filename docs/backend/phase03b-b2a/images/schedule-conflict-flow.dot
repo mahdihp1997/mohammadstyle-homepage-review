@@ -1,0 +1,10 @@
+digraph{graph[bgcolor="#101820",pad="0.35",nodesep="0.4",ranksep="0.65"];node[shape=box,style="rounded,filled",fillcolor="#203442",color="#d8c497",fontcolor="#f4f7f9",fontname="Arial",fontsize=18,margin="0.18,0.14"];edge[color="#d8c497",fontcolor="#d8c497",fontname="Arial",fontsize=13];rankdir=TB;start[label="Two actual PostgreSQL sessions A and B
+Different pids; explicit transactions"];a[label="A inserts published shift in branch A
+Global staff_id + [start,end) GiST entry"];b[label="B inserts overlap in branch B
+Observed pg_stat_activity Lock wait"];commit[label="A commits
+PostgreSQL wakes conflicting writer"];deny[label="B fails23P01
+no_cross_branch_staff_shift
+B rolls back"];other[label="Membership race: same pattern /23P01
+CAS race: one committed row, one0-row loser"];limits[label="This tests native persistence conflicts only
+Time off / closure / travel / booking admission
+remain later transaction gates"];start->a->b->commit->deny->other->limits;}

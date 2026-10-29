@@ -1,0 +1,92 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-10-29T19:09:23.296Z",
+  "checks": [
+    {
+      "name": "original private refs and baseline ancestry preserved",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "approved frontend/application/migrations/tests/reports/workflows byte preserved",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "exact dependency-closed approved B2 inventory",
+      "status": "PASS",
+      "observed": [
+        "branch_working_hours",
+        "branch_closure",
+        "resource",
+        "staff",
+        "staff_branch_assignment",
+        "staff_service_eligibility",
+        "offering_staff_eligibility",
+        "staff_schedule_rule",
+        "staff_shift",
+        "staff_time_off",
+        "availability_configuration"
+      ]
+    },
+    {
+      "name": "native0004 exactly preserves selected approved executable AST;0005 separately parses",
+      "status": "PASS",
+      "observed": {
+        "approvedStatements": 68,
+        "tableCount": 11,
+        "hardeningStatements": 19,
+        "note": "Parser only, independent actual PostgreSQL tests also executed"
+      }
+    },
+    {
+      "name": "source hashes, generated/exclusion/privilege catalog match actual execution",
+      "status": "PASS",
+      "observed": {
+        "sha256": "9347294bb877d0e1fcc395a7183390a95c48a9fea2ea40f7b3d7760e04b04f06",
+        "tables": 27,
+        "indexes": 84,
+        "functions": 9,
+        "foreignKeys": 82,
+        "checks": 93
+      }
+    },
+    {
+      "name": "actual B2A and unchanged prior regressions",
+      "status": "PASS",
+      "observed": {
+        "passed": 69,
+        "failed": 0,
+        "expectedSQLRejections": 100,
+        "observedConcurrencyCases": 3
+      }
+    },
+    {
+      "name": "actual frontend and original evidence/data preservation",
+      "status": "PASS",
+      "observed": {
+        "frontend": 92,
+        "preservedEvidence": 36
+      }
+    },
+    {
+      "name": "actual backup/restore lossless equality including generated/application objects",
+      "status": "PASS",
+      "observed": {
+        "archiveBytes": 163026,
+        "rows": 59,
+        "catalogSha256": "9347294bb877d0e1fcc395a7183390a95c48a9fea2ea40f7b3d7760e04b04f06"
+      }
+    },
+    {
+      "name": "CI source/pinned-action/read-only and5 JSON-only artifact guards",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "actual standalone visual review render",
+      "status": "PASS",
+      "observed": "8 images decode,1440/390 no overflow/JS errors, all local links resolve; not Next.js QA"
+    }
+  ]
+}

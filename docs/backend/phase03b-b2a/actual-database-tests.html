@@ -1,0 +1,47 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Actual B2A database results</title><style>*{box-sizing:border-box}body{margin:0;padding:36px;background:#101820;color:#eef3f7;font:19px/1.6 Arial,sans-serif;max-width:1440px;overflow-wrap:anywhere}h1{font-size:34px;color:#d8c497}h2{font-size:26px;color:#d8c497}pre{font:17px/1.6 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:#203442;padding:20px;border-radius:9px}li{padding:5px 0}.gap{color:#f0ce85}a{color:#d8c497}img{display:block;max-width:100%;height:auto}section{padding:18px;background:#172633;margin:28px 0;border-radius:9px}</style><body><h1>Actual PostgreSQL18 B2A results</h1><p>2026-10-29T19:06:29.083Z · 69 PASS /0 FAIL · 100 expected SQL rejections</p><p>Chromium capture of actual recorded executions; not a fabricated terminal/application screenshot.</p><pre>PostgreSQL 18.6 (Debian 18.6-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit</pre><h2>Actual separate-session races</h2><pre>[
+  {
+    &quot;name&quot;: &quot;same-branch membership race&quot;,
+    &quot;pids&quot;: [
+      4514,
+      4515
+    ],
+    &quot;observedWait&quot;: {
+      &quot;wait_event_type&quot;: &quot;Lock&quot;,
+      &quot;wait_event&quot;: &quot;transactionid&quot;
+    },
+    &quot;firstCommitted&quot;: true,
+    &quot;secondSqlstate&quot;: &quot;23P01&quot;,
+    &quot;constraint&quot;: &quot;no_overlapping_membership_period&quot;,
+    &quot;secondRows&quot;: 0
+  },
+  {
+    &quot;name&quot;: &quot;cross-branch shift race&quot;,
+    &quot;pids&quot;: [
+      4516,
+      4517
+    ],
+    &quot;observedWait&quot;: {
+      &quot;wait_event_type&quot;: &quot;Lock&quot;,
+      &quot;wait_event&quot;: &quot;transactionid&quot;
+    },
+    &quot;firstCommitted&quot;: true,
+    &quot;secondSqlstate&quot;: &quot;23P01&quot;,
+    &quot;constraint&quot;: &quot;no_cross_branch_staff_shift&quot;,
+    &quot;secondRows&quot;: 0
+  },
+  {
+    &quot;name&quot;: &quot;optimistic resource CAS&quot;,
+    &quot;pids&quot;: [
+      4524,
+      4526
+    ],
+    &quot;observedWait&quot;: {
+      &quot;wait_event_type&quot;: &quot;Lock&quot;,
+      &quot;wait_event&quot;: &quot;transactionid&quot;
+    },
+    &quot;firstCommitted&quot;: true,
+    &quot;secondSqlstate&quot;: null,
+    &quot;constraint&quot;: null,
+    &quot;secondRows&quot;: 0
+  }
+]</pre><h2>Executed assertions</h2><ol><li>PASS fresh installation applies five checksummed versions /27 tables</li><li>PASS repeat migration verifies catalog and is a no-op</li><li>PASS original B0/B1A/B1B databases cannot be reset by B2A lifecycle</li><li>PASS new registry exactly preserves first three migration checksums</li><li>PASS all indexes and FK constraints are valid; two generated ranges/exclusions present</li><li>PASS one global staff identity/resource belongs to two branches</li><li>PASS staff resource cannot be duplicated per branch</li><li>PASS known staff user cannot receive second global identity in business</li><li>PASS global STAFF resource maps to at most one staff identity</li><li>PASS physical CHAIR ROOM DEVICE are distinct branch capacity units</li><li>PASS physical resource requires exactly one branch</li><li>PASS cross-tenant physical branch reference rejected</li><li>PASS overlapping same-branch membership rejected</li><li>PASS leaving closes a stint and rejoining creates a new adjacent historical UUID</li><li>PASS inactive and archived membership still prevents historical overlap</li><li>PASS closed membership cannot reopen or extend</li><li>PASS membership stable identity cannot be reparented</li><li>PASS infinite/empty membership periods rejected</li><li>PASS two membership writers serialize through native GiST exclusion</li><li>PASS qualification does not automatically create branch offering eligibility</li><li>PASS offering eligibility binds exact qualification staff service and membership stint</li><li>PASS returning staff gets new eligibility row and old assignment reference remains</li><li>PASS active qualification requires verification evidence</li><li>PASS published overlapping shifts for same staff fail</li><li>PASS different-branch published overlap fails globally</li><li>PASS cross-branch concurrent published shift waits then fails23P01</li><li>PASS adjacent cross-branch shifts accepted under half-open semantics</li><li>PASS unpublished overlapping draft shifts do not claim availability</li><li>PASS same-stint shift-to-rule composite FK rejects mismatched assignment</li><li>PASS rule revisions preserve old published references</li><li>PASS published instants/version cannot be overwritten or silently unpublished</li><li>PASS stored generated ranges cannot be forged by direct writes</li><li>PASS archiving retains shift and forbids unarchive/delete history</li><li>PASS invalid timezone fails at database boundary, not only HTTP DTO</li><li>PASS invalid recurrence weekday rejected</li><li>PASS invalid recurrence overnight wrap rejected</li><li>PASS invalid recurrence end beyond1440 rejected</li><li>PASS invalid recurrence infinite date rejected</li><li>PASS invalid recurrence zero config version rejected</li><li>PASS overnight working hours split into two explicit local-day entries</li><li>PASS working hours invalid weekday/finite dates fail</li><li>PASS time-off binds exact global staff resource and bounded instants</li><li>PASS branch closure finite positive interval and tenant FK enforced</li><li>PASS time-off/closure content is immutable; correction needs retained successor</li><li class="gap">PASS known gap: time-off/closure overlap is recorded without claiming ledger enforcement</li><li class="gap">PASS known gap: membership FK is identity, not temporal containment</li><li>PASS unknown availability configuration stays null and disabled</li><li>PASS enabling incomplete configuration fails scalar completeness check</li><li>PASS configuration and row versions must both advance exactly once</li><li>PASS two actual CAS writers cannot silently overwrite same revision</li><li>PASS blind stale version update also fails native version guard</li><li>PASS resource identity cannot move branches or change kind</li><li>PASS staff/resource deactivation retains stable historical references</li><li>PASS unreferenced correction keeps voided membership and cannot silently unvoid</li><li>PASS failed multi-table transaction leaves no resource/staff orphan</li><li>PASS both B1 inactive booking constraints remain enforced</li><li>PASS runtime cannot read or mutate any of11 new tables</li><li>PASS api cannot read or mutate any of11 new tables</li><li>PASS API function grants remain exactly three without new table privileges</li><li>PASS catalog drift detects generated expression, exclusion or trigger change</li><li>PASS concurrent migration attempts apply once using transaction advisory lock</li><li>PASS B1B upgrade retains existing row evidence and applies only0004/0005</li><li>PASS failed forward migration rolls back new DDL and history</li><li>PASS tampered checksum and unknown history fail closed</li><li>PASS synthetic fixtures cover all11 new tables without actual staff or tariffs</li><li>PASS existing B1B session/read/atomic command entry points work on upgraded27-table schema</li><li>PASS actual custom-format pg_dump contains verified B2A source snapshot</li><li>PASS actual separate pg_restore preserves all27 tables, generated ranges and grants</li><li>PASS restored exclusion and historical/version triggers remain executable</li></ol><h2>Explicitly not enforced</h2><ul class="gap"><li>Cross-row membership containment of every published shift/local date, including later membership closure/void correction</li><li>Recurrence materialization, DST ambiguity/gap resolution, branch opening coverage and horizon completeness</li><li>Shift versus time-off/branch-closure reconciliation; resource allocation ledger is a later cohort</li><li>Travel time between branches; adjacent intervals do not imply practical travel feasibility</li><li>Current active/verified/archived qualification/assignment/resource readiness across references</li><li>Monotonic branch-wide schedule publication version and atomic audited B2B revision/exception commands</li><li>Authoritative slot generation, booking/hold/resource-allocation admission and complete double-booking protection</li></ul></body></html>

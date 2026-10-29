@@ -1,0 +1,13 @@
+digraph{graph[bgcolor="#101820",pad="0.35",nodesep="0.4",ranksep="0.65"];node[shape=box,style="rounded,filled",fillcolor="#203442",color="#d8c497",fontcolor="#f4f7f9",fontname="Arial",fontsize=18,margin="0.18,0.14"];edge[color="#d8c497",fontcolor="#d8c497",fontname="Arial",fontsize=13];rankdir=TB;global[label="STAFF resource
+business_id + globally unique UUID
+branch_id MUST be NULL"];person[label="Staff identity
+One linked user/resource per business
+Stable across branch membership stints"];branches[label="StaffBranchAssignment
+One UUID per half-open membership stint
+Different branches may coexist"];physical[label="CHAIR / ROOM / DEVICE
+Each resource UUID is one capacity unit
+Exactly one tenant-owned branch"];reqs[label="OfferingResourceRequirement
+Explicit required kind + quantity
+No missing-requirement capacity inference"];future[label="Later: verified instance coverage / ledger
+No ResourceAllocation / booking / slot search
+Inactive references and history remain"];global->person->branches;physical->reqs->future;branches->future;}

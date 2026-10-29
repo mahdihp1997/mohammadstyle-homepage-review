@@ -1,0 +1,560 @@
+{
+  "status": "PASS",
+  "originalB1AAndB1BRowsCatalogUnchanged": true,
+  "originalDatabasesReset": false,
+  "originalEvidenceBackupFilesByteIdentical": 36,
+  "before": {
+    "status": "PASS",
+    "originalB1AAndB1BMatchApprovedBackup": true,
+    "snapshots": {
+      "b1a": {
+        "catalogSha256": "110267d147a6110bf77e3b79039eae55475212952a9fbf948825f9ec96797900",
+        "tables": 16,
+        "rows": [
+          {
+            "table": "ms_b1_design.app_user",
+            "count": 1,
+            "sha256": "11b270673b94d16f0ef8e5fd552a78378de34fa3157b49b0764043cee37d0bc8"
+          },
+          {
+            "table": "ms_b1_design.audit_log",
+            "count": 1,
+            "sha256": "eada5f98f70abbe28c167b3468c63f28167ebc2d67794f2c0f3a8e2f79923a85"
+          },
+          {
+            "table": "ms_b1_design.auth_identity",
+            "count": 1,
+            "sha256": "4da1124f29be6b517ad55c73a4c50155eee21317b79672d17600038658f28b40"
+          },
+          {
+            "table": "ms_b1_design.auth_session",
+            "count": 1,
+            "sha256": "73b7c5a57c2aafbf875caf32bc9c5fc33791e3156f68474b19dcd952789fe276"
+          },
+          {
+            "table": "ms_b1_design.branch",
+            "count": 2,
+            "sha256": "7c29549a2c8ea5cabf004d42e338ec9dbc478b2b2589220d3294c12c3972d63b"
+          },
+          {
+            "table": "ms_b1_design.branch_service_offering",
+            "count": 1,
+            "sha256": "5c71993b8d4875e721f6dc0706b9c9c00f333d6ade0a7f492e7c54d484ec0741"
+          },
+          {
+            "table": "ms_b1_design.business",
+            "count": 2,
+            "sha256": "b7d83d684390ec33fa2c414c895fc421ec17c6c8f73b5b70a87925259ded6942"
+          },
+          {
+            "table": "ms_b1_design.consumer_inbox",
+            "count": 1,
+            "sha256": "fe229a02ff32b0c3ffddedb4482ea9e5b72dd8a68c2486ed943cbbf15fa68c86"
+          },
+          {
+            "table": "ms_b1_design.idempotency_record",
+            "count": 1,
+            "sha256": "bd1b6b533a6fb95838ef1484edc0ba5d40b48898b32e8b81f7e209a874e8c658"
+          },
+          {
+            "table": "ms_b1_design.offering_resource_requirement",
+            "count": 1,
+            "sha256": "01c39b3eb1a20c8f856f3a49c879f2121241711e4e120bbb2dbfeb6916d06971"
+          },
+          {
+            "table": "ms_b1_design.outbox_event",
+            "count": 1,
+            "sha256": "23c997e83310aaeffbe7bcc9acb9f44e9c760691ea5744e591c9dade517afe80"
+          },
+          {
+            "table": "ms_b1_design.permission",
+            "count": 1,
+            "sha256": "d4dd3686f3e0357e2820952cdeac8c347c5a0c6060b7e9f95485661958fa69dc"
+          },
+          {
+            "table": "ms_b1_design.role",
+            "count": 1,
+            "sha256": "f8e99af95ed0ca788014a33730c0b1776fd300b8739d59ef7af98443c3e129b2"
+          },
+          {
+            "table": "ms_b1_design.role_permission",
+            "count": 1,
+            "sha256": "1fcee8495454046214d96820be553a8b195212a5f8c1f42335e25961dc765846"
+          },
+          {
+            "table": "ms_b1_design.service",
+            "count": 2,
+            "sha256": "3993685401be6e36cdda347d1876985e00c006316bf9951af2932d078c46eb21"
+          },
+          {
+            "table": "ms_b1_design.user_role_assignment",
+            "count": 1,
+            "sha256": "cbb709dbdf58502d93f58f0dd0f99d7089145e5e6df0df45f3c0554de49857c8"
+          },
+          {
+            "table": "ms_b1_meta.schema_migration",
+            "count": 2,
+            "sha256": "2eebacfaa150d4edf64960ffde622d93dcac378ecfaa9a297fc5cb666a209086"
+          }
+        ]
+      },
+      "b1b": {
+        "catalogSha256": "1ed91cfcdaabab6fe8471cd7f7e919cd7b780e4df541db72bc8c34b3fa1b6fc3",
+        "tables": 16,
+        "rows": [
+          {
+            "table": "ms_b1_design.app_user",
+            "count": 6,
+            "sha256": "3b6493b1e4811b87ea8dc39c9998bc0bcb13f9a709f8c0c2ef25f6e31c8e8232"
+          },
+          {
+            "table": "ms_b1_design.audit_log",
+            "count": 12,
+            "sha256": "04830dd4f3a69ce68b026b401a521ea7bd3ba488de9b543cb41283a92872eb39"
+          },
+          {
+            "table": "ms_b1_design.auth_identity",
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          {
+            "table": "ms_b1_design.auth_session",
+            "count": 10,
+            "sha256": "5166736065153b3e1907655f5e648edcdc81adddd7bd9a7567b9de2677c971ec"
+          },
+          {
+            "table": "ms_b1_design.branch",
+            "count": 4,
+            "sha256": "286143711b8faaa3433b777f24a5687b8f21a6b50b52b5fa54174561d9a74c71"
+          },
+          {
+            "table": "ms_b1_design.branch_service_offering",
+            "count": 1,
+            "sha256": "de193b5e05c53a71b59771194e97e5d44109078cafbfddd9f668caf3a1d38e29"
+          },
+          {
+            "table": "ms_b1_design.business",
+            "count": 2,
+            "sha256": "7d709b9651b96db3deb85d0f8d7ceb6f535fa7c2f95138295217464908b82358"
+          },
+          {
+            "table": "ms_b1_design.consumer_inbox",
+            "count": 0,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+          },
+          {
+            "table": "ms_b1_design.idempotency_record",
+            "count": 12,
+            "sha256": "e6f0a410313592d7f840b7bad194ab731eb4655b311ed0aaf601043be8eb5294"
+          },
+          {
+            "table": "ms_b1_design.offering_resource_requirement",
+            "count": 1,
+            "sha256": "46491a6894525a9d04f181b49f43724b0f3fa28013cc278f91ae6b656cf376a3"
+          },
+          {
+            "table": "ms_b1_design.outbox_event",
+            "count": 12,
+            "sha256": "f4b60ff5cdedc03407314edfed43c528edfc7b7d0fcc482d1f21efb59a8b8d65"
+          },
+          {
+            "table": "ms_b1_design.permission",
+            "count": 7,
+            "sha256": "2f6275aba1da24b8a4d513fd11830304ce3892f9913bbcf511a932af4ac98be1"
+          },
+          {
+            "table": "ms_b1_design.role",
+            "count": 7,
+            "sha256": "67ec3109f6ca84121dd01036308abfecdf12c59c0662cc567756a65915c9f404"
+          },
+          {
+            "table": "ms_b1_design.role_permission",
+            "count": 28,
+            "sha256": "d72d8f2c4cc0902951abd46d47ee57344b688dbdf99a3181f223367845ea0a38"
+          },
+          {
+            "table": "ms_b1_design.service",
+            "count": 6,
+            "sha256": "6822715def412c3cca9681d1d2f1151a74065abc2d2cc367490a3d9019a826f9"
+          },
+          {
+            "table": "ms_b1_design.user_role_assignment",
+            "count": 7,
+            "sha256": "28933c0db323675c5c34416c8ca70ba8e101feb3d50fdcad0e24d71ed75d4a2e"
+          },
+          {
+            "table": "ms_b1_meta.schema_migration",
+            "count": 3,
+            "sha256": "e2c31bdea5aa4cb7b00fcb06afbfee1ff25368129cf43f58d51e24c0bf1eedff"
+          }
+        ]
+      }
+    }
+  },
+  "snapshotsAfter": {
+    "b1a": {
+      "catalogSha256": "110267d147a6110bf77e3b79039eae55475212952a9fbf948825f9ec96797900",
+      "tables": 16,
+      "rows": [
+        {
+          "table": "ms_b1_design.app_user",
+          "count": 1,
+          "sha256": "11b270673b94d16f0ef8e5fd552a78378de34fa3157b49b0764043cee37d0bc8"
+        },
+        {
+          "table": "ms_b1_design.audit_log",
+          "count": 1,
+          "sha256": "eada5f98f70abbe28c167b3468c63f28167ebc2d67794f2c0f3a8e2f79923a85"
+        },
+        {
+          "table": "ms_b1_design.auth_identity",
+          "count": 1,
+          "sha256": "4da1124f29be6b517ad55c73a4c50155eee21317b79672d17600038658f28b40"
+        },
+        {
+          "table": "ms_b1_design.auth_session",
+          "count": 1,
+          "sha256": "73b7c5a57c2aafbf875caf32bc9c5fc33791e3156f68474b19dcd952789fe276"
+        },
+        {
+          "table": "ms_b1_design.branch",
+          "count": 2,
+          "sha256": "7c29549a2c8ea5cabf004d42e338ec9dbc478b2b2589220d3294c12c3972d63b"
+        },
+        {
+          "table": "ms_b1_design.branch_service_offering",
+          "count": 1,
+          "sha256": "5c71993b8d4875e721f6dc0706b9c9c00f333d6ade0a7f492e7c54d484ec0741"
+        },
+        {
+          "table": "ms_b1_design.business",
+          "count": 2,
+          "sha256": "b7d83d684390ec33fa2c414c895fc421ec17c6c8f73b5b70a87925259ded6942"
+        },
+        {
+          "table": "ms_b1_design.consumer_inbox",
+          "count": 1,
+          "sha256": "fe229a02ff32b0c3ffddedb4482ea9e5b72dd8a68c2486ed943cbbf15fa68c86"
+        },
+        {
+          "table": "ms_b1_design.idempotency_record",
+          "count": 1,
+          "sha256": "bd1b6b533a6fb95838ef1484edc0ba5d40b48898b32e8b81f7e209a874e8c658"
+        },
+        {
+          "table": "ms_b1_design.offering_resource_requirement",
+          "count": 1,
+          "sha256": "01c39b3eb1a20c8f856f3a49c879f2121241711e4e120bbb2dbfeb6916d06971"
+        },
+        {
+          "table": "ms_b1_design.outbox_event",
+          "count": 1,
+          "sha256": "23c997e83310aaeffbe7bcc9acb9f44e9c760691ea5744e591c9dade517afe80"
+        },
+        {
+          "table": "ms_b1_design.permission",
+          "count": 1,
+          "sha256": "d4dd3686f3e0357e2820952cdeac8c347c5a0c6060b7e9f95485661958fa69dc"
+        },
+        {
+          "table": "ms_b1_design.role",
+          "count": 1,
+          "sha256": "f8e99af95ed0ca788014a33730c0b1776fd300b8739d59ef7af98443c3e129b2"
+        },
+        {
+          "table": "ms_b1_design.role_permission",
+          "count": 1,
+          "sha256": "1fcee8495454046214d96820be553a8b195212a5f8c1f42335e25961dc765846"
+        },
+        {
+          "table": "ms_b1_design.service",
+          "count": 2,
+          "sha256": "3993685401be6e36cdda347d1876985e00c006316bf9951af2932d078c46eb21"
+        },
+        {
+          "table": "ms_b1_design.user_role_assignment",
+          "count": 1,
+          "sha256": "cbb709dbdf58502d93f58f0dd0f99d7089145e5e6df0df45f3c0554de49857c8"
+        },
+        {
+          "table": "ms_b1_meta.schema_migration",
+          "count": 2,
+          "sha256": "2eebacfaa150d4edf64960ffde622d93dcac378ecfaa9a297fc5cb666a209086"
+        }
+      ]
+    },
+    "b1b": {
+      "catalogSha256": "1ed91cfcdaabab6fe8471cd7f7e919cd7b780e4df541db72bc8c34b3fa1b6fc3",
+      "tables": 16,
+      "rows": [
+        {
+          "table": "ms_b1_design.app_user",
+          "count": 6,
+          "sha256": "3b6493b1e4811b87ea8dc39c9998bc0bcb13f9a709f8c0c2ef25f6e31c8e8232"
+        },
+        {
+          "table": "ms_b1_design.audit_log",
+          "count": 12,
+          "sha256": "04830dd4f3a69ce68b026b401a521ea7bd3ba488de9b543cb41283a92872eb39"
+        },
+        {
+          "table": "ms_b1_design.auth_identity",
+          "count": 0,
+          "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        {
+          "table": "ms_b1_design.auth_session",
+          "count": 10,
+          "sha256": "5166736065153b3e1907655f5e648edcdc81adddd7bd9a7567b9de2677c971ec"
+        },
+        {
+          "table": "ms_b1_design.branch",
+          "count": 4,
+          "sha256": "286143711b8faaa3433b777f24a5687b8f21a6b50b52b5fa54174561d9a74c71"
+        },
+        {
+          "table": "ms_b1_design.branch_service_offering",
+          "count": 1,
+          "sha256": "de193b5e05c53a71b59771194e97e5d44109078cafbfddd9f668caf3a1d38e29"
+        },
+        {
+          "table": "ms_b1_design.business",
+          "count": 2,
+          "sha256": "7d709b9651b96db3deb85d0f8d7ceb6f535fa7c2f95138295217464908b82358"
+        },
+        {
+          "table": "ms_b1_design.consumer_inbox",
+          "count": 0,
+          "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        {
+          "table": "ms_b1_design.idempotency_record",
+          "count": 12,
+          "sha256": "e6f0a410313592d7f840b7bad194ab731eb4655b311ed0aaf601043be8eb5294"
+        },
+        {
+          "table": "ms_b1_design.offering_resource_requirement",
+          "count": 1,
+          "sha256": "46491a6894525a9d04f181b49f43724b0f3fa28013cc278f91ae6b656cf376a3"
+        },
+        {
+          "table": "ms_b1_design.outbox_event",
+          "count": 12,
+          "sha256": "f4b60ff5cdedc03407314edfed43c528edfc7b7d0fcc482d1f21efb59a8b8d65"
+        },
+        {
+          "table": "ms_b1_design.permission",
+          "count": 7,
+          "sha256": "2f6275aba1da24b8a4d513fd11830304ce3892f9913bbcf511a932af4ac98be1"
+        },
+        {
+          "table": "ms_b1_design.role",
+          "count": 7,
+          "sha256": "67ec3109f6ca84121dd01036308abfecdf12c59c0662cc567756a65915c9f404"
+        },
+        {
+          "table": "ms_b1_design.role_permission",
+          "count": 28,
+          "sha256": "d72d8f2c4cc0902951abd46d47ee57344b688dbdf99a3181f223367845ea0a38"
+        },
+        {
+          "table": "ms_b1_design.service",
+          "count": 6,
+          "sha256": "6822715def412c3cca9681d1d2f1151a74065abc2d2cc367490a3d9019a826f9"
+        },
+        {
+          "table": "ms_b1_design.user_role_assignment",
+          "count": 7,
+          "sha256": "28933c0db323675c5c34416c8ca70ba8e101feb3d50fdcad0e24d71ed75d4a2e"
+        },
+        {
+          "table": "ms_b1_meta.schema_migration",
+          "count": 3,
+          "sha256": "e2c31bdea5aa4cb7b00fcb06afbfee1ff25368129cf43f58d51e24c0bf1eedff"
+        }
+      ]
+    }
+  },
+  "preservedEvidence": [
+    {
+      "path": ".local/results/attempt-build-network.log",
+      "bytes": 4313,
+      "sha256": "325d661ad8f1e43836e461e2c9a5ca36e379dd89613e0bf654b6364c74291701"
+    },
+    {
+      "path": ".local/results/attempt-internal-network-backend.log",
+      "bytes": 2563,
+      "sha256": "366bd698aaae172661d0c4a9f94c6ab5ba68beeb7e2ef798ed3fea2781c0e881"
+    },
+    {
+      "path": ".local/results/attempt-internal-network-database.json",
+      "bytes": 356,
+      "sha256": "a1e8e2ec9b86315ac20337d357c79e603cfd41410c9ee1b6209efb234d6b3a7a"
+    },
+    {
+      "path": ".local/results/backend-build.log",
+      "bytes": 71,
+      "sha256": "173c1de1e6cab771a987b837f95b13f899f17fd4cf9a01bb8516ad49220ba5a5"
+    },
+    {
+      "path": ".local/results/backend-ci.log",
+      "bytes": 28,
+      "sha256": "af29762098770856d44906e35b5c73eaabf43f7fbfd3f9b54d5e9b7fc58feba3"
+    },
+    {
+      "path": ".local/results/backend-install.log",
+      "bytes": 242,
+      "sha256": "69b06086e961dc37a434b7959abaf41c6d5144c4bbdd702d635afe66f8484e6d"
+    },
+    {
+      "path": ".local/results/backend-tests.log",
+      "bytes": 1153,
+      "sha256": "00952dd5a3c542b837dcc008d5da562f613386ad9d696247021f166a3a982d82"
+    },
+    {
+      "path": ".local/results/backend-typecheck.log",
+      "bytes": 84,
+      "sha256": "99d34d89e508c5efa30e2120c0919d6e60b026a821b09300894a250e38f48c0d"
+    },
+    {
+      "path": ".local/results/database-results.json",
+      "bytes": 20425,
+      "sha256": "fe4672c3edd5e41beebe90c53ef184fc572d75f293c3821723266945b261054e"
+    },
+    {
+      "path": ".local/results/database-tests.log",
+      "bytes": 2101,
+      "sha256": "acd4ed77bb21213885db50d83f8a21ca94e907b5f597ab4dc2291ceb479e0197"
+    },
+    {
+      "path": ".local/results/environment-results.json",
+      "bytes": 1467,
+      "sha256": "b1a798a28bea196e777ae495382eb3549d5f5478d94a065d3d6156c3506d9434"
+    },
+    {
+      "path": ".local/results/environment.log",
+      "bytes": 1615,
+      "sha256": "d6235b0462511e20382b1b5919734377a3ba9953e8ae5b2dba7bccf2836c2135"
+    },
+    {
+      "path": ".local/results/frontend-build.log",
+      "bytes": 1134,
+      "sha256": "fe531680bc676f5cd921424cecf1ef59fde3677c89aab046bd582ec99fd03e1e"
+    },
+    {
+      "path": ".local/results/frontend-summary.json",
+      "bytes": 334,
+      "sha256": "a8a7419800635663bdc10ee9324e29ed046f9ef01d4d2c299bb80ac151ab7f69"
+    },
+    {
+      "path": ".local/results/frontend-typecheck.log",
+      "bytes": 64,
+      "sha256": "c101ba718c3926c33d0f15ec297981dc060cdd5fe7df6ae17c92755de1102cb5"
+    },
+    {
+      "path": ".local/results/frontend-ui.log",
+      "bytes": 14814,
+      "sha256": "ed05a19e85b873a2636c1a095beacdd06aebd461d848245af83e90437fac41a1"
+    },
+    {
+      "path": ".local/results/infra-db.log",
+      "bytes": 375,
+      "sha256": "bbcb4460e1e90a1e0a911b01a0a9fc9f93323e5b4dc397db5b52f12999600c53"
+    },
+    {
+      "path": ".local/results/infra-up.log",
+      "bytes": 4103,
+      "sha256": "6f0fb2aec25ee70125536b1630fd1417f98a049196716c37ed1902dd8e825de9"
+    },
+    {
+      "path": ".local/results/prisma-results.json",
+      "bytes": 42536,
+      "sha256": "4f64f7665b7fa433e760c1de4adf6b046beace19853a74dbdf6dea29d0062332"
+    },
+    {
+      "path": ".local/results/prisma-tests.log",
+      "bytes": 882,
+      "sha256": "43f51235f4348a76419d42e4ca772a8a3f0321fb62f9f91d7732900a381d97b9"
+    },
+    {
+      "path": ".local/results/secrets-results.json",
+      "bytes": 205,
+      "sha256": "a53f81b7fb78420587ade0719a5d6468de61f1a2592f0e9c9875efe2f7ecf4e0"
+    },
+    {
+      "path": ".local/b1a/results/attempt-backup-version.json",
+      "bytes": 23820,
+      "sha256": "15f8ae1aa99b81715232683a22ff262d25aab0b9082bb26f3862bf79435b8a17"
+    },
+    {
+      "path": ".local/b1a/results/attempt-restore-acl.json",
+      "bytes": 24221,
+      "sha256": "b9e272fa5639e49a6a9dd2bd6b964536929588f0313510da4c6cd6418468a1fe"
+    },
+    {
+      "path": ".local/b1a/results/b0-regression.json",
+      "bytes": 394,
+      "sha256": "10bae2427ce8148281debec4c798e62ca747547383cd0df91e9cdcd7dc2e77b1"
+    },
+    {
+      "path": ".local/b1a/results/backup.json",
+      "bytes": 3318,
+      "sha256": "ed9a982c073086284e3c1d7d9e94cfd36f1baad21f18b16e7e0d9c6cf80f80e4"
+    },
+    {
+      "path": ".local/b1a/results/frontend.json",
+      "bytes": 287,
+      "sha256": "f4be9538f2de279f4542c03bb2e6cb170996cbaf70e03250637d65ff6dcad5b8"
+    },
+    {
+      "path": ".local/b1a/results/integration.json",
+      "bytes": 29241,
+      "sha256": "17fc69eed60ea72f116b6760bd7f87f83799233f159f4b232b1db9ca8badbd64"
+    },
+    {
+      "path": ".local/b1a/results/restore.json",
+      "bytes": 3495,
+      "sha256": "e14f05eaef120ad9452b0297cb4334c9c07eafeca985b42e6f71b564d30f51ab"
+    },
+    {
+      "path": ".local/b1b/results/b1a-regression.json",
+      "bytes": 29353,
+      "sha256": "8f4e7c925c14140442154d7d32cca1affa9d99fb3fc6aaa9e053b794f42f8675"
+    },
+    {
+      "path": ".local/b1b/results/backup.json",
+      "bytes": 3324,
+      "sha256": "937194596454f37926d1bd35dc44082c73de15ef811bfa89bde06f9f80b46796"
+    },
+    {
+      "path": ".local/b1b/results/contract.json",
+      "bytes": 232,
+      "sha256": "e9a28ff022901f5dbe9802bb7a64c268ff2610b22ddc9e20c96d3a686d79c60b"
+    },
+    {
+      "path": ".local/b1b/results/frontend.json",
+      "bytes": 764,
+      "sha256": "3d16fc50661b025ff047fa472ea952f0d69d6a31c84d37cb6ed738ab69838fa8"
+    },
+    {
+      "path": ".local/b1b/results/integration.json",
+      "bytes": 28375,
+      "sha256": "7ded60db07430e2c873897daf5ffb954f884347c21b909ef476ce890382d02b9"
+    },
+    {
+      "path": ".local/b1b/results/restore.json",
+      "bytes": 3498,
+      "sha256": "aa1780f851d04bf3185c7e930be34bf24e4693b063f2fa0e504af379221a9379"
+    },
+    {
+      "path": ".local/b1a/backup/b1a.dump",
+      "bytes": 68292,
+      "sha256": "ebf04110cec0c85ac29459d4255659884368c79f2fb8bb44fa024580d0098406"
+    },
+    {
+      "path": ".local/b1b/backup/b1b.dump",
+      "bytes": 102322,
+      "sha256": "d621e450fe4ef25339681c413b27cd95c2a8b7a10cf8ef86d2d4654a3bc658b4"
+    }
+  ]
+}

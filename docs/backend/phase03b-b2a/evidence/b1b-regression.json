@@ -1,0 +1,1029 @@
+{
+  "kind": "ACTUAL_POSTGRESQL18_NESTJS_B1B",
+  "executedAt": "2026-10-29T18:55:18.224Z",
+  "tests": [
+    {
+      "name": "fresh install applies three checksummed migrations, preserves16 tables/gates",
+      "status": "PASS",
+      "observed": {
+        "applied": [
+          "0001_b1_foundation",
+          "0002_b1a_runtime_boundary",
+          "0003_b1b_admin_boundary"
+        ],
+        "currentVersion": "0003_b1b_admin_boundary",
+        "catalog": {
+          "sha256": "1ed91cfcdaabab6fe8471cd7f7e919cd7b780e4df541db72bc8c34b3fa1b6fc3",
+          "tables": 16,
+          "indexes": 44,
+          "functions": 7,
+          "foreignKeys": 41,
+          "checks": 45
+        }
+      }
+    },
+    {
+      "name": "repeat migration is verified no-op",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "original B0/B1A names cannot be reset by B1B provisioner",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "anonymous requests denied",
+      "status": "PASS",
+      "observed": {
+        "body": {
+          "code": "UNAUTHENTICATED",
+          "message": "Request could not be completed",
+          "requestId": "36c5c193-d730-4c74-bdef-9ccf4e2f1a7f",
+          "retryable": false
+        },
+        "headers": {},
+        "status": 401
+      }
+    },
+    {
+      "name": "invalid opaque session denied",
+      "status": "PASS",
+      "observed": {
+        "body": {
+          "code": "UNAUTHENTICATED",
+          "message": "Request could not be completed",
+          "requestId": "1083572c-9b14-4dab-861b-b63e613b6bf2",
+          "retryable": false
+        },
+        "headers": {},
+        "status": 401
+      }
+    },
+    {
+      "name": "malformed and duplicate cookie identities denied",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "valid server session derives actor/business/permissions without hashes",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "caller business/role headers cannot elevate or switch context",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "expired session denied",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "idle-expired session denied",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "suspended user denied even with valid session",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "Business config read is tenant scoped and nullable",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "valid owner creates branch and returns version/ETag",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "successful data audit outbox share actor/aggregate and are committed atomically",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "branch manager lists only assigned branch",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "branch manager cannot create business-wide branch",
+      "status": "PASS",
+      "observed": {
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Request could not be completed",
+          "requestId": "1b1d467f-af34-4eba-838d-430a923ba2b2",
+          "retryable": false
+        },
+        "headers": {},
+        "status": 403
+      }
+    },
+    {
+      "name": "branch manager cannot edit unrelated branch",
+      "status": "PASS",
+      "observed": {
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Request could not be completed",
+          "requestId": "8ee23cad-6c7b-4217-8120-7fd48ed4f4d6",
+          "retryable": false
+        },
+        "headers": {},
+        "status": 403
+      }
+    },
+    {
+      "name": "branch manager edits assigned branch with exact permission",
+      "status": "PASS",
+      "observed": {
+        "body": {
+          "id": "80f6a309-dbe0-41ec-86a4-cf49c76b5c7b",
+          "code": "SYNTHETIC_A",
+          "active": true,
+          "address": null,
+          "version": "2",
+          "bookable": false,
+          "timeZone": "Asia/Tehran",
+          "displayName": "B1B SYNTHETIC branch",
+          "configurationVersion": "2"
+        },
+        "headers": {},
+        "status": 200
+      }
+    },
+    {
+      "name": "cross-tenant branch update hidden from owner scope",
+      "status": "PASS",
+      "observed": {
+        "body": {
+          "code": "NOT_FOUND",
+          "message": "Request could not be completed",
+          "requestId": "55b1e321-9ec9-4bc6-97e1-54ef94fc549c",
+          "retryable": false
+        },
+        "headers": {},
+        "status": 404
+      }
+    },
+    {
+      "name": "unauthorized caller cannot read another tenant offerings",
+      "status": "PASS",
+      "observed": {
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Request could not be completed",
+          "requestId": "2e3693be-f21f-4688-9167-8d5bbdce3976",
+          "retryable": false
+        },
+        "headers": {},
+        "status": 403
+      }
+    },
+    {
+      "name": "visible owner cannot discover foreign tenant offerings",
+      "status": "PASS",
+      "observed": {
+        "body": {
+          "code": "NOT_FOUND",
+          "message": "Request could not be completed",
+          "requestId": "8f91b0a1-46f9-40bd-b233-7411f93b7765",
+          "retryable": false
+        },
+        "headers": {},
+        "status": 404
+      }
+    },
+    {
+      "name": "forged businessId and role body rejected by strict DTO",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "receptionist cannot create global service",
+      "status": "PASS",
+      "observed": {
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Request could not be completed",
+          "requestId": "4b001e79-1f4b-4b29-a670-63548227230c",
+          "retryable": false
+        },
+        "headers": {},
+        "status": 403
+      }
+    },
+    {
+      "name": "barber/customer missing administrative permissions denied",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "role escalation endpoint absent",
+      "status": "PASS",
+      "observed": {
+        "body": {
+          "code": "NOT_FOUND",
+          "message": "Request could not be completed",
+          "requestId": "72046da2-e436-43ff-b02c-9f0999ee5dc7",
+          "retryable": false
+        },
+        "headers": {},
+        "status": 404
+      }
+    },
+    {
+      "name": "missing Origin rejected",
+      "status": "PASS",
+      "observed": {
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Request could not be completed",
+          "requestId": "4add2bf1-01c5-45bf-a3d7-7ea06da11893",
+          "retryable": false
+        },
+        "headers": {},
+        "status": 403
+      }
+    },
+    {
+      "name": "foreign Origin and cross-site fetch rejected",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "missing/incorrect CSRF denied",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "simple content type cannot mutate",
+      "status": "PASS",
+      "observed": {
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Request could not be completed",
+          "requestId": "e6681c8a-0c4f-47b5-8b8a-b0bc59f9b70c",
+          "retryable": false
+        },
+        "headers": {},
+        "status": 403
+      }
+    },
+    {
+      "name": "owner creates global service, unknown description remains null",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "duplicate service/branch stable code rejected",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "stable service/branch codes cannot be renamed by update",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "missing If-Match prevents update",
+      "status": "PASS",
+      "observed": {
+        "body": {
+          "code": "STALE_VERSION",
+          "message": "Request could not be completed",
+          "requestId": "e24a79bd-2fcc-47be-83a3-d008cd7c81fe",
+          "retryable": false
+        },
+        "headers": {},
+        "status": 412
+      }
+    },
+    {
+      "name": "invalid quoted version rejected",
+      "status": "PASS",
+      "observed": {
+        "body": {
+          "code": "STALE_VERSION",
+          "message": "Request could not be completed",
+          "requestId": "b4d368ff-46cb-468e-b019-33d6c65a03a1",
+          "retryable": false
+        },
+        "headers": {},
+        "status": 412
+      }
+    },
+    {
+      "name": "valid service update uses optimistic version",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "stale version cannot overwrite",
+      "status": "PASS",
+      "observed": {
+        "body": {
+          "code": "STALE_VERSION",
+          "message": "Request could not be completed",
+          "requestId": "ca1cef96-7d70-4ac2-baf9-42b1c2149886",
+          "retryable": false
+        },
+        "headers": {},
+        "status": 412
+      }
+    },
+    {
+      "name": "two independent authenticated writers: exactly one wins same version",
+      "status": "PASS",
+      "observed": {
+        "statuses": [
+          200,
+          412
+        ]
+      }
+    },
+    {
+      "name": "Idempotency-Key replays exact result without extra evidence writes",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "concurrent duplicate command stores one result/evidence set",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "branch offering creates unknown price/duration as explicit null",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "receptionist cannot change service pricing",
+      "status": "PASS",
+      "observed": {
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Request could not be completed",
+          "requestId": "703318f9-af21-494b-9d6f-4a58e945c644",
+          "retryable": false
+        },
+        "headers": {},
+        "status": 403
+      }
+    },
+    {
+      "name": "manager cannot edit offerings in unrelated branch",
+      "status": "PASS",
+      "observed": {
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Request could not be completed",
+          "requestId": "fe86f64a-ae1d-4d0f-b066-b0ecbfd84383",
+          "retryable": false
+        },
+        "headers": {},
+        "status": 403
+      }
+    },
+    {
+      "name": "offering ID cannot be moved across branches",
+      "status": "PASS",
+      "observed": {
+        "body": {
+          "code": "NOT_FOUND",
+          "message": "Request could not be completed",
+          "requestId": "b42d15fc-b21d-4208-a540-2dbbe7a3d6e5",
+          "retryable": false
+        },
+        "headers": {},
+        "status": 404
+      }
+    },
+    {
+      "name": "cross-tenant service association rejected",
+      "status": "PASS",
+      "observed": {
+        "body": {
+          "code": "NOT_FOUND",
+          "message": "Request could not be completed",
+          "requestId": "fcc4ed97-40ed-4505-afaf-6bb8fe22ddb0",
+          "retryable": false
+        },
+        "headers": {},
+        "status": 404
+      }
+    },
+    {
+      "name": "invalid/overflow/fraction/number money and bad duration rejected",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "valid synthetic offering money is lossless decimal string; stays inactive",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "API cannot activate branch bookability/offering operations",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "database still enforces both B1 gates for migration owner",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "deferred staff/resource payloads fail closed without pretending persisted",
+      "status": "PASS",
+      "observed": {
+        "body": {
+          "code": "INVALID_CONFIGURATION",
+          "message": "Request could not be completed",
+          "requestId": "ac8d3316-89be-4b44-8d71-867ced942264",
+          "retryable": false
+        },
+        "headers": {},
+        "status": 422
+      }
+    },
+    {
+      "name": "existing resource requirements read honestly and cannot be silently overwritten",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "IANA timezone invalid names rejected",
+      "status": "PASS",
+      "observed": {
+        "body": {
+          "code": "INVALID_CONFIGURATION",
+          "message": "Request could not be completed",
+          "requestId": "dbe43882-320d-44e1-959d-1ec520b98388",
+          "retryable": false
+        },
+        "headers": {},
+        "status": 422
+      }
+    },
+    {
+      "name": "pagination/sort bounded and lists scoped before limit",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "SQL injection remains text data",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "failed command with late outbox failure rolls back data/audit/idempotency",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "API runtime denied direct SQL read IAM",
+      "status": "PASS",
+      "observed": {
+        "expectedSqlstate": "42501"
+      }
+    },
+    {
+      "name": "API runtime denied direct SQL read configuration",
+      "status": "PASS",
+      "observed": {
+        "expectedSqlstate": "42501"
+      }
+    },
+    {
+      "name": "API runtime denied direct SQL write configuration",
+      "status": "PASS",
+      "observed": {
+        "expectedSqlstate": "42501"
+      }
+    },
+    {
+      "name": "API runtime denied direct SQL audit tamper",
+      "status": "PASS",
+      "observed": {
+        "expectedSqlstate": "42501"
+      }
+    },
+    {
+      "name": "API runtime denied direct SQL outbox tamper",
+      "status": "PASS",
+      "observed": {
+        "expectedSqlstate": "42501"
+      }
+    },
+    {
+      "name": "API runtime denied direct SQL idempotency tamper",
+      "status": "PASS",
+      "observed": {
+        "expectedSqlstate": "42501"
+      }
+    },
+    {
+      "name": "API runtime denied direct SQL DDL",
+      "status": "PASS",
+      "observed": {
+        "expectedSqlstate": "42501"
+      }
+    },
+    {
+      "name": "API runtime denied direct SQL metadata",
+      "status": "PASS",
+      "observed": {
+        "expectedSqlstate": "42501"
+      }
+    },
+    {
+      "name": "API runtime denied direct SQL private helper",
+      "status": "PASS",
+      "observed": {
+        "expectedSqlstate": "42501"
+      }
+    },
+    {
+      "name": "API runtime denied direct SQL role elevation",
+      "status": "PASS",
+      "observed": {
+        "expectedSqlstate": "42501"
+      }
+    },
+    {
+      "name": "custom RLS tenant variable cannot authorize API raw reads",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "direct function call cannot forge actor/tenant or bypass permission",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "direct function DTO mass assignment rejected independently of Nest",
+      "status": "PASS",
+      "observed": {
+        "expectedSqlstate": "MS422"
+      }
+    },
+    {
+      "name": "revoked role assignment takes effect on next command",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "replay rechecks permissions before returning stored result",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "repeated valid session works until explicit invalidation",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "rotation never adopts client token and revokes old privileged session",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "session storage contains hashes only and constrained business scope",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "test provisioning and API options impossible in production configuration",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "session rate limit bounds repeated requests",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "actual failed PostgreSQL connection returns sanitized503",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "catalog detects dangerous function EXECUTE grant drift",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "catalog detects missing inactive gate",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "upgrade existing B1A schema retains data then applies only0003",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "failed forward migration rolls back DDL and history",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "tampered migration checksum refuses execution",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "actual custom pg_dump backup passes source/identity/checksum guards",
+      "status": "PASS",
+      "observed": {
+        "bytes": 102328,
+        "sha256": "bbde26422148be5827395f14b66d15c8505cf1b2ed7999b2affe231da8b5b125"
+      }
+    },
+    {
+      "name": "actual pg_restore preserves rows, functions and effective permissions",
+      "status": "PASS",
+      "observed": {
+        "rowsAndCatalogEqual": true,
+        "summary": {
+          "sha256": "1ed91cfcdaabab6fe8471cd7f7e919cd7b780e4df541db72bc8c34b3fa1b6fc3",
+          "tables": 16,
+          "indexes": 44,
+          "functions": 7,
+          "foreignKeys": 41,
+          "checks": 45
+        }
+      }
+    },
+    {
+      "name": "restored API role still cannot read IAM directly",
+      "status": "PASS",
+      "observed": "assertions passed"
+    }
+  ],
+  "examples": [
+    {
+      "request": {
+        "method": "POST",
+        "path": "/api/v1/admin/branches",
+        "body": {
+          "code": "SYNTHETIC_NEW",
+          "displayName": "B1B SYNTHETIC branch",
+          "address": null,
+          "timeZone": "Asia/Tehran",
+          "active": false,
+          "bookable": false
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "id": "3d620415-a4e1-4d12-8e32-11456d91c4d5",
+          "code": "SYNTHETIC_NEW",
+          "active": false,
+          "address": null,
+          "version": "1",
+          "bookable": false,
+          "timeZone": "Asia/Tehran",
+          "displayName": "B1B SYNTHETIC branch",
+          "configurationVersion": "1"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "path": "/api/v1/admin/branches",
+        "body": {
+          "code": "SYNTHETIC_NEW",
+          "displayName": "B1B SYNTHETIC branch",
+          "address": null,
+          "timeZone": "Asia/Tehran",
+          "active": false,
+          "bookable": false
+        }
+      },
+      "response": {
+        "id": "3d620415-a4e1-4d12-8e32-11456d91c4d5",
+        "code": "SYNTHETIC_NEW",
+        "active": false,
+        "address": null,
+        "version": "1",
+        "bookable": false,
+        "timeZone": "Asia/Tehran",
+        "displayName": "B1B SYNTHETIC branch",
+        "configurationVersion": "1"
+      },
+      "status": 201
+    },
+    {
+      "request": {
+        "method": "POST",
+        "path": "/api/v1/admin/branches",
+        "body": {
+          "code": "SYNTHETIC_MANAGER",
+          "displayName": "B1B SYNTHETIC branch",
+          "address": null,
+          "timeZone": "Asia/Tehran",
+          "active": false,
+          "bookable": false
+        }
+      },
+      "response": {
+        "status": 403,
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Request could not be completed",
+          "requestId": "1b1d467f-af34-4eba-838d-430a923ba2b2",
+          "retryable": false
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "PUT",
+        "path": "/api/v1/admin/branches/0b20f81f-b2e7-43de-a65b-3b8cdef922cd",
+        "body": {
+          "code": "SYNTHETIC_B",
+          "displayName": "B1B SYNTHETIC branch",
+          "address": null,
+          "timeZone": "Asia/Tehran",
+          "active": false,
+          "bookable": false
+        }
+      },
+      "response": {
+        "status": 403,
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Request could not be completed",
+          "requestId": "8ee23cad-6c7b-4217-8120-7fd48ed4f4d6",
+          "retryable": false
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/admin/branches/6135a392-5ca5-43c7-9413-e670d539f3c4/offerings"
+      },
+      "response": {
+        "status": 403,
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Request could not be completed",
+          "requestId": "2e3693be-f21f-4688-9167-8d5bbdce3976",
+          "retryable": false
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "path": "/api/v1/admin/services",
+        "body": {
+          "code": "SYNTHETIC_SERVICE",
+          "displayName": "B1B SYNTHETIC service",
+          "description": null,
+          "active": false
+        }
+      },
+      "response": {
+        "status": 403,
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Request could not be completed",
+          "requestId": "4b001e79-1f4b-4b29-a670-63548227230c",
+          "retryable": false
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/admin/services"
+      },
+      "response": {
+        "status": 403,
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Request could not be completed",
+          "requestId": "0934398c-5b9c-4db7-9b7a-ae5f2c5f031e",
+          "retryable": false
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/admin/branches"
+      },
+      "response": {
+        "status": 403,
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Request could not be completed",
+          "requestId": "29d6c116-114f-4166-96c4-dde4b40ae1d1",
+          "retryable": false
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "path": "/api/v1/admin/services",
+        "body": {
+          "code": "SYNTHETIC_SERVICE",
+          "displayName": "B1B SYNTHETIC service",
+          "description": null,
+          "active": false
+        }
+      },
+      "response": {
+        "status": 403,
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Request could not be completed",
+          "requestId": "4add2bf1-01c5-45bf-a3d7-7ea06da11893",
+          "retryable": false
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "path": "/api/v1/admin/services",
+        "body": {
+          "code": "SYNTHETIC_SERVICE",
+          "displayName": "B1B SYNTHETIC service",
+          "description": null,
+          "active": false
+        }
+      },
+      "response": {
+        "status": 403,
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Request could not be completed",
+          "requestId": "e8c48e52-b259-4296-80c9-f5b195387451",
+          "retryable": false
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "path": "/api/v1/admin/services",
+        "body": {
+          "code": "SYNTHETIC_SERVICE",
+          "displayName": "B1B SYNTHETIC service",
+          "description": null,
+          "active": false
+        }
+      },
+      "response": {
+        "status": 403,
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Request could not be completed",
+          "requestId": "66fdf371-7334-4f90-aeee-0a4593b42d86",
+          "retryable": false
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "path": "/api/v1/admin/services",
+        "body": {
+          "code": "SYNTHETIC_SERVICE",
+          "displayName": "B1B SYNTHETIC service",
+          "description": null,
+          "active": false
+        }
+      },
+      "response": {
+        "status": 403,
+        "body": {
+          "code": "FORBIDDEN",
+          "message": "Request could not be completed",
+          "requestId": "2d97b631-3467-4f8f-a7e5-b2fbbddb6fb5",
+          "retryable": false
+        }
+      }
+    }
+  ],
+  "server": "PostgreSQL 18.6 (Debian 18.6-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+  "finalCatalog": {
+    "sha256": "1ed91cfcdaabab6fe8471cd7f7e919cd7b780e4df541db72bc8c34b3fa1b6fc3",
+    "tables": 16,
+    "indexes": 44,
+    "functions": 7,
+    "foreignKeys": 41,
+    "checks": 45
+  },
+  "snapshot": {
+    "catalogSha256": "1ed91cfcdaabab6fe8471cd7f7e919cd7b780e4df541db72bc8c34b3fa1b6fc3",
+    "tables": 16,
+    "rows": [
+      {
+        "table": "ms_b1_design.app_user",
+        "count": 6,
+        "sha256": "5c10a24f05c6423ed08af6e376acc34052260e764caede7471346ecae05932e8"
+      },
+      {
+        "table": "ms_b1_design.audit_log",
+        "count": 12,
+        "sha256": "2b1a28b41400f1cde6149534e1b3d199c9cbef4fcf735c3ef0a4ca1e8a0500a1"
+      },
+      {
+        "table": "ms_b1_design.auth_identity",
+        "count": 0,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "table": "ms_b1_design.auth_session",
+        "count": 10,
+        "sha256": "85dedf159358e920b8e99a346f3e96aa30a7149ff80bf60afa37ec7df06ccd82"
+      },
+      {
+        "table": "ms_b1_design.branch",
+        "count": 4,
+        "sha256": "6e6e748c17aa132e4d0b17bc4c3793c05f9cabdcd548766792f0412abff3bde2"
+      },
+      {
+        "table": "ms_b1_design.branch_service_offering",
+        "count": 1,
+        "sha256": "961bb7d5c8a63831f01af815d2b795a47eed92cf18fa5f8ed9b8526002fcd948"
+      },
+      {
+        "table": "ms_b1_design.business",
+        "count": 2,
+        "sha256": "e4ffadc1772f848ebe0047abb33491101957b71f79c67db4238859e0aa87772c"
+      },
+      {
+        "table": "ms_b1_design.consumer_inbox",
+        "count": 0,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "table": "ms_b1_design.idempotency_record",
+        "count": 12,
+        "sha256": "daa1aa7f65261e63fe75479f38e2225e709b903432aee2851860a3b394d9216b"
+      },
+      {
+        "table": "ms_b1_design.offering_resource_requirement",
+        "count": 1,
+        "sha256": "028a7f72353a1ef581698c5ca98a52f8deba06e3f9f7c7e75c6950bd1c01c9a1"
+      },
+      {
+        "table": "ms_b1_design.outbox_event",
+        "count": 12,
+        "sha256": "61df69c30373236212fa83768bd1d04040e3c81c17610427b94a3d74f6556d27"
+      },
+      {
+        "table": "ms_b1_design.permission",
+        "count": 7,
+        "sha256": "9a34502cff0a1efcdd7b50af73047fbf74d246a8ec24141c8a14680c634793c9"
+      },
+      {
+        "table": "ms_b1_design.role",
+        "count": 7,
+        "sha256": "f00dcd667a089b191f0983f4421fe433979ad7932b1398493691297df55ab25c"
+      },
+      {
+        "table": "ms_b1_design.role_permission",
+        "count": 28,
+        "sha256": "1c5705b69ed81fccc10445bf9f4904fb349656e44771c209b35ab227569e943c"
+      },
+      {
+        "table": "ms_b1_design.service",
+        "count": 6,
+        "sha256": "dfba812b61596112e20b5182d8b1c2709d4f3240f42504d8edfbd22a8af9b88e"
+      },
+      {
+        "table": "ms_b1_design.user_role_assignment",
+        "count": 7,
+        "sha256": "ccfe768191a81629b263659fb86b27568f2350cd3297ad9a09379979241983f7"
+      },
+      {
+        "table": "ms_b1_meta.schema_migration",
+        "count": 3,
+        "sha256": "ac7fd970e304e2579c4ac592ebc30fd2c6405889a387e1c6febcc192fad69696"
+      }
+    ]
+  },
+  "summary": {
+    "passed": 83,
+    "failed": 0
+  },
+  "originalB1BDatabasesTouched": false,
+  "originalTestBodySha256": "258ee64078182db5fd9967cb89d6f99d077f70651ca3968b01e7c390fe054aea",
+  "harness": "Unchanged83 tests; only routing in ignored copied helpers/compiled options; tmpfs55439"
+}

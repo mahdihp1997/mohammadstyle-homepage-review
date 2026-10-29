@@ -1,0 +1,75 @@
+# Actual B2A PostgreSQL assertions
+
+{"passed":69,"failed":0,"expectedSQLRejections":100,"observedConcurrencyCases":3} · 2026-10-29T19:06:29.083Z
+
+- PASS: fresh installation applies five checksummed versions /27 tables
+- PASS: repeat migration verifies catalog and is a no-op
+- PASS: original B0/B1A/B1B databases cannot be reset by B2A lifecycle
+- PASS: new registry exactly preserves first three migration checksums
+- PASS: all indexes and FK constraints are valid; two generated ranges/exclusions present
+- PASS: one global staff identity/resource belongs to two branches
+- PASS: staff resource cannot be duplicated per branch
+- PASS: known staff user cannot receive second global identity in business
+- PASS: global STAFF resource maps to at most one staff identity
+- PASS: physical CHAIR ROOM DEVICE are distinct branch capacity units
+- PASS: physical resource requires exactly one branch
+- PASS: cross-tenant physical branch reference rejected
+- PASS: overlapping same-branch membership rejected
+- PASS: leaving closes a stint and rejoining creates a new adjacent historical UUID
+- PASS: inactive and archived membership still prevents historical overlap
+- PASS: closed membership cannot reopen or extend
+- PASS: membership stable identity cannot be reparented
+- PASS: infinite/empty membership periods rejected
+- PASS: two membership writers serialize through native GiST exclusion
+- PASS: qualification does not automatically create branch offering eligibility
+- PASS: offering eligibility binds exact qualification staff service and membership stint
+- PASS: returning staff gets new eligibility row and old assignment reference remains
+- PASS: active qualification requires verification evidence
+- PASS: published overlapping shifts for same staff fail
+- PASS: different-branch published overlap fails globally
+- PASS: cross-branch concurrent published shift waits then fails23P01
+- PASS: adjacent cross-branch shifts accepted under half-open semantics
+- PASS: unpublished overlapping draft shifts do not claim availability
+- PASS: same-stint shift-to-rule composite FK rejects mismatched assignment
+- PASS: rule revisions preserve old published references
+- PASS: published instants/version cannot be overwritten or silently unpublished
+- PASS: stored generated ranges cannot be forged by direct writes
+- PASS: archiving retains shift and forbids unarchive/delete history
+- PASS: invalid timezone fails at database boundary, not only HTTP DTO
+- PASS: invalid recurrence weekday rejected
+- PASS: invalid recurrence overnight wrap rejected
+- PASS: invalid recurrence end beyond1440 rejected
+- PASS: invalid recurrence infinite date rejected
+- PASS: invalid recurrence zero config version rejected
+- PASS: overnight working hours split into two explicit local-day entries
+- PASS: working hours invalid weekday/finite dates fail
+- PASS: time-off binds exact global staff resource and bounded instants
+- PASS: branch closure finite positive interval and tenant FK enforced
+- PASS: time-off/closure content is immutable; correction needs retained successor
+- PASS: known gap: time-off/closure overlap is recorded without claiming ledger enforcement
+- PASS: known gap: membership FK is identity, not temporal containment
+- PASS: unknown availability configuration stays null and disabled
+- PASS: enabling incomplete configuration fails scalar completeness check
+- PASS: configuration and row versions must both advance exactly once
+- PASS: two actual CAS writers cannot silently overwrite same revision
+- PASS: blind stale version update also fails native version guard
+- PASS: resource identity cannot move branches or change kind
+- PASS: staff/resource deactivation retains stable historical references
+- PASS: unreferenced correction keeps voided membership and cannot silently unvoid
+- PASS: failed multi-table transaction leaves no resource/staff orphan
+- PASS: both B1 inactive booking constraints remain enforced
+- PASS: runtime cannot read or mutate any of11 new tables
+- PASS: api cannot read or mutate any of11 new tables
+- PASS: API function grants remain exactly three without new table privileges
+- PASS: catalog drift detects generated expression, exclusion or trigger change
+- PASS: concurrent migration attempts apply once using transaction advisory lock
+- PASS: B1B upgrade retains existing row evidence and applies only0004/0005
+- PASS: failed forward migration rolls back new DDL and history
+- PASS: tampered checksum and unknown history fail closed
+- PASS: synthetic fixtures cover all11 new tables without actual staff or tariffs
+- PASS: existing B1B session/read/atomic command entry points work on upgraded27-table schema
+- PASS: actual custom-format pg_dump contains verified B2A source snapshot
+- PASS: actual separate pg_restore preserves all27 tables, generated ranges and grants
+- PASS: restored exclusion and historical/version triggers remain executable
+
+Known-gap tests describe unimplemented rules, not completed publication/admission enforcement.

@@ -1,0 +1,143 @@
+{
+  "status": "B2A_IMPLEMENTED_SCOPE",
+  "tables": [
+    "branch_working_hours",
+    "branch_closure",
+    "resource",
+    "staff",
+    "staff_branch_assignment",
+    "staff_service_eligibility",
+    "offering_staff_eligibility",
+    "staff_schedule_rule",
+    "staff_shift",
+    "staff_time_off",
+    "availability_configuration"
+  ],
+  "tableCreationOrder": [
+    "branch_working_hours",
+    "branch_closure",
+    "resource",
+    "staff",
+    "staff_branch_assignment",
+    "staff_service_eligibility",
+    "offering_staff_eligibility",
+    "staff_schedule_rule",
+    "staff_shift",
+    "staff_time_off",
+    "availability_configuration"
+  ],
+  "dependencies": [
+    {
+      "name": "branch_working_hours",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "branch"
+      ]
+    },
+    {
+      "name": "branch_closure",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "branch"
+      ]
+    },
+    {
+      "name": "resource",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "branch"
+      ]
+    },
+    {
+      "name": "staff",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "resource"
+      ]
+    },
+    {
+      "name": "staff_branch_assignment",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "staff",
+        "branch"
+      ]
+    },
+    {
+      "name": "staff_service_eligibility",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "staff",
+        "service"
+      ]
+    },
+    {
+      "name": "offering_staff_eligibility",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "branch_service_offering",
+        "staff_branch_assignment",
+        "staff_service_eligibility"
+      ]
+    },
+    {
+      "name": "staff_schedule_rule",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "staff_branch_assignment"
+      ]
+    },
+    {
+      "name": "staff_shift",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "staff_branch_assignment",
+        "staff_schedule_rule"
+      ]
+    },
+    {
+      "name": "staff_time_off",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "staff"
+      ]
+    },
+    {
+      "name": "availability_configuration",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "branch"
+      ]
+    }
+  ],
+  "approvedSourceSha256": "f103cb5b1c6ca066d774e845de0a8e9fee7d56c87f9e6decd356599c6753f327",
+  "selectedStatements": 68,
+  "excluded": [
+    "booking_revision",
+    "booking_hold",
+    "resource_allocation",
+    "all later policy/payment/customer/media/notification tables"
+  ]
+}

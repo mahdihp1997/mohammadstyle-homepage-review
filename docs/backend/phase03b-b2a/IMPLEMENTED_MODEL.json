@@ -1,0 +1,1964 @@
+{
+  "status": "IMPLEMENTED_B2A_REVIEW",
+  "approvedSource": "docs/architecture/schema/model.json (unchanged)",
+  "tables": [
+    {
+      "name": "branch_working_hours",
+      "module": "Scheduling",
+      "phase": "MVP",
+      "lifecycle": "archive",
+      "global": false,
+      "columns": {
+        "id": "uuid",
+        "business_id": "uuid",
+        "branch_id": "uuid",
+        "iso_weekday": "smallint",
+        "start_minute": "smallint",
+        "end_minute": "smallint",
+        "valid_from": "date",
+        "valid_to": "date?",
+        "created_at": "timestamptz = CURRENT_TIMESTAMP",
+        "created_by": "uuid?",
+        "updated_at": "timestamptz = CURRENT_TIMESTAMP",
+        "row_version": "bigint = 1",
+        "archived_at": "timestamptz?"
+      },
+      "refs": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "table": "business",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "table": "app_user",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "business_id",
+            "branch_id"
+          ],
+          "table": "branch",
+          "target": [
+            "business_id",
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        "row_version > 0",
+        "iso_weekday BETWEEN 1 AND 7",
+        "start_minute >= 0 AND end_minute <= 1440 AND end_minute > start_minute",
+        "valid_to IS NULL OR valid_to > valid_from"
+      ],
+      "uniques": [
+        [
+          "business_id",
+          "branch_id",
+          "iso_weekday",
+          "start_minute",
+          "valid_from"
+        ]
+      ],
+      "indexes": [],
+      "indexCandidates": [],
+      "supportingIndexes": [],
+      "indexPlan": [
+        {
+          "name": "branch_working_hours_pkey",
+          "category": "integrity",
+          "keys": [
+            "id"
+          ],
+          "source": "PRIMARY KEY",
+          "reason": "Entity identity; PostgreSQL creates its index."
+        },
+        {
+          "name": "uq_branch_working_hours_0",
+          "category": "integrity",
+          "keys": [
+            "business_id",
+            "branch_id",
+            "iso_weekday",
+            "start_minute",
+            "valid_from"
+          ],
+          "source": "UNIQUE constraint",
+          "reason": "Business/idempotency uniqueness, not speculative query acceleration."
+        }
+      ],
+      "fkIndexCoverage": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "target": "business",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "target": "app_user",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "business_id",
+            "branch_id"
+          ],
+          "target": "branch",
+          "status": "COVERED",
+          "supportKeys": [
+            "business_id",
+            "branch_id"
+          ],
+          "index": "uq_branch_working_hours_0"
+        }
+      ],
+      "earliestStage": "B2"
+    },
+    {
+      "name": "branch_closure",
+      "module": "Scheduling",
+      "phase": "MVP",
+      "lifecycle": "archive",
+      "global": false,
+      "columns": {
+        "id": "uuid",
+        "business_id": "uuid",
+        "branch_id": "uuid",
+        "starts_at": "timestamptz",
+        "ends_at": "timestamptz",
+        "reason_code": "text",
+        "approved_by": "uuid?",
+        "created_at": "timestamptz = CURRENT_TIMESTAMP",
+        "created_by": "uuid?",
+        "updated_at": "timestamptz = CURRENT_TIMESTAMP",
+        "row_version": "bigint = 1",
+        "archived_at": "timestamptz?"
+      },
+      "refs": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "table": "business",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "table": "app_user",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "business_id",
+            "branch_id"
+          ],
+          "table": "branch",
+          "target": [
+            "business_id",
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "approved_by"
+          ],
+          "table": "app_user",
+          "target": [
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        "row_version > 0",
+        "ends_at > starts_at",
+        "isfinite(starts_at)",
+        "isfinite(ends_at)"
+      ],
+      "uniques": [
+        [
+          "business_id",
+          "id",
+          "branch_id"
+        ]
+      ],
+      "indexes": [],
+      "indexCandidates": [
+        {
+          "spec": "(business_id, branch_id, starts_at, ends_at)",
+          "status": "DEFER_UNTIL_EXPLAIN",
+          "accessPattern": "Intersect closures for a branch time window",
+          "reason": "Not required by SQL integrity. Measure representative cardinality/EXPLAIN (ANALYZE, BUFFERS) in disposable03B environment before accepting."
+        }
+      ],
+      "supportingIndexes": [
+        {
+          "name": "ix_branch_closure_fk_0",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "branch_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        }
+      ],
+      "indexPlan": [
+        {
+          "name": "branch_closure_pkey",
+          "category": "integrity",
+          "keys": [
+            "id"
+          ],
+          "source": "PRIMARY KEY",
+          "reason": "Entity identity; PostgreSQL creates its index."
+        },
+        {
+          "name": "uq_branch_closure_0",
+          "category": "integrity",
+          "keys": [
+            "business_id",
+            "id",
+            "branch_id"
+          ],
+          "source": "UNIQUE constraint",
+          "reason": "Required exact composite FK target; retain despite logical PK implication."
+        },
+        {
+          "name": "ix_branch_closure_fk_0",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "branch_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        }
+      ],
+      "fkIndexCoverage": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "target": "business",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "target": "app_user",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "business_id",
+            "branch_id"
+          ],
+          "target": "branch",
+          "status": "COVERED",
+          "supportKeys": [
+            "business_id",
+            "branch_id"
+          ],
+          "index": "ix_branch_closure_fk_0"
+        },
+        {
+          "columns": [
+            "approved_by"
+          ],
+          "target": "app_user",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        }
+      ],
+      "earliestStage": "B2"
+    },
+    {
+      "name": "resource",
+      "module": "Scheduling",
+      "phase": "MVP",
+      "lifecycle": "archive",
+      "global": false,
+      "columns": {
+        "id": "uuid",
+        "business_id": "uuid",
+        "branch_id": "uuid?",
+        "kind": "text",
+        "label": "text",
+        "active": "boolean = false",
+        "created_at": "timestamptz = CURRENT_TIMESTAMP",
+        "created_by": "uuid?",
+        "updated_at": "timestamptz = CURRENT_TIMESTAMP",
+        "row_version": "bigint = 1",
+        "archived_at": "timestamptz?"
+      },
+      "refs": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "table": "business",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "table": "app_user",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "business_id",
+            "branch_id"
+          ],
+          "table": "branch",
+          "target": [
+            "business_id",
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        "row_version > 0",
+        "kind IN ('STAFF','CHAIR','ROOM','DEVICE')",
+        "(kind = 'STAFF' AND branch_id IS NULL) OR (kind <> 'STAFF' AND branch_id IS NOT NULL)"
+      ],
+      "uniques": [
+        [
+          "business_id",
+          "id",
+          "kind"
+        ],
+        [
+          "business_id",
+          "id",
+          "branch_id"
+        ]
+      ],
+      "indexes": [],
+      "indexCandidates": [],
+      "supportingIndexes": [
+        {
+          "name": "ix_resource_fk_0",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "branch_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        }
+      ],
+      "indexPlan": [
+        {
+          "name": "resource_pkey",
+          "category": "integrity",
+          "keys": [
+            "id"
+          ],
+          "source": "PRIMARY KEY",
+          "reason": "Entity identity; PostgreSQL creates its index."
+        },
+        {
+          "name": "uq_resource_0",
+          "category": "integrity",
+          "keys": [
+            "business_id",
+            "id",
+            "kind"
+          ],
+          "source": "UNIQUE constraint",
+          "reason": "Required exact composite FK target; retain despite logical PK implication."
+        },
+        {
+          "name": "uq_resource_1",
+          "category": "integrity",
+          "keys": [
+            "business_id",
+            "id",
+            "branch_id"
+          ],
+          "source": "UNIQUE constraint",
+          "reason": "Required exact composite FK target; retain despite logical PK implication."
+        },
+        {
+          "name": "ix_resource_fk_0",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "branch_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        }
+      ],
+      "fkIndexCoverage": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "target": "business",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "target": "app_user",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "business_id",
+            "branch_id"
+          ],
+          "target": "branch",
+          "status": "COVERED",
+          "supportKeys": [
+            "business_id",
+            "branch_id"
+          ],
+          "index": "ix_resource_fk_0"
+        }
+      ],
+      "earliestStage": "B2"
+    },
+    {
+      "name": "staff",
+      "module": "Staff",
+      "phase": "MVP",
+      "lifecycle": "archive",
+      "global": false,
+      "columns": {
+        "id": "uuid",
+        "business_id": "uuid",
+        "user_id": "uuid?",
+        "resource_id": "uuid",
+        "resource_kind": "text = 'STAFF'",
+        "display_name": "text",
+        "active": "boolean = false",
+        "created_at": "timestamptz = CURRENT_TIMESTAMP",
+        "created_by": "uuid?",
+        "updated_at": "timestamptz = CURRENT_TIMESTAMP",
+        "row_version": "bigint = 1",
+        "archived_at": "timestamptz?"
+      },
+      "refs": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "table": "business",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "table": "app_user",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "user_id"
+          ],
+          "table": "app_user",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "business_id",
+            "resource_id",
+            "resource_kind"
+          ],
+          "table": "resource",
+          "target": [
+            "business_id",
+            "id",
+            "kind"
+          ]
+        }
+      ],
+      "checks": [
+        "row_version > 0",
+        "resource_kind = 'STAFF'"
+      ],
+      "uniques": [
+        [
+          "business_id",
+          "id"
+        ],
+        [
+          "business_id",
+          "resource_id"
+        ],
+        [
+          "business_id",
+          "user_id"
+        ],
+        [
+          "business_id",
+          "id",
+          "resource_id"
+        ]
+      ],
+      "indexes": [],
+      "indexCandidates": [],
+      "supportingIndexes": [
+        {
+          "name": "ix_staff_fk_0",
+          "category": "fk-support",
+          "keys": [
+            "user_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        }
+      ],
+      "indexPlan": [
+        {
+          "name": "staff_pkey",
+          "category": "integrity",
+          "keys": [
+            "id"
+          ],
+          "source": "PRIMARY KEY",
+          "reason": "Entity identity; PostgreSQL creates its index."
+        },
+        {
+          "name": "uq_staff_0",
+          "category": "integrity",
+          "keys": [
+            "business_id",
+            "id"
+          ],
+          "source": "UNIQUE constraint",
+          "reason": "Required exact composite FK target; retain despite logical PK implication."
+        },
+        {
+          "name": "uq_staff_1",
+          "category": "integrity",
+          "keys": [
+            "business_id",
+            "resource_id"
+          ],
+          "source": "UNIQUE constraint",
+          "reason": "Business/idempotency uniqueness, not speculative query acceleration."
+        },
+        {
+          "name": "uq_staff_2",
+          "category": "integrity",
+          "keys": [
+            "business_id",
+            "user_id"
+          ],
+          "source": "UNIQUE constraint",
+          "reason": "Business/idempotency uniqueness, not speculative query acceleration."
+        },
+        {
+          "name": "uq_staff_3",
+          "category": "integrity",
+          "keys": [
+            "business_id",
+            "id",
+            "resource_id"
+          ],
+          "source": "UNIQUE constraint",
+          "reason": "Required exact composite FK target; retain despite logical PK implication."
+        },
+        {
+          "name": "ix_staff_fk_0",
+          "category": "fk-support",
+          "keys": [
+            "user_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        }
+      ],
+      "fkIndexCoverage": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "target": "business",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "target": "app_user",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "user_id"
+          ],
+          "target": "app_user",
+          "status": "COVERED",
+          "supportKeys": [
+            "user_id"
+          ],
+          "index": "ix_staff_fk_0"
+        },
+        {
+          "columns": [
+            "business_id",
+            "resource_id",
+            "resource_kind"
+          ],
+          "target": "resource",
+          "status": "COVERED",
+          "supportKeys": [
+            "business_id",
+            "resource_id"
+          ],
+          "index": "uq_staff_1"
+        }
+      ],
+      "earliestStage": "B2"
+    },
+    {
+      "name": "staff_branch_assignment",
+      "module": "Staff",
+      "phase": "MVP",
+      "lifecycle": "archive",
+      "global": false,
+      "columns": {
+        "id": "uuid",
+        "business_id": "uuid",
+        "staff_id": "uuid",
+        "branch_id": "uuid",
+        "valid_from": "date",
+        "valid_to": "date?",
+        "active": "boolean = false",
+        "created_at": "timestamptz = CURRENT_TIMESTAMP",
+        "created_by": "uuid?",
+        "updated_at": "timestamptz = CURRENT_TIMESTAMP",
+        "row_version": "bigint = 1",
+        "archived_at": "timestamptz?",
+        "voided_at": "timestamptz?",
+        "void_reason": "text?"
+      },
+      "refs": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "table": "business",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "table": "app_user",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "business_id",
+            "staff_id"
+          ],
+          "table": "staff",
+          "target": [
+            "business_id",
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "business_id",
+            "branch_id"
+          ],
+          "table": "branch",
+          "target": [
+            "business_id",
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        "row_version > 0",
+        "valid_to IS NULL OR valid_to > valid_from",
+        "isfinite(valid_from)",
+        "valid_to IS NULL OR isfinite(valid_to)",
+        "(voided_at IS NULL AND void_reason IS NULL) OR (voided_at IS NOT NULL AND void_reason IS NOT NULL AND length(btrim(void_reason)) > 0)",
+        "NOT active OR voided_at IS NULL"
+      ],
+      "uniques": [
+        [
+          "business_id",
+          "id",
+          "staff_id",
+          "branch_id"
+        ]
+      ],
+      "indexes": [],
+      "generatedColumns": {
+        "membership_period": {
+          "type": "daterange",
+          "expression": "daterange(valid_from,valid_to,'[)')",
+          "constraint": "no_overlapping_membership_period: same business/staff/branch non-voided periods must not overlap; closed/inactive/archived history remains protected"
+        }
+      },
+      "indexCandidates": [],
+      "supportingIndexes": [
+        {
+          "name": "ix_staff_branch_assignment_fk_0",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "staff_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        },
+        {
+          "name": "ix_staff_branch_assignment_fk_1",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "branch_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        }
+      ],
+      "indexPlan": [
+        {
+          "name": "staff_branch_assignment_pkey",
+          "category": "integrity",
+          "keys": [
+            "id"
+          ],
+          "source": "PRIMARY KEY",
+          "reason": "Entity identity; PostgreSQL creates its index."
+        },
+        {
+          "name": "uq_staff_branch_assignment_0",
+          "category": "integrity",
+          "keys": [
+            "business_id",
+            "id",
+            "staff_id",
+            "branch_id"
+          ],
+          "source": "UNIQUE constraint",
+          "reason": "Required exact composite FK target; retain despite logical PK implication."
+        },
+        {
+          "name": "ix_staff_branch_assignment_fk_0",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "staff_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        },
+        {
+          "name": "ix_staff_branch_assignment_fk_1",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "branch_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        },
+        {
+          "name": "no_overlapping_membership_period",
+          "category": "exclusion",
+          "source": "EXCLUDE USING gist",
+          "reason": "Integrity/concurrency arbiter; cannot be deferred for EXPLAIN.",
+          "expression": "business_id WITH =, staff_id WITH =, branch_id WITH =, membership_period WITH &&",
+          "predicate": "voided_at IS NULL"
+        }
+      ],
+      "fkIndexCoverage": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "target": "business",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "target": "app_user",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "business_id",
+            "staff_id"
+          ],
+          "target": "staff",
+          "status": "COVERED",
+          "supportKeys": [
+            "business_id",
+            "staff_id"
+          ],
+          "index": "ix_staff_branch_assignment_fk_0"
+        },
+        {
+          "columns": [
+            "business_id",
+            "branch_id"
+          ],
+          "target": "branch",
+          "status": "COVERED",
+          "supportKeys": [
+            "business_id",
+            "branch_id"
+          ],
+          "index": "ix_staff_branch_assignment_fk_1"
+        }
+      ],
+      "earliestStage": "B2"
+    },
+    {
+      "name": "staff_service_eligibility",
+      "module": "Staff",
+      "phase": "MVP",
+      "lifecycle": "archive",
+      "global": false,
+      "columns": {
+        "id": "uuid",
+        "business_id": "uuid",
+        "staff_id": "uuid",
+        "service_id": "uuid",
+        "verified_at": "timestamptz?",
+        "active": "boolean = false",
+        "created_at": "timestamptz = CURRENT_TIMESTAMP",
+        "created_by": "uuid?",
+        "updated_at": "timestamptz = CURRENT_TIMESTAMP",
+        "row_version": "bigint = 1",
+        "archived_at": "timestamptz?"
+      },
+      "refs": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "table": "business",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "table": "app_user",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "business_id",
+            "staff_id"
+          ],
+          "table": "staff",
+          "target": [
+            "business_id",
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "business_id",
+            "service_id"
+          ],
+          "table": "service",
+          "target": [
+            "business_id",
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        "row_version > 0",
+        "NOT active OR verified_at IS NOT NULL"
+      ],
+      "uniques": [
+        [
+          "business_id",
+          "staff_id",
+          "service_id"
+        ],
+        [
+          "business_id",
+          "id",
+          "staff_id",
+          "service_id"
+        ]
+      ],
+      "indexes": [],
+      "indexCandidates": [],
+      "supportingIndexes": [
+        {
+          "name": "ix_staff_service_eligibility_fk_0",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "service_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        }
+      ],
+      "indexPlan": [
+        {
+          "name": "staff_service_eligibility_pkey",
+          "category": "integrity",
+          "keys": [
+            "id"
+          ],
+          "source": "PRIMARY KEY",
+          "reason": "Entity identity; PostgreSQL creates its index."
+        },
+        {
+          "name": "uq_staff_service_eligibility_0",
+          "category": "integrity",
+          "keys": [
+            "business_id",
+            "staff_id",
+            "service_id"
+          ],
+          "source": "UNIQUE constraint",
+          "reason": "Business/idempotency uniqueness, not speculative query acceleration."
+        },
+        {
+          "name": "uq_staff_service_eligibility_1",
+          "category": "integrity",
+          "keys": [
+            "business_id",
+            "id",
+            "staff_id",
+            "service_id"
+          ],
+          "source": "UNIQUE constraint",
+          "reason": "Required exact composite FK target; retain despite logical PK implication."
+        },
+        {
+          "name": "ix_staff_service_eligibility_fk_0",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "service_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        }
+      ],
+      "fkIndexCoverage": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "target": "business",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "target": "app_user",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "business_id",
+            "staff_id"
+          ],
+          "target": "staff",
+          "status": "COVERED",
+          "supportKeys": [
+            "business_id",
+            "staff_id"
+          ],
+          "index": "uq_staff_service_eligibility_0"
+        },
+        {
+          "columns": [
+            "business_id",
+            "service_id"
+          ],
+          "target": "service",
+          "status": "COVERED",
+          "supportKeys": [
+            "business_id",
+            "service_id"
+          ],
+          "index": "ix_staff_service_eligibility_fk_0"
+        }
+      ],
+      "earliestStage": "B2"
+    },
+    {
+      "name": "offering_staff_eligibility",
+      "module": "Offerings",
+      "phase": "MVP",
+      "lifecycle": "archive",
+      "global": false,
+      "columns": {
+        "id": "uuid",
+        "business_id": "uuid",
+        "offering_id": "uuid",
+        "branch_id": "uuid",
+        "service_id": "uuid",
+        "staff_id": "uuid",
+        "assignment_id": "uuid",
+        "qualification_id": "uuid",
+        "active": "boolean = false",
+        "created_at": "timestamptz = CURRENT_TIMESTAMP",
+        "created_by": "uuid?",
+        "updated_at": "timestamptz = CURRENT_TIMESTAMP",
+        "row_version": "bigint = 1",
+        "archived_at": "timestamptz?"
+      },
+      "refs": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "table": "business",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "table": "app_user",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "business_id",
+            "offering_id",
+            "branch_id",
+            "service_id"
+          ],
+          "table": "branch_service_offering",
+          "target": [
+            "business_id",
+            "id",
+            "branch_id",
+            "service_id"
+          ]
+        },
+        {
+          "columns": [
+            "business_id",
+            "assignment_id",
+            "staff_id",
+            "branch_id"
+          ],
+          "table": "staff_branch_assignment",
+          "target": [
+            "business_id",
+            "id",
+            "staff_id",
+            "branch_id"
+          ]
+        },
+        {
+          "columns": [
+            "business_id",
+            "qualification_id",
+            "staff_id",
+            "service_id"
+          ],
+          "table": "staff_service_eligibility",
+          "target": [
+            "business_id",
+            "id",
+            "staff_id",
+            "service_id"
+          ]
+        }
+      ],
+      "checks": [
+        "row_version > 0"
+      ],
+      "uniques": [
+        [
+          "business_id",
+          "offering_id",
+          "staff_id",
+          "assignment_id"
+        ]
+      ],
+      "indexes": [],
+      "indexCandidates": [],
+      "supportingIndexes": [
+        {
+          "name": "ix_offering_staff_eligibility_fk_0",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "assignment_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        },
+        {
+          "name": "ix_offering_staff_eligibility_fk_1",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "qualification_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        }
+      ],
+      "indexPlan": [
+        {
+          "name": "offering_staff_eligibility_pkey",
+          "category": "integrity",
+          "keys": [
+            "id"
+          ],
+          "source": "PRIMARY KEY",
+          "reason": "Entity identity; PostgreSQL creates its index."
+        },
+        {
+          "name": "uq_offering_staff_eligibility_0",
+          "category": "integrity",
+          "keys": [
+            "business_id",
+            "offering_id",
+            "staff_id",
+            "assignment_id"
+          ],
+          "source": "UNIQUE constraint",
+          "reason": "Business/idempotency uniqueness, not speculative query acceleration."
+        },
+        {
+          "name": "ix_offering_staff_eligibility_fk_0",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "assignment_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        },
+        {
+          "name": "ix_offering_staff_eligibility_fk_1",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "qualification_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        }
+      ],
+      "fkIndexCoverage": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "target": "business",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "target": "app_user",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "business_id",
+            "offering_id",
+            "branch_id",
+            "service_id"
+          ],
+          "target": "branch_service_offering",
+          "status": "COVERED",
+          "supportKeys": [
+            "business_id",
+            "offering_id"
+          ],
+          "index": "uq_offering_staff_eligibility_0"
+        },
+        {
+          "columns": [
+            "business_id",
+            "assignment_id",
+            "staff_id",
+            "branch_id"
+          ],
+          "target": "staff_branch_assignment",
+          "status": "COVERED",
+          "supportKeys": [
+            "business_id",
+            "assignment_id"
+          ],
+          "index": "ix_offering_staff_eligibility_fk_0"
+        },
+        {
+          "columns": [
+            "business_id",
+            "qualification_id",
+            "staff_id",
+            "service_id"
+          ],
+          "target": "staff_service_eligibility",
+          "status": "COVERED",
+          "supportKeys": [
+            "business_id",
+            "qualification_id"
+          ],
+          "index": "ix_offering_staff_eligibility_fk_1"
+        }
+      ],
+      "earliestStage": "B2"
+    },
+    {
+      "name": "staff_schedule_rule",
+      "module": "Scheduling",
+      "phase": "MVP",
+      "lifecycle": "archive",
+      "global": false,
+      "columns": {
+        "id": "uuid",
+        "business_id": "uuid",
+        "staff_id": "uuid",
+        "branch_id": "uuid",
+        "assignment_id": "uuid",
+        "iso_weekday": "smallint",
+        "start_minute": "smallint",
+        "end_minute": "smallint",
+        "valid_from": "date",
+        "valid_to": "date?",
+        "configuration_version": "bigint = 1",
+        "created_at": "timestamptz = CURRENT_TIMESTAMP",
+        "created_by": "uuid?",
+        "updated_at": "timestamptz = CURRENT_TIMESTAMP",
+        "row_version": "bigint = 1",
+        "archived_at": "timestamptz?"
+      },
+      "refs": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "table": "business",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "table": "app_user",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "business_id",
+            "assignment_id",
+            "staff_id",
+            "branch_id"
+          ],
+          "table": "staff_branch_assignment",
+          "target": [
+            "business_id",
+            "id",
+            "staff_id",
+            "branch_id"
+          ]
+        }
+      ],
+      "checks": [
+        "row_version > 0",
+        "iso_weekday BETWEEN 1 AND 7",
+        "start_minute >= 0 AND end_minute <= 1440 AND end_minute > start_minute",
+        "valid_to IS NULL OR valid_to > valid_from",
+        "configuration_version > 0"
+      ],
+      "uniques": [
+        [
+          "business_id",
+          "id",
+          "staff_id",
+          "branch_id",
+          "assignment_id"
+        ]
+      ],
+      "indexes": [],
+      "indexCandidates": [],
+      "supportingIndexes": [
+        {
+          "name": "ix_staff_schedule_rule_fk_0",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "assignment_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        }
+      ],
+      "indexPlan": [
+        {
+          "name": "staff_schedule_rule_pkey",
+          "category": "integrity",
+          "keys": [
+            "id"
+          ],
+          "source": "PRIMARY KEY",
+          "reason": "Entity identity; PostgreSQL creates its index."
+        },
+        {
+          "name": "uq_staff_schedule_rule_0",
+          "category": "integrity",
+          "keys": [
+            "business_id",
+            "id",
+            "staff_id",
+            "branch_id",
+            "assignment_id"
+          ],
+          "source": "UNIQUE constraint",
+          "reason": "Required exact composite FK target; retain despite logical PK implication."
+        },
+        {
+          "name": "ix_staff_schedule_rule_fk_0",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "assignment_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        }
+      ],
+      "fkIndexCoverage": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "target": "business",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "target": "app_user",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "business_id",
+            "assignment_id",
+            "staff_id",
+            "branch_id"
+          ],
+          "target": "staff_branch_assignment",
+          "status": "COVERED",
+          "supportKeys": [
+            "business_id",
+            "assignment_id"
+          ],
+          "index": "ix_staff_schedule_rule_fk_0"
+        }
+      ],
+      "earliestStage": "B2"
+    },
+    {
+      "name": "staff_shift",
+      "module": "Scheduling",
+      "phase": "MVP",
+      "lifecycle": "archive",
+      "global": false,
+      "columns": {
+        "id": "uuid",
+        "business_id": "uuid",
+        "staff_id": "uuid",
+        "branch_id": "uuid",
+        "assignment_id": "uuid",
+        "schedule_rule_id": "uuid?",
+        "starts_at": "timestamptz",
+        "ends_at": "timestamptz",
+        "published": "boolean = false",
+        "schedule_version": "bigint",
+        "created_at": "timestamptz = CURRENT_TIMESTAMP",
+        "created_by": "uuid?",
+        "updated_at": "timestamptz = CURRENT_TIMESTAMP",
+        "row_version": "bigint = 1",
+        "archived_at": "timestamptz?"
+      },
+      "refs": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "table": "business",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "table": "app_user",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "business_id",
+            "assignment_id",
+            "staff_id",
+            "branch_id"
+          ],
+          "table": "staff_branch_assignment",
+          "target": [
+            "business_id",
+            "id",
+            "staff_id",
+            "branch_id"
+          ]
+        },
+        {
+          "columns": [
+            "business_id",
+            "schedule_rule_id",
+            "staff_id",
+            "branch_id",
+            "assignment_id"
+          ],
+          "table": "staff_schedule_rule",
+          "target": [
+            "business_id",
+            "id",
+            "staff_id",
+            "branch_id",
+            "assignment_id"
+          ]
+        }
+      ],
+      "checks": [
+        "row_version > 0",
+        "ends_at > starts_at",
+        "schedule_version > 0",
+        "isfinite(starts_at)",
+        "isfinite(ends_at)"
+      ],
+      "uniques": [],
+      "indexes": [],
+      "generatedColumns": {
+        "working_period": {
+          "type": "tstzrange",
+          "expression": "tstzrange(starts_at,ends_at,'[)')",
+          "constraint": "no_cross_branch_staff_shift: staff_id = and working_period &&, published/unarchived only"
+        }
+      },
+      "indexCandidates": [
+        {
+          "spec": "(business_id, branch_id, starts_at)",
+          "status": "DEFER_UNTIL_EXPLAIN",
+          "accessPattern": "Read branch calendar horizon",
+          "reason": "Not required by SQL integrity. Measure representative cardinality/EXPLAIN (ANALYZE, BUFFERS) in disposable03B environment before accepting."
+        }
+      ],
+      "supportingIndexes": [
+        {
+          "name": "ix_staff_shift_fk_0",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "assignment_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        },
+        {
+          "name": "ix_staff_shift_fk_1",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "schedule_rule_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        }
+      ],
+      "indexPlan": [
+        {
+          "name": "staff_shift_pkey",
+          "category": "integrity",
+          "keys": [
+            "id"
+          ],
+          "source": "PRIMARY KEY",
+          "reason": "Entity identity; PostgreSQL creates its index."
+        },
+        {
+          "name": "ix_staff_shift_fk_0",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "assignment_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        },
+        {
+          "name": "ix_staff_shift_fk_1",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "schedule_rule_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        },
+        {
+          "name": "no_cross_branch_staff_shift",
+          "category": "exclusion",
+          "source": "EXCLUDE USING gist",
+          "reason": "Integrity/concurrency arbiter; cannot be deferred for EXPLAIN.",
+          "expression": "staff_id WITH =, working_period WITH &&",
+          "predicate": "published AND archived_at IS NULL"
+        }
+      ],
+      "fkIndexCoverage": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "target": "business",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "target": "app_user",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "business_id",
+            "assignment_id",
+            "staff_id",
+            "branch_id"
+          ],
+          "target": "staff_branch_assignment",
+          "status": "COVERED",
+          "supportKeys": [
+            "business_id",
+            "assignment_id"
+          ],
+          "index": "ix_staff_shift_fk_0"
+        },
+        {
+          "columns": [
+            "business_id",
+            "schedule_rule_id",
+            "staff_id",
+            "branch_id",
+            "assignment_id"
+          ],
+          "target": "staff_schedule_rule",
+          "status": "COVERED",
+          "supportKeys": [
+            "business_id",
+            "schedule_rule_id"
+          ],
+          "index": "ix_staff_shift_fk_1"
+        }
+      ],
+      "earliestStage": "B2"
+    },
+    {
+      "name": "staff_time_off",
+      "module": "Scheduling",
+      "phase": "MVP",
+      "lifecycle": "archive",
+      "global": false,
+      "columns": {
+        "id": "uuid",
+        "business_id": "uuid",
+        "staff_id": "uuid",
+        "resource_id": "uuid",
+        "starts_at": "timestamptz",
+        "ends_at": "timestamptz",
+        "reason_code": "text",
+        "approved_by": "uuid?",
+        "created_at": "timestamptz = CURRENT_TIMESTAMP",
+        "created_by": "uuid?",
+        "updated_at": "timestamptz = CURRENT_TIMESTAMP",
+        "row_version": "bigint = 1",
+        "archived_at": "timestamptz?"
+      },
+      "refs": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "table": "business",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "table": "app_user",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "business_id",
+            "staff_id",
+            "resource_id"
+          ],
+          "table": "staff",
+          "target": [
+            "business_id",
+            "id",
+            "resource_id"
+          ]
+        },
+        {
+          "columns": [
+            "approved_by"
+          ],
+          "table": "app_user",
+          "target": [
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        "row_version > 0",
+        "ends_at > starts_at",
+        "isfinite(starts_at)",
+        "isfinite(ends_at)"
+      ],
+      "uniques": [
+        [
+          "business_id",
+          "id",
+          "resource_id"
+        ]
+      ],
+      "indexes": [],
+      "indexCandidates": [],
+      "supportingIndexes": [
+        {
+          "name": "ix_staff_time_off_fk_0",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "staff_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        }
+      ],
+      "indexPlan": [
+        {
+          "name": "staff_time_off_pkey",
+          "category": "integrity",
+          "keys": [
+            "id"
+          ],
+          "source": "PRIMARY KEY",
+          "reason": "Entity identity; PostgreSQL creates its index."
+        },
+        {
+          "name": "uq_staff_time_off_0",
+          "category": "integrity",
+          "keys": [
+            "business_id",
+            "id",
+            "resource_id"
+          ],
+          "source": "UNIQUE constraint",
+          "reason": "Required exact composite FK target; retain despite logical PK implication."
+        },
+        {
+          "name": "ix_staff_time_off_fk_0",
+          "category": "fk-support",
+          "keys": [
+            "business_id",
+            "staff_id"
+          ],
+          "source": "explicit",
+          "reason": "Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity."
+        }
+      ],
+      "fkIndexCoverage": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "target": "business",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "target": "app_user",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "business_id",
+            "staff_id",
+            "resource_id"
+          ],
+          "target": "staff",
+          "status": "COVERED",
+          "supportKeys": [
+            "business_id",
+            "staff_id"
+          ],
+          "index": "ix_staff_time_off_fk_0"
+        },
+        {
+          "columns": [
+            "approved_by"
+          ],
+          "target": "app_user",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        }
+      ],
+      "earliestStage": "B2"
+    },
+    {
+      "name": "availability_configuration",
+      "module": "Availability",
+      "phase": "MVP",
+      "lifecycle": "archive",
+      "global": false,
+      "columns": {
+        "id": "uuid",
+        "business_id": "uuid",
+        "branch_id": "uuid",
+        "enabled": "boolean = false",
+        "slot_stride_minutes": "integer?",
+        "lead_minutes": "integer?",
+        "horizon_days": "integer?",
+        "hold_ttl_seconds": "integer?",
+        "quote_ttl_seconds": "integer?",
+        "configuration_version": "bigint = 1",
+        "created_at": "timestamptz = CURRENT_TIMESTAMP",
+        "created_by": "uuid?",
+        "updated_at": "timestamptz = CURRENT_TIMESTAMP",
+        "row_version": "bigint = 1",
+        "archived_at": "timestamptz?"
+      },
+      "refs": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "table": "business",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "table": "app_user",
+          "target": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "business_id",
+            "branch_id"
+          ],
+          "table": "branch",
+          "target": [
+            "business_id",
+            "id"
+          ]
+        }
+      ],
+      "checks": [
+        "row_version > 0",
+        "slot_stride_minutes IS NULL OR slot_stride_minutes > 0",
+        "lead_minutes IS NULL OR lead_minutes >= 0",
+        "horizon_days IS NULL OR horizon_days > 0",
+        "hold_ttl_seconds IS NULL OR hold_ttl_seconds > 0",
+        "quote_ttl_seconds IS NULL OR quote_ttl_seconds > 0",
+        "configuration_version > 0",
+        "NOT enabled OR (slot_stride_minutes IS NOT NULL AND lead_minutes IS NOT NULL AND horizon_days IS NOT NULL AND hold_ttl_seconds IS NOT NULL AND quote_ttl_seconds IS NOT NULL)"
+      ],
+      "uniques": [
+        [
+          "business_id",
+          "branch_id"
+        ]
+      ],
+      "indexes": [],
+      "indexCandidates": [],
+      "supportingIndexes": [],
+      "indexPlan": [
+        {
+          "name": "availability_configuration_pkey",
+          "category": "integrity",
+          "keys": [
+            "id"
+          ],
+          "source": "PRIMARY KEY",
+          "reason": "Entity identity; PostgreSQL creates its index."
+        },
+        {
+          "name": "uq_availability_configuration_0",
+          "category": "integrity",
+          "keys": [
+            "business_id",
+            "branch_id"
+          ],
+          "source": "UNIQUE constraint",
+          "reason": "Business/idempotency uniqueness, not speculative query acceleration."
+        }
+      ],
+      "fkIndexCoverage": [
+        {
+          "columns": [
+            "business_id"
+          ],
+          "target": "business",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "created_by"
+          ],
+          "target": "app_user",
+          "status": "NO_AUTOMATIC_INDEX",
+          "reason": "Referenced Business/User is archived/redacted, not routinely physically deleted. FK remains enforced via scan if necessary; actor/business read indexes require measured access pattern."
+        },
+        {
+          "columns": [
+            "business_id",
+            "branch_id"
+          ],
+          "target": "branch",
+          "status": "COVERED",
+          "supportKeys": [
+            "business_id",
+            "branch_id"
+          ],
+          "index": "uq_availability_configuration_0"
+        }
+      ],
+      "earliestStage": "B2"
+    }
+  ],
+  "localHardening": {
+    "migration": "0005_b2a_history_guards",
+    "checks": [
+      "finite working-hours/rule dates"
+    ],
+    "triggers": [
+      "exact next row_version on updates",
+      "stable identity and membership history",
+      "immutable rule/exception revisions and published shift content",
+      "one-way archival/void and membership closure",
+      "exact next availability configuration_version",
+      "IANA timezone validation on existing branch table"
+    ]
+  },
+  "notEnforced": [
+    "Cross-row membership containment of every published shift/local date, including later membership closure/void correction",
+    "Recurrence materialization, DST ambiguity/gap resolution, branch opening coverage and horizon completeness",
+    "Shift versus time-off/branch-closure reconciliation; resource allocation ledger is a later cohort",
+    "Travel time between branches; adjacent intervals do not imply practical travel feasibility",
+    "Current active/verified/archived qualification/assignment/resource readiness across references",
+    "Monotonic branch-wide schedule publication version and atomic audited B2B revision/exception commands",
+    "Authoritative slot generation, booking/hold/resource-allocation admission and complete double-booking protection"
+  ]
+}

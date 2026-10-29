@@ -1,0 +1,88 @@
+{
+  "status": "PASS",
+  "kind": "ACTUAL_POSTGRESQL_CATALOG_VERIFICATION",
+  "summary": {
+    "sha256": "9347294bb877d0e1fcc395a7183390a95c48a9fea2ea40f7b3d7760e04b04f06",
+    "tables": 27,
+    "indexes": 84,
+    "functions": 9,
+    "foreignKeys": 82,
+    "checks": 93
+  },
+  "newTables": [
+    "branch_working_hours",
+    "branch_closure",
+    "resource",
+    "staff",
+    "staff_branch_assignment",
+    "staff_service_eligibility",
+    "offering_staff_eligibility",
+    "staff_schedule_rule",
+    "staff_shift",
+    "staff_time_off",
+    "availability_configuration"
+  ],
+  "migrations": [
+    {
+      "id": "0001_b1_foundation",
+      "sha256": "db79869b7da75dc0d84961824e0cce8c540f4451d113457123053d92c9e15a0d"
+    },
+    {
+      "id": "0002_b1a_runtime_boundary",
+      "sha256": "aa08a3047c4c150ea1a45e24d2844c3b40e45da19dde555ac06b66901df046d9"
+    },
+    {
+      "id": "0003_b1b_admin_boundary",
+      "sha256": "e02e6b9aaafb3e9466dea1c884a4e0279b833ae80df78f74a91f0a9432c2ab44"
+    },
+    {
+      "id": "0004_b2a_workforce_foundation",
+      "sha256": "48b4c9e9913b523126794769272ccd172fe04df3d214fde297cbc94ab38c9904"
+    },
+    {
+      "id": "0005_b2a_history_guards",
+      "sha256": "8db9eadff44b44abcd380ffb4453d080ae926667e0325c327287a2b1c593d9de"
+    }
+  ],
+  "generated": [
+    {
+      "table_name": "staff_branch_assignment",
+      "attname": "membership_period",
+      "attgenerated": "s",
+      "expression": "daterange(valid_from, valid_to, '[)'::text)"
+    },
+    {
+      "table_name": "staff_shift",
+      "attname": "working_period",
+      "attgenerated": "s",
+      "expression": "tstzrange(starts_at, ends_at, '[)'::text)"
+    }
+  ],
+  "exclusions": [
+    {
+      "table_name": "staff_branch_assignment",
+      "name": "no_overlapping_membership_period",
+      "type": "x",
+      "condeferrable": false,
+      "condeferred": false,
+      "definition": "EXCLUDE USING gist (business_id WITH =, staff_id WITH =, branch_id WITH =, membership_period WITH &&) WHERE ((voided_at IS NULL))"
+    },
+    {
+      "table_name": "staff_shift",
+      "name": "no_cross_branch_staff_shift",
+      "type": "x",
+      "condeferrable": false,
+      "condeferred": false,
+      "definition": "EXCLUDE USING gist (staff_id WITH =, working_period WITH &&) WHERE ((published AND (archived_at IS NULL)))"
+    }
+  ],
+  "extensions": [
+    {
+      "extname": "btree_gist",
+      "extversion": "1.8",
+      "owner": "ms_b1a_migrator",
+      "schema": "public"
+    }
+  ],
+  "apiGrantsUnchanged": true
+}
