@@ -1,0 +1,635 @@
+{
+  "scope": "Static row-shape contract; NOT PostgreSQL evaluation or command execution",
+  "truthTable": [
+    {
+      "status": "DRAFT",
+      "planCommitted": false,
+      "revisionPresent": false,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "DRAFT",
+      "planCommitted": false,
+      "revisionPresent": false,
+      "draftExpiryPresent": true,
+      "valid": true
+    },
+    {
+      "status": "DRAFT",
+      "planCommitted": false,
+      "revisionPresent": true,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "DRAFT",
+      "planCommitted": false,
+      "revisionPresent": true,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "DRAFT",
+      "planCommitted": true,
+      "revisionPresent": false,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "DRAFT",
+      "planCommitted": true,
+      "revisionPresent": false,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "DRAFT",
+      "planCommitted": true,
+      "revisionPresent": true,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "DRAFT",
+      "planCommitted": true,
+      "revisionPresent": true,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "HELD",
+      "planCommitted": false,
+      "revisionPresent": false,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "HELD",
+      "planCommitted": false,
+      "revisionPresent": false,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "HELD",
+      "planCommitted": false,
+      "revisionPresent": true,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "HELD",
+      "planCommitted": false,
+      "revisionPresent": true,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "HELD",
+      "planCommitted": true,
+      "revisionPresent": false,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "HELD",
+      "planCommitted": true,
+      "revisionPresent": false,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "HELD",
+      "planCommitted": true,
+      "revisionPresent": true,
+      "draftExpiryPresent": false,
+      "valid": true
+    },
+    {
+      "status": "HELD",
+      "planCommitted": true,
+      "revisionPresent": true,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "PENDING_PAYMENT",
+      "planCommitted": false,
+      "revisionPresent": false,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "PENDING_PAYMENT",
+      "planCommitted": false,
+      "revisionPresent": false,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "PENDING_PAYMENT",
+      "planCommitted": false,
+      "revisionPresent": true,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "PENDING_PAYMENT",
+      "planCommitted": false,
+      "revisionPresent": true,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "PENDING_PAYMENT",
+      "planCommitted": true,
+      "revisionPresent": false,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "PENDING_PAYMENT",
+      "planCommitted": true,
+      "revisionPresent": false,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "PENDING_PAYMENT",
+      "planCommitted": true,
+      "revisionPresent": true,
+      "draftExpiryPresent": false,
+      "valid": true
+    },
+    {
+      "status": "PENDING_PAYMENT",
+      "planCommitted": true,
+      "revisionPresent": true,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "CONFIRMED",
+      "planCommitted": false,
+      "revisionPresent": false,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "CONFIRMED",
+      "planCommitted": false,
+      "revisionPresent": false,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "CONFIRMED",
+      "planCommitted": false,
+      "revisionPresent": true,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "CONFIRMED",
+      "planCommitted": false,
+      "revisionPresent": true,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "CONFIRMED",
+      "planCommitted": true,
+      "revisionPresent": false,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "CONFIRMED",
+      "planCommitted": true,
+      "revisionPresent": false,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "CONFIRMED",
+      "planCommitted": true,
+      "revisionPresent": true,
+      "draftExpiryPresent": false,
+      "valid": true
+    },
+    {
+      "status": "CONFIRMED",
+      "planCommitted": true,
+      "revisionPresent": true,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "CHECKED_IN",
+      "planCommitted": false,
+      "revisionPresent": false,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "CHECKED_IN",
+      "planCommitted": false,
+      "revisionPresent": false,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "CHECKED_IN",
+      "planCommitted": false,
+      "revisionPresent": true,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "CHECKED_IN",
+      "planCommitted": false,
+      "revisionPresent": true,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "CHECKED_IN",
+      "planCommitted": true,
+      "revisionPresent": false,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "CHECKED_IN",
+      "planCommitted": true,
+      "revisionPresent": false,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "CHECKED_IN",
+      "planCommitted": true,
+      "revisionPresent": true,
+      "draftExpiryPresent": false,
+      "valid": true
+    },
+    {
+      "status": "CHECKED_IN",
+      "planCommitted": true,
+      "revisionPresent": true,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "IN_SERVICE",
+      "planCommitted": false,
+      "revisionPresent": false,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "IN_SERVICE",
+      "planCommitted": false,
+      "revisionPresent": false,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "IN_SERVICE",
+      "planCommitted": false,
+      "revisionPresent": true,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "IN_SERVICE",
+      "planCommitted": false,
+      "revisionPresent": true,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "IN_SERVICE",
+      "planCommitted": true,
+      "revisionPresent": false,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "IN_SERVICE",
+      "planCommitted": true,
+      "revisionPresent": false,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "IN_SERVICE",
+      "planCommitted": true,
+      "revisionPresent": true,
+      "draftExpiryPresent": false,
+      "valid": true
+    },
+    {
+      "status": "IN_SERVICE",
+      "planCommitted": true,
+      "revisionPresent": true,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "COMPLETED",
+      "planCommitted": false,
+      "revisionPresent": false,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "COMPLETED",
+      "planCommitted": false,
+      "revisionPresent": false,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "COMPLETED",
+      "planCommitted": false,
+      "revisionPresent": true,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "COMPLETED",
+      "planCommitted": false,
+      "revisionPresent": true,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "COMPLETED",
+      "planCommitted": true,
+      "revisionPresent": false,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "COMPLETED",
+      "planCommitted": true,
+      "revisionPresent": false,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "COMPLETED",
+      "planCommitted": true,
+      "revisionPresent": true,
+      "draftExpiryPresent": false,
+      "valid": true
+    },
+    {
+      "status": "COMPLETED",
+      "planCommitted": true,
+      "revisionPresent": true,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "CANCELLED",
+      "planCommitted": false,
+      "revisionPresent": false,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "CANCELLED",
+      "planCommitted": false,
+      "revisionPresent": false,
+      "draftExpiryPresent": true,
+      "valid": true
+    },
+    {
+      "status": "CANCELLED",
+      "planCommitted": false,
+      "revisionPresent": true,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "CANCELLED",
+      "planCommitted": false,
+      "revisionPresent": true,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "CANCELLED",
+      "planCommitted": true,
+      "revisionPresent": false,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "CANCELLED",
+      "planCommitted": true,
+      "revisionPresent": false,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "CANCELLED",
+      "planCommitted": true,
+      "revisionPresent": true,
+      "draftExpiryPresent": false,
+      "valid": true
+    },
+    {
+      "status": "CANCELLED",
+      "planCommitted": true,
+      "revisionPresent": true,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "NO_SHOW",
+      "planCommitted": false,
+      "revisionPresent": false,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "NO_SHOW",
+      "planCommitted": false,
+      "revisionPresent": false,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "NO_SHOW",
+      "planCommitted": false,
+      "revisionPresent": true,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "NO_SHOW",
+      "planCommitted": false,
+      "revisionPresent": true,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "NO_SHOW",
+      "planCommitted": true,
+      "revisionPresent": false,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "NO_SHOW",
+      "planCommitted": true,
+      "revisionPresent": false,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "NO_SHOW",
+      "planCommitted": true,
+      "revisionPresent": true,
+      "draftExpiryPresent": false,
+      "valid": true
+    },
+    {
+      "status": "NO_SHOW",
+      "planCommitted": true,
+      "revisionPresent": true,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "EXPIRED",
+      "planCommitted": false,
+      "revisionPresent": false,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "EXPIRED",
+      "planCommitted": false,
+      "revisionPresent": false,
+      "draftExpiryPresent": true,
+      "valid": true
+    },
+    {
+      "status": "EXPIRED",
+      "planCommitted": false,
+      "revisionPresent": true,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "EXPIRED",
+      "planCommitted": false,
+      "revisionPresent": true,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "EXPIRED",
+      "planCommitted": true,
+      "revisionPresent": false,
+      "draftExpiryPresent": false,
+      "valid": false
+    },
+    {
+      "status": "EXPIRED",
+      "planCommitted": true,
+      "revisionPresent": false,
+      "draftExpiryPresent": true,
+      "valid": false
+    },
+    {
+      "status": "EXPIRED",
+      "planCommitted": true,
+      "revisionPresent": true,
+      "draftExpiryPresent": false,
+      "valid": true
+    },
+    {
+      "status": "EXPIRED",
+      "planCommitted": true,
+      "revisionPresent": true,
+      "draftExpiryPresent": true,
+      "valid": false
+    }
+  ],
+  "stateTransitions": [
+    [
+      "DRAFT",
+      "HELD"
+    ],
+    [
+      "DRAFT",
+      "CANCELLED"
+    ],
+    [
+      "DRAFT",
+      "EXPIRED"
+    ],
+    [
+      "HELD",
+      "PENDING_PAYMENT"
+    ],
+    [
+      "HELD",
+      "CONFIRMED"
+    ],
+    [
+      "HELD",
+      "CANCELLED"
+    ],
+    [
+      "HELD",
+      "EXPIRED"
+    ],
+    [
+      "PENDING_PAYMENT",
+      "CONFIRMED"
+    ],
+    [
+      "PENDING_PAYMENT",
+      "CANCELLED"
+    ],
+    [
+      "PENDING_PAYMENT",
+      "EXPIRED"
+    ],
+    [
+      "CONFIRMED",
+      "CHECKED_IN"
+    ],
+    [
+      "CONFIRMED",
+      "CANCELLED"
+    ],
+    [
+      "CONFIRMED",
+      "NO_SHOW"
+    ],
+    [
+      "CHECKED_IN",
+      "IN_SERVICE"
+    ],
+    [
+      "CHECKED_IN",
+      "CANCELLED"
+    ],
+    [
+      "IN_SERVICE",
+      "COMPLETED"
+    ],
+    [
+      "IN_SERVICE",
+      "CANCELLED"
+    ]
+  ]
+}

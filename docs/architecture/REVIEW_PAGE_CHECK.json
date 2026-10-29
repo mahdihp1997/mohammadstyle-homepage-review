@@ -6,8 +6,8 @@
         "width": 1440,
         "height": 900
       },
-      "loadedImages": 9,
-      "checkedLocalLinks": 34,
+      "loadedImages": 26,
+      "checkedLocalLinks": 90,
       "horizontalOverflow": false,
       "jsErrors": []
     },
@@ -16,8 +16,8 @@
         "width": 390,
         "height": 844
       },
-      "loadedImages": 9,
-      "checkedLocalLinks": 34,
+      "loadedImages": 26,
+      "checkedLocalLinks": 90,
       "horizontalOverflow": false,
       "jsErrors": []
     }

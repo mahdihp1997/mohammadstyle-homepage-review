@@ -23,3 +23,8 @@ The numbered documents, SQL/model/dictionary, OpenAPI, ADRs and rendered diagram
 - [UK CMA cancellation guidance](https://www.gov.uk/government/publications/cancelling-goods-or-services-guide-for-consumers/cancelling-goods-or-services): illustrative evidence that non-refundable labels do not settle consumer-law questions; not a determination of Iranian/applicable law.
 
 Every project-specific precedence, table, workflow, endpoint, role matrix and rollout trade-off is our proposed design, not a claim that an external source prescribes this salon's rules.
+
+
+## Hardening sources consulted2026-10-29
+
+The owner-provided architecture findings define this review scope, separate from derived decisions. Private review baseline ab62e845bcbf7c351c29c6d77078d3bcfb97793a is preserved in Git. [RFC8785 JCS](https://www.rfc-editor.org/rfc/rfc8785.html) informs deterministic JSON serialization; [PostgreSQL18 constraints](https://www.postgresql.org/docs/18/ddl-constraints.html), [range types](https://www.postgresql.org/docs/18/rangetypes.html) and [multicolumn indexes](https://www.postgresql.org/docs/18/indexes-multicolumn.html) inform draft integrity/index choices. All project-specific period/hash/stage/policy alternatives remain proposals, not externally prescribed business facts.

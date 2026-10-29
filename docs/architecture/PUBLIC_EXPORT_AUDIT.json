@@ -1,445 +1,757 @@
 {
-  "phase": "03A_SPECIFICATION_ONLY",
+  "scope": "PHASE03A_ARCHITECTURE_HARDENING_ONLY",
   "date": "2026-10-29",
-  "privateBaseline": "2155872cc626d7463d94500b678d875bec0e4dc6",
-  "privateArchitectureCommit": "ab62e845bcbf7c351c29c6d77078d3bcfb97793a",
-  "publicBase": "c21a03f54cf6b1792ab2321225300f397a642514",
+  "privateReviewBaseline": "ab62e845bcbf7c351c29c6d77078d3bcfb97793a",
+  "privateArchitectureCommit": "23c92360b8cbd87099459955c2636f041b988fc7",
+  "privateImplementationCommit": "ba34147bc84b6fa1fd8e2725dd2fd3635213d3c1",
+  "publicPreviousHead": "5ef002fec9ec36ab92cfa2d0924e9dc3027ed9e0",
+  "publicPhase02Base": "c21a03f54cf6b1792ab2321225300f397a642514",
   "publicBranch": "review/phase03a-architecture",
-  "prBase": "review/phase02-booking",
   "publicRoot": "f35a5cc20ebd497b0d8fb7b96c207549f147799f",
-  "applicationTestDependencyAssetChanges": 0,
+  "prNumber": 2,
+  "prBase": "review/phase02-booking",
   "privateGitObjectsImported": 0,
+  "publicApplicationTestsDependencyAssetsChanged": 0,
   "withheldBinaryHashesChecked": 177,
-  "newGeneratedPngs": 10,
+  "newGeneratedPngs": 27,
   "credentialPatternMatches": 0,
-  "contentDifferences": "None in transferred derived files; bytes match private source. Added export audit only. Raw source task/history context and global private context update omitted; sanitized context snapshot included.",
+  "sourceContentDifferences": "All transferred derived files match private working-source bytes. Public audit/delivery metadata only; no Booking behavior change. Private global context represented by sanitized snapshot.",
   "omitted": [
-    "docs/architecture/sources/PHASE03A_REQUEST.txt",
-    "docs/architecture/sources/PROJECT_CONTEXT_PHASE02.md",
-    "private photos/fonts/references/internal screenshots",
+    "all docs/architecture/sources original material",
+    "private photos/fonts/reference boards/internal screenshots",
     "credentials/env/build outputs/node_modules/scratch tooling",
     "private Git objects/history"
   ],
   "files": [
     {
       "path": "docs/architecture/00_README.md",
-      "sha256": "038ee75817939650db6e043177d8a12d5b23865202ca7606b9f0513217ecdb8c",
-      "bytes": 3680,
-      "source": "private-derived-specification"
+      "sha256": "07387b99c6fab2595b19c3977fb8bc3873b8249a5a22c1ae1c65a29091cc672e",
+      "bytes": 4354
     },
     {
       "path": "docs/architecture/01_SYSTEM_OVERVIEW.md",
       "sha256": "fa2750fe475356edb3810a30bd8aeec8223f5684fb37cc14d758058c14963950",
-      "bytes": 5049,
-      "source": "private-derived-specification"
+      "bytes": 5049
     },
     {
       "path": "docs/architecture/02_DOMAIN_MODEL.md",
       "sha256": "8cc1f76f762171707f6f99f4433f5a2434d0329f26c696f09df216857e4a121a",
-      "bytes": 12124,
-      "source": "private-derived-specification"
+      "bytes": 12124
     },
     {
       "path": "docs/architecture/03_DATABASE_DESIGN.md",
-      "sha256": "d03ab3eb9a9fefb5cf5abb475362d543d7f42b13caebd6847c30b30848afd535",
-      "bytes": 9872,
-      "source": "private-derived-specification"
+      "sha256": "56fc13540c62e3a4a3c4a3746f19af761065a6ec71736826473aad7d17a4b7e4",
+      "bytes": 10529
     },
     {
       "path": "docs/architecture/04_BOOKING_ENGINE.md",
-      "sha256": "410235465ecdca59ba910973e58321ba808703f10443971cd929b81cc6d420c7",
-      "bytes": 12338,
-      "source": "private-derived-specification"
+      "sha256": "324a9ea2492ddbaaed0a31fdbf3d58b56830b35c53d135255c6b86a5e7030f8b",
+      "bytes": 13078
     },
     {
       "path": "docs/architecture/05_POLICY_ENGINE.md",
-      "sha256": "e93f07254a2613430c13b25097053d53f9cbc8aacfeaa644431ac6bac1624ea1",
-      "bytes": 7612,
-      "source": "private-derived-specification"
+      "sha256": "21152155ca7404b8e1726892133e23f36d5f930bfbc615a6ab7edc985c0aaaae",
+      "bytes": 8113
     },
     {
       "path": "docs/architecture/06_PAYMENT_ARCHITECTURE.md",
-      "sha256": "ea5b8fee7aa9be268b840a26928e2dc021b736a4aea18df9fb084c32ad326670",
-      "bytes": 7667,
-      "source": "private-derived-specification"
+      "sha256": "1097ba44041a82e3a6df4ffc0eaf8d380d3b6a69675e2adefb43e637ae1732a6",
+      "bytes": 8018
     },
     {
       "path": "docs/architecture/07_NOTIFICATION_ARCHITECTURE.md",
       "sha256": "d4a7ae2de19d2c93776ac44d5c5609528e58867c3c8e5b88077c2f52cb85024a",
-      "bytes": 4530,
-      "source": "private-derived-specification"
+      "bytes": 4530
     },
     {
       "path": "docs/architecture/08_SECURITY_AND_RBAC.md",
       "sha256": "703d72694a1f64bd08bd991af8a38d5496f4178a1091ddd8722ca8f6eee2910f",
-      "bytes": 8772,
-      "source": "private-derived-specification"
+      "bytes": 8772
     },
     {
       "path": "docs/architecture/09_API_CONTRACTS.md",
-      "sha256": "021e97a15c06791d9edd86d8d767336b95d6b260e53e115f8896912e7c4f34bb",
-      "bytes": 13152,
-      "source": "private-derived-specification"
+      "sha256": "8abf7f149f1d35d9c595dbe1dab0c6d20333b3896eb66681601befe51d1a8c88",
+      "bytes": 13950
     },
     {
       "path": "docs/architecture/10_IMPLEMENTATION_ROADMAP.md",
-      "sha256": "a73fe46eecd046c3ff203b829dab85c2e472723e15fc2227e9b6a705f5cdd7fe",
-      "bytes": 3925,
-      "source": "private-derived-specification"
+      "sha256": "b5aa86d3a867ad30299d1bf491b42b5d9fd825c2a9747a078aa880af0ffa5e76",
+      "bytes": 4370
     },
     {
       "path": "docs/architecture/11_OPEN_DECISIONS.md",
-      "sha256": "89fcc38a9dbff21939dc244bf9f548eb7f28b853044622cf7f1f76a63a104faa",
-      "bytes": 4695,
-      "source": "private-derived-specification"
+      "sha256": "de6c6383c5f7d10bfe13b6bed756e01cb876877cfa4fd96a1d53055c6dd2dc95",
+      "bytes": 5488
+    },
+    {
+      "path": "docs/architecture/B1_SCHEMA_SCOPE.md",
+      "sha256": "5a1d479fa3189d53addc1f0495b238a2b5dce0c4d3812b09c23b6c8fcf9f59f4",
+      "bytes": 5576
+    },
+    {
+      "path": "docs/architecture/BOOKING_DRAFT_INVARIANTS.md",
+      "sha256": "a367a08cac40374eea6edda2801e6da3aa6cce781613951b9b4bb9eb209004ed",
+      "bytes": 3262
     },
     {
       "path": "docs/architecture/DELIVERY_REPORT.md",
-      "sha256": "27a7f0009fd9e2d960c94dc25934c95615a82fc1daff6ff4ac92e5bb874cc1e0",
-      "bytes": 3381,
-      "source": "private-derived-specification"
+      "sha256": "246c1cc0727311f73fdf358f12bf7ae3d9412cf60f95b9a1fa949caf584871db",
+      "bytes": 588
+    },
+    {
+      "path": "docs/architecture/HARDENING_CHANGED_FILES.md",
+      "sha256": "4878e8af70d4cb0e54662f4b5b53686c971e5fdc96985742dbd87b7556f3c40e",
+      "bytes": 6867
+    },
+    {
+      "path": "docs/architecture/HARDENING_REPORT.md",
+      "sha256": "a2fd61b99ab72ca253fb4a349ece81896a14c2c6c4eeb7ad952d6e73b7f4d050",
+      "bytes": 4790
+    },
+    {
+      "path": "docs/architecture/INDEX_REVIEW.md",
+      "sha256": "9e2fde52734d4377d93f4c3040b347ad640c6467f1c28005a06a2476cc8d27f0",
+      "bytes": 4139
+    },
+    {
+      "path": "docs/architecture/MULTI_SERVICE_POLICY_OPTIONS.md",
+      "sha256": "bc6aa9c8b1494c015f08ca1557b14f0384ccd109fedcf34b89185392efd2ea36",
+      "bytes": 3959
     },
     {
       "path": "docs/architecture/PROJECT_CONTEXT_SNAPSHOT.md",
-      "sha256": "1c543af4ff3ab71219ca4b7b6d1e3ce0fc3211d90e4a0c4f2593039f0d2ddef1",
-      "bytes": 6129,
-      "source": "private-derived-specification"
+      "sha256": "d0aced1d4cf402b9a77bb9bc31504560198155a98b2616e5ab0ac7a993e7ba7c",
+      "bytes": 6915
     },
     {
       "path": "docs/architecture/PUBLIC_EXPORT.md",
-      "sha256": "ec881739edd53842aac35975bc8c5e8ca1b9c387235938a2e3b80eaf23cbfc80",
-      "bytes": 1608,
-      "source": "private-derived-specification"
+      "sha256": "70f37b352915926a7eaff5d03ee7c3b74eb6a72fc65791cdf404ff1973225c13",
+      "bytes": 2085
+    },
+    {
+      "path": "docs/architecture/QUOTE_HASH_CONTRACT.md",
+      "sha256": "eca76aff5f5aee0de781b270b622b93df88640a7df883f77e6dca790c9dfddee",
+      "bytes": 6525
     },
     {
       "path": "docs/architecture/REVIEW.html",
-      "sha256": "c97efd0746267203ffe579014fb66b5c00aafae9aab29c74c3d95b5f4c89cb77",
-      "bytes": 6928,
-      "source": "private-derived-specification"
+      "sha256": "d859b91c01baf2d35932cdb4dc39ce9e2b445ae99b209dd63d2d0c1e99e17388",
+      "bytes": 18342
     },
     {
       "path": "docs/architecture/REVIEW_PAGE_CHECK.json",
-      "sha256": "775490912695167b475f7a3e8894c67234dcec1bdbbbc6894cc65cbdbfeedab7",
-      "bytes": 487,
-      "source": "private-derived-specification"
+      "sha256": "af91124c1cdb0af7d9699e29287db420c862bd8b5f5c327662c2a4237ccddada",
+      "bytes": 489
     },
     {
       "path": "docs/architecture/SOURCES.md",
-      "sha256": "3d2de903350d45d1409c0267aca349e93dda6ad4ccfcb3d31194aeb7c47847b1",
-      "bytes": 3458,
-      "source": "private-derived-specification"
+      "sha256": "f1f041f122cf09bb8978f2e9b68a3dfc3b53eec909a8fc958658420a08199b30",
+      "bytes": 4184
+    },
+    {
+      "path": "docs/architecture/TEMPORAL_STAFF_ASSIGNMENT.md",
+      "sha256": "8eda391106ed6c122588b14b76ced6eb46512ff01089f2205283242ef0d3edf5",
+      "bytes": 3368
     },
     {
       "path": "docs/architecture/VALIDATION_MATRIX.md",
-      "sha256": "01bd4135f06cf702c38b23fad947eef869edd627a6f1830d776ba247c7f355bb",
-      "bytes": 16001,
-      "source": "private-derived-specification"
+      "sha256": "e439d9912fa62795704b62bcc9b5baef22ca3100abed601a628997c3d0faaec2",
+      "bytes": 26126
     },
     {
       "path": "docs/architecture/VALIDATION_RESULTS.json",
-      "sha256": "7b7c4c43f242c09a5d0d0ecd442f68c99c9a3096826117abacbeb0b2a84be9f7",
-      "bytes": 2854,
-      "source": "private-derived-specification"
+      "sha256": "0064021ef081dd45b09f60626a21d3ede10ecf4ff166b680b682010ec7e1dc9d",
+      "bytes": 5767
     },
     {
       "path": "docs/architecture/VALIDATION_RESULTS.md",
-      "sha256": "78da40c15aa96f0651fd9414aa9904e267b0ed945432dd85ea6914b24bf7ea2f",
-      "bytes": 4560,
-      "source": "private-derived-specification"
+      "sha256": "031910c4577e6cdbdce8c6952f8251547278d6d5db6330c535b1bb2eeda7286e",
+      "bytes": 6334
     },
     {
       "path": "docs/architecture/VISUAL_REVIEW_PACKAGE.md",
-      "sha256": "d735c3852b83ad465e3c4586957798544a5d1b2f5f1d4a4258855146653917c1",
-      "bytes": 3024,
-      "source": "private-derived-specification"
+      "sha256": "3edc5e4554eacaffc9b9704797fb4020cb5d604f92a02133dc1464245de45607",
+      "bytes": 3815
     },
     {
       "path": "docs/architecture/adr/ADR-001.md",
       "sha256": "7bd5196b4ddfb42ae67e38550aea9b89aa44595455eb9f5268e6b54c94b3d4c9",
-      "bytes": 933,
-      "source": "private-derived-specification"
+      "bytes": 933
     },
     {
       "path": "docs/architecture/adr/ADR-002.md",
       "sha256": "185e2bc2c801e3f927c17caf7c38622085678d2e19bc9c7eaae50b0efeb0101e",
-      "bytes": 925,
-      "source": "private-derived-specification"
+      "bytes": 925
     },
     {
       "path": "docs/architecture/adr/ADR-003.md",
       "sha256": "4c42571820320ee77650f0611f3c09853ef73a5e9fd8221a2a7b19b81cec6c9c",
-      "bytes": 819,
-      "source": "private-derived-specification"
+      "bytes": 819
     },
     {
       "path": "docs/architecture/adr/ADR-004.md",
-      "sha256": "06318fecefebceef24ceffe12f493df95d23c16d21f347918944832646250f95",
-      "bytes": 821,
-      "source": "private-derived-specification"
+      "sha256": "b838830111e20f8f4a02d851a49019bb25e0bded5038e4798166d31d08c959cd",
+      "bytes": 997
     },
     {
       "path": "docs/architecture/adr/ADR-005.md",
-      "sha256": "92f659bf1cfa8b7768601179dfd2192a56191f67f6323f42339a1a1a3fae1e47",
-      "bytes": 867,
-      "source": "private-derived-specification"
+      "sha256": "22b4752bab5da7d43aee5715a968b3b64b9edf4adac1a95e1fcfef021ec02add",
+      "bytes": 1069
     },
     {
       "path": "docs/architecture/adr/ADR-006.md",
-      "sha256": "26db8eeef4ad11b1d7212828ba8f5da912d8662700ffa1d7cab4c3313381cda9",
-      "bytes": 857,
-      "source": "private-derived-specification"
+      "sha256": "2e0fce2ef9c14234a4047418a6e41c096eaa189768b28e99f582a562ea7f5333",
+      "bytes": 1085
     },
     {
       "path": "docs/architecture/adr/ADR-007.md",
       "sha256": "eb10b9728a82ad7af5cd24dfcc64659dc5291521345fff66fdb0f4d4d023b416",
-      "bytes": 859,
-      "source": "private-derived-specification"
+      "bytes": 859
     },
     {
       "path": "docs/architecture/adr/ADR-008.md",
       "sha256": "662543fa5798f68d3ce4ddc065b7f580396afa5a50575a016e1c2928f882c7e0",
-      "bytes": 840,
-      "source": "private-derived-specification"
+      "bytes": 840
     },
     {
       "path": "docs/architecture/adr/ADR-009.md",
       "sha256": "cc60943a8c8b73536cf0f69748d7952b138a1d1a64c8b460050ae6124e9a1bc2",
-      "bytes": 798,
-      "source": "private-derived-specification"
+      "bytes": 798
     },
     {
       "path": "docs/architecture/adr/ADR-010.md",
       "sha256": "f6a7938d84b48881a395c5be46da080e76272f235148ea36ef15b067fb9abd3a",
-      "bytes": 826,
-      "source": "private-derived-specification"
+      "bytes": 826
     },
     {
       "path": "docs/architecture/adr/ADR-011.md",
       "sha256": "c102ec390a475abf55026ce8e98e76dfbcc40ce8e4aa01f4d8979923a88db263",
-      "bytes": 843,
-      "source": "private-derived-specification"
+      "bytes": 843
     },
     {
       "path": "docs/architecture/adr/ADR-012.md",
       "sha256": "0f487da8000c5c3a72c69017c5024d997cff493dc0ff43ebcaee32452e4388c8",
-      "bytes": 1024,
-      "source": "private-derived-specification"
+      "bytes": 1024
+    },
+    {
+      "path": "docs/architecture/adr/ADR-013.md",
+      "sha256": "00530ce6cf636d455c1fd97da7de17a2aef5d249d3626c1759cb68ed676c1c99",
+      "bytes": 661
+    },
+    {
+      "path": "docs/architecture/adr/ADR-014.md",
+      "sha256": "01c0463f2a2f3263b75cef0f6f20b9fd4e1222e8ee37b8137157d7bb82bec6cb",
+      "bytes": 616
+    },
+    {
+      "path": "docs/architecture/adr/ADR-015.md",
+      "sha256": "87a696e6d47f6a27b4368a810aeca2188517168964da194f48952a46bf361d6c",
+      "bytes": 617
+    },
+    {
+      "path": "docs/architecture/adr/ADR-016.md",
+      "sha256": "71d807d5e303fcec05661e9fbaeee5c0aa3e218c0b47de822c769c14184c7379",
+      "bytes": 706
+    },
+    {
+      "path": "docs/architecture/adr/ADR-017.md",
+      "sha256": "0456d9b34814f825fa06299b16fd6813d2652befaef8f195fff37e2a49c78526",
+      "bytes": 588
+    },
+    {
+      "path": "docs/architecture/adr/ADR-018.md",
+      "sha256": "ad6e91118dc502546f88b2d68753e3f9dc0844a3190a44b878cc5140a643ad3f",
+      "bytes": 673
+    },
+    {
+      "path": "docs/architecture/adr/ADR-019.md",
+      "sha256": "f2957f1d4e45fc327d0a7b0b6306921f57bfcacb25f4c3d2f9b18d3cd83430e7",
+      "bytes": 636
     },
     {
       "path": "docs/architecture/diagrams/README.md",
-      "sha256": "acffd7d68bcfc65d1df8ea0a6ddb721c39045592045a45aa3e6c133acbd37d0a",
-      "bytes": 1081,
-      "source": "private-derived-specification"
+      "sha256": "313a4ca953fc18be92fd1c06ce36da0e877fe1615fdb9f92a1144b00598fe083",
+      "bytes": 1009
+    },
+    {
+      "path": "docs/architecture/diagrams/backend-module-dependencies.dot",
+      "sha256": "9a75f135f08df92a8c5985ae035981aec041e5839d4c3da5583bb583ab4fba42",
+      "bytes": 1961
     },
     {
       "path": "docs/architecture/diagrams/backend-modules.dot",
-      "sha256": "cdbd4e5696bcd0b2fa956f9d840e741c46bd2ee7e3eb4221f50cd56030108bd9",
-      "bytes": 4055,
-      "source": "private-derived-specification"
+      "sha256": "22a4c52d13b5ccd133e4bfb034abf2146d88592a510f6b956fe9f1bbe24ba9a5",
+      "bytes": 2157
     },
     {
       "path": "docs/architecture/diagrams/booking-concurrency.dot",
       "sha256": "d66fb89c915be2045676a6e04346a592f5ff475bbf224c1786c057d620322355",
-      "bytes": 6505,
-      "source": "private-derived-specification"
+      "bytes": 6505
     },
     {
       "path": "docs/architecture/diagrams/booking-flow.dot",
       "sha256": "e6e7b6bc25011daf1674969a90c662dc926b24ac214624ab7b44d0a507909d75",
-      "bytes": 2760,
-      "source": "private-derived-specification"
+      "bytes": 2760
     },
     {
       "path": "docs/architecture/diagrams/booking-state-machine.dot",
       "sha256": "0eb24bf8a9e53f023f1cafe621e44ab35ced6011730abb94cf67567aed03724a",
-      "bytes": 1203,
-      "source": "private-derived-specification"
+      "bytes": 1203
+    },
+    {
+      "path": "docs/architecture/diagrams/context-audit.dot",
+      "sha256": "3f657affb584635b15c393cfb71022312274e51179c507fc525aa3a5b77a5924",
+      "bytes": 1993
+    },
+    {
+      "path": "docs/architecture/diagrams/context-availability.dot",
+      "sha256": "02a42ba09ff1328b3ebd7ccb90d6618fd046c2baf2c566fab13441726086a939",
+      "bytes": 1898
+    },
+    {
+      "path": "docs/architecture/diagrams/context-booking.dot",
+      "sha256": "94532e3d4944de382363ad8dc9c0a2b2b79e5b7c66255339ea63a879e566abae",
+      "bytes": 9427
+    },
+    {
+      "path": "docs/architecture/diagrams/context-business.dot",
+      "sha256": "2035ab82e7a5a7032d01f9e66790fba20cda05b68137ebac358609512a0cb908",
+      "bytes": 2078
+    },
+    {
+      "path": "docs/architecture/diagrams/context-catalog.dot",
+      "sha256": "bd9134c4d881cf47e23f9966708f186eb2362b33f4a64185472a05ad1919b7f7",
+      "bytes": 2621
+    },
+    {
+      "path": "docs/architecture/diagrams/context-coverage.json",
+      "sha256": "f508d3c24fb2b61128e202f9885d8f06d4e40328373e8096ab8c531c049da87e",
+      "bytes": 6005
+    },
+    {
+      "path": "docs/architecture/diagrams/context-customers.dot",
+      "sha256": "2248cb1e6fb6edca32d8ad46bad936c8a18f40c1fbd05dc85dbdc2d56bb64eac",
+      "bytes": 1765
+    },
+    {
+      "path": "docs/architecture/diagrams/context-iam.dot",
+      "sha256": "eddee6f29e0d7fbf3d51aa5c57372a6b2db9fe301b3a06f9bae397793c3727e4",
+      "bytes": 5256
+    },
+    {
+      "path": "docs/architecture/diagrams/context-infrastructure.dot",
+      "sha256": "573c3c3ca8fea2a038a191e5a28b0f0ac22e64a7d993098e81ebb47ed402c8a8",
+      "bytes": 3283
+    },
+    {
+      "path": "docs/architecture/diagrams/context-media.dot",
+      "sha256": "fc8d38beb29437c057a3d44d7e56c556df7c8976c57baca646c4a5d698039636",
+      "bytes": 9500
+    },
+    {
+      "path": "docs/architecture/diagrams/context-notifications.dot",
+      "sha256": "d56786cda9c46208beeb627336aa2c67cd42cae90bf2cc1538ddbcf42d415762",
+      "bytes": 8318
+    },
+    {
+      "path": "docs/architecture/diagrams/context-offerings.dot",
+      "sha256": "32a9a475cc497e7f064812b4d1720e2cc15c460bb13bc43a9c034559e316444f",
+      "bytes": 4740
+    },
+    {
+      "path": "docs/architecture/diagrams/context-payments.dot",
+      "sha256": "b55513bec4f2b13ef248cb0d68fe12f671120b138951bcfd5336ce54baa6267b",
+      "bytes": 8195
+    },
+    {
+      "path": "docs/architecture/diagrams/context-policies.dot",
+      "sha256": "d48949c21a508b75e5e26d670f07832a41e6ae5891617b1de356c7b4b81398fc",
+      "bytes": 9027
+    },
+    {
+      "path": "docs/architecture/diagrams/context-pricing.dot",
+      "sha256": "536497d23389c5865073dd0fe2af4ced953645bee62f61b4e7e78aded508b75f",
+      "bytes": 3758
+    },
+    {
+      "path": "docs/architecture/diagrams/context-scheduling.dot",
+      "sha256": "1c60fc608c689ee43de295efef8512eadcd59f07d76b865692337e6d6c17a026",
+      "bytes": 9011
+    },
+    {
+      "path": "docs/architecture/diagrams/context-staff.dot",
+      "sha256": "4a44239f00c3eedaeb25c00d1493de07aca47e3944dbe6a686720aaacfe5c602",
+      "bytes": 3980
     },
     {
       "path": "docs/architecture/diagrams/database-erd.dot",
-      "sha256": "ad47839a80bbb43997abe8e1d69635440eb8ff0aae965308b93e1c5465b21ab4",
-      "bytes": 112505,
-      "source": "private-derived-specification"
+      "sha256": "dae09aa4cfdf177a0e797f3af56122b0780ebae405c4ea567aa84a3e1106fc7d",
+      "bytes": 113066
     },
     {
       "path": "docs/architecture/diagrams/database-erd.mmd",
       "sha256": "3753b5311787ac2f0069c852ecedb75940181cbca663ed818146505f98d4445f",
-      "bytes": 21142,
-      "source": "private-derived-specification"
+      "bytes": 21142
     },
     {
       "path": "docs/architecture/diagrams/multi-branch-model.dot",
       "sha256": "f0c7b4746c905f549aa7b31f29beae3171d3e17587524c23d89b5aa23440af52",
-      "bytes": 2615,
-      "source": "private-derived-specification"
+      "bytes": 2615
     },
     {
       "path": "docs/architecture/diagrams/overview.dot",
-      "sha256": "1a90f6251f471702897b029bf2d8001195d3a3a275a4f0e385dd5e995b974c93",
-      "bytes": 2401,
-      "source": "private-derived-specification"
+      "sha256": "59e90f5de91627de2bcb20e1cb22c74c8c18dce461391a4ff5f0dd9ab0140e05",
+      "bytes": 1956
     },
     {
       "path": "docs/architecture/diagrams/payment-sequence.dot",
       "sha256": "18faf4e84000e998e690197010db64d7c5d5241e20fc9d6848ba46f8d10c527c",
-      "bytes": 17376,
-      "source": "private-derived-specification"
+      "bytes": 17376
+    },
+    {
+      "path": "docs/architecture/diagrams/payment-sequence.mmd",
+      "sha256": "b505247b8b8781dd28b220e9143f93bf3bc3e0003a38b028b40ccece5c389cdc",
+      "bytes": 1490
+    },
+    {
+      "path": "docs/architecture/diagrams/payment-sequence.sequence.json",
+      "sha256": "fc3e8854d17023f98469541dd35869ce315eb573cbf5a90fef84c7643cec66bb",
+      "bytes": 2613
+    },
+    {
+      "path": "docs/architecture/diagrams/payment-sequence.source.svg",
+      "sha256": "4eecfee17774dd7ca634469f3d60b5cbbd4f973c582381757324c897ab2ab468",
+      "bytes": 8048
     },
     {
       "path": "docs/architecture/diagrams/policy-resolution.dot",
       "sha256": "e88d26c0994b84c960893328e2808213e389a4f57383ce27b3005a3548e992ca",
-      "bytes": 2314,
-      "source": "private-derived-specification"
+      "bytes": 2314
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/backend-module-dependencies.png",
+      "sha256": "265f8869728f5c5457bd94e10fa4173950d2f0a902b2c9d24233fa5322adbd75",
+      "bytes": 98305
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/backend-module-dependencies.svg",
+      "sha256": "f26e42785ea6c2c33121c0dd55bf748ee3d51e53536273e74763204759d04e63",
+      "bytes": 28273
     },
     {
       "path": "docs/architecture/diagrams/rendered/backend-modules.png",
-      "sha256": "542dc2f9773367bd55cb8502fb5e79750f044bfe1f690e3a0d4639f3b0e2e3dc",
-      "bytes": 66137,
-      "source": "private-derived-specification"
+      "sha256": "aac5bc414375cf40a9d1d322c2dc126f4e86b777e8fc1395b0c267ee03a2e153",
+      "bytes": 70642
     },
     {
       "path": "docs/architecture/diagrams/rendered/backend-modules.svg",
-      "sha256": "921ce8d93104df35e903c9afbd4404208fe5537102ee0a0d589deb267c5c74c2",
-      "bytes": 40725,
-      "source": "private-derived-specification"
+      "sha256": "028362a59339798dc538229ccc7ba8f510541f628d295b7f9dd93faa98c18b15",
+      "bytes": 13866
     },
     {
       "path": "docs/architecture/diagrams/rendered/booking-concurrency.png",
       "sha256": "f49751b03a61c605ae1938a2abddfe4da8d4f7bbd7af60a750568e0127b338af",
-      "bytes": 63108,
-      "source": "private-derived-specification"
+      "bytes": 63108
     },
     {
       "path": "docs/architecture/diagrams/rendered/booking-concurrency.svg",
       "sha256": "0ab8735171e6fada4b4a657218f2b039dfd7e157c57a799c5249dfb5b08900dd",
-      "bytes": 19050,
-      "source": "private-derived-specification"
+      "bytes": 19050
     },
     {
       "path": "docs/architecture/diagrams/rendered/booking-flow.png",
       "sha256": "bffcbee9b6c629cea9fae41907eaaadb1b2d9327845f8b26213a8681ea920adc",
-      "bytes": 220808,
-      "source": "private-derived-specification"
+      "bytes": 220808
     },
     {
       "path": "docs/architecture/diagrams/rendered/booking-flow.svg",
       "sha256": "8913b82e56f541389143fee43a18a5ba2f20a1f73d4afdced44d4d02e17474dc",
-      "bytes": 20761,
-      "source": "private-derived-specification"
+      "bytes": 20761
     },
     {
       "path": "docs/architecture/diagrams/rendered/booking-state-machine.png",
       "sha256": "68c9436eb329e57db4c74a43c401de357cd564168157fed8ea5a7db9046255a8",
-      "bytes": 41921,
-      "source": "private-derived-specification"
+      "bytes": 41921
     },
     {
       "path": "docs/architecture/diagrams/rendered/booking-state-machine.svg",
       "sha256": "0e7bbe9ea62008aa780abaa5bbbbb06cd26c0f4c94a5364026a9984695f4ba0d",
-      "bytes": 13256,
-      "source": "private-derived-specification"
+      "bytes": 13256
     },
     {
       "path": "docs/architecture/diagrams/rendered/contact-sheet.png",
-      "sha256": "c67f411ff876cf1c5e08c362f40909a8554adbf3ba8b00c992c91f6ddb552346",
-      "bytes": 182425,
-      "source": "private-derived-specification"
+      "sha256": "0cb97b9fe53e909ba6126bdcbe82ef921de12b0871827108825eaa09626e95bf",
+      "bytes": 203027
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-audit.png",
+      "sha256": "7b81da85ae7eb37276b431526b2c6db6ab74353adb3b0556b5177473b373f8b5",
+      "bytes": 60395
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-audit.svg",
+      "sha256": "6566a1767e1721fd98c237379f5e6c6c61df8d2e8adeded6e57e2abef9b7cfed",
+      "bytes": 10046
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-availability.png",
+      "sha256": "bc8f2e4e29707516d919c10c166760b8c1d3d12978959bc9d780c4838d8c14a4",
+      "bytes": 67007
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-availability.svg",
+      "sha256": "3f1ac50fcb532161d6bdb10d81c538a48a1e5a5eb122c9b78a813cfdf99cbc09",
+      "bytes": 8918
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-booking.png",
+      "sha256": "70dace2797a26c65121f2e6790a2eff82c1999c9f8d656032e9945de5337dbae",
+      "bytes": 165620
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-booking.svg",
+      "sha256": "5b55dbcebb9d9306c2d4e6b23d5be6c04816d611a9c9b651ab2f814f799685eb",
+      "bytes": 51483
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-business.png",
+      "sha256": "7c7844e59900d1b5bc6b6ab495cfc0d8dd93125cd19ce4fb99090513102aae22",
+      "bytes": 51824
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-business.svg",
+      "sha256": "63c7bff694014129a096dfb47e944aada36e360ba2a80948ecc4d04b854320dd",
+      "bytes": 10081
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-catalog.png",
+      "sha256": "e162b153335217fa1c5bb5f7bd2a6762ea56adf17ff42c61e86eb0ffbcdf5786",
+      "bytes": 66591
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-catalog.svg",
+      "sha256": "234d352dda6b3b16f46210a90435b08686221481009b1a49244183ade01ecceb",
+      "bytes": 12788
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-customers.png",
+      "sha256": "5ec386241a72bdd25fef4c4905a0132041a6965957491b0e9d835a37eed0925d",
+      "bytes": 63699
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-customers.svg",
+      "sha256": "d3a9482c779404250fe370c91138cbad11ccab5c602e043c55ba9ea5924a9269",
+      "bytes": 8171
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-iam.png",
+      "sha256": "6db0ade299ba302d42b6f2149b0ae1786b8de140786c875dfb876fdece86e647",
+      "bytes": 61534
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-iam.svg",
+      "sha256": "7d47523f176ac73e941fe949716d9f6cc1cd88f1aac67f5d5cbaabc5837d33b1",
+      "bytes": 28429
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-infrastructure.png",
+      "sha256": "cc33d0c505b1bebe45325155a87f2369b9d831a4d7d30046c4fed8115e5a0402",
+      "bytes": 76364
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-infrastructure.svg",
+      "sha256": "6cb92508a85b39ea914730ebd122d2195c4d9ced638a8c942601f31a607b27b2",
+      "bytes": 17024
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-media.png",
+      "sha256": "535e409edb3af63304433e0bc9f383378ac3faa2c2c37e0abe77931e762c7922",
+      "bytes": 82144
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-media.svg",
+      "sha256": "91e5e328452d19ab8ab40694608253237c56b1e4bcfc85ab9246887d21e4d6e4",
+      "bytes": 55567
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-notifications.png",
+      "sha256": "0222ab15f23dea857d7b0e68a5092c91567aa7d8a7fbfe7ddfacfffd02126529",
+      "bytes": 99515
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-notifications.svg",
+      "sha256": "8ff4cad08eb45144148ab8c19fe3a3182226f84deffc4abbd98845d7da34d74a",
+      "bytes": 47949
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-offerings.png",
+      "sha256": "01de0de18e233c11b8edcbd0d186b693c5a0728487c591f0cf0f51d01ac49305",
+      "bytes": 77550
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-offerings.svg",
+      "sha256": "5aeb514b3321f3e0e2e541b4a155af9a01bf620bcf1073e59a7a6fd426105570",
+      "bytes": 24344
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-payments.png",
+      "sha256": "ceee9346a12a17cb1208250791eebdc6c153f60900fb34ccd222e88818eddfc0",
+      "bytes": 145800
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-payments.svg",
+      "sha256": "1643836dc2e6e0f301299778cf0d1050bdd1bdc447b635603ce02ee41297e837",
+      "bytes": 46961
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-policies.png",
+      "sha256": "4993357a720662eb35d592ea2ff37d75a541b4b4f7eae17f135fe7d596bd9cf0",
+      "bytes": 70688
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-policies.svg",
+      "sha256": "d4be3f53fb754eb7fefca67df1593fd08c7dd238768d6b73bf6409d29d7dd4ce",
+      "bytes": 48378
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-pricing.png",
+      "sha256": "407d13cc093cb8820ffe1089caff6cd84aec42c91a34cf743ad3dc99a09a4359",
+      "bytes": 74406
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-pricing.svg",
+      "sha256": "8d596cb0832b98486d46bb1663a3bd5fa998a838d28de30836e9c45fdac56663",
+      "bytes": 20160
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-scheduling.png",
+      "sha256": "10a4c52a7b09a705a92e791e654e650481e2d65075d857923766d7f886f6f1f2",
+      "bytes": 66306
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-scheduling.svg",
+      "sha256": "9d5b24d10145a62200a1ac160a295923fb4ee3118e7349821f05615556fa6b3f",
+      "bytes": 50842
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-staff.png",
+      "sha256": "ec68afdbef895322ac594e8d508d83e8555466e4b1d09bf474c84d73b315c02a",
+      "bytes": 74452
+    },
+    {
+      "path": "docs/architecture/diagrams/rendered/context-staff.svg",
+      "sha256": "483101519524cb2730ff3cb9ca8295bd15a73fa8714f249207f49ea2e5e8daa2",
+      "bytes": 21609
     },
     {
       "path": "docs/architecture/diagrams/rendered/database-erd.png",
-      "sha256": "bd23621eb06e13e85f49459c46e33d903808256d47657240f7d1b530402cfa36",
-      "bytes": 1951576,
-      "source": "private-derived-specification"
+      "sha256": "f0c69eec6aef158c7bdc933992612f58c97d169db8086582ab914c429945ed3e",
+      "bytes": 762477
     },
     {
       "path": "docs/architecture/diagrams/rendered/database-erd.svg",
-      "sha256": "80a6bfe1cb72a0866895772346f21fdaf996a6bc1783eb59ee155b80df8fd7b7",
-      "bytes": 624067,
-      "source": "private-derived-specification"
+      "sha256": "e34991c126310e94894a2d48b85226e5017dbbb732d6a40e54f1cccf86f6d279",
+      "bytes": 627712
     },
     {
       "path": "docs/architecture/diagrams/rendered/multi-branch-model.png",
       "sha256": "2c9f1f729a65775ae25e52ff7763104ba6992ef553532129aa5bb299984df985",
-      "bytes": 114542,
-      "source": "private-derived-specification"
+      "bytes": 114542
     },
     {
       "path": "docs/architecture/diagrams/rendered/multi-branch-model.svg",
       "sha256": "7f613b80e4269acc8db84304dd4f5761750c9e23ee1bf8355826da32a1cc3030",
-      "bytes": 21045,
-      "source": "private-derived-specification"
+      "bytes": 21045
     },
     {
       "path": "docs/architecture/diagrams/rendered/overview.png",
-      "sha256": "60886550e71aab47b5bca7b1fb00cedb2e650c3b38faf3f18319765e11ea6d60",
-      "bytes": 86139,
-      "source": "private-derived-specification"
+      "sha256": "f8f948534a85c0fde2ad77e576e80e257456da2671b4804c30dcca7bf15861eb",
+      "bytes": 88257
     },
     {
       "path": "docs/architecture/diagrams/rendered/overview.svg",
-      "sha256": "e2f25ed7d85efffb31dac9fb3952a9ee11f7a710005a278b866fa388935d92d2",
-      "bytes": 15862,
-      "source": "private-derived-specification"
+      "sha256": "c0589a9b54a06af99daf74198cb7c960b40553f4d4720c0241a735e52bddab40",
+      "bytes": 11144
     },
     {
       "path": "docs/architecture/diagrams/rendered/payment-sequence.png",
-      "sha256": "11dc07a048f142129272ab9052c9865bb298442f894cc6d1b64e86901432f796",
-      "bytes": 87809,
-      "source": "private-derived-specification"
+      "sha256": "a249b1cb72edd4abb6997cff604faa3f6086fdd62994cfba9d4208d3c62e221b",
+      "bytes": 75862
     },
     {
       "path": "docs/architecture/diagrams/rendered/payment-sequence.svg",
-      "sha256": "4a03221fc39191b524005685570fbf956c1cc3d64c8716c3ed776afa5e15d5bd",
-      "bytes": 49547,
-      "source": "private-derived-specification"
+      "sha256": "bfd8a2fec727535024889ce03c3df41a3702c6261c46d5ebdb2a6691131bebef",
+      "bytes": 8047
     },
     {
       "path": "docs/architecture/diagrams/rendered/policy-resolution.png",
       "sha256": "aa086ce7eed3b09647c98ae30e19b8d1d33fae82914eecc42f6fc3c28fa3951e",
-      "bytes": 121671,
-      "source": "private-derived-specification"
+      "bytes": 121671
     },
     {
       "path": "docs/architecture/diagrams/rendered/policy-resolution.svg",
       "sha256": "b8ea71257ed39bfae710e75d7f83243495ec8b4e290cb66adcc36a499f67a0e3",
-      "bytes": 15238,
-      "source": "private-derived-specification"
+      "bytes": 15238
     },
     {
       "path": "docs/architecture/diagrams/rendered/render-receipt.json",
-      "sha256": "33999ed2937fc21af6fda420a52ae4900f06069577471fb7fd2a69ad81ab24f6",
-      "bytes": 1541,
-      "source": "private-derived-specification"
+      "sha256": "5ead04a6f58403fd9d385700355bb69db34adf9df92ce739286c125fd0c9249b",
+      "bytes": 5117
     },
     {
       "path": "docs/architecture/openapi.yaml",
-      "sha256": "6b050c5290c262641a2bf5e8f2227dab8d97f0f49745df753b90f77f5f335644",
-      "bytes": 286114,
-      "source": "private-derived-specification"
+      "sha256": "c05b53b1d6301b318ea91d060590f2459ccf889b8a182b76ded45f55924edb31",
+      "bytes": 303817
     },
     {
       "path": "docs/architecture/schema/TABLE_DICTIONARY.md",
-      "sha256": "cddae0822e35845fa9648abb1530d1bd4ef07b044e3acf99e330b65f9e3c021d",
-      "bytes": 102589,
-      "source": "private-derived-specification"
+      "sha256": "2a29d3936d1188313ebcfd1dfca826f4fec234f7eb90caaa5d8d2e1450ebb489",
+      "bytes": 143996
+    },
+    {
+      "path": "docs/architecture/schema/b1-draft-postgresql.sql",
+      "sha256": "ef9ebdb2324b678c46f3a6d4c2858aa1292d3650dc5fa5b54af76264799436e3",
+      "bytes": 21878
+    },
+    {
+      "path": "docs/architecture/schema/booking-shape-vectors.json",
+      "sha256": "f50f0698f337ffc58807ea1cba4386aaf70d8cba198dba09ec8ecc7ac4359c7c",
+      "bytes": 13604
     },
     {
       "path": "docs/architecture/schema/draft-postgresql.sql",
-      "sha256": "b828c564c7aa50551e5d35a056aa4093943fbfb214de9dd8d6654b1f462e6ae8",
-      "bytes": 136932,
-      "source": "private-derived-specification"
+      "sha256": "f103cb5b1c6ca066d774e845de0a8e9fee7d56c87f9e6decd356599c6753f327",
+      "bytes": 140101
+    },
+    {
+      "path": "docs/architecture/schema/index-inventory.json",
+      "sha256": "6f8e6d0a93dd92662f61f28f9639e739bc5072f42bbba7424096f2acb3881674",
+      "bytes": 205836
     },
     {
       "path": "docs/architecture/schema/model.json",
-      "sha256": "cd2afca79a659626a0d998a275651f2b3c6386960aa3e5a8fba1848497eae6cb",
-      "bytes": 131207,
-      "source": "private-derived-specification"
+      "sha256": "54b138eb3f20d560909db53cf5cf08c3bba531c801487b7d06bd017d015e621b",
+      "bytes": 357306
     },
     {
       "path": "docs/architecture/schema/module-dependencies.json",
       "sha256": "ff98def437cb868ebf92de2344db496bcc5cf36e8c5dba0d7c722f601fe30c71",
-      "bytes": 1330,
-      "source": "private-derived-specification"
+      "bytes": 1330
+    },
+    {
+      "path": "docs/architecture/schema/quote-content.schema.json",
+      "sha256": "0749f49ae2b427cb18721ed22269054b3f6a28fbb758bf8450ba119eb0b354c6",
+      "bytes": 7846
+    },
+    {
+      "path": "docs/architecture/schema/quote-hash-vectors.json",
+      "sha256": "78ba41092efe0f6cb51dde4789eaa9ab1bd51226c1af8acd20a46599823acf04",
+      "bytes": 15229
+    },
+    {
+      "path": "docs/architecture/schema/stages.json",
+      "sha256": "5e9ab0f26c6643b9afae576fc02619adac64af0e3a3e854240ab64cad77bd65f",
+      "bytes": 12325
     }
   ]
 }

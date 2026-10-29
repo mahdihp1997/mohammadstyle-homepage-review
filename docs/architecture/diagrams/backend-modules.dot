@@ -1,76 +1,30 @@
-digraph G { graph [newrank=true, rankdir=TB, bgcolor="#f8fafc", pad="0.4", nodesep="0.28", ranksep="0.6", fontname="Arial", fontsize=24, labelloc=t, label="B / Backend module architecture\nPHASE 03A / PROPOSAL ONLY / 2026-10-29", splines=polyline]; node [shape=box,style="rounded,filled",fillcolor="#ffffff",color="#94a3b8",fontname="Arial",fontsize=12,margin="0.18,0.12"]; edge [color="#64748b",arrowsize=0.65,fontname="Arial",fontsize=10]; Kernel [label="Shared kernel\nIDs / Money / ports",fillcolor="#f1f5f9"];
-IAM [label="Identity & Access\nscoped session/permission",fillcolor="#e0e7ff"];
-Business [label="Business & Branch\nverified configuration",fillcolor="#cffafe"];
-Catalog [label="Service Catalog\nglobal metadata",fillcolor="#dcfce7"];
-Customers [label="Customer Management\nprivate profile boundary",fillcolor="#e0f2fe"];
-Staff [label="Staff Management\nmembership/qualification",fillcolor="#dbeafe"];
-Offerings [label="Branch Offerings\nprice/time/buffer/resources",fillcolor="#d1fae5"];
-Scheduling [label="Staff Scheduling\nshifts + resource ledger",fillcolor="#fef3c7"];
-Availability [label="Availability Engine\nfeasible whole plans",fillcolor="#fef9c3"];
-Policies [label="Booking Policy Engine\nversion / resolution / consent",fillcolor="#f3e8ff"];
-Pricing [label="Pricing & Quotations\nimmutable price/terms",fillcolor="#fae8ff"];
-Booking [label="Booking Management\naggregate / hold / revision",fillcolor="#ffedd5"];
-Payments [label="Payments & Refunds\nverified money / compensation",fillcolor="#fee2e2"];
-Media [label="Portfolio & Media\nprivate upload + rights",fillcolor="#fce7f3"];
-Notifications [label="Notifications\nconsent + idempotent delivery",fillcolor="#ede9fe"];
-Audit [label="Audit Logging\nredacted append-only",fillcolor="#e5e7eb"];
-Reporting [label="Reporting\nscoped read-only views",fillcolor="#f1f5f9"];
-Workflows [label="Application Workflows\ncomposition / transaction / saga",fillcolor="#f1f5f9"];
-IAM->Kernel;
-Business->Kernel;
-Catalog->Kernel;
-Customers->IAM;
-Customers->Kernel;
-Staff->Business;
-Staff->IAM;
-Staff->Catalog;
-Offerings->Business;
-Offerings->Catalog;
-Offerings->Staff;
-Scheduling->Business;
-Scheduling->Staff;
-Availability->Business;
-Availability->Offerings;
-Availability->Scheduling;
-Availability->Staff;
-Policies->Business;
-Policies->Catalog;
-Pricing->Offerings;
-Pricing->Policies;
-Pricing->Availability;
-Booking->Customers;
-Booking->Availability;
-Booking->Pricing;
-Booking->Policies;
-Booking->Scheduling;
-Payments->Kernel;
-Media->Business;
-Media->Catalog;
-Media->Staff;
-Media->Customers;
-Notifications->Customers;
-Notifications->Booking;
-Notifications->Kernel;
-Audit->Kernel;
-Reporting->Booking;
-Reporting->Payments;
-Reporting->Staff;
-Reporting->Customers;
-Workflows->Booking;
-Workflows->Payments;
-Workflows->Notifications;
-Workflows->Media;
-Workflows->Audit;
- subgraph cluster_runtime { label="Infrastructure adapters (outside domain dependency graph)"; color="#cbd5e1"; Next [label="Existing Next.js UI
-unchanged in03A"]; Nginx [label="Nginx / TLS / rate/body limits"]; Nest [label="NestJS modular monolith
-API process + worker process"]; PG [label="PostgreSQL + Prisma / explicit SQL
-authoritative capacity/money/outbox",shape=cylinder]; Redis [label="Redis + BullMQ
-cache/jobs, never capacity authority",shape=cylinder]; S3 [label="S3-compatible storage
-private originals / validated variants",shape=cylinder]; Gateway [label="Payment gateway
-not selected / disabled",style="rounded,dashed"]; Channels [label="SMS / Telegram / Bale
-consent + selected adapters",style="rounded,dashed"]; Next->Nginx->Nest; Nest->PG; Nest->Redis; Nest->S3; Nest->Gateway [style=dashed]; Nest->Channels [style=dashed]; }
- Workflows -> Nest [style=dashed,label="wired by composition; not domain import",constraint=false];
- Legend [label="Solid domain arrow: caller depends on callee port. No forwardRef/circular imports.
-Payments accepts immutable values; outer workflow connects captured money to Booking.
-Reporting/notification consumers never become booking authority. Deploy with Docker.",shape=note];
-}
+digraph G { graph [newrank=true,rankdir=TB,bgcolor="#f8fafc",fontname="Arial",fontsize=22,labelloc=t,label="Backend modules / review map\nPHASE03A / PROPOSAL ONLY / HARDENING REVIEW",pad="0.35",nodesep="0.4",ranksep="0.65",splines=polyline]; node [shape=box,style="rounded,filled",fillcolor="#fff",color="#94a3b8",fontname="Arial",fontsize=16,margin="0.2,0.14"]; edge [fontname="Arial",fontsize=12,color="#64748b",arrowsize=0.7];
+ ui [label="Existing Next.js Homepage + Booking
+unchanged presentation / no server integration"];
+ proxy [label="Nginx / TLS / same-origin API boundary"];
+ composition [label="NestJS API + worker processes
+Application Workflows / shared transaction context",fillcolor="#cffafe"];
+ booking [label="Booking / Pricing / Policies
+whole plan / immutable terms / admitted revisions",fillcolor="#ffedd5"];
+ workforce [label="Staff / Offerings / Scheduling / Availability
+temporal membership / global resource safety",fillcolor="#fef3c7"];
+ foundation [label="Identity / Business / Catalog / Customers
+scoped actors and verified configuration",fillcolor="#dbeafe"];
+ outcomes [label="Payments / Notifications / Media
+Audit / Reporting
+outer adapters and authorized read ports",fillcolor="#f3e8ff"];
+ pg [shape=cylinder,label="PostgreSQL + Prisma / reviewed SQL
+authoritative durable state / outbox / exclusion"];
+ redis [shape=cylinder,label="Redis + BullMQ
+cache/retry dispatch; no capacity authority"];
+ providers [label="S3 / selected gateway / SMS / Telegram / Bale
+external operations OUTSIDE DB locks
+not connected in03A",style="rounded,dashed"];
+ ui->proxy->composition;composition->booking;composition->outcomes;booking->workforce->foundation;
+ outcomes->foundation [label="public ports / values"];
+ composition->pg [label="transaction adapters"];composition->redis [label="dispatch adapters"];outcomes->providers;
+ {rank=same;booking;outcomes;} {rank=same;pg;redis;providers;} foundation->pg [style=invis];
+ note [shape=note,label="Grouped map; exact DAG in companion diagram.
+Payments accepts values; outer workflow applies captures.
+16 domain contexts + workflow layer + shared kernel."]; foundation->note [style=invis];
+ }

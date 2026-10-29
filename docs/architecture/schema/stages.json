@@ -1,0 +1,580 @@
+{
+  "status": "DRAFT_ONLY_NOT_MIGRATIONS",
+  "B1": {
+    "scope": "Inactive verified configuration + IAM/audit/idempotency/outbox foundation; no staff scheduling, quote, booking, policy enforcement, money or media.",
+    "tableCreationOrder": [
+      "app_user",
+      "business",
+      "permission",
+      "auth_identity",
+      "auth_session",
+      "role",
+      "branch",
+      "role_permission",
+      "user_role_assignment",
+      "service",
+      "branch_service_offering",
+      "offering_resource_requirement",
+      "audit_log",
+      "idempotency_record",
+      "outbox_event",
+      "consumer_inbox"
+    ],
+    "tableCount": 16,
+    "foreignKeysAfterTables": true,
+    "gates": [
+      {
+        "table": "branch",
+        "check": "NOT bookable",
+        "removalGate": "B4 reviewed full admission/readiness gates"
+      },
+      {
+        "table": "branch_service_offering",
+        "check": "NOT active",
+        "removalGate": "B4 after B2 operational eligibility/resources and B3 policy/quote readiness"
+      }
+    ]
+  },
+  "later": [
+    {
+      "name": "branch_working_hours",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "branch"
+      ]
+    },
+    {
+      "name": "branch_closure",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "branch"
+      ]
+    },
+    {
+      "name": "resource",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "branch"
+      ]
+    },
+    {
+      "name": "staff",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "resource"
+      ]
+    },
+    {
+      "name": "staff_branch_assignment",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "staff",
+        "branch"
+      ]
+    },
+    {
+      "name": "staff_service_eligibility",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "staff",
+        "service"
+      ]
+    },
+    {
+      "name": "offering_staff_eligibility",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "branch_service_offering",
+        "staff_branch_assignment",
+        "staff_service_eligibility"
+      ]
+    },
+    {
+      "name": "staff_schedule_rule",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "staff_branch_assignment"
+      ]
+    },
+    {
+      "name": "staff_shift",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "staff_branch_assignment",
+        "staff_schedule_rule"
+      ]
+    },
+    {
+      "name": "staff_time_off",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "staff"
+      ]
+    },
+    {
+      "name": "package",
+      "earliestStage": "B3_B4_STRUCTURE_ONLY",
+      "prerequisites": [
+        "business",
+        "app_user"
+      ]
+    },
+    {
+      "name": "package_service",
+      "earliestStage": "LATER",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "package",
+        "service"
+      ]
+    },
+    {
+      "name": "customer",
+      "earliestStage": "B3_B4_COHORT",
+      "prerequisites": [
+        "business",
+        "app_user"
+      ]
+    },
+    {
+      "name": "availability_configuration",
+      "earliestStage": "B2",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "branch"
+      ]
+    },
+    {
+      "name": "booking_policy",
+      "earliestStage": "B3_B4_COHORT",
+      "prerequisites": [
+        "business",
+        "app_user"
+      ]
+    },
+    {
+      "name": "booking_policy_version",
+      "earliestStage": "B3_B4_COHORT",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "booking_policy"
+      ]
+    },
+    {
+      "name": "policy_refund_window",
+      "earliestStage": "B3_B4_COHORT",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "booking_policy_version"
+      ]
+    },
+    {
+      "name": "booking_policy_assignment",
+      "earliestStage": "B3_B4_COHORT",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "booking_policy_version",
+        "branch",
+        "service",
+        "package",
+        "booking"
+      ]
+    },
+    {
+      "name": "pricing_quote",
+      "earliestStage": "B3_B4_COHORT",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "branch",
+        "customer"
+      ]
+    },
+    {
+      "name": "pricing_quote_item",
+      "earliestStage": "B3_B4_COHORT",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "pricing_quote",
+        "branch_service_offering",
+        "package"
+      ]
+    },
+    {
+      "name": "quote_policy_resolution",
+      "earliestStage": "B3_B4_COHORT",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "pricing_quote",
+        "booking_policy_version"
+      ]
+    },
+    {
+      "name": "quote_policy_source",
+      "earliestStage": "B3_B4_COHORT",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "booking_policy_version",
+        "quote_policy_resolution",
+        "booking_policy_assignment"
+      ]
+    },
+    {
+      "name": "booking",
+      "earliestStage": "B3_B4_COHORT",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "branch",
+        "customer",
+        "booking_revision"
+      ]
+    },
+    {
+      "name": "booking_revision",
+      "earliestStage": "B3_B4_COHORT",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "booking",
+        "pricing_quote",
+        "booking_revision"
+      ]
+    },
+    {
+      "name": "booking_item",
+      "earliestStage": "B3_B4_COHORT",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "booking_revision",
+        "pricing_quote_item"
+      ]
+    },
+    {
+      "name": "booking_service_segment",
+      "earliestStage": "B3_B4_COHORT",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "booking_item"
+      ]
+    },
+    {
+      "name": "segment_dependency",
+      "earliestStage": "LATER",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "booking_service_segment"
+      ]
+    },
+    {
+      "name": "booking_hold",
+      "earliestStage": "B3_B4_COHORT",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "booking_revision"
+      ]
+    },
+    {
+      "name": "resource_allocation",
+      "earliestStage": "B3_B4_COHORT",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "branch",
+        "booking_revision",
+        "booking_hold",
+        "staff_time_off",
+        "resource",
+        "branch_closure"
+      ]
+    },
+    {
+      "name": "booking_status_history",
+      "earliestStage": "B3_B4_COHORT",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "booking"
+      ]
+    },
+    {
+      "name": "booking_policy_acceptance",
+      "earliestStage": "B3_B4_COHORT",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "booking_revision",
+        "quote_policy_resolution"
+      ]
+    },
+    {
+      "name": "payment_intent",
+      "earliestStage": "B6",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "booking_revision",
+        "booking_hold"
+      ]
+    },
+    {
+      "name": "gateway_event",
+      "earliestStage": "B6",
+      "prerequisites": [
+        "business",
+        "app_user"
+      ]
+    },
+    {
+      "name": "payment_transaction",
+      "earliestStage": "B6",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "payment_intent",
+        "gateway_event"
+      ]
+    },
+    {
+      "name": "payment_application",
+      "earliestStage": "B6",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "payment_transaction"
+      ]
+    },
+    {
+      "name": "payment_balance",
+      "earliestStage": "B6",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "payment_transaction"
+      ]
+    },
+    {
+      "name": "refund",
+      "earliestStage": "B6",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "payment_transaction",
+        "booking_policy_acceptance"
+      ]
+    },
+    {
+      "name": "financial_audit_record",
+      "earliestStage": "B6",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "payment_transaction",
+        "refund"
+      ]
+    },
+    {
+      "name": "media_asset",
+      "earliestStage": "B8",
+      "prerequisites": [
+        "business",
+        "app_user"
+      ]
+    },
+    {
+      "name": "media_variant",
+      "earliestStage": "B8",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "media_asset"
+      ]
+    },
+    {
+      "name": "media_publication_consent",
+      "earliestStage": "B8",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "media_asset",
+        "customer"
+      ]
+    },
+    {
+      "name": "portfolio_category",
+      "earliestStage": "B8",
+      "prerequisites": [
+        "business",
+        "app_user"
+      ]
+    },
+    {
+      "name": "portfolio_item",
+      "earliestStage": "B8",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "branch",
+        "staff"
+      ]
+    },
+    {
+      "name": "portfolio_item_category",
+      "earliestStage": "B8",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "portfolio_item",
+        "portfolio_category"
+      ]
+    },
+    {
+      "name": "portfolio_service_relation",
+      "earliestStage": "B8",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "portfolio_item",
+        "service"
+      ]
+    },
+    {
+      "name": "portfolio_media",
+      "earliestStage": "B8",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "portfolio_item",
+        "media_asset"
+      ]
+    },
+    {
+      "name": "portfolio_tag",
+      "earliestStage": "B8",
+      "prerequisites": [
+        "business",
+        "app_user"
+      ]
+    },
+    {
+      "name": "portfolio_item_tag",
+      "earliestStage": "B8",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "portfolio_item",
+        "portfolio_tag"
+      ]
+    },
+    {
+      "name": "notification_channel_config",
+      "earliestStage": "B7",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "branch"
+      ]
+    },
+    {
+      "name": "notification_template",
+      "earliestStage": "B7",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "branch"
+      ]
+    },
+    {
+      "name": "notification_preference",
+      "earliestStage": "B7",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "customer"
+      ]
+    },
+    {
+      "name": "notification_link_challenge",
+      "earliestStage": "B7",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "customer"
+      ]
+    },
+    {
+      "name": "channel_identity",
+      "earliestStage": "B7",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "customer"
+      ]
+    },
+    {
+      "name": "notification_event",
+      "earliestStage": "B7",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "customer",
+        "booking",
+        "booking_revision",
+        "notification_template",
+        "outbox_event"
+      ]
+    },
+    {
+      "name": "notification_delivery_attempt",
+      "earliestStage": "B7",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "notification_event"
+      ]
+    },
+    {
+      "name": "segment_resource_assignment",
+      "earliestStage": "B3_B4_COHORT",
+      "prerequisites": [
+        "business",
+        "app_user",
+        "booking_service_segment",
+        "resource_allocation"
+      ]
+    }
+  ],
+  "warning": "Later stage labels are planning minima, not executable migration batches. Resolve the booking/quote/policy/allocation SCC before adding FKs. Package references in the full target must be supplied as inactive structural dependencies in the B3/B4 cohort or explicitly omitted together by a reviewed narrower migration. Never leave a dangling FK or silently seed packages."
+}

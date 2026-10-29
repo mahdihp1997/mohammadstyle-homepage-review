@@ -1,0 +1,127 @@
+{
+  "title": "Payment and refund sequence",
+  "status": "PROPOSAL_ONLY_NO_PROVIDER_CONNECTED",
+  "actors": [
+    "Customer / UI",
+    "Booking workflow",
+    "Payments / ledger",
+    "Gateway",
+    "Outbox / worker"
+  ],
+  "sections": [
+    {
+      "title": "1 / Verified capture — common path",
+      "color": "#dbeafe",
+      "messages": [
+        [
+          0,
+          1,
+          "Hold and accept actor-owned quote"
+        ],
+        [
+          1,
+          2,
+          "Persist intent + stable operation key"
+        ],
+        [
+          2,
+          3,
+          "Initialize outside DB transaction"
+        ],
+        [
+          3,
+          0,
+          "Redirect customer to selected gateway"
+        ],
+        [
+          3,
+          2,
+          "Untrusted callback signal; dedup inbox"
+        ],
+        [
+          2,
+          3,
+          "Server verify merchant / exact unit / amount"
+        ],
+        [
+          3,
+          2,
+          "Verified capture; unique transaction reference"
+        ],
+        [
+          2,
+          1,
+          "Durable PaymentCaptured workflow"
+        ]
+      ]
+    },
+    {
+      "title": "ALT A / Valid hold at DB-clock decision",
+      "color": "#dcfce7",
+      "messages": [
+        [
+          1,
+          1,
+          "Lock resources > booking/hold > balance"
+        ],
+        [
+          1,
+          0,
+          "Apply capture + CONFIRMED + history/outbox"
+        ]
+      ]
+    },
+    {
+      "title": "ALT B / Hold expired, changed revision or conflict — never execute A and B together",
+      "color": "#fee2e2",
+      "messages": [
+        [
+          1,
+          2,
+          "No resurrection; mark unapplied compensation"
+        ],
+        [
+          2,
+          3,
+          "Full unapplied refund/void; reconcile UNKNOWN"
+        ]
+      ]
+    },
+    {
+      "title": "2 / Separate later flow — cancellation of an actually confirmed booking",
+      "color": "#fef3c7",
+      "messages": [
+        [
+          0,
+          1,
+          "Request cancellation using accepted terms"
+        ],
+        [
+          1,
+          2,
+          "Calculate entitlement; lock refund budget"
+        ],
+        [
+          2,
+          4,
+          "Reserve funds + refund request outbox"
+        ],
+        [
+          4,
+          3,
+          "Refund outside locks; stable refund ID"
+        ],
+        [
+          3,
+          2,
+          "Verified success or UNKNOWN reservation retained"
+        ],
+        [
+          2,
+          4,
+          "RefundCompleted only after verified success"
+        ]
+      ]
+    }
+  ]
+}

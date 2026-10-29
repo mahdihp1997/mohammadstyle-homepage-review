@@ -1,15 +1,28 @@
-# Visual Review Package — Phase03A
+# Phase03A hardening visual review
 
-Architecture/specification only. Review pending. No backend/database/migration/provider was implemented. The original Homepage and Booking source/tests/assets remain unchanged.
+26 actual editable-source/SVG/PNG pairs,16 bounded-context ERDs and a contact sheet. No private photos/fonts/reference boards/screenshots or original task sources. Full ERD remains available.
 
-- **Architecture overview**: Start here: authority, boundaries, safety rules and approval gates. [SVG](diagrams/rendered/overview.svg), [PNG](diagrams/rendered/overview.png), [editable DOT](diagrams/overview.dot).
-- **A. Complete database ERD**: All72 entities and254 FK relationships. Open SVG and zoom; shared audit columns remain in the dictionary. [SVG](diagrams/rendered/database-erd.svg), [PNG](diagrams/rendered/database-erd.png), [editable DOT](diagrams/database-erd.dot).
-- **B. Backend modules**: Caller-to-callee port dependencies, composition layer and infrastructure boundaries. [SVG](diagrams/rendered/backend-modules.svg), [PNG](diagrams/rendered/backend-modules.png), [editable DOT](diagrams/backend-modules.dot).
-- **C. Booking data flow**: Server plan, immutable quote, explicit acceptance, transactional hold, expiry and confirmation. [SVG](diagrams/rendered/booking-flow.svg), [PNG](diagrams/rendered/booking-flow.png), [editable DOT](diagrams/booking-flow.dot).
-- **D. Policy resolution**: Version, effective context, precedence, conflict detection and accepted snapshot. [SVG](diagrams/rendered/policy-resolution.svg), [PNG](diagrams/rendered/policy-resolution.png), [editable DOT](diagrams/policy-resolution.dot).
-- **E. Payment and refund sequence**: Time moves down: verification, booking application, late-capture compensation and reserved partial refunds. [SVG](diagrams/rendered/payment-sequence.svg), [PNG](diagrams/rendered/payment-sequence.png), [editable DOT](diagrams/payment-sequence.dot).
-- **F. Multi-branch services and staff**: Separate catalog, offering, qualification, membership, actual shifts and resource occupancy. [SVG](diagrams/rendered/multi-branch-model.svg), [PNG](diagrams/rendered/multi-branch-model.png), [editable DOT](diagrams/multi-branch-model.dot).
-- **G. Concurrency example**: Two requests may search the same free interval; only one live resource allocation can commit. [SVG](diagrams/rendered/booking-concurrency.svg), [PNG](diagrams/rendered/booking-concurrency.png), [editable DOT](diagrams/booking-concurrency.dot).
-- **H. Booking state machine**: Allowed lifecycle edges; reschedule is a revision swap and terminal states cannot resurrect. [SVG](diagrams/rendered/booking-state-machine.svg), [PNG](diagrams/rendered/booking-state-machine.png), [editable DOT](diagrams/booking-state-machine.dot).
+Start with [local visual index](REVIEW.html), [overview](diagrams/rendered/overview.png), [module map](diagrams/rendered/backend-modules.svg), [payment/refund sequence](diagrams/rendered/payment-sequence.svg) and [complete ERD](diagrams/rendered/database-erd.svg). Exact module dependencies: [DAG](diagrams/rendered/backend-module-dependencies.svg). Payment primary source: [sequence JSON](diagrams/payment-sequence.sequence.json) and [editable SVG](diagrams/payment-sequence.source.svg).
 
-Open REVIEW.html for a local visual index. Complete technical report:00_README.md; questions:11_OPEN_DECISIONS.md; actual evidence:VALIDATION_RESULTS.md; future scenarios:VALIDATION_MATRIX.md. The package contains only derived specifications and generated graphics, no photos/private fonts/visual references/raw original task/internal screenshots/credentials/Git history. SVG vectors retain full detail; huge ERD PNG is only a context thumbnail.
+| Bounded context | Owned tables | Individual files |
+| --- | --- | --- |
+| Business | 2 | [SVG](diagrams/rendered/context-business.svg) · [PNG](diagrams/rendered/context-business.png) · [DOT](diagrams/context-business.dot) |
+| IAM | 7 | [SVG](diagrams/rendered/context-iam.svg) · [PNG](diagrams/rendered/context-iam.png) · [DOT](diagrams/context-iam.dot) |
+| Scheduling | 7 | [SVG](diagrams/rendered/context-scheduling.svg) · [PNG](diagrams/rendered/context-scheduling.png) · [DOT](diagrams/context-scheduling.dot) |
+| Catalog | 3 | [SVG](diagrams/rendered/context-catalog.svg) · [PNG](diagrams/rendered/context-catalog.png) · [DOT](diagrams/context-catalog.dot) |
+| Offerings | 3 | [SVG](diagrams/rendered/context-offerings.svg) · [PNG](diagrams/rendered/context-offerings.png) · [DOT](diagrams/context-offerings.dot) |
+| Staff | 3 | [SVG](diagrams/rendered/context-staff.svg) · [PNG](diagrams/rendered/context-staff.png) · [DOT](diagrams/context-staff.dot) |
+| Customers | 1 | [SVG](diagrams/rendered/context-customers.svg) · [PNG](diagrams/rendered/context-customers.png) · [DOT](diagrams/context-customers.dot) |
+| Availability | 1 | [SVG](diagrams/rendered/context-availability.svg) · [PNG](diagrams/rendered/context-availability.png) · [DOT](diagrams/context-availability.dot) |
+| Policies | 7 | [SVG](diagrams/rendered/context-policies.svg) · [PNG](diagrams/rendered/context-policies.png) · [DOT](diagrams/context-policies.dot) |
+| Pricing | 2 | [SVG](diagrams/rendered/context-pricing.svg) · [PNG](diagrams/rendered/context-pricing.png) · [DOT](diagrams/context-pricing.dot) |
+| Booking | 8 | [SVG](diagrams/rendered/context-booking.svg) · [PNG](diagrams/rendered/context-booking.png) · [DOT](diagrams/context-booking.dot) |
+| Payments | 7 | [SVG](diagrams/rendered/context-payments.svg) · [PNG](diagrams/rendered/context-payments.png) · [DOT](diagrams/context-payments.dot) |
+| Infrastructure | 3 | [SVG](diagrams/rendered/context-infrastructure.svg) · [PNG](diagrams/rendered/context-infrastructure.png) · [DOT](diagrams/context-infrastructure.dot) |
+| Media | 10 | [SVG](diagrams/rendered/context-media.svg) · [PNG](diagrams/rendered/context-media.png) · [DOT](diagrams/context-media.dot) |
+| Notifications | 7 | [SVG](diagrams/rendered/context-notifications.svg) · [PNG](diagrams/rendered/context-notifications.png) · [DOT](diagrams/context-notifications.dot) |
+| Audit | 1 | [SVG](diagrams/rendered/context-audit.svg) · [PNG](diagrams/rendered/context-audit.png) · [DOT](diagrams/context-audit.dot) |
+
+[Booking flow](diagrams/rendered/booking-flow.svg), [policy resolution](diagrams/rendered/policy-resolution.svg), [multi-branch model](diagrams/rendered/multi-branch-model.svg), [state machine](diagrams/rendered/booking-state-machine.svg), [concurrency specification](diagrams/rendered/booking-concurrency.svg).
+
+SVG retains detail; PNG files are independent individual images. Contexts omit common actor/business arrows and show key fields only; dictionary/full source retain every column and FK. No backend/migration/concurrency success claimed.

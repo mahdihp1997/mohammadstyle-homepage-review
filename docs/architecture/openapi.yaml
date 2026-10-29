@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Mohammad Style Phase 03A proposed REST contracts
-  version: 0.1.0-proposal
+  version: 0.2.0-proposal
   description: ARCHITECTURE ONLY. No endpoints implemented. No actual staff/prices/durations/policy/customer
     seeds. Server recomputes plans, quotes, holds and payments. Field and cross-row rules in linked
     specifications are normative proposals pending approval.
@@ -208,7 +208,7 @@ paths:
         - name: branchId
           in: path
           required: true
-          schema: &a1
+          schema:
             type: string
             format: uuid
         - name: cursor
@@ -311,7 +311,9 @@ paths:
         - name: branchId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - name: cursor
           in: query
           schema:
@@ -918,7 +920,9 @@ paths:
         - name: bookingId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
       security:
         - SessionCookie: []
       responses:
@@ -1013,7 +1017,9 @@ paths:
         - name: bookingId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -1119,7 +1125,9 @@ paths:
         - name: bookingId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -1331,7 +1339,9 @@ paths:
         - name: intentId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
       security:
         - SessionCookie: []
       responses:
@@ -1422,7 +1432,9 @@ paths:
         - name: refundId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
       security:
         - SessionCookie: []
       responses:
@@ -1823,7 +1835,9 @@ paths:
         - name: linkId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -2028,7 +2042,9 @@ paths:
         - name: branchId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -2235,7 +2251,9 @@ paths:
         - name: serviceId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -2342,11 +2360,15 @@ paths:
         - name: branchId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - name: offeringId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -2456,7 +2478,9 @@ paths:
         - name: branchId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
       requestBody:
         required: true
@@ -2758,7 +2782,9 @@ paths:
         - name: staffId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -2861,7 +2887,9 @@ paths:
         - name: staffId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
       requestBody:
         required: true
@@ -2967,11 +2995,15 @@ paths:
         - name: staffId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - name: serviceId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -3078,7 +3110,9 @@ paths:
         - name: branchId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -3186,7 +3220,9 @@ paths:
         - name: staffId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -3296,7 +3332,9 @@ paths:
         - name: staffId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
       requestBody:
         required: true
@@ -3404,7 +3442,9 @@ paths:
         - name: branchId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
       requestBody:
         required: true
@@ -3512,7 +3552,9 @@ paths:
         - name: branchId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
       requestBody:
         required: true
@@ -3618,11 +3660,15 @@ paths:
         - name: branchId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - name: resourceId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -3831,7 +3877,9 @@ paths:
         - name: policyId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
       requestBody:
         required: true
@@ -3937,7 +3985,9 @@ paths:
         - name: versionId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -4044,7 +4094,9 @@ paths:
         - name: versionId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -4153,7 +4205,9 @@ paths:
         - name: versionId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -4367,7 +4421,9 @@ paths:
         - name: assignmentId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -4674,7 +4730,9 @@ paths:
         - name: bookingId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -4782,7 +4840,9 @@ paths:
         - name: bookingId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -4890,7 +4950,9 @@ paths:
         - name: bookingId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -4998,7 +5060,9 @@ paths:
         - name: bookingId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -5106,7 +5170,9 @@ paths:
         - name: bookingId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -5707,7 +5773,9 @@ paths:
         - name: assetId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -6010,7 +6078,9 @@ paths:
         - name: itemId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -6118,7 +6188,9 @@ paths:
         - name: itemId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -6227,7 +6299,9 @@ paths:
         - name: itemId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -6438,7 +6512,9 @@ paths:
         - name: consentId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -6849,7 +6925,9 @@ paths:
         - name: branchId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -7055,7 +7133,9 @@ paths:
         - name: notificationId
           in: path
           required: true
-          schema: *a1
+          schema:
+            type: string
+            format: uuid
         - $ref: "#/components/parameters/IdempotencyKey"
         - $ref: "#/components/parameters/IfMatch"
       requestBody:
@@ -7149,6 +7229,213 @@ paths:
       x-idempotency: Required actor+route+key+canonical request hash; replay result, reject mismatched body. Scope
         is authenticated principal; retention beyond documented retry/reconciliation horizon.
       x-phase: MVP
+  /api/v1/booking-drafts:
+    post:
+      operationId: createBookingDraft
+      tags:
+        - Customer
+      summary: Create an actor-owned unplanned booking draft
+      description: Proposed endpoint only. Persist DRAFT/plan_committed=false/revision=null with finite configured
+        draft expiry. Enables explicit future booking-scoped policy workflows; no resources, accepted terms or
+        money. Authenticated customer context derived server-side. Do not merge another actor draft by a
+        content hash.
+      parameters:
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateBookingDraft"
+      security:
+        - SessionCookie: []
+          CsrfHeader: []
+      responses:
+        "201":
+          description: Created revisionless draft
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnplannedBooking"
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Session missing/expired
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: Permission/scope denied
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Not found or concealed object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "409":
+          description: Conflict or stale availability
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "412":
+          description: If-Match missing/stale
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "422":
+          description: Configuration/business rule cannot proceed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "429":
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "503":
+          description: Dependency unavailable; retry boundedly
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      x-authorization: customer.self
+      x-concurrency: Idempotency actor+route+key+request hash; branch scope check; insert root/history/audit/outbox
+        atomically. No scheduling resource locks required.
+      x-validation: Known branch and authenticated customer ownership; server chooses finite draft expiry from
+        verified configuration, no client TTL/slot/price accepted.
+      x-error-codes:
+        - VALIDATION_ERROR
+        - UNAUTHENTICATED
+        - FORBIDDEN
+        - NOT_FOUND
+        - CONFIGURATION_INCOMPLETE
+        - IDEMPOTENCY_CONFLICT
+      x-idempotency: Required actor+route+key+canonical request hash; replay result, reject mismatched body. Scope
+        is authenticated principal; retention beyond documented retry/reconciliation horizon.
+      x-phase: MVP
+  /api/v1/admin/staff/{staffId}/branch-assignments/{assignmentId}/end:
+    post:
+      operationId: endStaffBranchAssignment
+      tags:
+        - Admin
+      summary: Close one membership period
+      description: Proposed contract; validTo exclusive and later than validFrom. Do not reparent
+        rules/eligibility/history. Check future shifts and live allocations under canonical locks; reject
+        unresolved affected bookings. If-Match and reason/audit required.
+      parameters:
+        - name: staffId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: assignmentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - $ref: "#/components/parameters/IdempotencyKey"
+        - $ref: "#/components/parameters/IfMatch"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EndStaffAssignment"
+      security:
+        - SessionCookie: []
+          CsrfHeader: []
+      responses:
+        "200":
+          description: Membership period closed; history retained
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RecordVersion"
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "401":
+          description: Session missing/expired
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "403":
+          description: Permission/scope denied
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Not found or concealed object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "409":
+          description: Conflict or stale availability
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "412":
+          description: If-Match missing/stale
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "422":
+          description: Configuration/business rule cannot proceed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "429":
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "503":
+          description: Dependency unavailable; retry boundedly
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      x-authorization: staff.manage:targetBranch and all affected scheduling/booking scopes
+      x-concurrency: If-Match required. Sorted affected branches/global resources then assignment/version; reject
+        incompatible future shifts/held bookings.
+      x-validation: Exclusive local-date validTo, non-voided current assignment; do not move validFrom after use.
+        Query date coverage, not a mutable active flag alone.
+      x-error-codes:
+        - VALIDATION_ERROR
+        - UNAUTHENTICATED
+        - FORBIDDEN
+        - NOT_FOUND
+        - RATE_LIMITED
+        - IDEMPOTENCY_CONFLICT
+        - SCHEDULE_CONFLICT
+      x-idempotency: Required actor+route+key+canonical request hash; replay result, reject mismatched body. Scope
+        is authenticated principal; retention beyond documented retry/reconciliation horizon.
+      x-phase: MVP
 components:
   securitySchemes:
     SessionCookie:
@@ -7188,7 +7475,9 @@ components:
         pattern: ^"[1-9][0-9]*"$
       description: Quoted current row/config version; missing/stale returns412.
   schemas:
-    Id: *a1
+    Id:
+      type: string
+      format: uuid
     Version:
       type: string
       pattern: ^[1-9][0-9]*$
@@ -7197,7 +7486,7 @@ components:
       type: object
       additionalProperties: false
       properties:
-        amountRial: &a5
+        amountRial:
           type: string
           pattern: ^(0|[1-9][0-9]*0)$
           description: Integer decimal string; <=9223372036854775807 and multiple of 10 in IRR_RIAL_V1 MVP. No
@@ -7226,7 +7515,7 @@ components:
           type: string
         requestId:
           type: string
-        retryable: &a2
+        retryable:
           type: boolean
         fieldErrors:
           type: array
@@ -7251,7 +7540,9 @@ components:
       type: object
       additionalProperties: false
       properties:
-        id: *a1
+        id:
+          type: string
+          format: uuid
         code:
           type: string
         displayName:
@@ -7262,8 +7553,10 @@ components:
         timeZone:
           type: string
           example: Asia/Tehran
-        active: *a2
-        bookable: *a2
+        active:
+          type: boolean
+        bookable:
+          type: boolean
         version:
           $ref: "#/components/schemas/Version"
       required:
@@ -7279,7 +7572,9 @@ components:
       type: object
       additionalProperties: false
       properties:
-        id: *a1
+        id:
+          type: string
+          format: uuid
         code:
           type: string
         displayName:
@@ -7287,7 +7582,8 @@ components:
         description:
           type: string
           nullable: true
-        active: *a2
+        active:
+          type: boolean
       required:
         - id
         - code
@@ -7298,11 +7594,16 @@ components:
       type: object
       additionalProperties: false
       properties:
-        id: *a1
-        branchId: *a1
+        id:
+          type: string
+          format: uuid
+        branchId:
+          type: string
+          format: uuid
         service:
           $ref: "#/components/schemas/Service"
-        active: *a2
+        active:
+          type: boolean
         price:
           $ref: "#/components/schemas/Money"
         durationMinutes:
@@ -7319,7 +7620,8 @@ components:
           nullable: true
         configurationVersion:
           $ref: "#/components/schemas/Version"
-        bookable: *a2
+        bookable:
+          type: boolean
         configurationIssues:
           type: array
           items:
@@ -7339,14 +7641,20 @@ components:
       type: object
       additionalProperties: false
       properties:
-        id: *a1
+        id:
+          type: string
+          format: uuid
         displayName:
           type: string
         eligibleOfferingIds:
           type: array
-          items: *a1
+          items:
+            type: string
+            format: uuid
           minItems: 0
-        branchId: *a1
+        branchId:
+          type: string
+          format: uuid
       required:
         - id
         - displayName
@@ -7363,7 +7671,9 @@ components:
           enum:
             - ANY_ELIGIBLE
             - SPECIFIC
-        staffId: *a1
+        staffId:
+          type: string
+          format: uuid
       required:
         - mode
       description: staffId required exactly for SPECIFIC; otherwise forbidden. Initial MVP one staff member for all items.
@@ -7371,12 +7681,16 @@ components:
       type: object
       additionalProperties: false
       properties:
-        branchId: *a1
+        branchId:
+          type: string
+          format: uuid
         offeringIds:
           type: array
-          items: *a1
+          items:
+            type: string
+            format: uuid
           minItems: 1
-        localDate: &a4
+        localDate:
           type: string
           format: date
         timeZone:
@@ -7395,7 +7709,9 @@ components:
       type: object
       additionalProperties: false
       properties:
-        resourceId: *a1
+        resourceId:
+          type: string
+          format: uuid
         kind:
           type: string
           enum:
@@ -7403,7 +7719,9 @@ components:
             - CHAIR
             - ROOM
             - DEVICE
-        staffId: *a1
+        staffId:
+          type: string
+          format: uuid
       required:
         - resourceId
         - kind
@@ -7414,13 +7732,21 @@ components:
         sequence:
           type: integer
           minimum: 1
-        offeringId: *a1
-        serviceId: *a1
-        staffId: *a1
-        startsAt: &a3
+        offeringId:
+          type: string
+          format: uuid
+        serviceId:
+          type: string
+          format: uuid
+        staffId:
+          type: string
+          format: uuid
+        startsAt:
           type: string
           format: date-time
-        endsAt: *a3
+        endsAt:
+          type: string
+          format: date-time
         durationMinutes:
           type: integer
           minimum: 1
@@ -7466,25 +7792,37 @@ components:
           type: string
           enum:
             - SERVER
-        branchId: *a1
-        localDate: *a4
+        branchId:
+          type: string
+          format: uuid
+        localDate:
+          type: string
+          format: date
         localStartTime:
           type: string
           pattern: ^([01][0-9]|2[0-3]):[0-5][0-9]$
         timeZone:
           type: string
-        startsAt: *a3
-        endsAt: *a3
+        startsAt:
+          type: string
+          format: date-time
+        endsAt:
+          type: string
+          format: date-time
         durationMinutes:
           type: integer
           minimum: 1
         eligibleStaffIds:
           type: array
-          items: *a1
+          items:
+            type: string
+            format: uuid
           minItems: 1
         configurationFingerprint:
           type: string
-        expiresAt: *a3
+        expiresAt:
+          type: string
+          format: date-time
         segments:
           type: array
           items:
@@ -7514,7 +7852,9 @@ components:
           type: string
         configurationFingerprint:
           type: string
-        generatedAt: *a3
+        generatedAt:
+          type: string
+          format: date-time
         plans:
           type: array
           items:
@@ -7533,8 +7873,11 @@ components:
       properties:
         planId:
           type: string
-        optionalDepositChosen: *a2
-        bookingId: *a1
+        optionalDepositChosen:
+          type: boolean
+        bookingId:
+          type: string
+          format: uuid
       required:
         - planId
         - optionalDepositChosen
@@ -7544,8 +7887,12 @@ components:
       type: object
       additionalProperties: false
       properties:
-        offeringId: *a1
-        serviceId: *a1
+        offeringId:
+          type: string
+          format: uuid
+        serviceId:
+          type: string
+          format: uuid
         offeringVersion:
           $ref: "#/components/schemas/Version"
         displayName:
@@ -7588,7 +7935,9 @@ components:
       type: object
       additionalProperties: false
       properties:
-        policyVersionId: *a1
+        policyVersionId:
+          type: string
+          format: uuid
         version:
           type: integer
           minimum: 1
@@ -7660,10 +8009,14 @@ components:
       type: object
       additionalProperties: false
       properties:
-        id: *a1
+        id:
+          type: string
+          format: uuid
         planId:
           type: string
-        branchId: *a1
+        branchId:
+          type: string
+          format: uuid
         items:
           type: array
           items:
@@ -7681,7 +8034,14 @@ components:
           type: string
         quoteHash:
           type: string
-        expiresAt: *a3
+          pattern: ^[0-9a-f]{64}$
+        expiresAt:
+          type: string
+          format: date-time
+        hashVersion:
+          type: string
+          enum:
+            - MS_QUOTE_CONTENT_V2
       required:
         - id
         - planId
@@ -7694,8 +8054,10 @@ components:
         - configurationFingerprint
         - quoteHash
         - expiresAt
-      description: Immutable quote. total=deposit+remaining, deposit<=total; all values recomputed server-side.
-        Payment due now and booking total are distinct.
+        - hashVersion
+      description: "Immutable actor-owned quote; non-unique content-only SHA256/RFC8785 MS_QUOTE_CONTENT_V2. Exact
+        payload: schema/quote-content.schema.json. Identity/idempotency/expiry are separate server checks.
+        Independent customers may receive identical content hashes with different quote IDs."
     PolicyAcceptanceInput:
       type: object
       additionalProperties: false
@@ -7719,22 +8081,36 @@ components:
       type: object
       additionalProperties: false
       properties:
-        quoteId: *a1
+        quoteId:
+          type: string
+          format: uuid
         planId:
           type: string
         acceptance:
           $ref: "#/components/schemas/PolicyAcceptanceInput"
+        bookingDraftId:
+          type: string
+          format: uuid
       required:
         - quoteId
         - planId
         - acceptance
+      description: Optional bookingDraftId is an actor-owned live DRAFT only. Lock/revalidate draft context; create
+        revision/hold then atomically set plan_committed=true,status=HELD,active_revision_id and clear
+        draft_expires_at. Without it, the same draft root is transiently created inside the hold transaction.
     Hold:
       type: object
       additionalProperties: false
       properties:
-        id: *a1
-        bookingId: *a1
-        revisionId: *a1
+        id:
+          type: string
+          format: uuid
+        bookingId:
+          type: string
+          format: uuid
+        revisionId:
+          type: string
+          format: uuid
         status:
           type: string
           enum:
@@ -7742,7 +8118,9 @@ components:
             - CONSUMED
             - EXPIRED
             - RELEASED
-        expiresAt: *a3
+        expiresAt:
+          type: string
+          format: date-time
         version:
           $ref: "#/components/schemas/Version"
       required:
@@ -7766,55 +8144,18 @@ components:
         - NO_SHOW
         - EXPIRED
     Booking:
-      type: object
-      additionalProperties: false
-      properties:
-        id: *a1
-        branchId: *a1
-        revisionId: *a1
-        status:
-          $ref: "#/components/schemas/BookingStatus"
-        version:
-          $ref: "#/components/schemas/Version"
-        quoteId: *a1
-        startsAt: *a3
-        endsAt: *a3
-        timeZone:
-          type: string
-        segments:
-          type: array
-          items:
-            $ref: "#/components/schemas/PlanSegment"
-          minItems: 1
-        hold:
-          $ref: "#/components/schemas/Hold"
-        financialStatus:
-          type: string
-          enum:
-            - NOT_REQUIRED
-            - DUE
-            - PENDING
-            - PAID
-            - COMPENSATION_REQUIRED
-            - REFUND_PENDING
-            - REFUNDED
-      required:
-        - id
-        - branchId
-        - revisionId
-        - status
-        - version
-        - quoteId
-        - startsAt
-        - endsAt
-        - timeZone
-        - segments
-        - financialStatus
+      oneOf:
+        - $ref: "#/components/schemas/UnplannedBooking"
+        - $ref: "#/components/schemas/PlannedBooking"
+      description: Disjoint proposed DTOs reflect plan_committed. Consumers must discriminate before accessing plan
+        fields; no frontend code changed in03A.
     ConfirmBookingRequest:
       type: object
       additionalProperties: false
       properties:
-        holdId: *a1
+        holdId:
+          type: string
+          format: uuid
       required:
         - holdId
       description: Idempotent application command. If positive accepted deposit due, returns PENDING_PAYMENT; cannot
@@ -7838,7 +8179,9 @@ components:
       properties:
         booking:
           $ref: "#/components/schemas/Booking"
-        refundCalculationId: *a1
+        refundCalculationId:
+          type: string
+          format: uuid
         refundableAmount:
           $ref: "#/components/schemas/Money"
         refundStatus:
@@ -7858,7 +8201,9 @@ components:
       properties:
         newPlanId:
           type: string
-        quoteId: *a1
+        quoteId:
+          type: string
+          format: uuid
         acceptance:
           $ref: "#/components/schemas/PolicyAcceptanceInput"
         reasonCode:
@@ -7874,8 +8219,12 @@ components:
       type: object
       additionalProperties: false
       properties:
-        bookingId: *a1
-        revisionId: *a1
+        bookingId:
+          type: string
+          format: uuid
+        revisionId:
+          type: string
+          format: uuid
         purpose:
           type: string
           enum:
@@ -7889,9 +8238,15 @@ components:
       type: object
       additionalProperties: false
       properties:
-        id: *a1
-        bookingId: *a1
-        revisionId: *a1
+        id:
+          type: string
+          format: uuid
+        bookingId:
+          type: string
+          format: uuid
+        revisionId:
+          type: string
+          format: uuid
         status:
           type: string
           enum:
@@ -7905,7 +8260,9 @@ components:
             - COMPENSATION_REQUIRED
         amount:
           $ref: "#/components/schemas/Money"
-        expiresAt: *a3
+        expiresAt:
+          type: string
+          format: date-time
         redirectUrl:
           type: string
           format: uri
@@ -7922,8 +8279,12 @@ components:
       type: object
       additionalProperties: false
       properties:
-        id: *a1
-        paymentTransactionId: *a1
+        id:
+          type: string
+          format: uuid
+        paymentTransactionId:
+          type: string
+          format: uuid
         amount:
           $ref: "#/components/schemas/Money"
         status:
@@ -7947,8 +8308,11 @@ components:
       type: object
       additionalProperties: false
       properties:
-        authenticated: *a2
-        userId: *a1
+        authenticated:
+          type: boolean
+        userId:
+          type: string
+          format: uuid
         permissions:
           type: array
           items:
@@ -7956,7 +8320,9 @@ components:
           minItems: 0
         branchIds:
           type: array
-          items: *a1
+          items:
+            type: string
+            format: uuid
           minItems: 0
         csrfToken:
           type: string
@@ -7982,8 +8348,10 @@ components:
           maxLength: 1000
         timeZone:
           type: string
-        active: *a2
-        bookable: *a2
+        active:
+          type: boolean
+        bookable:
+          type: boolean
       required:
         - code
         - displayName
@@ -8009,7 +8377,8 @@ components:
           type: string
           nullable: true
           maxLength: 2000
-        active: *a2
+        active:
+          type: boolean
       required:
         - code
         - displayName
@@ -8035,13 +8404,20 @@ components:
       type: object
       additionalProperties: false
       properties:
-        serviceId: *a1
-        active: *a2
+        serviceId:
+          type: string
+          format: uuid
+        active:
+          type: boolean
         price:
           type: object
           nullable: true
           properties:
-            amountRial: *a5
+            amountRial:
+              type: string
+              pattern: ^(0|[1-9][0-9]*0)$
+              description: Integer decimal string; <=9223372036854775807 and multiple of 10 in IRR_RIAL_V1 MVP. No
+                exponent/fraction/sign.
             currency:
               type: string
               enum:
@@ -8069,9 +8445,12 @@ components:
           nullable: true
         eligibleStaffIds:
           type: array
-          items: *a1
+          items:
+            type: string
+            format: uuid
           minItems: 0
-        resourcesConfirmed: *a2
+        resourcesConfirmed:
+          type: boolean
         resourceRequirements:
           type: array
           items:
@@ -8101,7 +8480,8 @@ components:
           type: string
           format: uuid
           nullable: true
-        active: *a2
+        active:
+          type: boolean
       required:
         - displayName
         - userId
@@ -8110,10 +8490,13 @@ components:
       type: object
       additionalProperties: false
       properties:
-        id: *a1
+        id:
+          type: string
+          format: uuid
         displayName:
           type: string
-        active: *a2
+        active:
+          type: boolean
         version:
           $ref: "#/components/schemas/Version"
       required:
@@ -8125,24 +8508,35 @@ components:
       type: object
       additionalProperties: false
       properties:
-        branchId: *a1
-        validFrom: *a4
+        branchId:
+          type: string
+          format: uuid
+        validFrom:
+          type: string
+          format: date
         validTo:
           type: string
           format: date
           nullable: true
-        active: *a2
+        active:
+          type: boolean
       required:
         - branchId
         - validFrom
         - validTo
         - active
+      description: Creates one new half-open local-date membership period with its own ID. Same staff+branch may
+        have multiple non-overlapping non-voided periods. Closed/inactive/archived periods still prevent
+        historical overlap. Rejoin creates a new ID; never reuse old assignment.
     QualificationWrite:
       type: object
       additionalProperties: false
       properties:
-        serviceId: *a1
-        active: *a2
+        serviceId:
+          type: string
+          format: uuid
+        active:
+          type: boolean
         verificationReason:
           type: string
           minLength: 1
@@ -8167,7 +8561,9 @@ components:
           type: integer
           minimum: 1
           maximum: 1440
-        validFrom: *a4
+        validFrom:
+          type: string
+          format: date
         validTo:
           type: string
           format: date
@@ -8195,14 +8591,20 @@ components:
       type: object
       additionalProperties: false
       properties:
-        branchId: *a1
-        assignmentId: *a1
+        branchId:
+          type: string
+          format: uuid
+        assignmentId:
+          type: string
+          format: uuid
         windows:
           type: array
           items:
             $ref: "#/components/schemas/WorkingWindow"
           minItems: 0
-        publishThrough: *a4
+        publishThrough:
+          type: string
+          format: date
       required:
         - branchId
         - assignmentId
@@ -8214,8 +8616,12 @@ components:
       type: object
       additionalProperties: false
       properties:
-        startsAt: *a3
-        endsAt: *a3
+        startsAt:
+          type: string
+          format: date-time
+        endsAt:
+          type: string
+          format: date-time
         reasonCode:
           type: string
           minLength: 1
@@ -8240,7 +8646,8 @@ components:
           type: string
           minLength: 1
           maxLength: 200
-        active: *a2
+        active:
+          type: boolean
       required:
         - kind
         - label
@@ -8249,7 +8656,9 @@ components:
       type: object
       additionalProperties: false
       properties:
-        id: *a1
+        id:
+          type: string
+          format: uuid
         version:
           $ref: "#/components/schemas/Version"
       required:
@@ -8320,7 +8729,9 @@ components:
           maxLength: 20000
         locale:
           type: string
-        effectiveFrom: *a3
+        effectiveFrom:
+          type: string
+          format: date-time
         effectiveTo:
           type: string
           format: date-time
@@ -8340,7 +8751,9 @@ components:
       type: object
       additionalProperties: false
       properties:
-        policyVersionId: *a1
+        policyVersionId:
+          type: string
+          format: uuid
         scope:
           type: string
           enum:
@@ -8350,14 +8763,24 @@ components:
             - PACKAGE
             - BOOKING
             - ADMIN_OVERRIDE
-        branchId: *a1
-        serviceId: *a1
-        packageId: *a1
-        bookingId: *a1
+        branchId:
+          type: string
+          format: uuid
+        serviceId:
+          type: string
+          format: uuid
+        packageId:
+          type: string
+          format: uuid
+        bookingId:
+          type: string
+          format: uuid
         priority:
           type: integer
           minimum: 0
-        effectiveFrom: *a3
+        effectiveFrom:
+          type: string
+          format: date-time
         effectiveTo:
           type: string
           format: date-time
@@ -8380,8 +8803,12 @@ components:
       type: object
       additionalProperties: false
       properties:
-        userId: *a1
-        roleId: *a1
+        userId:
+          type: string
+          format: uuid
+        roleId:
+          type: string
+          format: uuid
         branchId:
           type: string
           format: uuid
@@ -8399,7 +8826,9 @@ components:
       type: object
       additionalProperties: false
       properties:
-        id: *a1
+        id:
+          type: string
+          format: uuid
         displayName:
           type: string
           nullable: true
@@ -8436,7 +8865,9 @@ components:
             - PORTFOLIO
             - BRANCH_INTERIOR
             - SERVICE_GALLERY
-        branchId: *a1
+        branchId:
+          type: string
+          format: uuid
       required:
         - fileName
         - mime
@@ -8448,11 +8879,15 @@ components:
       type: object
       additionalProperties: false
       properties:
-        assetId: *a1
+        assetId:
+          type: string
+          format: uuid
         uploadUrl:
           type: string
           format: uri
-        expiresAt: *a3
+        expiresAt:
+          type: string
+          format: date-time
         requiredHeaders:
           type: object
           additionalProperties:
@@ -8468,7 +8903,9 @@ components:
       type: object
       additionalProperties: false
       properties:
-        id: *a1
+        id:
+          type: string
+          format: uuid
         status:
           type: string
           enum:
@@ -8520,26 +8957,42 @@ components:
             - BARBER
             - BRANCH
             - SERVICE
-        branchId: *a1
-        staffId: *a1
+        branchId:
+          type: string
+          format: uuid
+        staffId:
+          type: string
+          format: uuid
         serviceIds:
           type: array
-          items: *a1
+          items:
+            type: string
+            format: uuid
           minItems: 0
         categoryIds:
           type: array
-          items: *a1
+          items:
+            type: string
+            format: uuid
           minItems: 0
         tagIds:
           type: array
-          items: *a1
+          items:
+            type: string
+            format: uuid
           minItems: 0
         assetIds:
           type: array
-          items: *a1
+          items:
+            type: string
+            format: uuid
           minItems: 1
-        beforeAssetId: *a1
-        afterAssetId: *a1
+        beforeAssetId:
+          type: string
+          format: uuid
+        afterAssetId:
+          type: string
+          format: uuid
         sortOrder:
           type: integer
           minimum: 0
@@ -8567,8 +9020,12 @@ components:
       type: object
       additionalProperties: false
       properties:
-        subjectId: *a1
-        assetId: *a1
+        subjectId:
+          type: string
+          format: uuid
+        assetId:
+          type: string
+          format: uuid
         scope:
           type: string
           enum:
@@ -8621,7 +9078,8 @@ components:
           enum:
             - TRANSACTIONAL
             - MARKETING
-        enabled: *a2
+        enabled:
+          type: boolean
         consentEvidenceReference:
           type: string
       required:
@@ -8662,7 +9120,8 @@ components:
           items:
             type: string
           minItems: 0
-        active: *a2
+        active:
+          type: boolean
       required:
         - eventType
         - channel
@@ -8676,7 +9135,8 @@ components:
       type: object
       additionalProperties: false
       properties:
-        enabled: *a2
+        enabled:
+          type: boolean
         allowedChannels:
           type: array
           items:
@@ -8686,7 +9146,8 @@ components:
               - TELEGRAM
               - BALE
           minItems: 0
-        smsFallbackEnabled: *a2
+        smsFallbackEnabled:
+          type: boolean
         reminderMinutesBefore:
           type: integer
           minimum: 1
@@ -8718,11 +9179,15 @@ components:
       type: object
       additionalProperties: false
       properties:
-        id: *a1
+        id:
+          type: string
+          format: uuid
         startUrl:
           type: string
           format: uri
-        expiresAt: *a3
+        expiresAt:
+          type: string
+          format: date-time
       required:
         - id
         - startUrl
@@ -8731,7 +9196,9 @@ components:
       type: object
       additionalProperties: false
       properties:
-        id: *a1
+        id:
+          type: string
+          format: uuid
         status:
           type: string
           enum:
@@ -8760,13 +9227,17 @@ components:
       type: object
       additionalProperties: false
       properties:
-        paymentTransactionId: *a1
+        paymentTransactionId:
+          type: string
+          format: uuid
         amount:
           $ref: "#/components/schemas/Money"
         reasonCode:
           type: string
           minLength: 1
-        calculationId: *a1
+        calculationId:
+          type: string
+          format: uuid
       required:
         - paymentTransactionId
         - amount
@@ -8778,11 +9249,17 @@ components:
       type: object
       additionalProperties: false
       properties:
-        branchId: *a1
-        quoteId: *a1
+        branchId:
+          type: string
+          format: uuid
+        quoteId:
+          type: string
+          format: uuid
         planId:
           type: string
-        customerId: *a1
+        customerId:
+          type: string
+          format: uuid
         acceptance:
           $ref: "#/components/schemas/PolicyAcceptanceInput"
         leadTimeOverrideReason:
@@ -8798,7 +9275,9 @@ components:
       type: object
       additionalProperties: false
       properties:
-        id: *a1
+        id:
+          type: string
+          format: uuid
         actorId:
           type: string
           format: uuid
@@ -8811,7 +9290,9 @@ components:
           type: string
           format: uuid
           nullable: true
-        occurredAt: *a3
+        occurredAt:
+          type: string
+          format: date-time
         reasonCode:
           type: string
           nullable: true
@@ -9010,7 +9491,146 @@ components:
       required:
         - items
         - nextCursor
+    PlannedBooking:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          format: uuid
+        branchId:
+          type: string
+          format: uuid
+        revisionId:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum:
+            - HELD
+            - PENDING_PAYMENT
+            - CONFIRMED
+            - CHECKED_IN
+            - IN_SERVICE
+            - COMPLETED
+            - CANCELLED
+            - NO_SHOW
+            - EXPIRED
+        version:
+          $ref: "#/components/schemas/Version"
+        quoteId:
+          type: string
+          format: uuid
+        startsAt:
+          type: string
+          format: date-time
+        endsAt:
+          type: string
+          format: date-time
+        timeZone:
+          type: string
+        segments:
+          type: array
+          items:
+            $ref: "#/components/schemas/PlanSegment"
+          minItems: 1
+        hold:
+          $ref: "#/components/schemas/Hold"
+        financialStatus:
+          type: string
+          enum:
+            - NOT_REQUIRED
+            - DUE
+            - PENDING
+            - PAID
+            - COMPENSATION_REQUIRED
+            - REFUND_PENDING
+            - REFUNDED
+        planCommitted:
+          type: boolean
+          enum:
+            - true
+      required:
+        - id
+        - branchId
+        - revisionId
+        - status
+        - version
+        - quoteId
+        - startsAt
+        - endsAt
+        - timeZone
+        - segments
+        - financialStatus
+        - planCommitted
+    UnplannedBooking:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          format: uuid
+        branchId:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum:
+            - DRAFT
+            - CANCELLED
+            - EXPIRED
+        version:
+          $ref: "#/components/schemas/Version"
+        planCommitted:
+          type: boolean
+          enum:
+            - false
+        revisionId:
+          type: string
+          format: uuid
+          nullable: true
+          enum:
+            - null
+        draftExpiresAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - branchId
+        - status
+        - version
+        - planCommitted
+        - revisionId
+        - draftExpiresAt
+      description: Persisted revisionless draft (or aborted draft). No quote/slot/acceptance/allocation/payment
+        exists. Expiry is server configuration; terminal record preserves it. Draft IDs do not reserve
+        capacity.
+    CreateBookingDraft:
+      type: object
+      additionalProperties: false
+      properties:
+        branchId:
+          type: string
+          format: uuid
+      required:
+        - branchId
+    EndStaffAssignment:
+      type: object
+      additionalProperties: false
+      properties:
+        validTo:
+          type: string
+          format: date
+        reasonCode:
+          type: string
+          minLength: 1
+          maxLength: 100
+      required:
+        - validTo
+        - reasonCode
 x-phase: 03A_SPECIFICATION_ONLY
 x-disabled-provider-boundary: true
 x-command-envelope: Authenticated POST/PUT requires CSRF+Idempotency-Key except safe availability read. Global
   error response projection and authorization apply. No admin pagination can bypass scope.
+x-content-hash-contract: schema/quote-content.schema.json / QUOTE_HASH_CONTRACT.md; never idempotency identity
+x-mixed-service-policy-strategy: UNDECIDED_OWNER_APPROVAL_REQUIRED; current guard returns409 POLICY_CONFLICT for heterogeneous winners.

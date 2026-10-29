@@ -235,3 +235,146 @@
 | Failure recovery | Audit privileged access/denials; revoke sessions on permission change |
 | Future executable tests | Object/list/cursor/export/cache scope negatives, customer self only and revoked role tests |
 | Current evidence | Specification cross-review only; NOT RUN against backend |
+
+## V19 — Independent customers request identical valid quote content
+
+| Aspect | Proposed requirement |
+| --- | --- |
+| Expected behavior | Two independent quote IDs/owners/expiries with equal content hash; no uniqueness conflict |
+| Domain invariant | Content integrity is not request identity |
+| Database / enforcement limit | No quote_hash UNIQUE; UUID/composite identity retained |
+| Transaction strategy | Actor-scoped idempotency then immutable quote transaction |
+| API behavior | 201 independent quotes; cross-owner lookup forbidden |
+| Failure recovery | Replay only own request receipt; no TTL extension by digest reuse |
+| Future executable tests | Concurrent identical content across customers; assert two IDs and same digest on actual backend later |
+| Current evidence | Static specification review only; NOT executed against backend/PostgreSQL |
+
+## V20 — Same actor/key replay versus new key or mismatched body
+
+| Aspect | Proposed requirement |
+| --- | --- |
+| Expected behavior | Same key/body replays original quote/expiry; mismatch409; new key may create identical content |
+| Domain invariant | Idempotency request hash and quote content hash are distinct |
+| Database / enforcement limit | Existing actor/route/key uniqueness, no content uniqueness |
+| Transaction strategy | Claim receipt and quote atomic; server clock expiry separate |
+| API behavior | 409 IDEMPOTENCY_CONFLICT for changed body; stale quote not silently refreshed |
+| Failure recovery | Explicit new request/key for requote; ownership checks regardless of known digest |
+| Future executable tests | Original response replay after expiry; another actor same key; quote acceptance cannot extend TTL |
+| Current evidence | Static specification review only; NOT executed against backend/PostgreSQL |
+
+## V21 — Canonical content mutation or malformed hash payload
+
+| Aspect | Proposed requirement |
+| --- | --- |
+| Expected behavior | Canonical property reorder stable; price/time/provider/policy change changes digest; unknown keys/invalid Unicode rejected |
+| Domain invariant | Exact allowlist/JCS/normalized arrays; no numbers or incidental IDs |
+| Database / enforcement limit | Hash_version/JSON object/hash length checks; recomputation is future cross-row guard |
+| Transaction strategy | Create/accept checks content_document equals relational snapshot under same transaction |
+| API behavior | 400 malformed content internally rejected;409 altered quote/acceptance |
+| Failure recovery | Regenerate explicit quote; never accept digest as authentication |
+| Future executable tests | Golden JCS vectors, duplicate property token rejection, leading zeros, surrogate and array semantic-order tests |
+| Current evidence | Static specification review only; NOT executed against backend/PostgreSQL |
+
+## V22 — Employee leaves and later rejoins same branch
+
+| Aspect | Proposed requirement |
+| --- | --- |
+| Expected behavior | Closed period A retained; new period B ID and eligibility/rules |
+| Domain invariant | No permanent staff+branch uniqueness; historical FK links never repointed |
+| Database / enforcement limit | daterange same-branch exclusion; offering eligibility uniqueness includes assignment_id |
+| Transaction strategy | Close/check future allocations then create new stint under canonical locks |
+| API behavior | 201 new assignment; end uses If-Match and exclusive date |
+| Failure recovery | Reject unresolved future-booking conflicts; preserve original evidence |
+| Future executable tests | Non-overlap, adjacency, gap, old eligibility/shift links and historical query tests |
+| Current evidence | Static specification review only; NOT executed against backend/PostgreSQL |
+
+## V23 — Inactive/archived membership still overlaps, or correction is voided
+
+| Aspect | Proposed requirement |
+| --- | --- |
+| Expected behavior | Ordinary deactivation/archive cannot hide overlap; permissioned void preserves correction evidence |
+| Domain invariant | History protection does not depend on current active flag |
+| Database / enforcement limit | Exclusion predicate only voided_at IS NULL; nonempty reason/finite periods |
+| Transaction strategy | Same staff/branch lock and versioned correction review |
+| API behavior | 409 overlap; no generic unreviewed correction endpoint |
+| Failure recovery | Explicit incident workflow for referenced erroneous facts, never normal departure via void |
+| Future executable tests | Attempt overlap with old inactive/archived row; correction reason/access/history negatives |
+| Current evidence | Static specification review only; NOT executed against backend/PostgreSQL |
+
+## V24 — Shift/rule references different stint or lies beyond membership dates
+
+| Aspect | Proposed requirement |
+| --- | --- |
+| Expected behavior | Reject cross-stint references and uncovered local-day/UTC span |
+| Domain invariant | Membership is not just staff/branch identity; time containment required |
+| Database / enforcement limit | Shift-to-rule composite FK includes assignment_id; temporal containment future gate |
+| Transaction strategy | Publish/close uses consistent locks and verifies every covered day |
+| API behavior | 409 SCHEDULE_CONFLICT; no reassignment of old evidence |
+| Failure recovery | Republish correct stint schedule after approved remediation |
+| Future executable tests | Cross-period forged rule ID, end-date boundary, overnight and DST containment tests |
+| Current evidence | Static specification review only; NOT executed against backend/PostgreSQL |
+
+## V25 — Persisted revisionless DRAFT is cancelled or expires
+
+| Aspect | Proposed requirement |
+| --- | --- |
+| Expected behavior | Terminal unplanned row remains representable without invented revision/quote |
+| Domain invariant | plan_committed=false,revision=NULL,original finite draft expiry retained |
+| Database / enforcement limit | Revised row-shape CHECK; allowed history edges retained |
+| Transaction strategy | Lock root/version, DB-clock expiry and append history/audit/outbox |
+| API behavior | UnplannedBooking DTO; no fake slot/plan timestamps/refund event |
+| Failure recovery | Admission race winner observed and revalidated; retry idempotently |
+| Future executable tests | DRAFT→CANCELLED/EXPIRED with null revision; invalid planned state with null revision rejected |
+| Current evidence | Static specification review only; NOT executed against backend/PostgreSQL |
+
+## V26 — Admitted HELD booking cancels/expires and tries to discard revision
+
+| Aspect | Proposed requirement |
+| --- | --- |
+| Expected behavior | Terminal booking retains plan_committed=true and revision; cannot reset flag |
+| Domain invariant | Monotonic admitted-plan evidence/history |
+| Database / enforcement limit | Row-shape CHECK + same-booking FK; old/new-value guard still required |
+| Transaction strategy | Atomic admission sets state/flag/revision/TTL together; transition guard prevents reset |
+| API behavior | PlannedBooking DTO retains accepted facts in terminal state |
+| Failure recovery | Rollback failed partial update; incident correction audited |
+| Future executable tests | Admission intermediate invalid row, zeroed flag, dropped revision and retained terminal evidence tests |
+| Current evidence | Static specification review only; NOT executed against backend/PostgreSQL |
+
+## V27 — Index audit removes helper/actor indexes or sees prefix variants
+
+| Aspect | Proposed requirement |
+| --- | --- |
+| Expected behavior | All FK targets valid; no automatic created_by index; selected prefix support only |
+| Domain invariant | Integrity/concurrency keys separate from query performance candidates |
+| Database / enforcement limit | PK/unique/exclusion retained where required; partial index not historical FK coverage |
+| Transaction strategy | No DB index operation performed; later EXPLAIN determines optional candidates |
+| API behavior | No API behavior change or measured performance claim |
+| Failure recovery | Reject schema generation if referenced target removed; review physical erasure separately |
+| Future executable tests | Static FK target and nonredundant prefix checks; actual03B scan/lock/query-plan tests deferred |
+| Current evidence | Static specification review only; NOT executed against backend/PostgreSQL |
+
+## V28 — B1 is reviewed/applied later without all72 tables
+
+| Aspect | Proposed requirement |
+| --- | --- |
+| Expected behavior | Exactly16 dependency-closed foundation tables with inactive gates |
+| Domain invariant | No dangling FK, accidental bookability or later-domain activation |
+| Database / enforcement limit | B1 PK/FKs/local checks plus NOT bookable/NOT active gates |
+| Transaction strategy | Create tables before FKs; self actor reference pass2; no migration executed now |
+| API behavior | B1 config only; quotes/booking/payment endpoints disabled |
+| Failure recovery | Disposable catalog/rollback/restore checks before production; no silent missing FK |
+| Future executable tests | B1 parent closure/order, table count, negative active gate and later cohort dependency tests |
+| Current evidence | Static specification review only; NOT executed against backend/PostgreSQL |
+
+## V29 — Different service-level deposit/refund policies in one booking
+
+| Aspect | Proposed requirement |
+| --- | --- |
+| Expected behavior | Fail409 until owner chooses a disclosed strategy; no numeric merge |
+| Domain invariant | Business strategy remains explicitly undecided |
+| Database / enforcement limit | Current whole-booking snapshot only; per-item/group alternatives need schema changes |
+| Transaction strategy | Resolve all items/context same instant, no hold/charge on conflict |
+| API behavior | 409 POLICY_CONFLICT; explicit authorized whole-booking override only after approval |
+| Failure recovery | Owner records A/B/C/D plus legal/financial disclosure and consent decision |
+| Future executable tests | Mixed service fixed/percent/refund cases; partial cancellation/capture allocation/group failure extension tests after approval |
+| Current evidence | Static specification review only; NOT executed against backend/PostgreSQL |

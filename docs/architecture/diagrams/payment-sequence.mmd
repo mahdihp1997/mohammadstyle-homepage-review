@@ -1,0 +1,28 @@
+sequenceDiagram
+    participant P0 as Customer / UI
+    participant P1 as Booking workflow
+    participant P2 as Payments / ledger
+    participant P3 as Gateway
+    participant P4 as Outbox / worker
+    Note over P0,P4: 1 / Verified capture — common path
+    P0->>P1: Hold and accept actor-owned quote
+    P1->>P2: Persist intent + stable operation key
+    P2->>P3: Initialize outside DB transaction
+    P3->>P0: Redirect customer to selected gateway
+    P3->>P2: Untrusted callback signal; dedup inbox
+    P2->>P3: Server verify merchant / exact unit / amount
+    P3->>P2: Verified capture; unique transaction reference
+    P2->>P1: Durable PaymentCaptured workflow
+    Note over P0,P4: ALT A / Valid hold at DB-clock decision
+    P1->>P1: Lock resources > booking/hold > balance
+    P1->>P0: Apply capture + CONFIRMED + history/outbox
+    Note over P0,P4: ALT B / Hold expired, changed revision or conflict — never execute A and B together
+    P1->>P2: No resurrection; mark unapplied compensation
+    P2->>P3: Full unapplied refund/void; reconcile UNKNOWN
+    Note over P0,P4: 2 / Separate later flow — cancellation of an actually confirmed booking
+    P0->>P1: Request cancellation using accepted terms
+    P1->>P2: Calculate entitlement; lock refund budget
+    P2->>P4: Reserve funds + refund request outbox
+    P4->>P3: Refund outside locks; stable refund ID
+    P3->>P2: Verified success or UNKNOWN reservation retained
+    P2->>P4: RefundCompleted only after verified success

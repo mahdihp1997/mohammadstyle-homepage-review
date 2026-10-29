@@ -1,43 +1,34 @@
-digraph G { graph [newrank=true, rankdir=TB, bgcolor="#f8fafc", pad="0.4", nodesep="0.28", ranksep="0.6", fontname="Arial", fontsize=24, labelloc=t, label="Mohammad Style / Phase 03A architecture overview\nPHASE 03A / PROPOSAL ONLY / 2026-10-29", splines=polyline]; node [shape=box,style="rounded,filled",fillcolor="#ffffff",color="#94a3b8",fontname="Arial",fontsize=15,margin="0.18,0.12"]; edge [color="#64748b",arrowsize=0.65,fontname="Arial",fontsize=10];
- owner [label="OWNER REVIEW
-Specifications only / approval pending
-Existing Homepage + Booking UI unchanged",fillcolor="#cffafe"];
- ui [label="Next.js UI
-Jalali / RTL / existing visual design"];
- modules [label="NestJS modular monolith
-16 domain contexts + outer workflows
-scoped IAM / Booking / Pricing / Policy
-Staff / Offerings / Scheduling / Media"];
- tx [label="BOOKING SAFETY
-server whole plan -> quote -> consent -> hold
-sorted locks + DB clock + atomic transition
-global staff resource / GiST overlap exclusion",fillcolor="#ffedd5"];
- pg [label="PostgreSQL / Prisma + reviewed SQL
-72-table target envelope / staged MVP
-immutable quote, accepted policy and receipts",shape=cylinder];
- policy [label="POLICY & MONEY
-versioned scope resolution or explicit conflict
-integer v1 Rial / checked Toman conversion
-verified capture / refund budget / compensation",fillcolor="#f3e8ff"];
- worker [label="Durable outbox / inbox -> BullMQ
-Redis queues/cache, never capacity authority
-providers outside DB locks"];
- media [label="PRIVACY / RIGHTS
-private originals and quarantine
-validated derivatives + subject consent
-no private assets in public export",fillcolor="#fce7f3"];
- providers [label="Future external boundaries
-S3 / selected gateway / SMS / Telegram / Bale
-NO services connected or installed",style="rounded,dashed"];
- decisions [label="OWNER DECISIONS BEFORE03B
-branch-two configuration / real roster / hours
-verified prices/durations/resources / policies
-merchant units / legal terms / retention",fillcolor="#fef3c7"];
- gates [label="REVIEW EVIDENCE
-SQL syntax + OpenAPI/model/diagram static checks
-NO backend runtime/concurrency tests claimed
-03B requires explicit architecture approval",fillcolor="#dcfce7"];
- owner->ui->modules->tx->pg;modules->policy;policy->pg;pg->worker->providers;modules->media->providers;owner->decisions;decisions->gates;
- {rank=same;tx;policy;media;} {rank=same;pg;worker;} {rank=same;decisions;gates;}
-
-}
+digraph G { graph [newrank=true,rankdir=TB,bgcolor="#f8fafc",fontname="Arial",fontsize=22,labelloc=t,label="Mohammad Style / architecture hardening overview\nPHASE03A / PROPOSAL ONLY / HARDENING REVIEW",pad="0.35",nodesep="0.4",ranksep="0.65",splines=polyline]; node [shape=box,style="rounded,filled",fillcolor="#fff",color="#94a3b8",fontname="Arial",fontsize=16,margin="0.2,0.14"]; edge [fontname="Arial",fontsize=12,color="#64748b",arrowsize=0.7];
+ review [label="OWNER ARCHITECTURE REVIEW
+Existing Homepage / Booking / assets / tests unchanged
+No03B implementation or database execution",fillcolor="#cffafe"];
+ hash [label="QUOTE INTEGRITY
+Non-unique content hash V2
+exact payload / independent actor idempotency",fillcolor="#dbeafe"];
+ periods [label="STAFF HISTORY
+One membership UUID per stint
+non-overlapping same-branch periods
+new eligibility/rules on rejoin",fillcolor="#dcfce7"];
+ drafts [label="DRAFT LIFECYCLE
+Revisionless aborts are representable
+monotonic plan_committed
+admitted terminal plans retain evidence",fillcolor="#ffedd5"];
+ indexes [label="INDEX BUDGET
+193 ->85 standalone definitions
+no blind created_by indexes
+15 query candidates await EXPLAIN",fillcolor="#fef3c7"];
+ b1 [label="BOUNDED B1
+16 foundation tables only
+verified inactive configuration
+create tables before scoped FKs",fillcolor="#ede9fe"];
+ policy [label="OWNER POLICY DECISION OPEN
+Unified / per-item / grouped / restricted?
+heterogeneous winners remain409
+no invented deposit/refund merge",fillcolor="#fee2e2"];
+ evidence [label="REVIEW EVIDENCE
+Full72-table source ERD +16 context projections
+SQL syntax / model / OpenAPI / DAG / vector checks
+29 future scenarios; zero runtime backend claims",fillcolor="#e2e8f0"];
+ review->hash;review->periods;review->drafts;hash->indexes [style=invis];periods->b1 [style=invis];drafts->policy [style=invis];indexes->evidence;b1->evidence;policy->evidence;
+ {rank=same;hash;periods;drafts;} {rank=same;indexes;b1;policy;}
+ }

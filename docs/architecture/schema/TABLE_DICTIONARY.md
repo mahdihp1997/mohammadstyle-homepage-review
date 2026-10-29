@@ -1,10 +1,10 @@
-# Table dictionary (generated from the review model)
+# Table dictionary — hardened review model
 
-All tables use UUID primary keys. Composite business keys intentionally support tenant-safe references. FK deletes are RESTRICT. Immutable content is append-only; noted workflow metadata still changes under audited commands. No retention duration is assumed. See the lifecycle and remaining-enforcement matrix in 03_DATABASE_DESIGN.md.
+All tables have UUID PKs. Composite unique keys are retained where required as exact tenant/context FK targets or business uniqueness; unused identity helpers are removed. All FK deletes RESTRICT. DDL is unexecuted. Index categories and deferred candidates are explicit; child indexes are not required by PostgreSQL for FK correctness. Cross-row workflows/immutability require future tests.
 
 ## business
 
-Owner: **Business**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Business**. Earliest stage: **B1** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -19,11 +19,11 @@ Owner: **Business**. Rollout: **MVP**. Lifecycle: **archive** (archive instead o
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (slug).
+Unique constraints: (slug).
 
 Foreign keys:
 
-- (created_by) → app_user(id), RESTRICT; initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -31,11 +31,18 @@ Checks:
 - `currency_code = 'IRR'`
 - `length(slug) > 0`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** business_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_business_0: (slug); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## app_user
 
-Owner: **IAM**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **IAM**. Earliest stage: **B1** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -49,22 +56,28 @@ Owner: **IAM**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of del
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: PK only.
+Unique constraints: PK only.
 
 Foreign keys:
 
-- (created_by) → app_user(id), RESTRICT; initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
 - `row_version > 0`
 - `status IN ('PENDING','ACTIVE','SUSPENDED','CLOSED')`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** app_user_pkey: (id); Entity identity; PostgreSQL creates its index.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## auth_identity
 
-Owner: **IAM**. Rollout: **MVP**. Lifecycle: **purge** (time-limited security/coordination data; purge only after safe recovery horizon).
+Owner: **IAM**. Earliest stage: **B1** (MVP). Lifecycle: **purge**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -78,23 +91,31 @@ Owner: **IAM**. Rollout: **MVP**. Lifecycle: **purge** (time-limited security/co
 | updated_at | timestamptz | no | CURRENT_TIMESTAMP |
 | row_version | bigint | no | 1 |
 
-Unique keys: (provider, subject_hash).
+Unique constraints: (provider, subject_hash).
 
 Foreign keys:
 
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (user_id) → app_user(id), RESTRICT; initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (user_id) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
 - `row_version > 0`
 - `octet_length(subject_hash) = 32`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** auth_identity_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_auth_identity_0: (provider, subject_hash); Business/idempotency uniqueness, not speculative query acceleration.
+- **fk-support** ix_auth_identity_fk_0: (user_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## auth_session
 
-Owner: **IAM**. Rollout: **MVP**. Lifecycle: **purge** (time-limited security/coordination data; purge only after safe recovery horizon).
+Owner: **IAM**. Earliest stage: **B1** (MVP). Lifecycle: **purge**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -109,12 +130,12 @@ Owner: **IAM**. Rollout: **MVP**. Lifecycle: **purge** (time-limited security/co
 | updated_at | timestamptz | no | CURRENT_TIMESTAMP |
 | row_version | bigint | no | 1 |
 
-Unique keys: (token_hash).
+Unique constraints: (token_hash).
 
 Foreign keys:
 
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (user_id) → app_user(id), RESTRICT; initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (user_id) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -123,11 +144,19 @@ Checks:
 - `octet_length(token_hash) = 32`
 - `isfinite(expires_at)`
 
-Explicit access-path indexes: (user_id, expires_at). Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** auth_session_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_auth_session_0: (token_hash); Business/idempotency uniqueness, not speculative query acceleration.
+- **fk-support** ix_auth_session_fk_0: (user_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- (user_id, expires_at): Revoke/expire a user session list.
 
 ## permission
 
-Owner: **IAM**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **IAM**. Earliest stage: **B1** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -140,21 +169,28 @@ Owner: **IAM**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of del
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (permission_key).
+Unique constraints: (permission_key).
 
 Foreign keys:
 
-- (created_by) → app_user(id), RESTRICT; initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
 - `row_version > 0`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** permission_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_permission_0: (permission_key); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## role
 
-Owner: **IAM**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **IAM**. Earliest stage: **B1** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -169,22 +205,30 @@ Owner: **IAM**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of del
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, role_key).
+Unique constraints: (business_id, id); (business_id, role_key).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
 - `row_version > 0`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** role_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_role_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_role_1: (business_id, role_key); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## role_permission
 
-Owner: **IAM**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **IAM**. Earliest stage: **B1** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -198,24 +242,32 @@ Owner: **IAM**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of del
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, role_id, permission_id).
+Unique constraints: (business_id, role_id, permission_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, role_id) → role(business_id, id), RESTRICT; initially immediate.
-- (permission_id) → permission(id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, role_id) → role(business_id, id), RESTRICT, initially immediate.
+- (permission_id) → permission(id), RESTRICT, initially immediate.
 
 Checks:
 
 - `row_version > 0`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** role_permission_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_role_permission_0: (business_id, role_id, permission_id); Business/idempotency uniqueness, not speculative query acceleration.
+- **fk-support** ix_role_permission_fk_0: (permission_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## branch
 
-Owner: **Business**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Business**. Earliest stage: **B1** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -234,12 +286,12 @@ Owner: **Business**. Rollout: **MVP**. Lifecycle: **archive** (archive instead o
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, code).
+Unique constraints: (business_id, id); (business_id, code).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -247,11 +299,19 @@ Checks:
 - `configuration_version > 0`
 - `NOT bookable OR active`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** branch_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_branch_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_branch_1: (business_id, code); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## user_role_assignment
 
-Owner: **IAM**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **IAM**. Earliest stage: **B1** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -267,25 +327,35 @@ Owner: **IAM**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of del
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id).
+Unique constraints: PK only.
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (user_id) → app_user(id), RESTRICT; initially immediate.
-- (business_id, role_id) → role(business_id, id), RESTRICT; initially immediate.
-- (business_id, branch_id) → branch(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (user_id) → app_user(id), RESTRICT, initially immediate.
+- (business_id, role_id) → role(business_id, id), RESTRICT, initially immediate.
+- (business_id, branch_id) → branch(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
 - `row_version > 0`
 
-Explicit access-path indexes: UNIQUE (business_id, user_id, role_id, branch_id) NULLS NOT DISTINCT WHERE revoked_at IS NULL. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** user_role_assignment_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** ix_user_role_assignment_integrity_0: UNIQUE (business_id, user_id, role_id, branch_id) NULLS NOT DISTINCT WHERE revoked_at IS NULL; Conditional/NULL-safe business uniqueness.
+- **fk-support** ix_user_role_assignment_fk_0: (user_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_user_role_assignment_fk_1: (business_id, role_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_user_role_assignment_fk_2: (business_id, branch_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## branch_working_hours
 
-Owner: **Scheduling**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Scheduling**. Earliest stage: **B2** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -303,13 +373,13 @@ Owner: **Scheduling**. Rollout: **MVP**. Lifecycle: **archive** (archive instead
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, branch_id, iso_weekday, start_minute, valid_from).
+Unique constraints: (business_id, branch_id, iso_weekday, start_minute, valid_from).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, branch_id) → branch(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, branch_id) → branch(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -318,11 +388,18 @@ Checks:
 - `start_minute >= 0 AND end_minute <= 1440 AND end_minute > start_minute`
 - `valid_to IS NULL OR valid_to > valid_from`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** branch_working_hours_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_branch_working_hours_0: (business_id, branch_id, iso_weekday, start_minute, valid_from); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## branch_closure
 
-Owner: **Scheduling**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Scheduling**. Earliest stage: **B2** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -339,14 +416,14 @@ Owner: **Scheduling**. Rollout: **MVP**. Lifecycle: **archive** (archive instead
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, id, branch_id).
+Unique constraints: (business_id, id, branch_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, branch_id) → branch(business_id, id), RESTRICT; initially immediate.
-- (approved_by) → app_user(id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, branch_id) → branch(business_id, id), RESTRICT, initially immediate.
+- (approved_by) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -355,11 +432,19 @@ Checks:
 - `isfinite(starts_at)`
 - `isfinite(ends_at)`
 
-Explicit access-path indexes: (business_id, branch_id, starts_at, ends_at). Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** branch_closure_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_branch_closure_0: (business_id, id, branch_id); Required exact composite FK target; retain despite logical PK implication.
+- **fk-support** ix_branch_closure_fk_0: (business_id, branch_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- (business_id, branch_id, starts_at, ends_at): Intersect closures for a branch time window.
 
 ## resource
 
-Owner: **Scheduling**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Scheduling**. Earliest stage: **B2** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -375,13 +460,13 @@ Owner: **Scheduling**. Rollout: **MVP**. Lifecycle: **archive** (archive instead
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, id, kind); (business_id, id, branch_id).
+Unique constraints: (business_id, id, kind); (business_id, id, branch_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, branch_id) → branch(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, branch_id) → branch(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -389,11 +474,20 @@ Checks:
 - `kind IN ('STAFF','CHAIR','ROOM','DEVICE')`
 - `(kind = 'STAFF' AND branch_id IS NULL) OR (kind <> 'STAFF' AND branch_id IS NOT NULL)`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** resource_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_resource_0: (business_id, id, kind); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_resource_1: (business_id, id, branch_id); Required exact composite FK target; retain despite logical PK implication.
+- **fk-support** ix_resource_fk_0: (business_id, branch_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## service
 
-Owner: **Catalog**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Catalog**. Earliest stage: **B1** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -409,22 +503,30 @@ Owner: **Catalog**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, code).
+Unique constraints: (business_id, id); (business_id, code).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
 - `row_version > 0`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** service_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_service_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_service_1: (business_id, code); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## branch_service_offering
 
-Owner: **Offerings**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Offerings**. Earliest stage: **B1** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -445,14 +547,14 @@ Owner: **Offerings**. Rollout: **MVP**. Lifecycle: **archive** (archive instead 
 | archived_at | timestamptz | yes | — |
 | resources_confirmed | boolean | no | false |
 
-Unique keys: (business_id, id); (business_id, branch_id, service_id); (business_id, id, branch_id, service_id).
+Unique constraints: (business_id, branch_id, service_id); (business_id, id, branch_id, service_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, branch_id) → branch(business_id, id), RESTRICT; initially immediate.
-- (business_id, service_id) → service(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, branch_id) → branch(business_id, id), RESTRICT, initially immediate.
+- (business_id, service_id) → service(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -465,11 +567,20 @@ Checks:
 - `NOT active OR (price_rial IS NOT NULL AND duration_minutes IS NOT NULL AND buffer_before_minutes IS NOT NULL AND buffer_after_minutes IS NOT NULL)`
 - `NOT active OR resources_confirmed`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** branch_service_offering_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_branch_service_offering_0: (business_id, branch_id, service_id); Business/idempotency uniqueness, not speculative query acceleration.
+- **integrity** uq_branch_service_offering_1: (business_id, id, branch_id, service_id); Required exact composite FK target; retain despite logical PK implication.
+- **fk-support** ix_branch_service_offering_fk_0: (business_id, service_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## staff
 
-Owner: **Staff**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Staff**. Earliest stage: **B2** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -486,25 +597,36 @@ Owner: **Staff**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of d
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, resource_id); (business_id, user_id); (business_id, id, resource_id).
+Unique constraints: (business_id, id); (business_id, resource_id); (business_id, user_id); (business_id, id, resource_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (user_id) → app_user(id), RESTRICT; initially immediate.
-- (business_id, resource_id, resource_kind) → resource(business_id, id, kind), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (user_id) → app_user(id), RESTRICT, initially immediate.
+- (business_id, resource_id, resource_kind) → resource(business_id, id, kind), RESTRICT, initially immediate.
 
 Checks:
 
 - `row_version > 0`
 - `resource_kind = 'STAFF'`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** staff_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_staff_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_staff_1: (business_id, resource_id); Business/idempotency uniqueness, not speculative query acceleration.
+- **integrity** uq_staff_2: (business_id, user_id); Business/idempotency uniqueness, not speculative query acceleration.
+- **integrity** uq_staff_3: (business_id, id, resource_id); Required exact composite FK target; retain despite logical PK implication.
+- **fk-support** ix_staff_fk_0: (user_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## staff_branch_assignment
 
-Owner: **Staff**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Staff**. Earliest stage: **B2** (MVP). Lifecycle: **archive**. Each row is one membership period; archive/inactive does not erase historical overlap protection. Void requires recorded correction evidence.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -520,26 +642,43 @@ Owner: **Staff**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of d
 | updated_at | timestamptz | no | CURRENT_TIMESTAMP |
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
+| voided_at | timestamptz | yes | — |
+| void_reason | text | yes | — |
+| membership_period | daterange GENERATED STORED | no explicit NOT NULL; constrained inputs | daterange(valid_from,valid_to,'[)') |
 
-Unique keys: (business_id, id); (business_id, staff_id, branch_id); (business_id, id, staff_id, branch_id).
+Unique constraints: (business_id, id, staff_id, branch_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, staff_id) → staff(business_id, id), RESTRICT; initially immediate.
-- (business_id, branch_id) → branch(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, staff_id) → staff(business_id, id), RESTRICT, initially immediate.
+- (business_id, branch_id) → branch(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
 - `row_version > 0`
 - `valid_to IS NULL OR valid_to > valid_from`
+- `isfinite(valid_from)`
+- `valid_to IS NULL OR isfinite(valid_to)`
+- `(voided_at IS NULL AND void_reason IS NULL) OR (voided_at IS NOT NULL AND void_reason IS NOT NULL AND length(btrim(void_reason)) > 0)`
+- `NOT active OR voided_at IS NULL`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** staff_branch_assignment_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_staff_branch_assignment_0: (business_id, id, staff_id, branch_id); Required exact composite FK target; retain despite logical PK implication.
+- **fk-support** ix_staff_branch_assignment_fk_0: (business_id, staff_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_staff_branch_assignment_fk_1: (business_id, branch_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **exclusion** no_overlapping_membership_period: business_id WITH =, staff_id WITH =, branch_id WITH =, membership_period WITH &&; Integrity/concurrency arbiter; cannot be deferred for EXPLAIN.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## staff_service_eligibility
 
-Owner: **Staff**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Staff**. Earliest stage: **B2** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -555,25 +694,34 @@ Owner: **Staff**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of d
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, staff_id, service_id); (business_id, id, staff_id, service_id).
+Unique constraints: (business_id, staff_id, service_id); (business_id, id, staff_id, service_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, staff_id) → staff(business_id, id), RESTRICT; initially immediate.
-- (business_id, service_id) → service(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, staff_id) → staff(business_id, id), RESTRICT, initially immediate.
+- (business_id, service_id) → service(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
 - `row_version > 0`
 - `NOT active OR verified_at IS NOT NULL`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** staff_service_eligibility_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_staff_service_eligibility_0: (business_id, staff_id, service_id); Business/idempotency uniqueness, not speculative query acceleration.
+- **integrity** uq_staff_service_eligibility_1: (business_id, id, staff_id, service_id); Required exact composite FK target; retain despite logical PK implication.
+- **fk-support** ix_staff_service_eligibility_fk_0: (business_id, service_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## offering_staff_eligibility
 
-Owner: **Offerings**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Offerings**. Earliest stage: **B2** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -592,25 +740,34 @@ Owner: **Offerings**. Rollout: **MVP**. Lifecycle: **archive** (archive instead 
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, offering_id, staff_id).
+Unique constraints: (business_id, offering_id, staff_id, assignment_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, offering_id, branch_id, service_id) → branch_service_offering(business_id, id, branch_id, service_id), RESTRICT; initially immediate.
-- (business_id, assignment_id, staff_id, branch_id) → staff_branch_assignment(business_id, id, staff_id, branch_id), RESTRICT; initially immediate.
-- (business_id, qualification_id, staff_id, service_id) → staff_service_eligibility(business_id, id, staff_id, service_id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, offering_id, branch_id, service_id) → branch_service_offering(business_id, id, branch_id, service_id), RESTRICT, initially immediate.
+- (business_id, assignment_id, staff_id, branch_id) → staff_branch_assignment(business_id, id, staff_id, branch_id), RESTRICT, initially immediate.
+- (business_id, qualification_id, staff_id, service_id) → staff_service_eligibility(business_id, id, staff_id, service_id), RESTRICT, initially immediate.
 
 Checks:
 
 - `row_version > 0`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** offering_staff_eligibility_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_offering_staff_eligibility_0: (business_id, offering_id, staff_id, assignment_id); Business/idempotency uniqueness, not speculative query acceleration.
+- **fk-support** ix_offering_staff_eligibility_fk_0: (business_id, assignment_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_offering_staff_eligibility_fk_1: (business_id, qualification_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## staff_schedule_rule
 
-Owner: **Scheduling**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Scheduling**. Earliest stage: **B2** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -631,13 +788,13 @@ Owner: **Scheduling**. Rollout: **MVP**. Lifecycle: **archive** (archive instead
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, id, staff_id, branch_id).
+Unique constraints: (business_id, id, staff_id, branch_id, assignment_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, assignment_id, staff_id, branch_id) → staff_branch_assignment(business_id, id, staff_id, branch_id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, assignment_id, staff_id, branch_id) → staff_branch_assignment(business_id, id, staff_id, branch_id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -647,11 +804,19 @@ Checks:
 - `valid_to IS NULL OR valid_to > valid_from`
 - `configuration_version > 0`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** staff_schedule_rule_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_staff_schedule_rule_0: (business_id, id, staff_id, branch_id, assignment_id); Required exact composite FK target; retain despite logical PK implication.
+- **fk-support** ix_staff_schedule_rule_fk_0: (business_id, assignment_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## staff_shift
 
-Owner: **Scheduling**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Scheduling**. Earliest stage: **B2** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -670,18 +835,16 @@ Owner: **Scheduling**. Rollout: **MVP**. Lifecycle: **archive** (archive instead
 | updated_at | timestamptz | no | CURRENT_TIMESTAMP |
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
-| working_period | tstzrange GENERATED STORED | no explicit NOT NULL; computed from constrained inputs | tstzrange(starts_at,ends_at,'[)') |
+| working_period | tstzrange GENERATED STORED | no explicit NOT NULL; constrained inputs | tstzrange(starts_at,ends_at,'[)') |
 
-Generated/exclusion invariants: no_cross_branch_staff_shift: staff_id = and working_period &&, published/unarchived only.
-
-Unique keys: (business_id, id).
+Unique constraints: PK only.
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, assignment_id, staff_id, branch_id) → staff_branch_assignment(business_id, id, staff_id, branch_id), RESTRICT; initially immediate.
-- (business_id, schedule_rule_id, staff_id, branch_id) → staff_schedule_rule(business_id, id, staff_id, branch_id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, assignment_id, staff_id, branch_id) → staff_branch_assignment(business_id, id, staff_id, branch_id), RESTRICT, initially immediate.
+- (business_id, schedule_rule_id, staff_id, branch_id, assignment_id) → staff_schedule_rule(business_id, id, staff_id, branch_id, assignment_id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -691,11 +854,20 @@ Checks:
 - `isfinite(starts_at)`
 - `isfinite(ends_at)`
 
-Explicit access-path indexes: (business_id, branch_id, starts_at). Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** staff_shift_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **fk-support** ix_staff_shift_fk_0: (business_id, assignment_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_staff_shift_fk_1: (business_id, schedule_rule_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **exclusion** no_cross_branch_staff_shift: staff_id WITH =, working_period WITH &&; Integrity/concurrency arbiter; cannot be deferred for EXPLAIN.
+
+Deferred until EXPLAIN:
+
+- (business_id, branch_id, starts_at): Read branch calendar horizon.
 
 ## staff_time_off
 
-Owner: **Scheduling**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Scheduling**. Earliest stage: **B2** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -713,14 +885,14 @@ Owner: **Scheduling**. Rollout: **MVP**. Lifecycle: **archive** (archive instead
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, id, resource_id).
+Unique constraints: (business_id, id, resource_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, staff_id, resource_id) → staff(business_id, id, resource_id), RESTRICT; initially immediate.
-- (approved_by) → app_user(id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, staff_id, resource_id) → staff(business_id, id, resource_id), RESTRICT, initially immediate.
+- (approved_by) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -729,11 +901,19 @@ Checks:
 - `isfinite(starts_at)`
 - `isfinite(ends_at)`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** staff_time_off_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_staff_time_off_0: (business_id, id, resource_id); Required exact composite FK target; retain despite logical PK implication.
+- **fk-support** ix_staff_time_off_fk_0: (business_id, staff_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## package
 
-Owner: **Catalog**. Rollout: **Later**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Catalog**. Earliest stage: **B3_B4_STRUCTURE_ONLY** (Later). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -748,22 +928,30 @@ Owner: **Catalog**. Rollout: **Later**. Lifecycle: **archive** (archive instead 
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, code).
+Unique constraints: (business_id, id); (business_id, code).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
 - `row_version > 0`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** package_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_package_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_package_1: (business_id, code); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## package_service
 
-Owner: **Catalog**. Rollout: **Later**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Catalog**. Earliest stage: **LATER** (Later). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -779,14 +967,14 @@ Owner: **Catalog**. Rollout: **Later**. Lifecycle: **archive** (archive instead 
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, package_id, position).
+Unique constraints: (business_id, package_id, position).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, package_id) → package(business_id, id), RESTRICT; initially immediate.
-- (business_id, service_id) → service(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, package_id) → package(business_id, id), RESTRICT, initially immediate.
+- (business_id, service_id) → service(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -794,11 +982,19 @@ Checks:
 - `position >= 0`
 - `quantity > 0`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** package_service_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_package_service_0: (business_id, package_id, position); Business/idempotency uniqueness, not speculative query acceleration.
+- **fk-support** ix_package_service_fk_0: (business_id, service_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## customer
 
-Owner: **Customers**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Customers**. Earliest stage: **B3_B4_COHORT** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -817,24 +1013,34 @@ Owner: **Customers**. Rollout: **MVP**. Lifecycle: **archive** (archive instead 
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, user_id).
+Unique constraints: (business_id, id); (business_id, user_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (user_id) → app_user(id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (user_id) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
 - `row_version > 0`
 - `octet_length(contact_lookup_hash) = 32`
 
-Explicit access-path indexes: UNIQUE (business_id, contact_lookup_hash) WHERE contact_verified_at IS NOT NULL AND contact_lookup_hash IS NOT NULL. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** customer_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_customer_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_customer_1: (business_id, user_id); Business/idempotency uniqueness, not speculative query acceleration.
+- **integrity** ix_customer_integrity_0: UNIQUE (business_id, contact_lookup_hash) WHERE contact_verified_at IS NOT NULL AND contact_lookup_hash IS NOT NULL; Conditional/NULL-safe business uniqueness.
+- **fk-support** ix_customer_fk_0: (user_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## availability_configuration
 
-Owner: **Availability**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Availability**. Earliest stage: **B2** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -854,13 +1060,13 @@ Owner: **Availability**. Rollout: **MVP**. Lifecycle: **archive** (archive inste
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, branch_id).
+Unique constraints: (business_id, branch_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, branch_id) → branch(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, branch_id) → branch(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -873,11 +1079,18 @@ Checks:
 - `configuration_version > 0`
 - `NOT enabled OR (slot_stride_minutes IS NOT NULL AND lead_minutes IS NOT NULL AND horizon_days IS NOT NULL AND hold_ttl_seconds IS NOT NULL AND quote_ttl_seconds IS NOT NULL)`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** availability_configuration_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_availability_configuration_0: (business_id, branch_id); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## booking_policy
 
-Owner: **Policies**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Policies**. Earliest stage: **B3_B4_COHORT** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -892,23 +1105,31 @@ Owner: **Policies**. Rollout: **MVP**. Lifecycle: **archive** (archive instead o
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, code).
+Unique constraints: (business_id, id); (business_id, code).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
 - `row_version > 0`
 - `lifecycle IN ('DRAFT','ACTIVE','SUPERSEDED','RETIRED')`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** booking_policy_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_booking_policy_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_booking_policy_1: (business_id, code); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## booking_policy_version
 
-Owner: **Policies**. Rollout: **MVP**. Lifecycle: **publish-freeze** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Policies**. Earliest stage: **B3_B4_COHORT** (MVP). Lifecycle: **publish-freeze**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -937,13 +1158,13 @@ Owner: **Policies**. Rollout: **MVP**. Lifecycle: **publish-freeze** (archive in
 | updated_at | timestamptz | no | CURRENT_TIMESTAMP |
 | row_version | bigint | no | 1 |
 
-Unique keys: (business_id, id); (business_id, policy_id, version_number).
+Unique constraints: (business_id, id); (business_id, policy_id, version_number).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, policy_id) → booking_policy(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, policy_id) → booking_policy(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -964,11 +1185,19 @@ Checks:
 - `isfinite(effective_from)`
 - `octet_length(content_hash) = 32`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** booking_policy_version_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_booking_policy_version_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_booking_policy_version_1: (business_id, policy_id, version_number); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## policy_refund_window
 
-Owner: **Policies**. Rollout: **MVP**. Lifecycle: **append** (immutable business/audit content; retain under approved retention schedule).
+Owner: **Policies**. Earliest stage: **B3_B4_COHORT** (MVP). Lifecycle: **append**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -980,24 +1209,31 @@ Owner: **Policies**. Rollout: **MVP**. Lifecycle: **append** (immutable business
 | created_at | timestamptz | no | CURRENT_TIMESTAMP |
 | created_by | uuid | yes | — |
 
-Unique keys: (business_id, id); (business_id, policy_version_id, threshold_minutes).
+Unique constraints: (business_id, policy_version_id, threshold_minutes).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, policy_version_id) → booking_policy_version(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, policy_version_id) → booking_policy_version(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
 - `threshold_minutes >= 0`
 - `refund_bps BETWEEN 0 AND 10000`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** policy_refund_window_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_policy_refund_window_0: (business_id, policy_version_id, threshold_minutes); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## booking_policy_assignment
 
-Owner: **Policies**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Policies**. Earliest stage: **B3_B4_COHORT** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1020,23 +1256,21 @@ Owner: **Policies**. Rollout: **MVP**. Lifecycle: **archive** (archive instead o
 | updated_at | timestamptz | no | CURRENT_TIMESTAMP |
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
-| scope_key | text GENERATED STORED | no explicit NOT NULL; computed from constrained inputs | scope_kind || ':' || coalesce(branch_id::text,'*') || ':' || coalesce(service_id::text,'*') || ':' || coalesce(package_id::text,'*') || ':' || coalesce(booking_id::text,'*') |
-| effective_period | tstzrange GENERATED STORED | no explicit NOT NULL; computed from constrained inputs | tstzrange(effective_from,effective_to,'[)') |
+| scope_key | text GENERATED STORED | no explicit NOT NULL; constrained inputs | scope_kind || ':' || coalesce(branch_id::text,'*') || ':' || coalesce(service_id::text,'*') || ':' || coalesce(package_id::text,'*') || ':' || coalesce(booking_id::text,'*') |
+| effective_period | tstzrange GENERATED STORED | no explicit NOT NULL; constrained inputs | tstzrange(effective_from,effective_to,'[)') |
 
-Generated/exclusion invariants: exact scope key; no_equal_rank_policy_assignment: business_id =, scope_key =, priority =, effective_period &&, active routing only.
-
-Unique keys: (business_id, id); (business_id, id, policy_version_id).
+Unique constraints: (business_id, id, policy_version_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, policy_version_id) → booking_policy_version(business_id, id), RESTRICT; initially immediate.
-- (business_id, branch_id) → branch(business_id, id), RESTRICT; initially immediate.
-- (business_id, service_id) → service(business_id, id), RESTRICT; initially immediate.
-- (business_id, package_id) → package(business_id, id), RESTRICT; initially immediate.
-- (business_id, booking_id) → booking(business_id, id), RESTRICT; initially immediate.
-- (authorized_by) → app_user(id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, policy_version_id) → booking_policy_version(business_id, id), RESTRICT, initially immediate.
+- (business_id, branch_id) → branch(business_id, id), RESTRICT, initially immediate.
+- (business_id, service_id) → service(business_id, id), RESTRICT, initially immediate.
+- (business_id, package_id) → package(business_id, id), RESTRICT, initially immediate.
+- (business_id, booking_id) → booking(business_id, id), RESTRICT, initially immediate.
+- (authorized_by) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -1046,11 +1280,24 @@ Checks:
 - `scope_kind <> 'ADMIN_OVERRIDE' OR (override_reason IS NOT NULL AND authorized_by IS NOT NULL)`
 - `isfinite(effective_from)`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** booking_policy_assignment_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_booking_policy_assignment_0: (business_id, id, policy_version_id); Required exact composite FK target; retain despite logical PK implication.
+- **fk-support** ix_booking_policy_assignment_fk_0: (business_id, policy_version_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_booking_policy_assignment_fk_1: (business_id, branch_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_booking_policy_assignment_fk_2: (business_id, service_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_booking_policy_assignment_fk_3: (business_id, package_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_booking_policy_assignment_fk_4: (business_id, booking_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **exclusion** no_equal_rank_policy_assignment: business_id WITH =, scope_key WITH =, priority WITH =, effective_period WITH &&; Integrity/concurrency arbiter; cannot be deferred for EXPLAIN.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## pricing_quote
 
-Owner: **Pricing**. Rollout: **MVP**. Lifecycle: **append** (immutable business/audit content; retain under approved retention schedule).
+Owner: **Pricing**. Earliest stage: **B3_B4_COHORT** (MVP). Lifecycle: **append**. Content hash is non-unique and excludes identity/expiry; ownership/idempotency remain independent.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1069,15 +1316,17 @@ Owner: **Pricing**. Rollout: **MVP**. Lifecycle: **append** (immutable business/
 | source | text | no | — |
 | created_at | timestamptz | no | CURRENT_TIMESTAMP |
 | created_by | uuid | yes | — |
+| hash_version | text | no | 'MS_QUOTE_CONTENT_V2' |
+| content_document | jsonb | no | — |
 
-Unique keys: (business_id, id); (business_id, id, branch_id); (business_id, quote_hash).
+Unique constraints: (business_id, id); (business_id, id, branch_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, branch_id) → branch(business_id, id), RESTRICT; initially immediate.
-- (business_id, customer_id) → customer(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, branch_id) → branch(business_id, id), RESTRICT, initially immediate.
+- (business_id, customer_id) → customer(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -1091,12 +1340,25 @@ Checks:
 - `created_by IS NOT NULL`
 - `isfinite(expires_at)`
 - `octet_length(quote_hash) = 32`
+- `hash_version = 'MS_QUOTE_CONTENT_V2'`
+- `jsonb_typeof(content_document) = 'object'`
+- `content_document->>'schema' IS NOT DISTINCT FROM hash_version`
 
-Explicit access-path indexes: (business_id, customer_id, created_at DESC). Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** pricing_quote_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_pricing_quote_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_pricing_quote_1: (business_id, id, branch_id); Required exact composite FK target; retain despite logical PK implication.
+- **fk-support** ix_pricing_quote_fk_0: (business_id, branch_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_pricing_quote_fk_1: (business_id, customer_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- (business_id, customer_id, created_at DESC): Customer quote history (hash is not identity).
 
 ## pricing_quote_item
 
-Owner: **Pricing**. Rollout: **MVP**. Lifecycle: **append** (immutable business/audit content; retain under approved retention schedule).
+Owner: **Pricing**. Earliest stage: **B3_B4_COHORT** (MVP). Lifecycle: **append**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1117,15 +1379,15 @@ Owner: **Pricing**. Rollout: **MVP**. Lifecycle: **append** (immutable business/
 | created_at | timestamptz | no | CURRENT_TIMESTAMP |
 | created_by | uuid | yes | — |
 
-Unique keys: (business_id, id); (business_id, quote_id, position); (business_id, id, quote_id).
+Unique constraints: (business_id, quote_id, position); (business_id, id, quote_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, quote_id, branch_id) → pricing_quote(business_id, id, branch_id), RESTRICT; initially immediate.
-- (business_id, offering_id, branch_id, service_id) → branch_service_offering(business_id, id, branch_id, service_id), RESTRICT; initially immediate.
-- (business_id, package_id) → package(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, quote_id, branch_id) → pricing_quote(business_id, id, branch_id), RESTRICT, initially immediate.
+- (business_id, offering_id, branch_id, service_id) → branch_service_offering(business_id, id, branch_id, service_id), RESTRICT, initially immediate.
+- (business_id, package_id) → package(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -1136,11 +1398,21 @@ Checks:
 - `duration_minutes > 0`
 - `buffer_before_minutes >= 0 AND buffer_after_minutes >= 0`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** pricing_quote_item_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_pricing_quote_item_0: (business_id, quote_id, position); Business/idempotency uniqueness, not speculative query acceleration.
+- **integrity** uq_pricing_quote_item_1: (business_id, id, quote_id); Required exact composite FK target; retain despite logical PK implication.
+- **fk-support** ix_pricing_quote_item_fk_0: (business_id, offering_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_pricing_quote_item_fk_1: (business_id, package_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## quote_policy_resolution
 
-Owner: **Policies**. Rollout: **MVP**. Lifecycle: **append** (immutable business/audit content; retain under approved retention schedule).
+Owner: **Policies**. Earliest stage: **B3_B4_COHORT** (MVP). Lifecycle: **append**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1154,25 +1426,35 @@ Owner: **Policies**. Rollout: **MVP**. Lifecycle: **append** (immutable business
 | created_at | timestamptz | no | CURRENT_TIMESTAMP |
 | created_by | uuid | yes | — |
 
-Unique keys: (business_id, id); (business_id, quote_id); (business_id, id, quote_id); (business_id, id, policy_version_id).
+Unique constraints: (business_id, quote_id); (business_id, id, quote_id); (business_id, id, policy_version_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, quote_id) → pricing_quote(business_id, id), RESTRICT; initially immediate.
-- (business_id, policy_version_id) → booking_policy_version(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, quote_id) → pricing_quote(business_id, id), RESTRICT, initially immediate.
+- (business_id, policy_version_id) → booking_policy_version(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
 - `jsonb_typeof(snapshot) = 'object'`
 - `octet_length(snapshot_hash) = 32`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** quote_policy_resolution_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_quote_policy_resolution_0: (business_id, quote_id); Business/idempotency uniqueness, not speculative query acceleration.
+- **integrity** uq_quote_policy_resolution_1: (business_id, id, quote_id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_quote_policy_resolution_2: (business_id, id, policy_version_id); Required exact composite FK target; retain despite logical PK implication.
+- **fk-support** ix_quote_policy_resolution_fk_0: (business_id, policy_version_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## quote_policy_source
 
-Owner: **Policies**. Rollout: **MVP**. Lifecycle: **append** (immutable business/audit content; retain under approved retention schedule).
+Owner: **Policies**. Earliest stage: **B3_B4_COHORT** (MVP). Lifecycle: **append**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1184,25 +1466,34 @@ Owner: **Policies**. Rollout: **MVP**. Lifecycle: **append** (immutable business
 | created_at | timestamptz | no | CURRENT_TIMESTAMP |
 | created_by | uuid | yes | — |
 
-Unique keys: (business_id, id); (business_id, resolution_id, assignment_id).
+Unique constraints: (business_id, resolution_id, assignment_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, policy_version_id) → booking_policy_version(business_id, id), RESTRICT; initially immediate.
-- (business_id, resolution_id, policy_version_id) → quote_policy_resolution(business_id, id, policy_version_id), RESTRICT; initially immediate.
-- (business_id, assignment_id, policy_version_id) → booking_policy_assignment(business_id, id, policy_version_id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, policy_version_id) → booking_policy_version(business_id, id), RESTRICT, initially immediate.
+- (business_id, resolution_id, policy_version_id) → quote_policy_resolution(business_id, id, policy_version_id), RESTRICT, initially immediate.
+- (business_id, assignment_id, policy_version_id) → booking_policy_assignment(business_id, id, policy_version_id), RESTRICT, initially immediate.
 
 Checks:
 
-- No additional local checks.
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+
+Indexes:
+
+- **integrity** quote_policy_source_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_quote_policy_source_0: (business_id, resolution_id, assignment_id); Business/idempotency uniqueness, not speculative query acceleration.
+- **fk-support** ix_quote_policy_source_fk_0: (business_id, policy_version_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_quote_policy_source_fk_1: (business_id, assignment_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## booking
 
-Owner: **Booking**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Booking**. Earliest stage: **B3_B4_COHORT** (MVP). Lifecycle: **archive**. Revisionless drafts and their aborted terminal states use plan_committed=false. Admitted plans retain revision evidence permanently.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1220,16 +1511,18 @@ Owner: **Booking**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of
 | updated_at | timestamptz | no | CURRENT_TIMESTAMP |
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
+| plan_committed | boolean | no | false |
+| draft_expires_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, id, branch_id).
+Unique constraints: (business_id, id); (business_id, id, branch_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, branch_id) → branch(business_id, id), RESTRICT; initially immediate.
-- (business_id, customer_id) → customer(business_id, id), RESTRICT; initially immediate.
-- (business_id, active_revision_id, id) → booking_revision(business_id, id, booking_id), RESTRICT; initially deferred.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, branch_id) → branch(business_id, id), RESTRICT, initially immediate.
+- (business_id, customer_id) → customer(business_id, id), RESTRICT, initially immediate.
+- (business_id, active_revision_id, id) → booking_revision(business_id, id, booking_id), RESTRICT, initially deferred.
 
 Checks:
 
@@ -1237,13 +1530,26 @@ Checks:
 - `status IN ('DRAFT','HELD','PENDING_PAYMENT','CONFIRMED','CHECKED_IN','IN_SERVICE','COMPLETED','CANCELLED','NO_SHOW','EXPIRED')`
 - `origin IN ('CUSTOMER','STAFF','WALK_IN')`
 - `origin <> 'CUSTOMER' OR customer_id IS NOT NULL`
-- `status = 'DRAFT' OR active_revision_id IS NOT NULL`
+- `(NOT plan_committed AND active_revision_id IS NULL AND status IN ('DRAFT','CANCELLED','EXPIRED') AND draft_expires_at IS NOT NULL) OR (plan_committed AND active_revision_id IS NOT NULL AND status <> 'DRAFT' AND draft_expires_at IS NULL)`
+- `draft_expires_at IS NULL OR (isfinite(draft_expires_at) AND draft_expires_at > created_at)`
 
-Explicit access-path indexes: (business_id, branch_id, status, created_at DESC); (business_id, customer_id, created_at DESC). Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** booking_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_booking_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_booking_1: (business_id, id, branch_id); Required exact composite FK target; retain despite logical PK implication.
+- **fk-support** ix_booking_fk_0: (business_id, branch_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_booking_fk_1: (business_id, customer_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_booking_fk_2: (business_id, active_revision_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- (business_id, branch_id, status, created_at DESC): Scoped booking calendar/history.
+- (business_id, customer_id, created_at DESC): Scoped booking calendar/history.
 
 ## booking_revision
 
-Owner: **Booking**. Rollout: **MVP**. Lifecycle: **append** (immutable business/audit content; retain under approved retention schedule).
+Owner: **Booking**. Earliest stage: **B3_B4_COHORT** (MVP). Lifecycle: **append**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1262,15 +1568,15 @@ Owner: **Booking**. Rollout: **MVP**. Lifecycle: **append** (immutable business/
 | created_at | timestamptz | no | CURRENT_TIMESTAMP |
 | created_by | uuid | yes | — |
 
-Unique keys: (business_id, id); (business_id, booking_id, revision_number); (business_id, id, booking_id); (business_id, id, quote_id); (business_id, id, branch_id).
+Unique constraints: (business_id, id); (business_id, booking_id, revision_number); (business_id, id, booking_id); (business_id, id, quote_id); (business_id, id, branch_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, booking_id, branch_id) → booking(business_id, id, branch_id), RESTRICT; initially immediate.
-- (business_id, quote_id, branch_id) → pricing_quote(business_id, id, branch_id), RESTRICT; initially immediate.
-- (business_id, supersedes_revision_id, booking_id) → booking_revision(business_id, id, booking_id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, booking_id, branch_id) → booking(business_id, id, branch_id), RESTRICT, initially immediate.
+- (business_id, quote_id, branch_id) → pricing_quote(business_id, id, branch_id), RESTRICT, initially immediate.
+- (business_id, supersedes_revision_id, booking_id) → booking_revision(business_id, id, booking_id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -1280,11 +1586,25 @@ Checks:
 - `isfinite(starts_at)`
 - `isfinite(ends_at)`
 
-Explicit access-path indexes: UNIQUE (business_id, booking_id) WHERE state = 'ACTIVE'. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** booking_revision_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_booking_revision_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_booking_revision_1: (business_id, booking_id, revision_number); Business/idempotency uniqueness, not speculative query acceleration.
+- **integrity** uq_booking_revision_2: (business_id, id, booking_id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_booking_revision_3: (business_id, id, quote_id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_booking_revision_4: (business_id, id, branch_id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** ix_booking_revision_integrity_0: UNIQUE (business_id, booking_id) WHERE state = 'ACTIVE'; Conditional/NULL-safe business uniqueness.
+- **fk-support** ix_booking_revision_fk_0: (business_id, quote_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_booking_revision_fk_1: (business_id, supersedes_revision_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## booking_item
 
-Owner: **Booking**. Rollout: **MVP**. Lifecycle: **append** (immutable business/audit content; retain under approved retention schedule).
+Owner: **Booking**. Earliest stage: **B3_B4_COHORT** (MVP). Lifecycle: **append**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1297,24 +1617,33 @@ Owner: **Booking**. Rollout: **MVP**. Lifecycle: **append** (immutable business/
 | created_at | timestamptz | no | CURRENT_TIMESTAMP |
 | created_by | uuid | yes | — |
 
-Unique keys: (business_id, id); (business_id, revision_id, position); (business_id, id, revision_id).
+Unique constraints: (business_id, revision_id, position); (business_id, id, revision_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, revision_id, quote_id) → booking_revision(business_id, id, quote_id), RESTRICT; initially immediate.
-- (business_id, quote_item_id, quote_id) → pricing_quote_item(business_id, id, quote_id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, revision_id, quote_id) → booking_revision(business_id, id, quote_id), RESTRICT, initially immediate.
+- (business_id, quote_item_id, quote_id) → pricing_quote_item(business_id, id, quote_id), RESTRICT, initially immediate.
 
 Checks:
 
 - `position >= 0`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** booking_item_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_booking_item_0: (business_id, revision_id, position); Business/idempotency uniqueness, not speculative query acceleration.
+- **integrity** uq_booking_item_1: (business_id, id, revision_id); Required exact composite FK target; retain despite logical PK implication.
+- **fk-support** ix_booking_item_fk_0: (business_id, quote_item_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## booking_service_segment
 
-Owner: **Booking**. Rollout: **MVP**. Lifecycle: **append** (immutable business/audit content; retain under approved retention schedule).
+Owner: **Booking**. Earliest stage: **B3_B4_COHORT** (MVP). Lifecycle: **append**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1330,13 +1659,13 @@ Owner: **Booking**. Rollout: **MVP**. Lifecycle: **append** (immutable business/
 | created_at | timestamptz | no | CURRENT_TIMESTAMP |
 | created_by | uuid | yes | — |
 
-Unique keys: (business_id, id); (business_id, revision_id, position); (business_id, id, revision_id).
+Unique constraints: (business_id, revision_id, position); (business_id, id, revision_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, item_id, revision_id) → booking_item(business_id, id, revision_id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, item_id, revision_id) → booking_item(business_id, id, revision_id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -1346,11 +1675,20 @@ Checks:
 - `isfinite(starts_at)`
 - `isfinite(ends_at)`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** booking_service_segment_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_booking_service_segment_0: (business_id, revision_id, position); Business/idempotency uniqueness, not speculative query acceleration.
+- **integrity** uq_booking_service_segment_1: (business_id, id, revision_id); Required exact composite FK target; retain despite logical PK implication.
+- **fk-support** ix_booking_service_segment_fk_0: (business_id, item_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## segment_dependency
 
-Owner: **Booking**. Rollout: **Later**. Lifecycle: **append** (immutable business/audit content; retain under approved retention schedule).
+Owner: **Booking**. Earliest stage: **LATER** (Later). Lifecycle: **append**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1363,25 +1701,33 @@ Owner: **Booking**. Rollout: **Later**. Lifecycle: **append** (immutable busines
 | created_at | timestamptz | no | CURRENT_TIMESTAMP |
 | created_by | uuid | yes | — |
 
-Unique keys: (business_id, id); (business_id, segment_id, predecessor_id).
+Unique constraints: (business_id, segment_id, predecessor_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, segment_id, revision_id) → booking_service_segment(business_id, id, revision_id), RESTRICT; initially immediate.
-- (business_id, predecessor_id, revision_id) → booking_service_segment(business_id, id, revision_id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, segment_id, revision_id) → booking_service_segment(business_id, id, revision_id), RESTRICT, initially immediate.
+- (business_id, predecessor_id, revision_id) → booking_service_segment(business_id, id, revision_id), RESTRICT, initially immediate.
 
 Checks:
 
 - `segment_id <> predecessor_id`
 - `minimum_gap_minutes >= 0`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** segment_dependency_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_segment_dependency_0: (business_id, segment_id, predecessor_id); Business/idempotency uniqueness, not speculative query acceleration.
+- **fk-support** ix_segment_dependency_fk_0: (business_id, predecessor_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## booking_hold
 
-Owner: **Booking**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Booking**. Earliest stage: **B3_B4_COHORT** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1398,13 +1744,13 @@ Owner: **Booking**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, id, revision_id).
+Unique constraints: (business_id, id, revision_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, revision_id, booking_id) → booking_revision(business_id, id, booking_id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, revision_id, booking_id) → booking_revision(business_id, id, booking_id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -1414,11 +1760,21 @@ Checks:
 - `(status='ACTIVE' AND released_at IS NULL) OR (status<>'ACTIVE' AND released_at IS NOT NULL)`
 - `isfinite(expires_at)`
 
-Explicit access-path indexes: UNIQUE (business_id, booking_id) WHERE status = 'ACTIVE'; (expires_at) WHERE status = 'ACTIVE'. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** booking_hold_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_booking_hold_0: (business_id, id, revision_id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** ix_booking_hold_integrity_0: UNIQUE (business_id, booking_id) WHERE status = 'ACTIVE'; Conditional/NULL-safe business uniqueness.
+- **operational-recovery** ix_booking_hold_recovery_0: (expires_at) WHERE status = 'ACTIVE'; Bounded durable expiry/outbox/reminder scan; baseline recovery choice, not a correctness or measured performance claim.
+- **fk-support** ix_booking_hold_fk_0: (business_id, revision_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## resource_allocation
 
-Owner: **Scheduling**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Scheduling**. Earliest stage: **B3_B4_COHORT** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1441,23 +1797,21 @@ Owner: **Scheduling**. Rollout: **MVP**. Lifecycle: **archive** (archive instead
 | archived_at | timestamptz | yes | — |
 | resource_kind | text | no | — |
 | resource_branch_id | uuid | yes | — |
-| busy_period | tstzrange GENERATED STORED | no explicit NOT NULL; computed from constrained inputs | tstzrange(busy_starts_at,busy_ends_at,'[)') |
+| busy_period | tstzrange GENERATED STORED | no explicit NOT NULL; constrained inputs | tstzrange(busy_starts_at,busy_ends_at,'[)') |
 
-Generated/exclusion invariants: no_live_resource_overlap: resource_id = and busy_period &&, live allocations only.
-
-Unique keys: (business_id, id); (business_id, id, revision_id, resource_id).
+Unique constraints: (business_id, id, revision_id, resource_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, branch_id) → branch(business_id, id), RESTRICT; initially immediate.
-- (business_id, revision_id, branch_id) → booking_revision(business_id, id, branch_id), RESTRICT; initially immediate.
-- (business_id, hold_id, revision_id) → booking_hold(business_id, id, revision_id), RESTRICT; initially immediate.
-- (business_id, time_off_id, resource_id) → staff_time_off(business_id, id, resource_id), RESTRICT; initially immediate.
-- (business_id, resource_id, resource_kind) → resource(business_id, id, kind), RESTRICT; initially immediate.
-- (business_id, resource_id, resource_branch_id) → resource(business_id, id, branch_id), RESTRICT; initially immediate.
-- (business_id, closure_id, branch_id) → branch_closure(business_id, id, branch_id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, branch_id) → branch(business_id, id), RESTRICT, initially immediate.
+- (business_id, revision_id, branch_id) → booking_revision(business_id, id, branch_id), RESTRICT, initially immediate.
+- (business_id, hold_id, revision_id) → booking_hold(business_id, id, revision_id), RESTRICT, initially immediate.
+- (business_id, time_off_id, resource_id) → staff_time_off(business_id, id, resource_id), RESTRICT, initially immediate.
+- (business_id, resource_id, resource_kind) → resource(business_id, id, kind), RESTRICT, initially immediate.
+- (business_id, resource_id, resource_branch_id) → resource(business_id, id, branch_id), RESTRICT, initially immediate.
+- (business_id, closure_id, branch_id) → branch_closure(business_id, id, branch_id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -1468,11 +1822,26 @@ Checks:
 - `isfinite(busy_starts_at)`
 - `isfinite(busy_ends_at)`
 
-Explicit access-path indexes: (business_id, revision_id) WHERE released_at IS NULL; (business_id, resource_id, busy_starts_at) WHERE released_at IS NULL. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** resource_allocation_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_resource_allocation_0: (business_id, id, revision_id, resource_id); Required exact composite FK target; retain despite logical PK implication.
+- **fk-support** ix_resource_allocation_fk_0: (business_id, branch_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_resource_allocation_fk_1: (business_id, revision_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_resource_allocation_fk_2: (business_id, hold_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_resource_allocation_fk_3: (business_id, time_off_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_resource_allocation_fk_4: (business_id, resource_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_resource_allocation_fk_5: (business_id, closure_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **exclusion** no_live_resource_overlap: resource_id WITH =, busy_period WITH &&; Integrity/concurrency arbiter; cannot be deferred for EXPLAIN.
+
+Deferred until EXPLAIN:
+
+- (business_id, revision_id) WHERE released_at IS NULL: Live revision/resource reads; GiST and unfiltered FK support already exist.
+- (business_id, resource_id, busy_starts_at) WHERE released_at IS NULL: Live revision/resource reads; GiST and unfiltered FK support already exist.
 
 ## booking_status_history
 
-Owner: **Booking**. Rollout: **MVP**. Lifecycle: **append** (immutable business/audit content; retain under approved retention schedule).
+Owner: **Booking**. Earliest stage: **B3_B4_COHORT** (MVP). Lifecycle: **append**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1487,24 +1856,31 @@ Owner: **Booking**. Rollout: **MVP**. Lifecycle: **append** (immutable business/
 | created_at | timestamptz | no | CURRENT_TIMESTAMP |
 | created_by | uuid | yes | — |
 
-Unique keys: (business_id, id).
+Unique constraints: PK only.
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, booking_id) → booking(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, booking_id) → booking(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
 - `actor_kind IN ('CUSTOMER','STAFF','SYSTEM','PAYMENT_WORKFLOW')`
 - `(from_status IS NULL AND to_status='DRAFT') OR (from_status IS NOT NULL AND ((from_status='DRAFT' AND to_status='HELD') OR (from_status='DRAFT' AND to_status='CANCELLED') OR (from_status='DRAFT' AND to_status='EXPIRED') OR (from_status='HELD' AND to_status='PENDING_PAYMENT') OR (from_status='HELD' AND to_status='CONFIRMED') OR (from_status='HELD' AND to_status='CANCELLED') OR (from_status='HELD' AND to_status='EXPIRED') OR (from_status='PENDING_PAYMENT' AND to_status='CONFIRMED') OR (from_status='PENDING_PAYMENT' AND to_status='CANCELLED') OR (from_status='PENDING_PAYMENT' AND to_status='EXPIRED') OR (from_status='CONFIRMED' AND to_status='CHECKED_IN') OR (from_status='CONFIRMED' AND to_status='CANCELLED') OR (from_status='CONFIRMED' AND to_status='NO_SHOW') OR (from_status='CHECKED_IN' AND to_status='IN_SERVICE') OR (from_status='CHECKED_IN' AND to_status='CANCELLED') OR (from_status='IN_SERVICE' AND to_status='COMPLETED') OR (from_status='IN_SERVICE' AND to_status='CANCELLED')))`
 
-Explicit access-path indexes: (business_id, booking_id, created_at, id). Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** booking_status_history_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **fk-support** ix_booking_status_history_fk_0: (business_id, booking_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- (business_id, booking_id, created_at, id): Booking event timeline.
 
 ## booking_policy_acceptance
 
-Owner: **Policies**. Rollout: **MVP**. Lifecycle: **append** (immutable business/audit content; retain under approved retention schedule).
+Owner: **Policies**. Earliest stage: **B3_B4_COHORT** (MVP). Lifecycle: **append**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1524,16 +1900,16 @@ Owner: **Policies**. Rollout: **MVP**. Lifecycle: **append** (immutable business
 | created_at | timestamptz | no | CURRENT_TIMESTAMP |
 | created_by | uuid | yes | — |
 
-Unique keys: (business_id, id); (business_id, revision_id).
+Unique constraints: (business_id, id); (business_id, revision_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, revision_id, booking_id) → booking_revision(business_id, id, booking_id), RESTRICT; initially immediate.
-- (business_id, revision_id, quote_id) → booking_revision(business_id, id, quote_id), RESTRICT; initially immediate.
-- (business_id, resolution_id, quote_id) → quote_policy_resolution(business_id, id, quote_id), RESTRICT; initially immediate.
-- (actor_user_id) → app_user(id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, revision_id, booking_id) → booking_revision(business_id, id, booking_id), RESTRICT, initially immediate.
+- (business_id, revision_id, quote_id) → booking_revision(business_id, id, quote_id), RESTRICT, initially immediate.
+- (business_id, resolution_id, quote_id) → quote_policy_resolution(business_id, id, quote_id), RESTRICT, initially immediate.
+- (actor_user_id) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -1542,11 +1918,20 @@ Checks:
 - `octet_length(consent_text_hash) = 32`
 - `octet_length(snapshot_hash) = 32`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** booking_policy_acceptance_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_booking_policy_acceptance_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_booking_policy_acceptance_1: (business_id, revision_id); Business/idempotency uniqueness, not speculative query acceleration.
+- **fk-support** ix_booking_policy_acceptance_fk_0: (business_id, resolution_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## payment_intent
 
-Owner: **Payments**. Rollout: **MVP-if-payments**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Payments**. Earliest stage: **B6** (MVP-if-payments). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1568,14 +1953,14 @@ Owner: **Payments**. Rollout: **MVP-if-payments**. Lifecycle: **archive** (archi
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, provider_key, provider_idempotency_key); (business_id, id, revision_id).
+Unique constraints: (business_id, provider_key, provider_idempotency_key); (business_id, id, revision_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, revision_id) → booking_revision(business_id, id), RESTRICT; initially immediate.
-- (business_id, hold_id, revision_id) → booking_hold(business_id, id, revision_id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, revision_id) → booking_revision(business_id, id), RESTRICT, initially immediate.
+- (business_id, hold_id, revision_id) → booking_hold(business_id, id, revision_id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -1587,11 +1972,21 @@ Checks:
 - `state IN ('CREATED','PENDING','VERIFIED','FAILED','EXPIRED')`
 - `isfinite(expires_at)`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** payment_intent_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_payment_intent_0: (business_id, provider_key, provider_idempotency_key); Business/idempotency uniqueness, not speculative query acceleration.
+- **integrity** uq_payment_intent_1: (business_id, id, revision_id); Required exact composite FK target; retain despite logical PK implication.
+- **fk-support** ix_payment_intent_fk_0: (business_id, revision_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_payment_intent_fk_1: (business_id, hold_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## gateway_event
 
-Owner: **Payments**. Rollout: **MVP-if-payments**. Lifecycle: **append** (immutable business/audit content; retain under approved retention schedule).
+Owner: **Payments**. Earliest stage: **B6** (MVP-if-payments). Lifecycle: **append**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1607,23 +2002,32 @@ Owner: **Payments**. Rollout: **MVP-if-payments**. Lifecycle: **append** (immuta
 | created_at | timestamptz | no | CURRENT_TIMESTAMP |
 | created_by | uuid | yes | — |
 
-Unique keys: (business_id, id); (business_id, provider_key, merchant_ref, event_key); (provider_key, merchant_ref, event_key).
+Unique constraints: (business_id, id); (business_id, provider_key, merchant_ref, event_key); (provider_key, merchant_ref, event_key).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
 - `verification_state IN ('UNVERIFIED','VALID','INVALID')`
 - `octet_length(payload_hash) = 32`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** gateway_event_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_gateway_event_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_gateway_event_1: (business_id, provider_key, merchant_ref, event_key); Business/idempotency uniqueness, not speculative query acceleration.
+- **integrity** uq_gateway_event_2: (provider_key, merchant_ref, event_key); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## payment_transaction
 
-Owner: **Payments**. Rollout: **MVP-if-payments**. Lifecycle: **append** (immutable business/audit content; retain under approved retention schedule).
+Owner: **Payments**. Earliest stage: **B6** (MVP-if-payments). Lifecycle: **append**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1641,25 +2045,37 @@ Owner: **Payments**. Rollout: **MVP-if-payments**. Lifecycle: **append** (immuta
 | created_at | timestamptz | no | CURRENT_TIMESTAMP |
 | created_by | uuid | yes | — |
 
-Unique keys: (business_id, id); (business_id, provider_key, merchant_ref, provider_transaction_ref); (business_id, id, revision_id); (provider_key, merchant_ref, provider_transaction_ref).
+Unique constraints: (business_id, id); (business_id, provider_key, merchant_ref, provider_transaction_ref); (business_id, id, revision_id); (provider_key, merchant_ref, provider_transaction_ref).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, intent_id, revision_id) → payment_intent(business_id, id, revision_id), RESTRICT; initially immediate.
-- (business_id, gateway_event_id) → gateway_event(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, intent_id, revision_id) → payment_intent(business_id, id, revision_id), RESTRICT, initially immediate.
+- (business_id, gateway_event_id) → gateway_event(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
 - `amount_rial > 0 AND amount_rial % 10 = 0`
 - `currency_code='IRR'`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** payment_transaction_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_payment_transaction_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_payment_transaction_1: (business_id, provider_key, merchant_ref, provider_transaction_ref); Business/idempotency uniqueness, not speculative query acceleration.
+- **integrity** uq_payment_transaction_2: (business_id, id, revision_id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_payment_transaction_3: (provider_key, merchant_ref, provider_transaction_ref); Business/idempotency uniqueness, not speculative query acceleration.
+- **fk-support** ix_payment_transaction_fk_0: (business_id, intent_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_payment_transaction_fk_1: (business_id, gateway_event_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## payment_application
 
-Owner: **Payments**. Rollout: **MVP-if-payments**. Lifecycle: **append** (immutable business/audit content; retain under approved retention schedule).
+Owner: **Payments**. Earliest stage: **B6** (MVP-if-payments). Lifecycle: **append**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1672,24 +2088,32 @@ Owner: **Payments**. Rollout: **MVP-if-payments**. Lifecycle: **append** (immuta
 | created_at | timestamptz | no | CURRENT_TIMESTAMP |
 | created_by | uuid | yes | — |
 
-Unique keys: (business_id, id); (business_id, transaction_id); (business_id, revision_id, purpose).
+Unique constraints: (business_id, transaction_id); (business_id, revision_id, purpose).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, transaction_id, revision_id) → payment_transaction(business_id, id, revision_id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, transaction_id, revision_id) → payment_transaction(business_id, id, revision_id), RESTRICT, initially immediate.
 
 Checks:
 
 - `amount_rial > 0 AND amount_rial % 10 = 0`
 - `purpose IN ('DEPOSIT','REMAINDER','ADJUSTMENT')`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** payment_application_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_payment_application_0: (business_id, transaction_id); Business/idempotency uniqueness, not speculative query acceleration.
+- **integrity** uq_payment_application_1: (business_id, revision_id, purpose); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## payment_balance
 
-Owner: **Payments**. Rollout: **MVP-if-payments**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Payments**. Earliest stage: **B6** (MVP-if-payments). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1705,13 +2129,13 @@ Owner: **Payments**. Rollout: **MVP-if-payments**. Lifecycle: **archive** (archi
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, transaction_id).
+Unique constraints: (business_id, transaction_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, transaction_id) → payment_transaction(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, transaction_id) → payment_transaction(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -1721,11 +2145,18 @@ Checks:
 - `refunded_rial >= 0 AND refunded_rial % 10 = 0`
 - `refunded_rial + refund_reserved_rial <= captured_rial`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** payment_balance_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_payment_balance_0: (business_id, transaction_id); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## refund
 
-Owner: **Payments**. Rollout: **MVP-if-payments**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Payments**. Earliest stage: **B6** (MVP-if-payments). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1745,15 +2176,15 @@ Owner: **Payments**. Rollout: **MVP-if-payments**. Lifecycle: **archive** (archi
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, provider_idempotency_key).
+Unique constraints: (business_id, id); (business_id, provider_idempotency_key).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, transaction_id) → payment_transaction(business_id, id), RESTRICT; initially immediate.
-- (business_id, policy_acceptance_id) → booking_policy_acceptance(business_id, id), RESTRICT; initially immediate.
-- (authorized_by) → app_user(id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, transaction_id) → payment_transaction(business_id, id), RESTRICT, initially immediate.
+- (business_id, policy_acceptance_id) → booking_policy_acceptance(business_id, id), RESTRICT, initially immediate.
+- (authorized_by) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -1761,11 +2192,21 @@ Checks:
 - `requested_rial > 0 AND requested_rial % 10 = 0`
 - `state IN ('REQUESTED','AUTHORIZED','SUBMITTED','SUCCEEDED','FAILED','UNKNOWN','CANCELLED')`
 
-Explicit access-path indexes: (business_id, transaction_id, state). Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** refund_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_refund_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_refund_1: (business_id, provider_idempotency_key); Business/idempotency uniqueness, not speculative query acceleration.
+- **fk-support** ix_refund_fk_0: (business_id, transaction_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_refund_fk_1: (business_id, policy_acceptance_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- (business_id, transaction_id, state): Per-capture refund state history.
 
 ## financial_audit_record
 
-Owner: **Payments**. Rollout: **MVP-if-payments**. Lifecycle: **append** (immutable business/audit content; retain under approved retention schedule).
+Owner: **Payments**. Earliest stage: **B6** (MVP-if-payments). Lifecycle: **append**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1780,25 +2221,34 @@ Owner: **Payments**. Rollout: **MVP-if-payments**. Lifecycle: **append** (immuta
 | created_at | timestamptz | no | CURRENT_TIMESTAMP |
 | created_by | uuid | yes | — |
 
-Unique keys: (business_id, id); (business_id, operation_key, entry_kind).
+Unique constraints: (business_id, operation_key, entry_kind).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, transaction_id) → payment_transaction(business_id, id), RESTRICT; initially immediate.
-- (business_id, refund_id) → refund(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, transaction_id) → payment_transaction(business_id, id), RESTRICT, initially immediate.
+- (business_id, refund_id) → refund(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
 - `entry_kind IN ('CAPTURE_VERIFIED','APPLIED','REFUND_RESERVED','REFUND_SUCCEEDED','REFUND_RELEASED','COMPENSATION_REQUIRED')`
 - `amount_rial > 0 AND amount_rial % 10 = 0`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** financial_audit_record_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_financial_audit_record_0: (business_id, operation_key, entry_kind); Business/idempotency uniqueness, not speculative query acceleration.
+- **fk-support** ix_financial_audit_record_fk_0: (business_id, transaction_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_financial_audit_record_fk_1: (business_id, refund_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## idempotency_record
 
-Owner: **Infrastructure**. Rollout: **MVP**. Lifecycle: **purge** (time-limited security/coordination data; purge only after safe recovery horizon).
+Owner: **Infrastructure**. Earliest stage: **B1** (MVP). Lifecycle: **purge**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1817,12 +2267,12 @@ Owner: **Infrastructure**. Rollout: **MVP**. Lifecycle: **purge** (time-limited 
 | updated_at | timestamptz | no | CURRENT_TIMESTAMP |
 | row_version | bigint | no | 1 |
 
-Unique keys: (business_id, id); (business_id, actor_key, route_key, idempotency_key).
+Unique constraints: (business_id, actor_key, route_key, idempotency_key).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -1833,11 +2283,18 @@ Checks:
 - `octet_length(request_hash) = 32`
 - `isfinite(expires_at)`
 
-Explicit access-path indexes: (expires_at). Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** idempotency_record_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_idempotency_record_0: (business_id, actor_key, route_key, idempotency_key); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- (expires_at): Purge expired idempotency records only after recovery horizon.
 
 ## outbox_event
 
-Owner: **Infrastructure**. Rollout: **MVP**. Lifecycle: **append** (immutable business/audit content; retain under approved retention schedule).
+Owner: **Infrastructure**. Earliest stage: **B1** (MVP). Lifecycle: **append**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1855,12 +2312,12 @@ Owner: **Infrastructure**. Rollout: **MVP**. Lifecycle: **append** (immutable bu
 | created_at | timestamptz | no | CURRENT_TIMESTAMP |
 | created_by | uuid | yes | — |
 
-Unique keys: (business_id, id); (business_id, aggregate_type, aggregate_id, aggregate_version, event_type).
+Unique constraints: (business_id, id); (business_id, aggregate_type, aggregate_id, aggregate_version, event_type).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -1868,11 +2325,20 @@ Checks:
 - `publish_attempts >= 0`
 - `jsonb_typeof(payload) = 'object'`
 
-Explicit access-path indexes: (available_at, id) WHERE published_at IS NULL. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** outbox_event_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_outbox_event_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_outbox_event_1: (business_id, aggregate_type, aggregate_id, aggregate_version, event_type); Business/idempotency uniqueness, not speculative query acceleration.
+- **operational-recovery** ix_outbox_event_recovery_0: (available_at, id) WHERE published_at IS NULL; Bounded durable expiry/outbox/reminder scan; baseline recovery choice, not a correctness or measured performance claim.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## consumer_inbox
 
-Owner: **Infrastructure**. Rollout: **MVP**. Lifecycle: **purge** (time-limited security/coordination data; purge only after safe recovery horizon).
+Owner: **Infrastructure**. Earliest stage: **B1** (MVP). Lifecycle: **purge**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1887,24 +2353,31 @@ Owner: **Infrastructure**. Rollout: **MVP**. Lifecycle: **purge** (time-limited 
 | updated_at | timestamptz | no | CURRENT_TIMESTAMP |
 | row_version | bigint | no | 1 |
 
-Unique keys: (business_id, id); (business_id, event_id, consumer_key).
+Unique constraints: (business_id, event_id, consumer_key).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, event_id) → outbox_event(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, event_id) → outbox_event(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
 - `row_version > 0`
 - `state IN ('PROCESSING','COMPLETE')`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** consumer_inbox_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_consumer_inbox_0: (business_id, event_id, consumer_key); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## media_asset
 
-Owner: **Media**. Rollout: **Later-content**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Media**. Earliest stage: **B8** (Later-content). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1927,13 +2400,13 @@ Owner: **Media**. Rollout: **Later-content**. Lifecycle: **archive** (archive in
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, object_key).
+Unique constraints: (business_id, id); (business_id, object_key).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (uploaded_by) → app_user(id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (uploaded_by) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -1944,11 +2417,19 @@ Checks:
 - `visibility <> 'PUBLISHED' OR (status='READY' AND validated_at IS NOT NULL AND recognizable_person IS NOT NULL AND consent_checked_at IS NOT NULL)`
 - `octet_length(sha256) = 32`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** media_asset_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_media_asset_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_media_asset_1: (business_id, object_key); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## media_variant
 
-Owner: **Media**. Rollout: **Later-content**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Media**. Earliest stage: **B8** (Later-content). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -1967,13 +2448,13 @@ Owner: **Media**. Rollout: **Later-content**. Lifecycle: **archive** (archive in
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, asset_id, variant_key); (business_id, object_key).
+Unique constraints: (business_id, asset_id, variant_key); (business_id, object_key).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, asset_id) → media_asset(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, asset_id) → media_asset(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -1982,11 +2463,19 @@ Checks:
 - `width IS NULL OR width > 0`
 - `height IS NULL OR height > 0`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** media_variant_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_media_variant_0: (business_id, asset_id, variant_key); Business/idempotency uniqueness, not speculative query acceleration.
+- **integrity** uq_media_variant_1: (business_id, object_key); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## media_publication_consent
 
-Owner: **Media**. Rollout: **Later-content**. Lifecycle: **append** (immutable business/audit content; retain under approved retention schedule).
+Owner: **Media**. Earliest stage: **B8** (Later-content). Lifecycle: **append**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -2004,14 +2493,14 @@ Owner: **Media**. Rollout: **Later-content**. Lifecycle: **append** (immutable b
 | created_at | timestamptz | no | CURRENT_TIMESTAMP |
 | created_by | uuid | yes | — |
 
-Unique keys: (business_id, id).
+Unique constraints: PK only.
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, asset_id) → media_asset(business_id, id), RESTRICT; initially immediate.
-- (business_id, subject_customer_id) → customer(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, asset_id) → media_asset(business_id, id), RESTRICT, initially immediate.
+- (business_id, subject_customer_id) → customer(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -2020,11 +2509,19 @@ Checks:
 - `revoked_at IS NULL OR revoked_at >= granted_at`
 - `octet_length(subject_ref_hash) = 32`
 
-Explicit access-path indexes: (business_id, asset_id, scope, revoked_at). Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** media_publication_consent_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **fk-support** ix_media_publication_consent_fk_0: (business_id, asset_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_media_publication_consent_fk_1: (business_id, subject_customer_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- (business_id, asset_id, scope, revoked_at): Asset scope consent lookup.
 
 ## portfolio_category
 
-Owner: **Media**. Rollout: **Later-content**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Media**. Earliest stage: **B8** (Later-content). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -2039,23 +2536,31 @@ Owner: **Media**. Rollout: **Later-content**. Lifecycle: **archive** (archive in
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, code).
+Unique constraints: (business_id, id); (business_id, code).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
 - `row_version > 0`
 - `sort_order >= 0`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** portfolio_category_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_portfolio_category_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_portfolio_category_1: (business_id, code); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## portfolio_item
 
-Owner: **Media**. Rollout: **Later-content**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Media**. Earliest stage: **B8** (Later-content). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -2076,14 +2581,14 @@ Owner: **Media**. Rollout: **Later-content**. Lifecycle: **archive** (archive in
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id).
+Unique constraints: (business_id, id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, branch_id) → branch(business_id, id), RESTRICT; initially immediate.
-- (business_id, staff_id) → staff(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, branch_id) → branch(business_id, id), RESTRICT, initially immediate.
+- (business_id, staff_id) → staff(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -2093,11 +2598,20 @@ Checks:
 - `sort_order >= 0`
 - `status <> 'PUBLISHED' OR published_at IS NOT NULL`
 
-Explicit access-path indexes: (business_id, status, sort_order, id). Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** portfolio_item_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_portfolio_item_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **fk-support** ix_portfolio_item_fk_0: (business_id, branch_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_portfolio_item_fk_1: (business_id, staff_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- (business_id, status, sort_order, id): Published portfolio sorting.
 
 ## portfolio_item_category
 
-Owner: **Media**. Rollout: **Later-content**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Media**. Earliest stage: **B8** (Later-content). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -2111,24 +2625,32 @@ Owner: **Media**. Rollout: **Later-content**. Lifecycle: **archive** (archive in
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, item_id, category_id).
+Unique constraints: (business_id, item_id, category_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, item_id) → portfolio_item(business_id, id), RESTRICT; initially immediate.
-- (business_id, category_id) → portfolio_category(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, item_id) → portfolio_item(business_id, id), RESTRICT, initially immediate.
+- (business_id, category_id) → portfolio_category(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
 - `row_version > 0`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** portfolio_item_category_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_portfolio_item_category_0: (business_id, item_id, category_id); Business/idempotency uniqueness, not speculative query acceleration.
+- **fk-support** ix_portfolio_item_category_fk_0: (business_id, category_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## portfolio_service_relation
 
-Owner: **Media**. Rollout: **Later-content**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Media**. Earliest stage: **B8** (Later-content). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -2142,24 +2664,32 @@ Owner: **Media**. Rollout: **Later-content**. Lifecycle: **archive** (archive in
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, item_id, service_id).
+Unique constraints: (business_id, item_id, service_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, item_id) → portfolio_item(business_id, id), RESTRICT; initially immediate.
-- (business_id, service_id) → service(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, item_id) → portfolio_item(business_id, id), RESTRICT, initially immediate.
+- (business_id, service_id) → service(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
 - `row_version > 0`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** portfolio_service_relation_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_portfolio_service_relation_0: (business_id, item_id, service_id); Business/idempotency uniqueness, not speculative query acceleration.
+- **fk-support** ix_portfolio_service_relation_fk_0: (business_id, service_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## portfolio_media
 
-Owner: **Media**. Rollout: **Later-content**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Media**. Earliest stage: **B8** (Later-content). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -2176,14 +2706,14 @@ Owner: **Media**. Rollout: **Later-content**. Lifecycle: **archive** (archive in
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, item_id, sort_order).
+Unique constraints: (business_id, item_id, sort_order).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, item_id) → portfolio_item(business_id, id), RESTRICT; initially immediate.
-- (business_id, asset_id) → media_asset(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, item_id) → portfolio_item(business_id, id), RESTRICT, initially immediate.
+- (business_id, asset_id) → media_asset(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -2192,11 +2722,20 @@ Checks:
 - `sort_order >= 0`
 - `(role IN ('BEFORE','AFTER') AND comparison_group IS NOT NULL) OR (role NOT IN ('BEFORE','AFTER') AND comparison_group IS NULL)`
 
-Explicit access-path indexes: UNIQUE (business_id, item_id, comparison_group, role) WHERE role IN ('BEFORE','AFTER'). Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** portfolio_media_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_portfolio_media_0: (business_id, item_id, sort_order); Business/idempotency uniqueness, not speculative query acceleration.
+- **integrity** ix_portfolio_media_integrity_0: UNIQUE (business_id, item_id, comparison_group, role) WHERE role IN ('BEFORE','AFTER'); Conditional/NULL-safe business uniqueness.
+- **fk-support** ix_portfolio_media_fk_0: (business_id, asset_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## portfolio_tag
 
-Owner: **Media**. Rollout: **Later-content**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Media**. Earliest stage: **B8** (Later-content). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -2210,22 +2749,30 @@ Owner: **Media**. Rollout: **Later-content**. Lifecycle: **archive** (archive in
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, slug).
+Unique constraints: (business_id, id); (business_id, slug).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
 
 Checks:
 
 - `row_version > 0`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** portfolio_tag_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_portfolio_tag_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_portfolio_tag_1: (business_id, slug); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## portfolio_item_tag
 
-Owner: **Media**. Rollout: **Later-content**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Media**. Earliest stage: **B8** (Later-content). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -2239,24 +2786,32 @@ Owner: **Media**. Rollout: **Later-content**. Lifecycle: **archive** (archive in
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, item_id, tag_id).
+Unique constraints: (business_id, item_id, tag_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, item_id) → portfolio_item(business_id, id), RESTRICT; initially immediate.
-- (business_id, tag_id) → portfolio_tag(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, item_id) → portfolio_item(business_id, id), RESTRICT, initially immediate.
+- (business_id, tag_id) → portfolio_tag(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
 - `row_version > 0`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** portfolio_item_tag_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_portfolio_item_tag_0: (business_id, item_id, tag_id); Business/idempotency uniqueness, not speculative query acceleration.
+- **fk-support** ix_portfolio_item_tag_fk_0: (business_id, tag_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## notification_channel_config
 
-Owner: **Notifications**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Notifications**. Earliest stage: **B7** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -2274,13 +2829,13 @@ Owner: **Notifications**. Rollout: **MVP**. Lifecycle: **archive** (archive inst
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id).
+Unique constraints: PK only.
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, branch_id) → branch(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, branch_id) → branch(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -2288,11 +2843,18 @@ Checks:
 - `channel IN ('SMS','TELEGRAM','BALE')`
 - `settings_revision > 0`
 
-Explicit access-path indexes: UNIQUE (business_id, branch_id, channel) NULLS NOT DISTINCT. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** notification_channel_config_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** ix_notification_channel_config_integrity_0: UNIQUE (business_id, branch_id, channel) NULLS NOT DISTINCT; Conditional/NULL-safe business uniqueness.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## notification_template
 
-Owner: **Notifications**. Rollout: **MVP**. Lifecycle: **append** (immutable business/audit content; retain under approved retention schedule).
+Owner: **Notifications**. Earliest stage: **B7** (MVP). Lifecycle: **append**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -2308,24 +2870,32 @@ Owner: **Notifications**. Rollout: **MVP**. Lifecycle: **append** (immutable bus
 | created_at | timestamptz | no | CURRENT_TIMESTAMP |
 | created_by | uuid | yes | — |
 
-Unique keys: (business_id, id).
+Unique constraints: (business_id, id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, branch_id) → branch(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, branch_id) → branch(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
 - `channel IN ('SMS','TELEGRAM','BALE')`
 - `version_number > 0`
 
-Explicit access-path indexes: UNIQUE (business_id, branch_id, code, channel, locale, version_number) NULLS NOT DISTINCT. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** notification_template_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_notification_template_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** ix_notification_template_integrity_0: UNIQUE (business_id, branch_id, code, channel, locale, version_number) NULLS NOT DISTINCT; Conditional/NULL-safe business uniqueness.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## notification_preference
 
-Owner: **Notifications**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Notifications**. Earliest stage: **B7** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -2344,13 +2914,13 @@ Owner: **Notifications**. Rollout: **MVP**. Lifecycle: **archive** (archive inst
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, customer_id, channel, purpose).
+Unique constraints: (business_id, customer_id, channel, purpose).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, customer_id) → customer(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, customer_id) → customer(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -2359,11 +2929,18 @@ Checks:
 - `purpose IN ('TRANSACTIONAL','MARKETING')`
 - `NOT opted_in OR (consented_at IS NOT NULL AND consent_text_version IS NOT NULL AND revoked_at IS NULL)`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** notification_preference_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_notification_preference_0: (business_id, customer_id, channel, purpose); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## notification_link_challenge
 
-Owner: **Notifications**. Rollout: **Later**. Lifecycle: **purge** (time-limited security/coordination data; purge only after safe recovery horizon).
+Owner: **Notifications**. Earliest stage: **B7** (Later). Lifecycle: **purge**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -2379,13 +2956,13 @@ Owner: **Notifications**. Rollout: **Later**. Lifecycle: **purge** (time-limited
 | updated_at | timestamptz | no | CURRENT_TIMESTAMP |
 | row_version | bigint | no | 1 |
 
-Unique keys: (business_id, id); (business_id, token_hash).
+Unique constraints: (business_id, token_hash).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, customer_id) → customer(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, customer_id) → customer(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -2395,11 +2972,19 @@ Checks:
 - `octet_length(token_hash) = 32`
 - `isfinite(expires_at)`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** notification_link_challenge_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_notification_link_challenge_0: (business_id, token_hash); Business/idempotency uniqueness, not speculative query acceleration.
+- **fk-support** ix_notification_link_challenge_fk_0: (business_id, customer_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## channel_identity
 
-Owner: **Notifications**. Rollout: **Later**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Notifications**. Earliest stage: **B7** (Later). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -2417,13 +3002,13 @@ Owner: **Notifications**. Rollout: **Later**. Lifecycle: **archive** (archive in
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, customer_id, channel); (business_id, channel, external_id_hash).
+Unique constraints: (business_id, customer_id, channel); (business_id, channel, external_id_hash).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, customer_id) → customer(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, customer_id) → customer(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -2431,11 +3016,19 @@ Checks:
 - `channel IN ('TELEGRAM','BALE')`
 - `octet_length(external_id_hash) = 32`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** channel_identity_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_channel_identity_0: (business_id, customer_id, channel); Business/idempotency uniqueness, not speculative query acceleration.
+- **integrity** uq_channel_identity_1: (business_id, channel, external_id_hash); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## notification_event
 
-Owner: **Notifications**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Notifications**. Earliest stage: **B7** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -2458,17 +3051,17 @@ Owner: **Notifications**. Rollout: **MVP**. Lifecycle: **archive** (archive inst
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, dedup_key).
+Unique constraints: (business_id, id); (business_id, dedup_key).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, customer_id) → customer(business_id, id), RESTRICT; initially immediate.
-- (business_id, booking_id) → booking(business_id, id), RESTRICT; initially immediate.
-- (business_id, booking_revision_id, booking_id) → booking_revision(business_id, id, booking_id), RESTRICT; initially immediate.
-- (business_id, template_id) → notification_template(business_id, id), RESTRICT; initially immediate.
-- (business_id, source_event_id) → outbox_event(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, customer_id) → customer(business_id, id), RESTRICT, initially immediate.
+- (business_id, booking_id) → booking(business_id, id), RESTRICT, initially immediate.
+- (business_id, booking_revision_id, booking_id) → booking_revision(business_id, id, booking_id), RESTRICT, initially immediate.
+- (business_id, template_id) → notification_template(business_id, id), RESTRICT, initially immediate.
+- (business_id, source_event_id) → outbox_event(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -2479,11 +3072,25 @@ Checks:
 - `jsonb_typeof(template_parameters) = 'object'`
 - `isfinite(scheduled_at)`
 
-Explicit access-path indexes: (scheduled_at, id) WHERE state = 'SCHEDULED'. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** notification_event_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_notification_event_0: (business_id, id); Required exact composite FK target; retain despite logical PK implication.
+- **integrity** uq_notification_event_1: (business_id, dedup_key); Business/idempotency uniqueness, not speculative query acceleration.
+- **operational-recovery** ix_notification_event_recovery_0: (scheduled_at, id) WHERE state = 'SCHEDULED'; Bounded durable expiry/outbox/reminder scan; baseline recovery choice, not a correctness or measured performance claim.
+- **fk-support** ix_notification_event_fk_0: (business_id, customer_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_notification_event_fk_1: (business_id, booking_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_notification_event_fk_2: (business_id, booking_revision_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_notification_event_fk_3: (business_id, template_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+- **fk-support** ix_notification_event_fk_4: (business_id, source_event_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## notification_delivery_attempt
 
-Owner: **Notifications**. Rollout: **MVP**. Lifecycle: **append** (immutable business/audit content; retain under approved retention schedule).
+Owner: **Notifications**. Earliest stage: **B7** (MVP). Lifecycle: **append**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -2499,24 +3106,32 @@ Owner: **Notifications**. Rollout: **MVP**. Lifecycle: **append** (immutable bus
 | created_at | timestamptz | no | CURRENT_TIMESTAMP |
 | created_by | uuid | yes | — |
 
-Unique keys: (business_id, id); (business_id, notification_event_id, attempt_number).
+Unique constraints: (business_id, notification_event_id, attempt_number).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, notification_event_id) → notification_event(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, notification_event_id) → notification_event(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
 - `attempt_number > 0`
 - `state IN ('SUBMITTED','DELIVERED','FAILED','UNKNOWN')`
 
-Explicit access-path indexes: UNIQUE (business_id, provider_key, provider_message_ref) WHERE provider_message_ref IS NOT NULL. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** notification_delivery_attempt_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_notification_delivery_attempt_0: (business_id, notification_event_id, attempt_number); Business/idempotency uniqueness, not speculative query acceleration.
+- **integrity** ix_notification_delivery_attempt_integrity_0: UNIQUE (business_id, provider_key, provider_message_ref) WHERE provider_message_ref IS NOT NULL; Conditional/NULL-safe business uniqueness.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## audit_log
 
-Owner: **Audit**. Rollout: **MVP**. Lifecycle: **append** (immutable business/audit content; retain under approved retention schedule).
+Owner: **Audit**. Earliest stage: **B1** (MVP). Lifecycle: **append**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -2533,24 +3148,32 @@ Owner: **Audit**. Rollout: **MVP**. Lifecycle: **append** (immutable business/au
 | created_at | timestamptz | no | CURRENT_TIMESTAMP |
 | created_by | uuid | yes | — |
 
-Unique keys: (business_id, id).
+Unique constraints: PK only.
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (actor_user_id) → app_user(id), RESTRICT; initially immediate.
-- (business_id, branch_id) → branch(business_id, id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (actor_user_id) → app_user(id), RESTRICT, initially immediate.
+- (business_id, branch_id) → branch(business_id, id), RESTRICT, initially immediate.
 
 Checks:
 
-- No additional local checks.
 
-Explicit access-path indexes: (business_id, target_type, target_id, created_at DESC); (business_id, actor_user_id, created_at DESC). Full generated FK/index DDL is authoritative.
+
+Indexes:
+
+- **integrity** audit_log_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **fk-support** ix_audit_log_fk_0: (business_id, branch_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- (business_id, target_type, target_id, created_at DESC): Actor/object audit history.
+- (business_id, actor_user_id, created_at DESC): Actor/object audit history.
 
 ## offering_resource_requirement
 
-Owner: **Offerings**. Rollout: **MVP**. Lifecycle: **archive** (archive instead of deleting referenced history; privacy redaction is separately authorized).
+Owner: **Offerings**. Earliest stage: **B1** (MVP). Lifecycle: **archive**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -2567,13 +3190,13 @@ Owner: **Offerings**. Rollout: **MVP**. Lifecycle: **archive** (archive instead 
 | row_version | bigint | no | 1 |
 | archived_at | timestamptz | yes | — |
 
-Unique keys: (business_id, id); (business_id, offering_id, resource_kind).
+Unique constraints: (business_id, offering_id, resource_kind).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, offering_id, branch_id, service_id) → branch_service_offering(business_id, id, branch_id, service_id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, offering_id, branch_id, service_id) → branch_service_offering(business_id, id, branch_id, service_id), RESTRICT, initially immediate.
 
 Checks:
 
@@ -2581,11 +3204,18 @@ Checks:
 - `resource_kind IN ('CHAIR','ROOM','DEVICE')`
 - `quantity > 0`
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+Indexes:
+
+- **integrity** offering_resource_requirement_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_offering_resource_requirement_0: (business_id, offering_id, resource_kind); Business/idempotency uniqueness, not speculative query acceleration.
+
+Deferred until EXPLAIN:
+
+- None.
 
 ## segment_resource_assignment
 
-Owner: **Booking**. Rollout: **MVP**. Lifecycle: **append** (immutable business/audit content; retain under approved retention schedule).
+Owner: **Booking**. Earliest stage: **B3_B4_COHORT** (MVP). Lifecycle: **append**. Archive/redact referenced history; append/frozen content follows documented publication and retention gates.
 
 | Column | PostgreSQL type | Nullable | Default |
 | --- | --- | --- | --- |
@@ -2598,17 +3228,25 @@ Owner: **Booking**. Rollout: **MVP**. Lifecycle: **append** (immutable business/
 | created_at | timestamptz | no | CURRENT_TIMESTAMP |
 | created_by | uuid | yes | — |
 
-Unique keys: (business_id, id); (business_id, segment_id, resource_id).
+Unique constraints: (business_id, segment_id, resource_id).
 
 Foreign keys:
 
-- (business_id) → business(id), RESTRICT; initially immediate.
-- (created_by) → app_user(id), RESTRICT; initially immediate.
-- (business_id, segment_id, revision_id) → booking_service_segment(business_id, id, revision_id), RESTRICT; initially immediate.
-- (business_id, allocation_id, revision_id, resource_id) → resource_allocation(business_id, id, revision_id, resource_id), RESTRICT; initially immediate.
+- (business_id) → business(id), RESTRICT, initially immediate.
+- (created_by) → app_user(id), RESTRICT, initially immediate.
+- (business_id, segment_id, revision_id) → booking_service_segment(business_id, id, revision_id), RESTRICT, initially immediate.
+- (business_id, allocation_id, revision_id, resource_id) → resource_allocation(business_id, id, revision_id, resource_id), RESTRICT, initially immediate.
 
 Checks:
 
-- No additional local checks.
 
-Explicit access-path indexes: PK/unique and generated FK indexes. Full generated FK/index DDL is authoritative.
+
+Indexes:
+
+- **integrity** segment_resource_assignment_pkey: (id); Entity identity; PostgreSQL creates its index.
+- **integrity** uq_segment_resource_assignment_0: (business_id, segment_id, resource_id); Business/idempotency uniqueness, not speculative query acceleration.
+- **fk-support** ix_segment_resource_assignment_fk_0: (business_id, allocation_id); Selected baseline child lookup by business+referenced UUID (or global UUID); context suffix remains fully FK-checked. PostgreSQL does not require a child index for FK validity.
+
+Deferred until EXPLAIN:
+
+- None.

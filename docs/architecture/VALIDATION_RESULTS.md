@@ -1,38 +1,45 @@
-# Actual architecture validation results
+# Actual Phase03A hardening validation
 
-2026-10-29. These are **static specification checks and actual image rendering**, not working backend tests. No migrations or database statements executed against PostgreSQL; no provider/API connected.
+**Static specification checks and actual diagram rendering only.** No PostgreSQL execution, successful migration, EXPLAIN, concurrency/auth/provider/backend runtime test is claimed.
 
-| Check | Actual result | Evidence |
+| Check | Result | Actual evidence |
 | --- | --- | --- |
-| PostgreSQL18 syntax parser | PASS | {"statements":530,"executedAgainstDatabase":false,"parser":"pgsql-parser18.3.1 / libpg_query18.2.1"} |
-| No seed/DML/migration execution material | PASS | CREATE/ALTER/index draft only; no seed inserts. |
-| Relational model keys, FK arity/types/unique targets | PASS | {"tables":72,"foreignKeys":254,"checks":242,"generatedColumns":4} |
-| Global exclusions and deferred revision identity | PASS | 3 exclusion constraints; globally keyed resource/staff, explicit expiry release, deferred active revision. |
-| OpenAPI3.0.3 schema and local refs | PASS | {"validator":"@apidevtools/swagger-parser13.1.0","paths":67,"operations":69,"schemas":78,"deployed":false} |
-| API operation IDs / auth / concurrency / idempotency metadata | PASS | {"uniqueOperationIds":69,"allContractsHaveMetadata":true} |
-| Money lexical examples | PASS | Canonical nonnegative multiple-of10 strings; max bigint checked in future server, no runtime arithmetic implementation tested. |
-| Module dependency DAG | PASS | {"nodes":18,"domainContexts":16,"compositionLayers":1,"sharedKernel":1,"cycles":0} |
-| ERD entity/edge coverage and actual image artifacts | PASS | {"entities":72,"relationships":254,"actualSvgAndPngPairs":9,"embeddedPrivateAssets":0} |
-| Architecture request scenario coverage | PASS | {"specifiedScenarios":18,"executedBackendScenarios":0} |
-| Original feature branch and frontend source unchanged | PASS | {"originalFeatureRef":"2155872cc626d7463d94500b678d875bec0e4dc6","runtimeSourceDiff":0,"existingTestsUnmodified":true,"frontendCommandsRerun":false,"reason":"Documentation-only; user requires existing frontend checks only when source is touched."} |
+| PostgreSQL18 syntax parsing (no execution) | PASS | {"fullStatements":423,"b1Statements":70,"parser":"pgsql-parser18.3.1 / libpg_query18.2.1","postgresqlExecution":false} |
+| Review-only DDL AST whitelist and no seeds | PASS | No INSERT/UPDATE/DELETE/COPY, backend server or migration execution. |
+| Every FK target/key/type remains valid after pruning | PASS | {"tables":72,"foreignKeys":254,"checks":250,"generatedColumns":5} |
+| SQL/model column, key and constraint correspondence | PASS | 72 model tables match parsed CREATE TABLE column/key/check counts; generated columns are separate ALTER definitions. |
+| Quote identity and integrity separation in draft | PASS | Content hash non-unique, actor-owned UUID identity and request idempotency separate; independent rows are representable (not inserted into DB). |
+| Hash payload schema, golden digest and independent-customer vectors | PASS | {"schema":"JSON Schema2020-12 / AJV8","digestVectors":5,"independentActorsWithSameHash":2,"invalidPayloadShapesRejected":3,"scope":"Static vectors only; raw duplicate-key/Unicode, semantic rows and real requests remain future backend tests."} |
+| Temporal membership and period-bound references | PASS | Period exclusion includes closed/inactive/archived history; eligibility/rule FK retains exact stint. Cross-row date containment not executed. |
+| Static membership interval examples | PASS | 5 specification examples; no PostgreSQL exclusion or race test executed. |
+| Draft shape truth table and every allowed transition | PASS | {"staticShapeCases":80,"validShapes":12,"representedTransitions":17,"monotonicOldNewValueGuard":"Required future command/grant/trigger tests; not proved by CHECK"} |
+| All index categories, FK coverage and no redundant unfiltered support prefixes | PASS | {"retainedByCategory":{"integrity":185,"fk-support":74,"operational-recovery":3,"exclusion":4},"removedIdentityHelpers":46,"deferredQueryCandidates":15,"automaticCreatedByIndexes":0,"oldStandaloneIndexes":193,"newStandaloneIndexes":85,"checkedFkSupport":74,"explainExecuted":false} |
+| Four exclusion definitions and deferred active-revision FK | PASS | 4 integrity arbiters; syntax present, catalog behavior/extension volatility/concurrency not executed. |
+| B1 exact table inventory, FK closure/order and inactive gates | PASS | {"tables":["app_user","business","permission","auth_identity","auth_session","role","branch","role_permission","user_role_assignment","service","branch_service_offering","offering_resource_requirement","audit_log","idempotency_record","outbox_event","consumer_inbox"],"tableCount":16,"deferredTables":56,"parentClosure":true,"createBeforeFks":true,"temporaryInactiveGates":2,"migrationExecuted":false} |
+| OpenAPI3.0.3 structural/ref validity and hardened DTOs | PASS | {"paths":69,"operations":71,"schemas":82,"validator":"swagger-parser13.1.0","deployed":false} |
+| Module DAG and exact diagram edges | PASS | {"nodes":18,"cycles":0} |
+| Full ERD and bounded-context projection coverage | PASS | {"fullEntities":72,"fullForeignKeyEdges":254,"contextViews":16,"ownedTableCoverage":72} |
+| Actual image pairs and explicit payment alternatives | PASS | {"actualSvgPngPairs":26,"contextViews":16,"sequenceSource":"sequence.json + editable SVG","privateAssetsEmbedded":0} |
+| Dictionary, ADR and scenario synchronization | PASS | {"scenarios":29,"adrs":19,"workingBackendTests":0} |
+| Private baseline/ref and original runtime preservation | PASS | {"originalHomepageBookingAssetsTestsChanged":0,"privateArchitectureBase":"ab62e845bcbf7c351c29c6d77078d3bcfb97793a","phase02BaselinePreserved":true,"frontendCommandsRerun":false} |
 
-## Commands and outputs
+## Commands run
 
-- `node work/phase03a/generate-schema.mjs`:72 tables,254 FKs,242 local CHECKs; generated review-only SQL/model/dictionary/ERD.
-- `node work/phase03a/write-api.mjs`:67 paths,69 operations,78 schemas.
-- `node work/phase03a/write-validation.mjs`:18 future acceptance scenarios.
-- `node work/phase03a/render-diagrams.mjs`:9 actual SVG+PNG pairs; renderer receipt in diagrams/rendered/render-receipt.json.
-- `node work/phase03a/validate.mjs`: all checks in the table passed; PostgreSQL parser statement count and schema validation details recorded above and in JSON.
+- node work/phase03a-hardening/schema.mjs:72 tables,254 FKs,250 local checks,16-table B1;193→85 standalone indexes.
+- node work/phase03a-hardening/contracts.mjs:69 paths,71 operations,82 OpenAPI schemas; exact hash schema and synthetic vectors.
+- node work/phase03a-hardening/docs.mjs:19 ADRs and29 future acceptance scenarios, not backend tests.
+- node work/phase03a-hardening/diagrams.mjs:26 actual SVG/PNG pairs,16 bounded-context ERDs; full source ERD preserved.
+- node work/phase03a-hardening/validate.mjs: all static checks in this table passed. Tooling isolated in review scratch; app dependencies unchanged.
 
-Tools live only in isolated review scratch, never app dependencies. npm/Python package fetches initially failed/time-out because of DNS/network; isolated parser packages were subsequently fetched with native curl and verified against registry SRI, without running package scripts. The first Graphviz render hit a WASM layout assertion; enabling Graphviz newrank resolved it. The final render command exited0 and produced all reviewed files. These tooling failures are not hidden backend results.
+Initial local YAML parsing hit its alias expansion guard on the prior generator output; trusted local input was parsed with a bounded higher limit and the revised YAML is emitted without anchors/aliases. First diagram hardening render used reserved DOT node name edge; renamed to proxy and reran successfully. Final parser/validator/render commands exited0.
 
-## Limits and unexecuted gates
+## Limits / next executable evidence
 
-No database DDL execution, extension installation, actual query plans, constraint-trigger/grant checks, multi-session races, provider sandbox, legal enforceability, auth penetration test or load/restore exercise occurred. Syntax parsing does not validate PostgreSQL expression volatility/DDL catalog behavior or transaction correctness. JSON/FK/DAG checks do not prove runtime authorization or policy enforcement. Required integration cases are specified in VALIDATION_MATRIX.md and hardening gates in03_DATABASE_DESIGN.md. The broad72-table envelope is staged, not a mandated one-shot migration.
+Syntax parser acceptance does not validate actual DDL catalog behavior, generated-expression volatility, extension installation, grants/triggers or SQL row behavior. The interval/truth/hash vectors are restricted specification calculations; they do not run booking commands, insert customers, execute exclusions, prove concurrency or certify RFC8785 library interoperability. Duplicate raw-key/Unicode/date/semantic containment and full financial/state/permission cases still need production-language unit/integration tests and a disposable real PostgreSQL environment after approval.
 
-`npm ci`, `npm run typecheck`, `npm run build` and `npm run test:ui` were **not rerun in03A**, because no frontend source, dependency or existing test changed. Earlier Phase02 results are historical and not presented as03A backend QA. Source/ref guards above verify preservation. No UI screenshots are required for this documentation-only task; the delivered images are actual architecture renders, not fabricated app screenshots.
+No frontend source/dependency/asset/existing test changed; npm ci/typecheck/build/test:ui were not rerun in this architecture-only hardening pass. No prior Phase02 results are presented as backend QA. Business policy strategy, actual configuration/legal terms and implementation approval remain open. Browser results for the architecture review page are recorded separately in REVIEW_PAGE_CHECK.json and never called Next.js QA.
 
 
-## Architecture visual index browser check
+## Architecture review HTML browser check
 
-Installed Chrome/Playwright opened the actual local REVIEW.html at1440x900 and390x844. All9 diagram images loaded,34 local links resolved, no horizontal overflow and no page JS errors. This checks the architecture review document only; it is explicitly not Next.js or backend QA. Command: node work/phase03a/check-review-page.mjs; exit0. Machine receipt:REVIEW_PAGE_CHECK.json.
+node work/phase03a-hardening/check-review-page.mjs exited0. Actual installed Chrome/Playwright at1440x900 and390x844 loaded all26 images and verified90 local links; no horizontal overflow or JS page errors. Scope is the architecture review document only, never Next.js/backend QA. Receipt:REVIEW_PAGE_CHECK.json.

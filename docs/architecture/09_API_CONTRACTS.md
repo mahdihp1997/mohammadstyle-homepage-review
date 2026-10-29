@@ -10,77 +10,81 @@ Operational rows need actor/time/scope auditing; accepted quote and policy artif
 
 ## Endpoint inventory
 
+69 paths /71 operations /82 schemas. Proposed only; no endpoint implementation.
+
 | Method | Path | Request → response | Access |
 | --- | --- | --- | --- |
-| GET | /api/v1/session | — → SessionView | session: session.self |
-| GET | /api/v1/branches | — → ListBranches | public: customer.self |
-| GET | /api/v1/branches/{branchId}/services | — → ListOfferings | public: customer.self |
-| GET | /api/v1/branches/{branchId}/barbers | — → ListBarbers | public: customer.self |
-| POST | /api/v1/availability/search | AvailabilitySearch → AvailabilityResult | public: customer.self |
-| POST | /api/v1/booking-quotes | QuoteRequest → Quote | session: customer.self |
-| POST | /api/v1/booking-holds | HoldRequest → Hold | session: customer.self |
-| POST | /api/v1/bookings | ConfirmBookingRequest → Booking | session: customer.self |
-| GET | /api/v1/bookings | — → ListBookings | session: customer.self |
-| GET | /api/v1/bookings/{bookingId} | — → Booking | session: customer.self |
-| POST | /api/v1/bookings/{bookingId}/cancel | Reason → CancellationResult | session: customer.self |
-| POST | /api/v1/bookings/{bookingId}/reschedule | RescheduleRequest → Booking | session: customer.self |
-| POST | /api/v1/payment-intents | PaymentIntentRequest → PaymentIntent | session: customer.self |
-| GET | /api/v1/payment-intents/{intentId} | — → PaymentIntent | session: customer.self |
-| GET | /api/v1/refunds/{refundId} | — → Refund | session: customer.self |
-| POST | /api/v1/providers/{providerKey}/payment-callbacks | GatewaySignal → Acknowledgement | provider: Selected provider authentication + independent server verification; no customer auth; no customer data response |
-| POST | /api/v1/me/notification-preferences | NotificationPreferenceWrite → RecordVersion | session: customer.self |
-| POST | /api/v1/me/channel-links | ChannelLinkRequest → ChannelLinkChallenge | session: customer.self |
-| POST | /api/v1/me/channel-links/{linkId}/revoke | Reason → RecordVersion | session: customer.self |
-| POST | /api/v1/admin/branches | BranchWrite → Branch | session: branch.manage:business |
-| PUT | /api/v1/admin/branches/{branchId} | BranchWrite → Branch | session: branch.manage:targetBranch |
-| POST | /api/v1/admin/services | ServiceWrite → RecordVersion | session: catalog.manage:business |
-| PUT | /api/v1/admin/services/{serviceId} | ServiceWrite → RecordVersion | session: catalog.manage:business |
-| PUT | /api/v1/admin/branches/{branchId}/offerings/{offeringId} | OfferingWrite → RecordVersion | session: offering.manage:targetBranch |
-| POST | /api/v1/admin/branches/{branchId}/offerings | OfferingWrite → RecordVersion | session: offering.manage:targetBranch |
-| POST | /api/v1/admin/staff | StaffWrite → StaffView | session: staff.manage:business |
-| GET | /api/v1/admin/staff | — → ListStaff | session: staff.read:assignedBranches |
-| PUT | /api/v1/admin/staff/{staffId} | StaffWrite → StaffView | session: staff.manage:targetStaffBranches |
-| POST | /api/v1/admin/staff/{staffId}/branch-assignments | StaffAssignmentWrite → RecordVersion | session: staff.manage:targetBranch |
-| PUT | /api/v1/admin/staff/{staffId}/qualifications/{serviceId} | QualificationWrite → RecordVersion | session: staff.qualify:business |
-| PUT | /api/v1/admin/branches/{branchId}/working-hours | BranchHoursWrite → RecordVersion | session: schedule.manage:targetBranch |
-| PUT | /api/v1/admin/staff/{staffId}/schedule | ScheduleWrite → RecordVersion | session: schedule.manage:allAffectedBranches |
-| POST | /api/v1/admin/staff/{staffId}/time-off | TimeBlockWrite → RecordVersion | session: schedule.manage:allAffectedBranches |
-| POST | /api/v1/admin/branches/{branchId}/closures | TimeBlockWrite → RecordVersion | session: schedule.manage:targetBranch |
-| POST | /api/v1/admin/branches/{branchId}/resources | ResourceWrite → RecordVersion | session: resource.manage:targetBranch |
-| PUT | /api/v1/admin/branches/{branchId}/resources/{resourceId} | ResourceWrite → RecordVersion | session: resource.manage:targetBranch |
-| POST | /api/v1/admin/policies | PolicyDefinitionWrite → RecordVersion | session: policy.manage:business |
-| POST | /api/v1/admin/policies/{policyId}/versions | PolicyVersionWrite → RecordVersion | session: policy.manage:business |
-| PUT | /api/v1/admin/policy-versions/{versionId} | PolicyVersionWrite → RecordVersion | session: policy.manage:business |
-| POST | /api/v1/admin/policy-versions/{versionId}/publish | Reason → RecordVersion | session: policy.manage:business |
-| POST | /api/v1/admin/policy-versions/{versionId}/retire | Reason → RecordVersion | session: policy.manage:business |
-| POST | /api/v1/admin/policy-assignments | PolicyAssignmentWrite → RecordVersion | session: policy.manage:targetScope AND policy.override for override scopes |
-| POST | /api/v1/admin/policy-assignments/{assignmentId}/revoke | Reason → RecordVersion | session: policy.manage:targetScope |
-| GET | /api/v1/admin/bookings | — → ListBookings | session: booking.read:assignedBranch or assignedStaff; projection excludes unrelated contacts/finance |
-| POST | /api/v1/admin/walk-ins | WalkInRequest → Booking | session: booking.walkin:targetBranch; explicit override permission if needed |
-| POST | /api/v1/admin/bookings/{bookingId}/check-in | Reason → Booking | session: booking.attendance:targetBranch |
-| POST | /api/v1/admin/bookings/{bookingId}/start | Reason → Booking | session: booking.service:assignedStaff or authorizedManager |
-| POST | /api/v1/admin/bookings/{bookingId}/complete | Reason → Booking | session: booking.service:assignedStaff or authorizedManager |
-| POST | /api/v1/admin/bookings/{bookingId}/no-show | Reason → Booking | session: booking.attendance:targetBranch |
-| POST | /api/v1/admin/bookings/{bookingId}/cancel | Reason → CancellationResult | session: booking.cancel:targetBranch; incident override for IN_SERVICE |
-| POST | /api/v1/admin/refunds | RefundRequest → Refund | session: finance.refund:targetBranch/business |
-| GET | /api/v1/admin/customers | — → ListCustomers | session: customer.read:documented assigned relationship, not broad barber role |
-| POST | /api/v1/admin/role-assignments | RoleGrantWrite → RecordVersion | session: iam.grant:businessOwner; cannot elevate beyond own grant authority |
-| GET | /api/v1/admin/audit | — → ListAudit | session: audit.read:business/allowedBranch; redacted projection |
-| POST | /api/v1/admin/media/upload-authorizations | UploadRequest → UploadAuthorization | session: media.manage:targetBranch |
-| POST | /api/v1/admin/media/{assetId}/finalize | Reason → MediaAsset | session: media.manage:targetBranch |
-| GET | /api/v1/admin/media | — → ListMedia | session: media.read:targetBranch |
-| POST | /api/v1/admin/portfolio | PortfolioWrite → RecordVersion | session: media.manage:targetBranch |
-| PUT | /api/v1/admin/portfolio/{itemId} | PortfolioWrite → RecordVersion | session: media.manage:targetBranch |
-| POST | /api/v1/admin/portfolio/{itemId}/publish | Reason → RecordVersion | session: media.publish:targetBranch |
-| POST | /api/v1/admin/portfolio/{itemId}/unpublish | Reason → RecordVersion | session: media.publish:targetBranch |
-| POST | /api/v1/admin/media-consents | ConsentWrite → RecordVersion | session: privacy.consent.manage:verifiedSubject |
-| POST | /api/v1/admin/media-consents/{consentId}/revoke | Reason → RecordVersion | session: privacy.consent.manage:verifiedSubject |
-| POST | /api/v1/admin/portfolio-categories | TaxonomyWrite → RecordVersion | session: media.manage:business |
-| POST | /api/v1/admin/portfolio-tags | TaxonomyWrite → RecordVersion | session: media.manage:business |
-| POST | /api/v1/admin/notification-templates | TemplateWrite → RecordVersion | session: notification.configure:business |
-| PUT | /api/v1/admin/branches/{branchId}/notification-configuration | NotificationConfigWrite → RecordVersion | session: notification.configure:targetBranch |
-| GET | /api/v1/admin/notifications | — → ListNotifications | session: notification.read:targetBranch; minimal/redacted projection |
-| POST | /api/v1/admin/notifications/{notificationId}/retry | Reason → NotificationStatus | session: notification.retry:targetBranch |
+| GET | /api/v1/session | — → SessionView | session.self |
+| GET | /api/v1/branches | — → ListBranches | Public, rate-limited; approved public fields only |
+| GET | /api/v1/branches/{branchId}/services | — → ListOfferings | Public, rate-limited; approved public fields only |
+| GET | /api/v1/branches/{branchId}/barbers | — → ListBarbers | Public, rate-limited; approved public fields only |
+| POST | /api/v1/availability/search | AvailabilitySearch → AvailabilityResult | Public, rate-limited; approved public fields only |
+| POST | /api/v1/booking-quotes | QuoteRequest → Quote | customer.self |
+| POST | /api/v1/booking-holds | HoldRequest → Hold | customer.self |
+| POST | /api/v1/bookings | ConfirmBookingRequest → Booking | customer.self |
+| GET | /api/v1/bookings | — → ListBookings | customer.self |
+| GET | /api/v1/bookings/{bookingId} | — → Booking | customer.self |
+| POST | /api/v1/bookings/{bookingId}/cancel | Reason → CancellationResult | customer.self |
+| POST | /api/v1/bookings/{bookingId}/reschedule | RescheduleRequest → Booking | customer.self |
+| POST | /api/v1/payment-intents | PaymentIntentRequest → PaymentIntent | customer.self |
+| GET | /api/v1/payment-intents/{intentId} | — → PaymentIntent | customer.self |
+| GET | /api/v1/refunds/{refundId} | — → Refund | customer.self |
+| POST | /api/v1/providers/{providerKey}/payment-callbacks | GatewaySignal → Acknowledgement | Selected provider authentication + independent server verification; no customer auth; no customer data response |
+| POST | /api/v1/me/notification-preferences | NotificationPreferenceWrite → RecordVersion | customer.self |
+| POST | /api/v1/me/channel-links | ChannelLinkRequest → ChannelLinkChallenge | customer.self |
+| POST | /api/v1/me/channel-links/{linkId}/revoke | Reason → RecordVersion | customer.self |
+| POST | /api/v1/admin/branches | BranchWrite → Branch | branch.manage:business |
+| PUT | /api/v1/admin/branches/{branchId} | BranchWrite → Branch | branch.manage:targetBranch |
+| POST | /api/v1/admin/services | ServiceWrite → RecordVersion | catalog.manage:business |
+| PUT | /api/v1/admin/services/{serviceId} | ServiceWrite → RecordVersion | catalog.manage:business |
+| PUT | /api/v1/admin/branches/{branchId}/offerings/{offeringId} | OfferingWrite → RecordVersion | offering.manage:targetBranch |
+| POST | /api/v1/admin/branches/{branchId}/offerings | OfferingWrite → RecordVersion | offering.manage:targetBranch |
+| POST | /api/v1/admin/staff | StaffWrite → StaffView | staff.manage:business |
+| GET | /api/v1/admin/staff | — → ListStaff | staff.read:assignedBranches |
+| PUT | /api/v1/admin/staff/{staffId} | StaffWrite → StaffView | staff.manage:targetStaffBranches |
+| POST | /api/v1/admin/staff/{staffId}/branch-assignments | StaffAssignmentWrite → RecordVersion | staff.manage:targetBranch |
+| PUT | /api/v1/admin/staff/{staffId}/qualifications/{serviceId} | QualificationWrite → RecordVersion | staff.qualify:business |
+| PUT | /api/v1/admin/branches/{branchId}/working-hours | BranchHoursWrite → RecordVersion | schedule.manage:targetBranch |
+| PUT | /api/v1/admin/staff/{staffId}/schedule | ScheduleWrite → RecordVersion | schedule.manage:allAffectedBranches |
+| POST | /api/v1/admin/staff/{staffId}/time-off | TimeBlockWrite → RecordVersion | schedule.manage:allAffectedBranches |
+| POST | /api/v1/admin/branches/{branchId}/closures | TimeBlockWrite → RecordVersion | schedule.manage:targetBranch |
+| POST | /api/v1/admin/branches/{branchId}/resources | ResourceWrite → RecordVersion | resource.manage:targetBranch |
+| PUT | /api/v1/admin/branches/{branchId}/resources/{resourceId} | ResourceWrite → RecordVersion | resource.manage:targetBranch |
+| POST | /api/v1/admin/policies | PolicyDefinitionWrite → RecordVersion | policy.manage:business |
+| POST | /api/v1/admin/policies/{policyId}/versions | PolicyVersionWrite → RecordVersion | policy.manage:business |
+| PUT | /api/v1/admin/policy-versions/{versionId} | PolicyVersionWrite → RecordVersion | policy.manage:business |
+| POST | /api/v1/admin/policy-versions/{versionId}/publish | Reason → RecordVersion | policy.manage:business |
+| POST | /api/v1/admin/policy-versions/{versionId}/retire | Reason → RecordVersion | policy.manage:business |
+| POST | /api/v1/admin/policy-assignments | PolicyAssignmentWrite → RecordVersion | policy.manage:targetScope AND policy.override for override scopes |
+| POST | /api/v1/admin/policy-assignments/{assignmentId}/revoke | Reason → RecordVersion | policy.manage:targetScope |
+| GET | /api/v1/admin/bookings | — → ListBookings | booking.read:assignedBranch or assignedStaff; projection excludes unrelated contacts/finance |
+| POST | /api/v1/admin/walk-ins | WalkInRequest → Booking | booking.walkin:targetBranch; explicit override permission if needed |
+| POST | /api/v1/admin/bookings/{bookingId}/check-in | Reason → Booking | booking.attendance:targetBranch |
+| POST | /api/v1/admin/bookings/{bookingId}/start | Reason → Booking | booking.service:assignedStaff or authorizedManager |
+| POST | /api/v1/admin/bookings/{bookingId}/complete | Reason → Booking | booking.service:assignedStaff or authorizedManager |
+| POST | /api/v1/admin/bookings/{bookingId}/no-show | Reason → Booking | booking.attendance:targetBranch |
+| POST | /api/v1/admin/bookings/{bookingId}/cancel | Reason → CancellationResult | booking.cancel:targetBranch; incident override for IN_SERVICE |
+| POST | /api/v1/admin/refunds | RefundRequest → Refund | finance.refund:targetBranch/business |
+| GET | /api/v1/admin/customers | — → ListCustomers | customer.read:documented assigned relationship, not broad barber role |
+| POST | /api/v1/admin/role-assignments | RoleGrantWrite → RecordVersion | iam.grant:businessOwner; cannot elevate beyond own grant authority |
+| GET | /api/v1/admin/audit | — → ListAudit | audit.read:business/allowedBranch; redacted projection |
+| POST | /api/v1/admin/media/upload-authorizations | UploadRequest → UploadAuthorization | media.manage:targetBranch |
+| POST | /api/v1/admin/media/{assetId}/finalize | Reason → MediaAsset | media.manage:targetBranch |
+| GET | /api/v1/admin/media | — → ListMedia | media.read:targetBranch |
+| POST | /api/v1/admin/portfolio | PortfolioWrite → RecordVersion | media.manage:targetBranch |
+| PUT | /api/v1/admin/portfolio/{itemId} | PortfolioWrite → RecordVersion | media.manage:targetBranch |
+| POST | /api/v1/admin/portfolio/{itemId}/publish | Reason → RecordVersion | media.publish:targetBranch |
+| POST | /api/v1/admin/portfolio/{itemId}/unpublish | Reason → RecordVersion | media.publish:targetBranch |
+| POST | /api/v1/admin/media-consents | ConsentWrite → RecordVersion | privacy.consent.manage:verifiedSubject |
+| POST | /api/v1/admin/media-consents/{consentId}/revoke | Reason → RecordVersion | privacy.consent.manage:verifiedSubject |
+| POST | /api/v1/admin/portfolio-categories | TaxonomyWrite → RecordVersion | media.manage:business |
+| POST | /api/v1/admin/portfolio-tags | TaxonomyWrite → RecordVersion | media.manage:business |
+| POST | /api/v1/admin/notification-templates | TemplateWrite → RecordVersion | notification.configure:business |
+| PUT | /api/v1/admin/branches/{branchId}/notification-configuration | NotificationConfigWrite → RecordVersion | notification.configure:targetBranch |
+| GET | /api/v1/admin/notifications | — → ListNotifications | notification.read:targetBranch; minimal/redacted projection |
+| POST | /api/v1/admin/notifications/{notificationId}/retry | Reason → NotificationStatus | notification.retry:targetBranch |
+| POST | /api/v1/booking-drafts | CreateBookingDraft → UnplannedBooking | customer.self |
+| POST | /api/v1/admin/staff/{staffId}/branch-assignments/{assignmentId}/end | EndStaffAssignment → RecordVersion | staff.manage:targetBranch and all affected scheduling/booking scopes |
 
 ## Existing frontend boundary — explicit integration proposal
 
@@ -98,3 +102,8 @@ Operational rows need actor/time/scope auditing; accepted quote and policy artif
 | Final frontend preview | HELD/PENDING_PAYMENT/CONFIRMED with pending/refund state | A future approved integration must distinguish actual confirmed reservation from preview and paid-but-not-booked; no change in03A |
 
 Whole-plan DTOs accommodate ordered per-item providers/resource assignments, but server enforces single-provider sequential MVP. Parallel/dependency planning is disabled pending business rules. Existing UI is preserved; it is not claimed that replacing a demo function alone makes real booking safe. Any source changes in03B require typecheck/build/Playwright and visual review. No tests were weakened.
+
+
+## Hardened proposed contracts
+
+Quote now carries hashVersion=MS_QUOTE_CONTENT_V2 and a64-character non-unique content digest. Exact internal artifact schema and excluded identity/TTL fields are in QUOTE_HASH_CONTRACT.md; caller ownership/idempotency are separate. POST booking-drafts and optional HoldRequest.bookingDraftId support an explicitly persisted revisionless draft. Booking DTO is a disjoint planCommitted=false UnplannedBooking / true PlannedBooking union; future consumers must not fabricate plan fields for drafts. Membership creation returns a new period ID; POST admin/staff/{staffId}/branch-assignments/{assignmentId}/end closes one exclusive-date period using If-Match, reason and affected-booking checks. Existing Frontend types/source remain unchanged; these are reviewed future integration proposals only. Mixed-service policy aggregation remains undecided and heterogeneous winners409.

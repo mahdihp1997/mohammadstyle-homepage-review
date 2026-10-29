@@ -14,7 +14,7 @@ Current task: **Phase03A architecture/specification only**, explicitly authorize
 
 Original private feature/booking-ui remains at2155872cc626d7463d94500b678d875bec0e4dc6. Phase03A branches from that commit as feature/phase03a-architecture. No application/dependency/test/asset changes are included. Phase02 retains its five-step demo-only Booking flow, reducer-owned validated availability, branch offerings, scoped policy preview and single-provider behavior. Historical Phase02 build/typecheck/92 Playwright checks are recorded in its own reports, not claimed as backend tests here.
 
-The original user request and prior context are retained privately; they are omitted from this sanitized review export. They are source material, excluded from the public export. Numbered architecture docs, SQL/model, OpenAPI, ADRs and diagrams are derived proposals. data/business-facts.json remains unchanged. Demo fixtures are not production seeds.
+Original user sources/prior context remain private and are omitted from this sanitized export. They are source material, excluded from the public export. Numbered architecture docs, SQL/model, OpenAPI, ADRs and diagrams are derived proposals. data/business-facts.json remains unchanged. Demo fixtures are not production seeds.
 
 ## Architecture decisions — proposed, pending review
 
@@ -32,7 +32,7 @@ One business initially; schema includes explicit business ownership to prevent a
 
 ## Proposed solutions
 
-See docs/architecture/00_README.md for11 technical specifications,72-table target envelope, full column dictionary/review-only SQL,69 proposed REST operations,12 ADRs,18 future acceptance scenarios,9 actual rendered diagram pairs and static-validation evidence. This breadth is an envelope for staged implementation, not an instruction to build every table at once.
+See docs/architecture/00_README.md for11 technical specifications,72-table target envelope, full column dictionary/review-only SQL,71 proposed REST operations,19 proposed ADRs,29 future acceptance scenarios and actual complete/context rendered diagrams and static-validation evidence. This breadth is an envelope for staged implementation, not an instruction to build every table at once.
 
 ## Deferred features
 
@@ -55,3 +55,8 @@ Static syntax/schema validation does not prove runtime constraints, transaction 
 - 2026-10-28: Existing cinematic Homepage refined and reviewed; original visual direction retained.
 - 2026-10-29: Explicit Phase02 authorization; five-step demo Booking UI and private review fixes completed. feature/booking-ui baseline2155872 retained.
 - 2026-10-29: Explicit Phase03A authorization; documentation branch created from verified baseline. Architecture and safe public-review export prepared. No03B implementation started; architecture review/approval is the next gate.
+
+
+## Phase03A architecture hardening —2026-10-29
+
+Review baseline ab62e845bcbf7c351c29c6d77078d3bcfb97793a retained. Quote content hash V2 is non-unique and exactly specified; request idempotency/ownership are separate. Temporal membership periods preserve leave/rejoin history. Monotonic plan_committed distinguishes persisted revisionless draft aborts from admitted terminal bookings. Index inventory removes blind actor/helper indexes and defers15 query candidates. B1 is16 dependency-closed inactive foundation tables. Mixed-service policy strategy remains owner-undecided with fail-closed conflict handling. Full ERD is preserved; context ERDs/module/sequence diagrams improve review readability. No frontend/asset/test changes or03B implementation; architecture approval pending.

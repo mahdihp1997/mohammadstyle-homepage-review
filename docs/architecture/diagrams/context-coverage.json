@@ -1,0 +1,268 @@
+{
+  "status": "READABLE_PROJECTIONS_FULL_ERD_PRESERVED",
+  "tables": 72,
+  "contexts": [
+    {
+      "owner": "Business",
+      "source": "context-business.dot",
+      "image": "context-business.svg",
+      "tables": [
+        "business",
+        "branch"
+      ],
+      "external": []
+    },
+    {
+      "owner": "IAM",
+      "source": "context-iam.dot",
+      "image": "context-iam.svg",
+      "tables": [
+        "app_user",
+        "auth_identity",
+        "auth_session",
+        "permission",
+        "role",
+        "role_permission",
+        "user_role_assignment"
+      ],
+      "external": [
+        "branch"
+      ]
+    },
+    {
+      "owner": "Scheduling",
+      "source": "context-scheduling.dot",
+      "image": "context-scheduling.svg",
+      "tables": [
+        "branch_working_hours",
+        "branch_closure",
+        "resource",
+        "staff_schedule_rule",
+        "staff_shift",
+        "staff_time_off",
+        "resource_allocation"
+      ],
+      "external": [
+        "branch",
+        "app_user",
+        "staff_branch_assignment",
+        "staff",
+        "booking_revision",
+        "booking_hold"
+      ]
+    },
+    {
+      "owner": "Catalog",
+      "source": "context-catalog.dot",
+      "image": "context-catalog.svg",
+      "tables": [
+        "service",
+        "package",
+        "package_service"
+      ],
+      "external": []
+    },
+    {
+      "owner": "Offerings",
+      "source": "context-offerings.dot",
+      "image": "context-offerings.svg",
+      "tables": [
+        "branch_service_offering",
+        "offering_staff_eligibility",
+        "offering_resource_requirement"
+      ],
+      "external": [
+        "branch",
+        "service",
+        "staff_branch_assignment",
+        "staff_service_eligibility"
+      ]
+    },
+    {
+      "owner": "Staff",
+      "source": "context-staff.dot",
+      "image": "context-staff.svg",
+      "tables": [
+        "staff",
+        "staff_branch_assignment",
+        "staff_service_eligibility"
+      ],
+      "external": [
+        "app_user",
+        "resource",
+        "branch",
+        "service"
+      ]
+    },
+    {
+      "owner": "Customers",
+      "source": "context-customers.dot",
+      "image": "context-customers.svg",
+      "tables": [
+        "customer"
+      ],
+      "external": [
+        "app_user"
+      ]
+    },
+    {
+      "owner": "Availability",
+      "source": "context-availability.dot",
+      "image": "context-availability.svg",
+      "tables": [
+        "availability_configuration"
+      ],
+      "external": [
+        "branch"
+      ]
+    },
+    {
+      "owner": "Policies",
+      "source": "context-policies.dot",
+      "image": "context-policies.svg",
+      "tables": [
+        "booking_policy",
+        "booking_policy_version",
+        "policy_refund_window",
+        "booking_policy_assignment",
+        "quote_policy_resolution",
+        "quote_policy_source",
+        "booking_policy_acceptance"
+      ],
+      "external": [
+        "branch",
+        "service",
+        "package",
+        "booking",
+        "app_user",
+        "pricing_quote",
+        "booking_revision"
+      ]
+    },
+    {
+      "owner": "Pricing",
+      "source": "context-pricing.dot",
+      "image": "context-pricing.svg",
+      "tables": [
+        "pricing_quote",
+        "pricing_quote_item"
+      ],
+      "external": [
+        "branch",
+        "customer",
+        "branch_service_offering",
+        "package"
+      ]
+    },
+    {
+      "owner": "Booking",
+      "source": "context-booking.dot",
+      "image": "context-booking.svg",
+      "tables": [
+        "booking",
+        "booking_revision",
+        "booking_item",
+        "booking_service_segment",
+        "segment_dependency",
+        "booking_hold",
+        "booking_status_history",
+        "segment_resource_assignment"
+      ],
+      "external": [
+        "branch",
+        "customer",
+        "pricing_quote",
+        "pricing_quote_item",
+        "resource_allocation"
+      ]
+    },
+    {
+      "owner": "Payments",
+      "source": "context-payments.dot",
+      "image": "context-payments.svg",
+      "tables": [
+        "payment_intent",
+        "gateway_event",
+        "payment_transaction",
+        "payment_application",
+        "payment_balance",
+        "refund",
+        "financial_audit_record"
+      ],
+      "external": [
+        "booking_revision",
+        "booking_hold",
+        "booking_policy_acceptance",
+        "app_user"
+      ]
+    },
+    {
+      "owner": "Infrastructure",
+      "source": "context-infrastructure.dot",
+      "image": "context-infrastructure.svg",
+      "tables": [
+        "idempotency_record",
+        "outbox_event",
+        "consumer_inbox"
+      ],
+      "external": []
+    },
+    {
+      "owner": "Media",
+      "source": "context-media.dot",
+      "image": "context-media.svg",
+      "tables": [
+        "media_asset",
+        "media_variant",
+        "media_publication_consent",
+        "portfolio_category",
+        "portfolio_item",
+        "portfolio_item_category",
+        "portfolio_service_relation",
+        "portfolio_media",
+        "portfolio_tag",
+        "portfolio_item_tag"
+      ],
+      "external": [
+        "app_user",
+        "customer",
+        "branch",
+        "staff",
+        "service"
+      ]
+    },
+    {
+      "owner": "Notifications",
+      "source": "context-notifications.dot",
+      "image": "context-notifications.svg",
+      "tables": [
+        "notification_channel_config",
+        "notification_template",
+        "notification_preference",
+        "notification_link_challenge",
+        "channel_identity",
+        "notification_event",
+        "notification_delivery_attempt"
+      ],
+      "external": [
+        "branch",
+        "customer",
+        "booking",
+        "booking_revision",
+        "outbox_event"
+      ]
+    },
+    {
+      "owner": "Audit",
+      "source": "context-audit.dot",
+      "image": "context-audit.svg",
+      "tables": [
+        "audit_log"
+      ],
+      "external": [
+        "app_user",
+        "branch"
+      ]
+    }
+  ]
+}

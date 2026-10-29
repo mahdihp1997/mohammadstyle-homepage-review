@@ -1,7 +1,5 @@
-# Visual review diagrams
+# Actual rendered architecture views
 
-Actual Graphviz SVG/PNG renders from editable DOT sources, generated2026-10-29. Start with rendered/overview.png. The six required views are database-erd, backend-modules, booking-flow, policy-resolution, payment-sequence and multi-branch-model. Extra state/concurrency views explain lifecycle and races. SVG is the zoomable source of detail; the bounded ERD PNG is only a thumbnail.
+Start with rendered/overview.png. Full database-erd.dot/.mmd and SVG are preserved/regenerated from all72 entities/all254 FKs. Its PNG is only a thumbnail. context-*.dot/.svg/.png give16 readable bounded-context projections covering every owned table; external stubs are dashed and common actor/business links omitted only in these projections. Key field projections link to the full dictionary. context-coverage.json is machine-checked.
 
-ERD has all72 tables and254 FK edges; dashed light-gray edges are shared business/actor relations. All business columns shown; audit columns remain in the complete dictionary/SQL. FK edge is child→parent; composite IDs in labels/tooltips. These are logical design relationships, not Nest import arrows. Module graph uses caller→callee arrows and has a machine-checked dependency DAG. Payment sequence time moves down. No photos, private fonts or visual mockups are embedded.
-
-Every box is proposed architecture, not deployed infrastructure or backend test evidence. The technical documents govern details; read VALIDATION_MATRIX.md for future executable test cases.
+backend-modules is a readable grouped map; backend-module-dependencies is the exact18-node DAG. Payment primary editable source is payment-sequence.sequence.json plus payment-sequence.source.svg; the real SVG renderer uses straight arrows and explicit ALT A/ALT B versus later cancellation. The Mermaid source is a readable message listing; DOT remains an alternate historical projection, not the primary renderer. No screenshots/photos/fonts/scripts are embedded. These are actual generated diagrams, not running-backend evidence.

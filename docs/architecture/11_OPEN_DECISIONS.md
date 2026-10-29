@@ -37,3 +37,12 @@ Confirmed: brand/brochure/address/Instagram, six named services, two active bran
 Static SQL parsing does not instantiate types/extensions, prove runtime CHECK/FK behavior, validate generated-expression volatility or exercise deadlocks. Mandatory cross-row command/trigger/grant gates are listed in 03. OpenAPI validity proves a document's shape/references, not authorization or endpoint implementation. Diagrams are generated reviews, not screenshots of a running backend. There is no server, database migration, cache/queue/storage/payment/messaging integration in this branch.
 
 Existing frontend dependency audit findings were previously recorded (Next/PostCSS); this architecture phase neither fixes nor hides them. Actual payment/notification adapters may lack external idempotency/status lookup; unknown outcomes then require reconciliation and documented duplicate/compensation risk. Redis loss, worker delays, callback races, PII leakage through logs/exports and consent cache invalidation require fault tests. Business details cannot be reconstructed from demo data or imagery. No architecture approval or production readiness certification is implied by delivering this review.
+
+
+## Hardening review decisions pending approval
+
+- Mixed service policies: owner must choose A/B/C/D in MULTI_SERVICE_POLICY_OPTIONS.md; temporary409 guard stays unchanged. No numeric combination rule approved.
+- Membership closing/correction authority and incident remediation need confirmation; history cannot be repointed/erased.
+- Persisted draft TTL/retention and quote-hash V2 protocol/crypto library are engineering proposals, not confirmed salon operating values.
+- B1 scope is exactly16 foundation tables with temporary inactivity gates; actual DDL/catalog/restore/authorization checks require approval and a disposable03B environment.
+- Fifteen optional query indexes require EXPLAIN evidence. No automatic created_by index or unreferenced identity-helper key is assumed necessary.

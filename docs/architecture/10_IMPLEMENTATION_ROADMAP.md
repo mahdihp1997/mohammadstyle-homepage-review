@@ -9,8 +9,8 @@ Review architecture/SQL/OpenAPI/diagrams, record accepted ADRs and answer blocki
 | Tranche | Proposed implementation after approval | Acceptance gate |
 | --- | --- | --- |
 | B0 | Pin supported versions/deployment model, security patch plan, secrets and disposable DB test environment | Restore-capable isolated environment; no production data; approved version matrix |
-| B1 | Nest module boundaries/IAM/context, business/branch/catalog/offering repositories; curated migration SQL with Prisma | Scope-negative tests; migration/rollback/drift review; only verified business configuration, no demo seed import |
-| B2 | Staff memberships/qualifications, recurrence materialization, resources, unified occupancy/exclusion | Real PostgreSQL conflict/shift/DST/time-off/schedule-edit tests; explain plans on representative data |
+| B1 | Exactly16 foundation tables from B1_SCHEMA_SCOPE.md; dependency-safe two-pass draft with inactive branch/offering gates; scoped IAM/config repositories after approval | Scope-negative tests; migration/rollback/drift review; only verified business configuration, no demo seed import |
+| B2 | Temporal memberships/qualifications, recurrence materialization, resources and shift exclusion; booking occupancy ledger deferred to B3/B4 cohort | Future PostgreSQL membership/shift/DST/time-off tests; live hold/booking occupancy races only after B4; measured candidate index review |
 | B3 | Immutable quotes, policy resolver/conflict publication and explicit acceptance | Unit/rounding/precedence/retirement/snapshot consent tests; local legal review of actual terms |
 | B4 | Hold/state/revision engine and idempotent commands/outbox | Multi-session concurrency, A-B-A expiry/callback races, fault injection, reschedule rollback; no network under locks |
 | B5 | Approved server-provider adapter/DTO evolution behind a flag | Preserve UI; actual frontend typecheck/build/92+ Playwright tests and real screenshots; server values never mislabeled demo |
@@ -28,3 +28,6 @@ Generate/apply no migration in 03A. In 03B create reviewed migrations from a dis
 ## Operational readiness
 
 Assign owners for alerts, reconciliation, failed holds/queue work, upload moderation, rights revocation, backups and incident handling. Validate RPO/RTO proposals with a real restoration exercise; approve retention/keys/costs. Quota/rate/search limits must be measured before exposing high-cost whole-plan queries. Do not treat optimistic cache results or graceful provider mocks as reliability evidence. Production rollout remains a separate authorized action.
+
+
+See B1_SCHEMA_SCOPE.md/schema/stages.json for the exact16-table B1 inventory and56 deferred tables. Later booking/quote/policy/allocation cycles require one reviewed structural cohort with all referenced tables created before FKs; no hidden all72 migration. Draft B1 SQL is syntax-checked only and never executed.
