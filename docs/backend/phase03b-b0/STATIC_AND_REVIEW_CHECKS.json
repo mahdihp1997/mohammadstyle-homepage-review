@@ -1,0 +1,61 @@
+{
+  "executedAt": "2026-10-29T16:17:49.135Z",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "private branch and protected baselines",
+      "status": "PASS",
+      "observed": "Original approved branch refs preserved"
+    },
+    {
+      "name": "approved UI/assets/frontend deps/tests and architecture unchanged",
+      "status": "PASS",
+      "observed": "No diff"
+    },
+    {
+      "name": "root TypeScript change is only the independent backend boundary",
+      "status": "PASS",
+      "observed": "Only exclude backend added"
+    },
+    {
+      "name": "executed SQL bytes match approved baseline and current source",
+      "status": "PASS",
+      "observed": [
+        {
+          "source": "b1-draft-postgresql.sql",
+          "statements": 70,
+          "tables": 16,
+          "sha256": "ef9ebdb2324b678c46f3a6d4c2858aa1292d3650dc5fa5b54af76264799436e3"
+        },
+        {
+          "source": "draft-postgresql.sql",
+          "statements": 423,
+          "tables": 72,
+          "sha256": "f103cb5b1c6ca066d774e845de0a8e9fee7d56c87f9e6decd356599c6753f327"
+        }
+      ]
+    },
+    {
+      "name": "model and actual catalog counts agree",
+      "status": "PASS",
+      "observed": "72 tables /254 FK /250 CHECK, no unexpected SQL errors"
+    },
+    {
+      "name": "new dependency versions pinned and canonical lock URLs",
+      "status": "PASS",
+      "observed": "Exact versions, official npm registry URLs, separate frontend lock unchanged"
+    },
+    {
+      "name": "source changes restricted to B0 allowlist",
+      "status": "PASS",
+      "observed": {
+        "files": 75
+      }
+    },
+    {
+      "name": "standalone review page actual Chromium render (not Next.js QA)",
+      "status": "PASS",
+      "observed": "1440/390px,8 images decoded, no JS error/horizontal overflow"
+    }
+  ]
+}

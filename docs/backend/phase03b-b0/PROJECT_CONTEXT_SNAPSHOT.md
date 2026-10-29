@@ -1,0 +1,5 @@
+# Sanitized B0 context
+
+Phase03A was approved as the design baseline; only Phase03B-B0 infrastructure/executable validation is authorized. Homepage and Phase02 Booking stay visually/functionally unchanged and demo-only. Separate Nest/Compose foundation, actual PostgreSQL18.6 execution,35 DB assertions,14 backend tests, Prisma7.10.1 probe and92 frontend regression tests are delivered. See TECHNICAL_REPORT.md for limits and remaining decisions. Original private global context is updated in place and is not copied wholesale into the public review.
+
+No private photos/fonts/visual references/face screenshots/credentials/Git history are included. The existing public sanitized Phase01 placeholders/system fonts remain. SQL drafts and architecture source are unchanged. Runtime control DB has no business tables; full72-table execution was disposable validation only. Mixed-policy strategy and real business configuration remain owner decisions. STOP for B0 approval before B1, production migrations, operational booking, payments or messaging.

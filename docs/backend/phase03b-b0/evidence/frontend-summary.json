@@ -1,0 +1,12 @@
+{
+  "executedAt": "2026-10-29T15:59:46.235Z",
+  "stats": {
+    "startTime": "2026-10-29T15:59:46.235Z",
+    "duration": 290123.40499999997,
+    "expected": 92,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "scope": "Actual private Next.js app: 92 tests across four viewports; raw UI screenshot outputs remain private"
+}

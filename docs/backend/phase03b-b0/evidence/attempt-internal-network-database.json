@@ -1,0 +1,17 @@
+{
+  "executedAt": "2026-10-29T16:02:46.869Z",
+  "kind": "ACTUAL_POSTGRESQL_EXECUTION",
+  "schemas": [],
+  "tests": [],
+  "sqlErrors": [],
+  "fatal": {
+    "sqlstate": "ECONNREFUSED",
+    "error": "connect ECONNREFUSED 127.0.0.1:55432"
+  },
+  "summary": {
+    "passed": 0,
+    "failed": 0,
+    "unexpectedSqlErrors": 0,
+    "expectedSqlRejections": 0
+  }
+}

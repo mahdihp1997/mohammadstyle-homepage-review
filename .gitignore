@@ -16,3 +16,6 @@ playwright-report/
 /references/
 /artifacts/
 *.zip
+
+# B0 sanitized, generated validation evidence only.
+!docs/backend/phase03b-b0/evidence/*.log

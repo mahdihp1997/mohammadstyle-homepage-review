@@ -1,0 +1,44 @@
+{
+  "executedAt": "2026-10-29T16:28:51.505Z",
+  "branch": "review/phase03b-b0",
+  "publicBase": "d1f60c39464a8728d5e66e1d231eac72ca381ff3",
+  "status": "PASS",
+  "backend": {
+    "npmCi": "PASS:249 packages from canonical lock using offline verified cache",
+    "typecheck": "PASS",
+    "build": "PASS",
+    "configTests": 10,
+    "databaseTests": "35 real SQL and14 backend tests executed in original private isolated environment; transferred backend source bytes identical. Public checkout did not provision a second B0 cluster."
+  },
+  "frontend": {
+    "typecheck": "PASS",
+    "build": "PASS",
+    "playwright": {
+      "startTime": "2026-10-29T16:24:52.326Z",
+      "duration": 205464.894,
+      "expected": 92,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "sqlDrafts": "Equivalent source text after line-ending normalization; original approved schema logic unchanged",
+  "sourceContentDifferences": 0,
+  "logs": [
+    {
+      "path": "docs/backend/phase03b-b0/evidence/public-backend.log",
+      "bytes": 880,
+      "sha256": "05ae518275ee3338fefbf175f802ff9baa05f9dce74a8ad3bbc675c9e6dc5f78"
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/public-frontend-build.log",
+      "bytes": 974,
+      "sha256": "194721a83b369ee1198effb8d30a85866fdce5ba63d5d3cd47b93d3472eccdfc"
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/public-ui.log",
+      "bytes": 14807,
+      "sha256": "bab438da539f67eea7ef1a447a2e63c4c6e227653f3630b1ca1d2ea6a8e5594e"
+    }
+  ]
+}

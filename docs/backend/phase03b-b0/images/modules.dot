@@ -1,0 +1,18 @@
+digraph Modules { graph [bgcolor="white",pad="0.35",nodesep="0.5",ranksep="0.65",fontname="Arial",fontsize=20]; node [shape=box,style="rounded,filled",fillcolor="#eef5ff",color="#7293bd",fontname="Arial",fontsize=16,margin="0.2,0.14"]; edge [color="#64748b",fontname="Arial",fontsize=12]; rankdir=TB; label="Implemented backend boundaries — B0 only"; labelloc=t;
+ main[label="main.ts / AppModule
+bootstrap + shutdown hooks"];
+ config[label="ConfigModule (global DI token)
+reject missing/invalid/non-B0 targets"];
+ health[label="HealthModule
+HealthController: live / ready"];
+ database[label="DatabaseModule
+DatabaseProbe · bounded pg pool"];
+ safe[label="Observability
+generic ExceptionFilter
+JSON events + generated request IDs",fillcolor="#e8f7ee"];
+ tools[label="Host-only validation scripts
+marked disposable SQL + Prisma probe
+separate admin credential",fillcolor="#fff4d7"];
+ main -> config;main -> health;main -> safe;health -> database;database -> config[label="inject config"];
+ tools -> database[style=dashed,label="separate connection; no business API",arrowhead=none];
+ }

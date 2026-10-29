@@ -1,0 +1,2 @@
+> mohammadstyle-b0-foundation@0.0.0 build
+> tsc -p tsconfig.json

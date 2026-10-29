@@ -1,0 +1,548 @@
+{
+  "executedAt": "2026-10-29T16:12:56.767Z",
+  "kind": "ACTUAL_POSTGRESQL_EXECUTION",
+  "schemas": [
+    {
+      "database": "ms_b0_b1_test",
+      "schema": "ms_b1_design",
+      "source": "b1-draft-postgresql.sql",
+      "sha256": "ef9ebdb2324b678c46f3a6d4c2858aa1292d3650dc5fa5b54af76264799436e3",
+      "statements": 70,
+      "errors": [],
+      "catalog": {
+        "tables": 16,
+        "foreign_keys": 40,
+        "checks": 43,
+        "exclusions": 0,
+        "indexes": 44,
+        "generated": 0
+      },
+      "extensions": [
+        {
+          "extname": "plpgsql",
+          "extversion": "1.0"
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "database": "ms_b0_full_test",
+      "schema": "ms_design",
+      "source": "draft-postgresql.sql",
+      "sha256": "f103cb5b1c6ca066d774e845de0a8e9fee7d56c87f9e6decd356599c6753f327",
+      "statements": 423,
+      "errors": [],
+      "catalog": {
+        "tables": 72,
+        "foreign_keys": 254,
+        "checks": 250,
+        "exclusions": 4,
+        "indexes": 266,
+        "generated": 5
+      },
+      "extensions": [
+        {
+          "extname": "btree_gist",
+          "extversion": "1.8"
+        },
+        {
+          "extname": "plpgsql",
+          "extversion": "1.0"
+        }
+      ],
+      "status": "PASS"
+    }
+  ],
+  "tests": [
+    {
+      "name": "B1: cross-tenant composite FK rejects foreign branch",
+      "status": "PASS",
+      "milliseconds": 3,
+      "observed": {
+        "sqlstate": "23503",
+        "constraint": "fk_branch_service_offering_2"
+      }
+    },
+    {
+      "name": "B1: per-tenant branch code uniqueness",
+      "status": "PASS",
+      "milliseconds": 3,
+      "observed": {
+        "sqlstate": "23505",
+        "constraint": "uq_branch_1"
+      }
+    },
+    {
+      "name": "B1: absent mandatory timezone rejected",
+      "status": "PASS",
+      "milliseconds": 3,
+      "observed": {
+        "sqlstate": "23502",
+        "constraint": null
+      }
+    },
+    {
+      "name": "B1: negative price rejected",
+      "status": "PASS",
+      "milliseconds": 4,
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "ck_branch_service_offering_1"
+      }
+    },
+    {
+      "name": "B1: zero duration rejected",
+      "status": "PASS",
+      "milliseconds": 2,
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "ck_branch_service_offering_2"
+      }
+    },
+    {
+      "name": "B1: transaction rollback removes synthetic write",
+      "status": "PASS",
+      "milliseconds": 9,
+      "observed": "assertions passed"
+    },
+    {
+      "name": "B1: FK deferral supports child-before-parent commit",
+      "status": "PASS",
+      "milliseconds": 17,
+      "observed": "assertions passed"
+    },
+    {
+      "name": "B1: unresolved deferred FK fails COMMIT and rolls back",
+      "status": "PASS",
+      "milliseconds": 11,
+      "observed": {
+        "sqlstate": "23503",
+        "constraint": "fk_auth_identity_1"
+      }
+    },
+    {
+      "name": "B1: bookable branch gate even with active branch",
+      "status": "PASS",
+      "milliseconds": 2,
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "b1_branch_inactive"
+      }
+    },
+    {
+      "name": "B1: active offering gate even with all scalar configuration",
+      "status": "PASS",
+      "milliseconds": 2,
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "b1_branch_service_offering_inactive"
+      }
+    },
+    {
+      "name": "FULL: cross-tenant composite FK rejects foreign branch",
+      "status": "PASS",
+      "milliseconds": 2,
+      "observed": {
+        "sqlstate": "23503",
+        "constraint": "fk_branch_service_offering_2"
+      }
+    },
+    {
+      "name": "FULL: per-tenant branch code uniqueness",
+      "status": "PASS",
+      "milliseconds": 3,
+      "observed": {
+        "sqlstate": "23505",
+        "constraint": "uq_branch_1"
+      }
+    },
+    {
+      "name": "FULL: absent mandatory timezone rejected",
+      "status": "PASS",
+      "milliseconds": 2,
+      "observed": {
+        "sqlstate": "23502",
+        "constraint": null
+      }
+    },
+    {
+      "name": "FULL: negative price rejected",
+      "status": "PASS",
+      "milliseconds": 2,
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "ck_branch_service_offering_1"
+      }
+    },
+    {
+      "name": "FULL: zero duration rejected",
+      "status": "PASS",
+      "milliseconds": 2,
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "ck_branch_service_offering_2"
+      }
+    },
+    {
+      "name": "FULL: transaction rollback removes synthetic write",
+      "status": "PASS",
+      "milliseconds": 7,
+      "observed": "assertions passed"
+    },
+    {
+      "name": "FULL: FK deferral supports child-before-parent commit",
+      "status": "PASS",
+      "milliseconds": 15,
+      "observed": "assertions passed"
+    },
+    {
+      "name": "FULL: unresolved deferred FK fails COMMIT and rolls back",
+      "status": "PASS",
+      "milliseconds": 9,
+      "observed": {
+        "sqlstate": "23503",
+        "constraint": "fk_auth_identity_1"
+      }
+    },
+    {
+      "name": "FULL: activating missing offering configuration fails closed",
+      "status": "PASS",
+      "milliseconds": 2,
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "ck_branch_service_offering_6"
+      }
+    },
+    {
+      "name": "FULL: independent customers may retain identical content hashes",
+      "status": "PASS",
+      "milliseconds": 32,
+      "observed": "Two distinct customer/quote UUIDs, identical 32-byte content hashes; no UNIQUE conflict. Ownership/hash recomputation not tested."
+    },
+    {
+      "name": "FULL: inactive archived membership overlap still rejected",
+      "status": "PASS",
+      "milliseconds": 3,
+      "observed": {
+        "sqlstate": "23P01",
+        "constraint": "no_overlapping_membership_period"
+      }
+    },
+    {
+      "name": "FULL: adjacent rejoin creates new historical stint and generated range",
+      "status": "PASS",
+      "milliseconds": 7,
+      "observed": "assertions passed"
+    },
+    {
+      "name": "FULL: unreasoned void rejected",
+      "status": "PASS",
+      "milliseconds": 2,
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "ck_staff_branch_assignment_4"
+      }
+    },
+    {
+      "name": "FULL: global staff shift exclusion across different branches",
+      "status": "PASS",
+      "milliseconds": 30,
+      "observed": {
+        "sqlstate": "23P01",
+        "constraint": "no_cross_branch_staff_shift"
+      }
+    },
+    {
+      "name": "FULL: policy scope/range generation and equal-rank exclusion",
+      "status": "PASS",
+      "milliseconds": 24,
+      "observed": {
+        "sqlstate": "23P01",
+        "constraint": "no_equal_rank_policy_assignment"
+      }
+    },
+    {
+      "name": "FULL: revisionless DRAFT row representable",
+      "status": "PASS",
+      "milliseconds": 9,
+      "observed": "assertions passed"
+    },
+    {
+      "name": "FULL: revisionless CANCELLED row representable",
+      "status": "PASS",
+      "milliseconds": 7,
+      "observed": "assertions passed"
+    },
+    {
+      "name": "FULL: revisionless EXPIRED row representable",
+      "status": "PASS",
+      "milliseconds": 7,
+      "observed": "assertions passed"
+    },
+    {
+      "name": "FULL: revisionless confirmed state rejected",
+      "status": "PASS",
+      "milliseconds": 3,
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "ck_booking_4"
+      }
+    },
+    {
+      "name": "FULL: draft without finite expiry rejected",
+      "status": "PASS",
+      "milliseconds": 2,
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "ck_booking_5"
+      }
+    },
+    {
+      "name": "FULL: live resource overlap rejected",
+      "status": "PASS",
+      "milliseconds": 2,
+      "observed": {
+        "sqlstate": "23P01",
+        "constraint": "no_live_resource_overlap"
+      }
+    },
+    {
+      "name": "FULL: adjacent half-open occupancy accepted",
+      "status": "PASS",
+      "milliseconds": 7,
+      "observed": "assertions passed"
+    },
+    {
+      "name": "FULL: released ledger history does not block new live interval",
+      "status": "PASS",
+      "milliseconds": 6,
+      "observed": "assertions passed"
+    },
+    {
+      "name": "FULL: separate sessions block then reject overlapping uncommitted interval",
+      "status": "PASS",
+      "milliseconds": 76,
+      "observed": {
+        "backendPids": [
+          2208,
+          2209
+        ],
+        "observedWait": "Lock",
+        "winner": "session A committed",
+        "loser": "session B SQLSTATE 23P01"
+      }
+    },
+    {
+      "name": "FULL: real catalog has all generated and exclusion definitions; indexes valid",
+      "status": "PASS",
+      "milliseconds": 3,
+      "observed": {
+        "tables": 72,
+        "foreign_keys": 254,
+        "checks": 250,
+        "exclusions": 4,
+        "indexes": 266,
+        "generated": 5
+      }
+    }
+  ],
+  "sqlErrors": [
+    {
+      "expected": true,
+      "sqlstate": "23503",
+      "statement": "INSERT INTO branch_service_offering(business_id,branch_id,service_id) VALUES($1,$2,$3)",
+      "constraint": "fk_branch_service_offering_2",
+      "rootCause": "insert or update on table \"branch_service_offering\" violates foreign key constraint \"fk_branch_service_offering_2\"",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23505",
+      "statement": "INSERT INTO branch(business_id,code,display_name,time_zone) VALUES($1,$2,$3,$4)",
+      "constraint": "uq_branch_1",
+      "rootCause": "duplicate key value violates unique constraint \"uq_branch_1\"",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23502",
+      "statement": "INSERT INTO branch(business_id,code,display_name) VALUES($1,$2,$3)",
+      "constraint": null,
+      "rootCause": "null value in column \"time_zone\" of relation \"branch\" violates not-null constraint",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23514",
+      "statement": "UPDATE branch_service_offering SET price_rial=-10 WHERE id=$1",
+      "constraint": "ck_branch_service_offering_1",
+      "rootCause": "new row for relation \"branch_service_offering\" violates check constraint \"ck_branch_service_offering_1\"",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23514",
+      "statement": "UPDATE branch_service_offering SET duration_minutes=0 WHERE id=$1",
+      "constraint": "ck_branch_service_offering_2",
+      "rootCause": "new row for relation \"branch_service_offering\" violates check constraint \"ck_branch_service_offering_2\"",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23503",
+      "statement": "COMMIT",
+      "constraint": "fk_auth_identity_1",
+      "rootCause": "insert or update on table \"auth_identity\" violates foreign key constraint \"fk_auth_identity_1\"",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23514",
+      "statement": "UPDATE branch SET active=true,bookable=true WHERE id=$1",
+      "constraint": "b1_branch_inactive",
+      "rootCause": "new row for relation \"branch\" violates check constraint \"b1_branch_inactive\"",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23514",
+      "statement": "UPDATE branch_service_offering SET active=true,price_rial=100,duration_minutes=30,buffer_before_minutes=0,buffer_after_minutes=0,resources_confirmed=true WHERE id=$1",
+      "constraint": "b1_branch_service_offering_inactive",
+      "rootCause": "new row for relation \"branch_service_offering\" violates check constraint \"b1_branch_service_offering_inactive\"",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23503",
+      "statement": "INSERT INTO branch_service_offering(business_id,branch_id,service_id) VALUES($1,$2,$3)",
+      "constraint": "fk_branch_service_offering_2",
+      "rootCause": "insert or update on table \"branch_service_offering\" violates foreign key constraint \"fk_branch_service_offering_2\"",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23505",
+      "statement": "INSERT INTO branch(business_id,code,display_name,time_zone) VALUES($1,$2,$3,$4)",
+      "constraint": "uq_branch_1",
+      "rootCause": "duplicate key value violates unique constraint \"uq_branch_1\"",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23502",
+      "statement": "INSERT INTO branch(business_id,code,display_name) VALUES($1,$2,$3)",
+      "constraint": null,
+      "rootCause": "null value in column \"time_zone\" of relation \"branch\" violates not-null constraint",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23514",
+      "statement": "UPDATE branch_service_offering SET price_rial=-10 WHERE id=$1",
+      "constraint": "ck_branch_service_offering_1",
+      "rootCause": "new row for relation \"branch_service_offering\" violates check constraint \"ck_branch_service_offering_1\"",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23514",
+      "statement": "UPDATE branch_service_offering SET duration_minutes=0 WHERE id=$1",
+      "constraint": "ck_branch_service_offering_2",
+      "rootCause": "new row for relation \"branch_service_offering\" violates check constraint \"ck_branch_service_offering_2\"",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23503",
+      "statement": "COMMIT",
+      "constraint": "fk_auth_identity_1",
+      "rootCause": "insert or update on table \"auth_identity\" violates foreign key constraint \"fk_auth_identity_1\"",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23514",
+      "statement": "UPDATE branch_service_offering SET active=true WHERE id=$1",
+      "constraint": "ck_branch_service_offering_6",
+      "rootCause": "new row for relation \"branch_service_offering\" violates check constraint \"ck_branch_service_offering_6\"",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23P01",
+      "statement": "INSERT INTO staff_branch_assignment(business_id,staff_id,branch_id,valid_from,valid_to) VALUES($1,$2,$3,$4,$5)",
+      "constraint": "no_overlapping_membership_period",
+      "rootCause": "conflicting key value violates exclusion constraint \"no_overlapping_membership_period\"",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23514",
+      "statement": "INSERT INTO staff_branch_assignment(business_id,staff_id,branch_id,valid_from,voided_at) VALUES($1,$2,$3,$4,now())",
+      "constraint": "ck_staff_branch_assignment_4",
+      "rootCause": "new row for relation \"staff_branch_assignment\" violates check constraint \"ck_staff_branch_assignment_4\"",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23P01",
+      "statement": "INSERT INTO staff_shift(business_id,staff_id,branch_id,assignment_id,starts_at,ends_at,published,schedule_version) VALUES($1,$2,$3,$4,$5,$6,true,1)",
+      "constraint": "no_cross_branch_staff_shift",
+      "rootCause": "conflicting key value violates exclusion constraint \"no_cross_branch_staff_shift\"",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23P01",
+      "statement": "INSERT INTO booking_policy_assignment(business_id,policy_version_id,scope_kind,effective_from,effective_to) VALUES($1,$2,'BUSINESS',$3,$4)",
+      "constraint": "no_equal_rank_policy_assignment",
+      "rootCause": "conflicting key value violates exclusion constraint \"no_equal_rank_policy_assignment\"",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23514",
+      "statement": "INSERT INTO booking(business_id,branch_id,origin,status,draft_expires_at) VALUES($1,$2,'STAFF','CONFIRMED','2040-01-01Z')",
+      "constraint": "ck_booking_4",
+      "rootCause": "new row for relation \"booking\" violates check constraint \"ck_booking_4\"",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23514",
+      "statement": "INSERT INTO booking(business_id,branch_id,origin,draft_expires_at) VALUES($1,$2,'STAFF','infinity')",
+      "constraint": "ck_booking_5",
+      "rootCause": "new row for relation \"booking\" violates check constraint \"ck_booking_5\"",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23P01",
+      "statement": "INSERT INTO resource_allocation(business_id,resource_id,resource_kind,allocation_kind,busy_starts_at,busy_ends_at) VALUES($1,$2,'STAFF','MAINTENANCE',$3,$4)",
+      "constraint": "no_live_resource_overlap",
+      "rootCause": "conflicting key value violates exclusion constraint \"no_live_resource_overlap\"",
+      "proposedCorrection": "No DDL correction: deliberately invalid synthetic input; supply valid tenant/configuration/state/range instead"
+    },
+    {
+      "expected": true,
+      "sqlstate": "23P01",
+      "statement": "INSERT INTO \"resource_allocation\" (\"business_id\",\"resource_id\",\"resource_kind\",\"allocation_kind\",\"busy_starts_at\",\"busy_ends_at\") VALUES ($1,$2,$3,$4,$5,$6) RETURNING *",
+      "constraint": "no_live_resource_overlap",
+      "rootCause": "Session A committed overlapping live interval",
+      "proposedCorrection": "No DDL correction; future engine must handle/retry conflicts"
+    }
+  ],
+  "server": {
+    "version": "PostgreSQL 18.6 (Debian 18.6-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+    "current_user": "ms_b0_admin",
+    "current_database": "ms_b0_control",
+    "version_num": 180006,
+    "marker": "mohammadstyle-b0-disposable-control"
+  },
+  "summary": {
+    "passed": 35,
+    "failed": 0,
+    "unexpectedSqlErrors": 0,
+    "expectedSqlRejections": 23
+  }
+}

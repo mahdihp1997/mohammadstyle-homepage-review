@@ -1,0 +1,100 @@
+Container mohammadstyle-b0-postgres-1 Running
+ Container mohammadstyle-b0-postgres-1 Waiting
+ Container mohammadstyle-b0-postgres-1 Healthy
+ Image mohammadstyle-b0-api Building
+#1 [internal] load local bake definitions
+#1 reading from stdin 709B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 808B 0.0s done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/node:24.16.0-bookworm-slim@sha256:2c87ef9bd3c6a3bd4b472b4bec2ce9d16354b0c574f736c476489d09f560a203
+#3 DONE 0.1s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 117B 0.0s done
+#4 DONE 0.1s
+
+#5 [internal] load build context
+#5 transferring context: 330B done
+#5 DONE 0.1s
+
+#6 [build 1/7] FROM docker.io/library/node:24.16.0-bookworm-slim@sha256:2c87ef9bd3c6a3bd4b472b4bec2ce9d16354b0c574f736c476489d09f560a203
+#6 resolve docker.io/library/node:24.16.0-bookworm-slim@sha256:2c87ef9bd3c6a3bd4b472b4bec2ce9d16354b0c574f736c476489d09f560a203
+#6 resolve docker.io/library/node:24.16.0-bookworm-slim@sha256:2c87ef9bd3c6a3bd4b472b4bec2ce9d16354b0c574f736c476489d09f560a203 0.1s done
+#6 DONE 0.1s
+
+#7 [build 2/7] WORKDIR /app
+#7 CACHED
+
+#8 [build 3/7] COPY package*.json ./
+#8 CACHED
+
+#9 [build 4/7] RUN --mount=type=cache,target=/root/.npm npm ci --ignore-scripts --no-audit --no-fund --maxsockets=4 --fetch-retries=3 --fetch-timeout=25000
+#9 91.88
+#9 91.88 added 249 packages in 2m
+#9 91.88 npm notice
+#9 91.88 npm notice New major version of npm available! 11.13.0 -> 12.2.1
+#9 91.88 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+#9 91.88 npm notice To update run: npm install -g npm@12.2.1
+#9 91.88 npm notice
+#9 DONE 92.2s
+
+#10 [build 5/7] COPY tsconfig.json ./
+#10 DONE 0.3s
+
+#11 [build 6/7] COPY src ./src
+#11 DONE 0.2s
+
+#12 [build 7/7] RUN npm run build && npm prune --omit=dev --ignore-scripts --offline --no-audit --no-fund
+#12 0.689
+#12 0.689 > mohammadstyle-b0-foundation@0.0.0 build
+#12 0.689 > tsc -p tsconfig.json
+#12 0.689
+#12 2.853 npm notice
+#12 2.853 npm notice New major version of npm available! 11.13.0 -> 12.2.1
+#12 2.853 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
+#12 2.853 npm notice To update run: npm install -g npm@12.2.1
+#12 2.853 npm notice
+#12 118.4
+#12 118.4 removed 140 packages in 2m
+#12 DONE 118.5s
+
+#13 [stage-1 3/5] COPY --from=build --chown=node:node /app/node_modules ./node_modules
+#13 DONE 1.0s
+
+#14 [stage-1 4/5] COPY --from=build --chown=node:node /app/dist ./dist
+#14 DONE 0.3s
+
+#15 [stage-1 5/5] COPY --chown=node:node package.json ./
+#15 DONE 0.3s
+
+#16 exporting to image
+#16 exporting layers
+#16 exporting layers 1.4s done
+#16 exporting manifest sha256:4b29a7c44a560d596154bd9f9200fcead48b395d3eda290947835c082ccb6c6d 0.1s done
+#16 exporting config sha256:d986fa38acb31604cd1f66782654de0bd037501ac8b6dd81eff24e911d97b881 0.1s done
+#16 exporting attestation manifest sha256:dfb8f19e6c70539a19c59602bd0085aec4d38a9924fbb1b3573104dc65f2a27b 0.1s done
+#16 exporting manifest list sha256:4fa5683d2f5121098667a9eb58edad08c959d5d734577264f592511850b5f4d2
+#16 exporting manifest list sha256:4fa5683d2f5121098667a9eb58edad08c959d5d734577264f592511850b5f4d2 0.1s done
+#16 naming to docker.io/library/mohammadstyle-b0-api:latest 0.0s done
+#16 unpacking to docker.io/library/mohammadstyle-b0-api:latest
+#16 unpacking to docker.io/library/mohammadstyle-b0-api:latest 1.5s done
+#16 DONE 3.4s
+
+#17 resolving provenance for metadata file
+#17 DONE 0.1s
+ Image mohammadstyle-b0-api Built
+ Container mohammadstyle-b0-postgres-1 Running
+ Container mohammadstyle-b0-api-1 Creating
+ Container mohammadstyle-b0-api-1 Created
+ Container mohammadstyle-b0-postgres-1 Waiting
+ Container mohammadstyle-b0-postgres-1 Healthy
+ Container mohammadstyle-b0-api-1 Starting
+ Container mohammadstyle-b0-api-1 Started
+ Container mohammadstyle-b0-postgres-1 Waiting
+ Container mohammadstyle-b0-api-1 Waiting
+ Container mohammadstyle-b0-postgres-1 Healthy
+ Container mohammadstyle-b0-api-1 Healthy
