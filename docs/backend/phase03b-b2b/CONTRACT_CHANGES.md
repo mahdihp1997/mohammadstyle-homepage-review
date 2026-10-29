@@ -1,3 +1,5 @@
+> Current read-scope refinement: [B2B hardening](../phase03b-b2b-hardening/README.md) supersedes read semantics below. This original phase report/evidence is retained as historical baseline.
+
 # Explicit B2B contract changes
 
 - backend/openapi.b2b.json is the30-operation implemented profile, separate from preserved B1B12 operations and the historical architecture proposal. Current frontend/demo contracts are unchanged.

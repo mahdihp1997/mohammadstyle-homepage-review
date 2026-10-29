@@ -1,0 +1,5025 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "B2B isolated administrative workforce API",
+    "version": "0.2.0",
+    "description": "Implemented30 operations. New profile only. No customer availability or bookings. Gregorian dates; all mutation If-Match headers target workforce calendar version, not individual recordVersion. See CONTRACT_CHANGES.md. Migration0009: current published/non-archived calendar by default. view=history requires explicit history permission. Global time off is clipped into branch membership/query slices. Mutable global metadata is not a historical snapshot."
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:3106"
+    }
+  ],
+  "paths": {
+    "/api/v1/admin/staff": {
+      "post": {
+        "operationId": "staff_create",
+        "summary": "staff.create",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\"[1-9][0-9]{0,18}\"$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "const": "http://127.0.0.1:3106"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/staff.create"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt; version is business-wide workforce calendar CAS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandReceipt"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      },
+      "get": {
+        "operationId": "read_staff",
+        "summary": "read.staff",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "from",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            }
+          },
+          {
+            "in": "query",
+            "name": "branchId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "staffId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized bounded page; no reserved customer capacity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/staff/{id}": {
+      "put": {
+        "operationId": "staff_update",
+        "summary": "staff.update",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\"[1-9][0-9]{0,18}\"$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "const": "http://127.0.0.1:3106"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/staff.update"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt; version is business-wide workforce calendar CAS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandReceipt"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/staff/{id}/verified-identity": {
+      "post": {
+        "operationId": "staff_link",
+        "summary": "staff.link",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\"[1-9][0-9]{0,18}\"$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "const": "http://127.0.0.1:3106"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/staff.link"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt; version is business-wide workforce calendar CAS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandReceipt"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/branches/{branchId}/branch-assignments": {
+      "post": {
+        "operationId": "assignment_create",
+        "summary": "assignment.create",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\"[1-9][0-9]{0,18}\"$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "const": "http://127.0.0.1:3106"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/assignment.create"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt; version is business-wide workforce calendar CAS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandReceipt"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      },
+      "get": {
+        "operationId": "read_assignments",
+        "summary": "read.assignments",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "from",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            }
+          },
+          {
+            "in": "query",
+            "name": "branchId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "staffId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized bounded page; no reserved customer capacity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/branches/{branchId}/branch-assignments/{id}/end": {
+      "post": {
+        "operationId": "assignment_close",
+        "summary": "assignment.close",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\"[1-9][0-9]{0,18}\"$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "const": "http://127.0.0.1:3106"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/assignment.close"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt; version is business-wide workforce calendar CAS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandReceipt"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/staff/qualifications": {
+      "post": {
+        "operationId": "qualification_set",
+        "summary": "qualification.set",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\"[1-9][0-9]{0,18}\"$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "const": "http://127.0.0.1:3106"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/qualification.set"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt; version is business-wide workforce calendar CAS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandReceipt"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      },
+      "get": {
+        "operationId": "read_qualifications",
+        "summary": "read.qualifications",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "from",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            }
+          },
+          {
+            "in": "query",
+            "name": "branchId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "staffId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized bounded page; no reserved customer capacity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/branches/{branchId}/offering-staff-eligibility": {
+      "put": {
+        "operationId": "eligibility_set",
+        "summary": "eligibility.set",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\"[1-9][0-9]{0,18}\"$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "const": "http://127.0.0.1:3106"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/eligibility.set"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt; version is business-wide workforce calendar CAS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandReceipt"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      },
+      "get": {
+        "operationId": "read_eligibilities",
+        "summary": "read.eligibilities",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "from",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            }
+          },
+          {
+            "in": "query",
+            "name": "branchId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "staffId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized bounded page; no reserved customer capacity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/branches/{branchId}/resources": {
+      "post": {
+        "operationId": "resource_create",
+        "summary": "resource.create",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\"[1-9][0-9]{0,18}\"$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "const": "http://127.0.0.1:3106"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/resource.create"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt; version is business-wide workforce calendar CAS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandReceipt"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      },
+      "get": {
+        "operationId": "read_resources",
+        "summary": "read.resources",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "from",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            }
+          },
+          {
+            "in": "query",
+            "name": "branchId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "staffId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized bounded page; no reserved customer capacity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/branches/{branchId}/resources/{id}": {
+      "put": {
+        "operationId": "resource_update",
+        "summary": "resource.update",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\"[1-9][0-9]{0,18}\"$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "const": "http://127.0.0.1:3106"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/resource.update"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt; version is business-wide workforce calendar CAS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandReceipt"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/branches/{branchId}/working-hours": {
+      "put": {
+        "operationId": "hours_replace",
+        "summary": "hours.replace",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\"[1-9][0-9]{0,18}\"$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "const": "http://127.0.0.1:3106"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/hours.replace"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt; version is business-wide workforce calendar CAS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandReceipt"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      },
+      "get": {
+        "operationId": "read_hours",
+        "summary": "read.hours",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "from",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            }
+          },
+          {
+            "in": "query",
+            "name": "branchId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "staffId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized bounded page; no reserved customer capacity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/branches/{branchId}/schedule-rules": {
+      "put": {
+        "operationId": "rule_create",
+        "summary": "rule.create",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\"[1-9][0-9]{0,18}\"$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "const": "http://127.0.0.1:3106"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/rule.create"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt; version is business-wide workforce calendar CAS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandReceipt"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      },
+      "get": {
+        "operationId": "read_rules",
+        "summary": "read.rules",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "from",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            }
+          },
+          {
+            "in": "query",
+            "name": "branchId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "staffId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized bounded page; no reserved customer capacity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/branches/{branchId}/schedule/publications": {
+      "post": {
+        "operationId": "schedule_publish",
+        "summary": "schedule.publish",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\"[1-9][0-9]{0,18}\"$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "const": "http://127.0.0.1:3106"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/schedule.publish"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt; version is business-wide workforce calendar CAS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandReceipt"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/branches/{branchId}/schedule/withdrawals": {
+      "post": {
+        "operationId": "schedule_withdraw",
+        "summary": "schedule.withdraw",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\"[1-9][0-9]{0,18}\"$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "const": "http://127.0.0.1:3106"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/schedule.withdraw"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt; version is business-wide workforce calendar CAS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandReceipt"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/branches/{branchId}/time-off": {
+      "post": {
+        "operationId": "timeoff_create",
+        "summary": "timeoff.create",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\"[1-9][0-9]{0,18}\"$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "const": "http://127.0.0.1:3106"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/timeoff.create"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt; version is business-wide workforce calendar CAS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandReceipt"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/branches/{branchId}/closures": {
+      "post": {
+        "operationId": "closure_create",
+        "summary": "closure.create",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\"[1-9][0-9]{0,18}\"$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "const": "http://127.0.0.1:3106"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/closure.create"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt; version is business-wide workforce calendar CAS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandReceipt"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/branches/{branchId}/time-off/{id}/review": {
+      "post": {
+        "operationId": "timeoff_review",
+        "summary": "timeoff.review",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\"[1-9][0-9]{0,18}\"$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "const": "http://127.0.0.1:3106"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/timeoff.review"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt; version is business-wide workforce calendar CAS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandReceipt"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/branches/{branchId}/closures/{id}/review": {
+      "post": {
+        "operationId": "closure_review",
+        "summary": "closure.review",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\"[1-9][0-9]{0,18}\"$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "const": "http://127.0.0.1:3106"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/closure.review"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt; version is business-wide workforce calendar CAS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandReceipt"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/branches/{branchId}/availability-configuration": {
+      "put": {
+        "operationId": "configuration_set",
+        "summary": "configuration.set",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "If-Match",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\"[1-9][0-9]{0,18}\"$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "const": "http://127.0.0.1:3106"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/configuration.set"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt; version is business-wide workforce calendar CAS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandReceipt"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      },
+      "get": {
+        "operationId": "read_configuration",
+        "summary": "read.configuration",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "from",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            }
+          },
+          {
+            "in": "query",
+            "name": "branchId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "staffId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized bounded page; no reserved customer capacity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/workforce/context": {
+      "get": {
+        "operationId": "read_context",
+        "summary": "read.context",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "from",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            }
+          },
+          {
+            "in": "query",
+            "name": "branchId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "staffId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized bounded page; no reserved customer capacity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/branches/{branchId}/staff/{id}/schedule": {
+      "get": {
+        "operationId": "read_schedule",
+        "summary": "read.schedule",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "from",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            }
+          },
+          {
+            "in": "query",
+            "name": "branchId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "staffId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized bounded page; no reserved customer capacity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/branches/{branchId}/calendar": {
+      "get": {
+        "operationId": "read_calendar",
+        "summary": "read.calendar",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "from",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            }
+          },
+          {
+            "in": "query",
+            "name": "branchId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "staffId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized bounded page; no reserved customer capacity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/branches/{branchId}/exceptions": {
+      "get": {
+        "operationId": "read_exceptions",
+        "summary": "read.exceptions",
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "branchId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "from",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            }
+          },
+          {
+            "in": "query",
+            "name": "branchId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "staffId",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized bounded page; no reserved customer capacity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "403": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "404": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "409": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "412": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "422": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "429": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          },
+          "503": {
+            "description": "Sanitized denial or conflict; no SQL/PII"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "session": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "ms_session"
+      }
+    },
+    "schemas": {
+      "HoursSegment": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "isoWeekday",
+          "startMinute",
+          "endMinute",
+          "validFrom",
+          "validTo"
+        ],
+        "properties": {
+          "isoWeekday": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 7
+          },
+          "startMinute": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1439
+          },
+          "endMinute": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1440
+          },
+          "validFrom": {
+            "type": "string",
+            "format": "date"
+          },
+          "validTo": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "Segment": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "ruleId",
+          "ruleVersion",
+          "date",
+          "startResolution",
+          "endResolution"
+        ],
+        "properties": {
+          "ruleId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "ruleVersion": {
+            "type": "string",
+            "pattern": "^[1-9][0-9]{0,18}$"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "startResolution": {
+            "type": "string",
+            "enum": [
+              "reject",
+              "earlier",
+              "later"
+            ]
+          },
+          "endResolution": {
+            "type": "string",
+            "enum": [
+              "reject",
+              "earlier",
+              "later"
+            ]
+          }
+        }
+      },
+      "staff.create": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "displayName"
+        ],
+        "properties": {
+          "displayName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        }
+      },
+      "staff.update": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "displayName",
+          "active"
+        ],
+        "properties": {
+          "displayName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "staff.link": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "userId",
+          "evidenceReference"
+        ],
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "evidenceReference": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        }
+      },
+      "assignment.create": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "staffId",
+          "validFrom",
+          "validTo"
+        ],
+        "properties": {
+          "staffId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "validFrom": {
+            "type": "string",
+            "format": "date"
+          },
+          "validTo": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "assignment.close": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "validTo",
+          "reason"
+        ],
+        "properties": {
+          "validTo": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        }
+      },
+      "qualification.set": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "staffId",
+          "serviceId",
+          "active",
+          "evidenceReference"
+        ],
+        "properties": {
+          "staffId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "serviceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "evidenceReference": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        }
+      },
+      "eligibility.set": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "offeringId",
+          "assignmentId",
+          "qualificationId",
+          "active"
+        ],
+        "properties": {
+          "offeringId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "assignmentId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "qualificationId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "resource.create": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "label",
+          "active"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "CHAIR",
+              "ROOM",
+              "DEVICE"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "resource.update": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "label",
+          "active"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "hours.replace": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "segments",
+          "reason"
+        ],
+        "properties": {
+          "segments": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 62,
+            "items": {
+              "$ref": "#/components/schemas/HoursSegment"
+            }
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        }
+      },
+      "rule.create": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "staffId",
+          "assignmentId",
+          "qualificationId",
+          "offeringId",
+          "isoWeekday",
+          "startMinute",
+          "endMinute",
+          "validFrom",
+          "validTo"
+        ],
+        "properties": {
+          "staffId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "assignmentId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "qualificationId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "offeringId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "isoWeekday": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99999
+          },
+          "startMinute": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99999
+          },
+          "endMinute": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99999
+          },
+          "validFrom": {
+            "type": "string",
+            "format": "date"
+          },
+          "validTo": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "schedule.publish": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "staffId",
+          "segments",
+          "replaces",
+          "reason",
+          "overnight"
+        ],
+        "properties": {
+          "staffId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "segments": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 62,
+            "items": {
+              "$ref": "#/components/schemas/Segment"
+            }
+          },
+          "replaces": {
+            "type": "array",
+            "maxItems": 62,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "overnight": {
+            "type": "boolean"
+          }
+        }
+      },
+      "schedule.withdraw": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "staffId",
+          "shiftIds",
+          "reason"
+        ],
+        "properties": {
+          "staffId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "shiftIds": {
+            "type": "array",
+            "maxItems": 62,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        }
+      },
+      "timeoff.create": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "staffId",
+          "startsAt",
+          "endsAt",
+          "reason"
+        ],
+        "properties": {
+          "staffId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "startsAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endsAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        }
+      },
+      "closure.create": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "startsAt",
+          "endsAt",
+          "reason"
+        ],
+        "properties": {
+          "startsAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endsAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        }
+      },
+      "timeoff.review": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "approve",
+          "reason"
+        ],
+        "properties": {
+          "approve": {
+            "type": "boolean"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        }
+      },
+      "closure.review": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "approve",
+          "reason"
+        ],
+        "properties": {
+          "approve": {
+            "type": "boolean"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          }
+        }
+      },
+      "configuration.set": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "slotStrideMinutes",
+          "leadMinutes",
+          "horizonDays",
+          "holdTtlSeconds",
+          "quoteTtlSeconds"
+        ],
+        "properties": {
+          "slotStrideMinutes": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 99999
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "leadMinutes": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 99999
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "horizonDays": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 99999
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "holdTtlSeconds": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 99999
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "quoteTtlSeconds": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 99999
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "CommandReceipt": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "version",
+          "operation",
+          "items"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "string",
+            "pattern": "^[1-9][0-9]*$"
+          },
+          "operation": {
+            "type": "string",
+            "enum": [
+              "staff.create",
+              "staff.update",
+              "staff.link",
+              "assignment.create",
+              "assignment.close",
+              "qualification.set",
+              "eligibility.set",
+              "resource.create",
+              "resource.update",
+              "hours.replace",
+              "rule.create",
+              "schedule.publish",
+              "schedule.withdraw",
+              "timeoff.create",
+              "closure.create",
+              "timeoff.review",
+              "closure.review",
+              "configuration.set"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 62,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "startsAt",
+                "endsAt",
+                "date",
+                "timeZone",
+                "ruleId",
+                "ruleVersion"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "startsAt": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "endsAt": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "date": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "timeZone": {
+                  "type": "string"
+                },
+                "ruleId": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "ruleVersion": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Record.staff": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "recordVersion",
+          "archived",
+          "display_name",
+          "active"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "staff",
+            "type": "string"
+          },
+          "recordVersion": {
+            "type": "string"
+          },
+          "archived": {
+            "type": "boolean"
+          },
+          "display_name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Record.assignments": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "recordVersion",
+          "archived",
+          "staff_id",
+          "branch_id",
+          "valid_from",
+          "valid_to",
+          "active",
+          "voided_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "assignments",
+            "type": "string"
+          },
+          "recordVersion": {
+            "type": "string"
+          },
+          "archived": {
+            "type": "boolean"
+          },
+          "staff_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "branch_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "valid_from": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "valid_to": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "voided_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "Record.qualifications": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "recordVersion",
+          "archived",
+          "staff_id",
+          "service_id",
+          "active",
+          "verified_at"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "qualifications",
+            "type": "string"
+          },
+          "recordVersion": {
+            "type": "string"
+          },
+          "archived": {
+            "type": "boolean"
+          },
+          "staff_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "service_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "verified_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "Record.eligibilities": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "recordVersion",
+          "archived",
+          "staff_id",
+          "branch_id",
+          "offering_id",
+          "assignment_id",
+          "qualification_id",
+          "active"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "eligibilities",
+            "type": "string"
+          },
+          "recordVersion": {
+            "type": "string"
+          },
+          "archived": {
+            "type": "boolean"
+          },
+          "staff_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "branch_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "offering_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "assignment_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "qualification_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Record.resources": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "recordVersion",
+          "archived",
+          "branch_id",
+          "label",
+          "active"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "recordVersion": {
+            "type": "string"
+          },
+          "archived": {
+            "type": "boolean"
+          },
+          "branch_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "label": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Record.hours": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "recordVersion",
+          "archived",
+          "branch_id",
+          "iso_weekday",
+          "start_minute",
+          "end_minute",
+          "valid_from",
+          "valid_to"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "hours",
+            "type": "string"
+          },
+          "recordVersion": {
+            "type": "string"
+          },
+          "archived": {
+            "type": "boolean"
+          },
+          "branch_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "iso_weekday": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "start_minute": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "end_minute": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "valid_from": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "valid_to": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "Record.rules": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "recordVersion",
+          "archived",
+          "staff_id",
+          "branch_id",
+          "assignment_id",
+          "iso_weekday",
+          "start_minute",
+          "end_minute",
+          "valid_from",
+          "valid_to",
+          "service_id",
+          "qualification_id",
+          "offering_id",
+          "configurationVersion"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "rules",
+            "type": "string"
+          },
+          "recordVersion": {
+            "type": "string"
+          },
+          "archived": {
+            "type": "boolean"
+          },
+          "staff_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "branch_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "assignment_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "iso_weekday": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "start_minute": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "end_minute": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "valid_from": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "valid_to": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "service_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "qualification_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "offering_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "configurationVersion": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "Record.configuration": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "recordVersion",
+          "archived",
+          "branch_id",
+          "enabled",
+          "slot_stride_minutes",
+          "lead_minutes",
+          "horizon_days",
+          "hold_ttl_seconds",
+          "quote_ttl_seconds",
+          "configurationVersion"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "configuration",
+            "type": "string"
+          },
+          "recordVersion": {
+            "type": "string"
+          },
+          "archived": {
+            "type": "boolean"
+          },
+          "branch_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "slot_stride_minutes": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "lead_minutes": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "horizon_days": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "hold_ttl_seconds": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "quote_ttl_seconds": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "configurationVersion": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "Record.timeoff": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "recordVersion",
+          "archived",
+          "staff_id",
+          "starts_at",
+          "ends_at",
+          "review_status",
+          "supersedes_id",
+          "scopeAssignmentId",
+          "intervalScope"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "timeoff",
+            "type": "string"
+          },
+          "recordVersion": {
+            "type": "string"
+          },
+          "archived": {
+            "type": "boolean"
+          },
+          "staff_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "starts_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ends_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "review_status": {
+            "type": "string",
+            "enum": [
+              "LEGACY_UNREVIEWED",
+              "REQUESTED",
+              "APPROVED",
+              "REJECTED"
+            ]
+          },
+          "supersedes_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "scopeAssignmentId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "intervalScope": {
+            "type": "string",
+            "const": "BRANCH_MEMBERSHIP_AND_QUERY"
+          }
+        },
+        "description": "One item per nonempty visible membership slice. id remains source command ID; (id,scopeAssignmentId,starts_at,ends_at) identifies the projection item. starts_at/ends_at are clipped and never reveal the full global source interval. Do not infer global approval scope from this branch projection."
+      },
+      "Record.closures": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "recordVersion",
+          "archived",
+          "branch_id",
+          "starts_at",
+          "ends_at",
+          "review_status",
+          "supersedes_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "closures",
+            "type": "string"
+          },
+          "recordVersion": {
+            "type": "string"
+          },
+          "archived": {
+            "type": "boolean"
+          },
+          "branch_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "starts_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ends_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "review_status": {
+            "type": "string",
+            "enum": [
+              "LEGACY_UNREVIEWED",
+              "REQUESTED",
+              "APPROVED",
+              "REJECTED"
+            ]
+          },
+          "supersedes_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "Record.shifts": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "recordVersion",
+          "archived",
+          "staff_id",
+          "branch_id",
+          "assignment_id",
+          "schedule_rule_id",
+          "starts_at",
+          "ends_at",
+          "published",
+          "plan_id",
+          "local_date",
+          "time_zone",
+          "start_minute",
+          "end_minute",
+          "start_resolution",
+          "end_resolution",
+          "scheduleVersion",
+          "evidenceState"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "kind": {
+            "const": "shifts",
+            "type": "string"
+          },
+          "recordVersion": {
+            "type": "string"
+          },
+          "archived": {
+            "type": "boolean"
+          },
+          "staff_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "branch_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "assignment_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "schedule_rule_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "starts_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ends_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "published": {
+            "type": "boolean"
+          },
+          "plan_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "local_date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "time_zone": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "start_minute": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "end_minute": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "start_resolution": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "end_resolution": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "scheduleVersion": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "evidenceState": {
+            "type": "string",
+            "enum": [
+              "PUBLISHED",
+              "DRAFT",
+              "WITHDRAWN",
+              "ARCHIVED_DRAFT"
+            ]
+          }
+        }
+      },
+      "Page": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "version",
+          "items",
+          "limit",
+          "offset",
+          "ownScheduleOnly",
+          "capacityReserved",
+          "projection"
+        ],
+        "properties": {
+          "version": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 100,
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/Record.staff"
+                },
+                {
+                  "$ref": "#/components/schemas/Record.assignments"
+                },
+                {
+                  "$ref": "#/components/schemas/Record.qualifications"
+                },
+                {
+                  "$ref": "#/components/schemas/Record.eligibilities"
+                },
+                {
+                  "$ref": "#/components/schemas/Record.resources"
+                },
+                {
+                  "$ref": "#/components/schemas/Record.hours"
+                },
+                {
+                  "$ref": "#/components/schemas/Record.rules"
+                },
+                {
+                  "$ref": "#/components/schemas/Record.configuration"
+                },
+                {
+                  "$ref": "#/components/schemas/Record.timeoff"
+                },
+                {
+                  "$ref": "#/components/schemas/Record.closures"
+                },
+                {
+                  "$ref": "#/components/schemas/Record.shifts"
+                }
+              ]
+            }
+          },
+          "limit": {
+            "const": 100,
+            "type": "integer"
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000
+          },
+          "ownScheduleOnly": {
+            "type": "boolean"
+          },
+          "capacityReserved": {
+            "const": false,
+            "type": "boolean"
+          },
+          "projection": {
+            "type": "string",
+            "enum": [
+              "current",
+              "history"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

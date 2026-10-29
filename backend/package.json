@@ -55,7 +55,16 @@
     "b2b:verify": "node scripts/b2b/verify.mjs",
     "b2b:backup": "node scripts/b2b/backup.mjs backup",
     "b2b:restore": "node scripts/b2b/backup.mjs restore",
-    "test:b2b": "node scripts/b2b/test.mjs"
+    "test:b2b": "node scripts/b2b/test.mjs",
+    "b2h:env": "node scripts/b2h/infra.mjs env",
+    "b2h:up": "node scripts/b2h/infra.mjs up",
+    "b2h:stop": "node scripts/b2h/infra.mjs stop",
+    "b2h:migrate": "node scripts/b2h/migrate.mjs",
+    "b2h:verify": "node scripts/b2h/verify.mjs",
+    "b2h:backup": "node scripts/b2h/backup.mjs backup",
+    "b2h:restore": "node scripts/b2h/backup.mjs restore",
+    "test:b2h": "node scripts/b2h/test.mjs",
+    "b2h:start": "node dist/workforce/main.js"
   },
   "dependencies": {
     "@nestjs/common": "12.3.2",

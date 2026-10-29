@@ -1,3 +1,5 @@
+> Current read-scope refinement: [B2B hardening](../phase03b-b2b-hardening/README.md) supersedes read semantics below. This original phase report/evidence is retained as historical baseline.
+
 # B2B workforce management and schedule publication
 
 Private baseline33b8934512d57a0118b9611e34e9a0c1e35575f6. Branch feature/phase03b-b2b-scheduling-api. B2A progression explicitly authorized; this package stops after B2B. Open REVIEW.html for individual diagrams and actual recorded test/restore captures.

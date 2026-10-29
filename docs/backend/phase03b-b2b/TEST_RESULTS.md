@@ -1,3 +1,5 @@
+> Current read-scope refinement: [B2B hardening](../phase03b-b2b-hardening/README.md) supersedes read semantics below. This original phase report/evidence is retained as historical baseline.
+
 # Actual validation results
 
 B2B 71PASS/0FAIL;54 expected SQL rejections;8 distinct-session observed lock waits. Actual executions: 2026-10-29T21:19:18.144Z. Real Nest/controller/guard tests and direct production SQL entry-point assertions are identified by name. Trusted fixture/lifecycle/fault/monitor work is harness-only.

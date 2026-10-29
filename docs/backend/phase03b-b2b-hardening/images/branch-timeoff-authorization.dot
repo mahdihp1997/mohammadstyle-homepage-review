@@ -1,0 +1,15 @@
+digraph{graph[bgcolor="#111b24",pad="0.35",nodesep="0.4",ranksep="0.6"];node[shape=box,style="rounded,filled",fillcolor="#213444",color="#d9c79e",fontcolor="#f3f6fa",fontname="Arial",fontsize=19,margin="0.18,0.14"];edge[color="#d9c79e",fontcolor="#e5d6b5",fontname="Arial",fontsize=15];rankdir=TB;session[label="Verified opaque session
+Server actor/business + current branch permission
+No role/tenant selector is authority"];branch[label="Selected branch, held SHARE lock
+IANA timezone + local [from,to) query window"];member[label="Applicable temporal membership
+Never voided; current active/nonarchived
+History: explicit grant + reviewed finite past end
+No future rights from deactivation/archive alone"];intersect[label="Global leave UTC interval
+INTERSECT branch membership UTC interval
+INTERSECT exact local-query UTC bounds"];empty[label="Empty / midnight ambiguity
+No disclosed row; never guess an offset"];slice[label="One item per nonempty membership slice
+Clipped starts_at / ends_at + scopeAssignmentId
+No raw source extent, reason or other branch segment"];gap[label="Disjoint stints stay disjoint
+Concurrent branches each see only their own intersection"];metadata[label="Separate current global metadata guard
+Branch-only staff/qualification read requires live membership NOW
+Former branch cannot query old dates to reveal new global data"];session->branch->member->intersect;intersect->empty[label="invalid / empty"];intersect->slice[label="valid"];slice->gap;member->metadata;}

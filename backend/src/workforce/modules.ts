@@ -9,7 +9,7 @@ import {validate,query,type Operation,type WorkforcePage} from './contracts.js';
 export class WorkforceCommands {
  constructor(private readonly repository:WorkforceRepository){}
  async write(req:Request,res:Response,op:Operation,branch:string|null,id:string|null,d:unknown){const e=evidence(req),{key,version}=commandHeaders(req.headers,true);const result=await this.repository.command(e.hash,e.csrf,op,branch,id,version!,key,e.requestId,validate(op,d));res.status(result.status);res.setHeader('ETag','"'+result.body.version+'"');return result.body;}
- async read(req:Request,res:Response,kind:string,p:Record<string,string>,q:Record<string,unknown>):Promise<WorkforcePage>{const x=query(q);if(p.branchId&&x.branch&&p.branchId!==x.branch||p.id&&x.staff&&p.id!==x.staff)invalid();const branch=p.branchId?uuid(p.branchId):x.branch,staff=p.id?uuid(p.id):x.staff;const result=await this.repository.read(evidence(req).hash,kind,branch,staff,x.from,x.to,x.offset);res.setHeader('ETag','"'+result.version+'"');return result;}
+ async read(req:Request,res:Response,kind:string,p:Record<string,string>,q:Record<string,unknown>):Promise<WorkforcePage>{const x=query(q);if(p.branchId&&x.branch&&p.branchId!==x.branch||p.id&&x.staff&&p.id!==x.staff)invalid();const branch=p.branchId?uuid(p.branchId):x.branch,staff=p.id?uuid(p.id):x.staff;const result=await this.repository.read(evidence(req).hash,kind,branch,staff,x.from,x.to,x.offset,x.view);res.setHeader('ETag','"'+result.version+'"');return result;}
 }
 @Controller('api/v1/admin') @UseGuards(SessionGuard)
 class WorkforceController {

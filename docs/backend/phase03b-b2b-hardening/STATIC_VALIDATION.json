@@ -1,0 +1,47 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-10-29T22:37:08.558Z",
+  "checks": [
+    {
+      "name": "Original0001..0008 exact file bytes",
+      "status": "PASS"
+    },
+    {
+      "name": "New migration static PostgreSQL18 parser",
+      "status": "PASS",
+      "statements": 8,
+      "note": "Separate from actual fresh/upgrade/rollback/concurrency/restore execution"
+    },
+    {
+      "name": "OpenAPI3.1 schema/references",
+      "status": "PASS"
+    },
+    {
+      "name": "Same-branch sanitized CI scope",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual before/after negatives and read/write wait",
+      "status": "PASS",
+      "passed": 42,
+      "failed": 0,
+      "expectedDenials": 17
+    },
+    {
+      "name": "Unchanged baseline suites and actual92 frontend",
+      "status": "PASS"
+    },
+    {
+      "name": "Standalone review browser/render/links/overflow at1440 and390",
+      "status": "PASS"
+    },
+    {
+      "name": "Individual6 PNG decode / vector source safety",
+      "status": "PASS"
+    },
+    {
+      "name": "Protected Homepage/Booking/assets/locks/old tests/security source",
+      "status": "PASS"
+    }
+  ]
+}

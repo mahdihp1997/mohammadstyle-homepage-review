@@ -1,3 +1,5 @@
+> Current read-scope refinement: [B2B hardening](../phase03b-b2b-hardening/README.md) supersedes read semantics below. This original phase report/evidence is retained as historical baseline.
+
 # Scheduling invariants and bounded materializer
 
 ## Local to UTC

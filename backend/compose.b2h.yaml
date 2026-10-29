@@ -1,0 +1,22 @@
+name: mohammadstyle-b2h
+services:
+  postgres:
+    image: postgres:18.6-bookworm@sha256:5c4783a8cc3f0074912164f94dfa1be4e043438f0f707cf968d7af9a0d31a2c8
+    environment:
+      POSTGRES_USER: ms_b1a_admin
+      POSTGRES_DB: ms_b2h_control
+      POSTGRES_PASSWORD: ${B2H_ADMIN_PASSWORD:?run npm run b2h:env}
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+    ports: ["127.0.0.1:55442:5432"]
+    volumes: ["b2h_pgdata:/var/lib/postgresql"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U ms_b1a_admin -d ms_b2h_control"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+    networks: [b2h]
+networks:
+  b2h: { driver: bridge }
+volumes:
+  b2h_pgdata:
+    labels: { com.mohammadstyle.purpose: phase03b-b2h-disposable }

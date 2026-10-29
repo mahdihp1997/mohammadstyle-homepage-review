@@ -1,0 +1,97 @@
+# Changed files — read-scope hardening
+
+Private parent: `d6e39836dfc8923ed5c6118b1f45cec3a00bdc57`. Public parent: `847f9c6af3bb66db01f4036db316c27a2c814c15`.
+
+- Migration0009 and separate nine-version registry/catalog; original0001–0008 and eight-version baseline remain unchanged.
+- Workforce read contract/repository/HTTP plumbing and fail-closed local startup; write/publication/Booking behavior unchanged.
+- Isolated B2H infrastructure,42 tests, preserved regression runner, CI and review documentation/evidence.
+- Five original B2B prose documents get supersession links only. Private global context is omitted from public export; sanitized context snapshot is included. Public keeps existing placeholders/fonts and asset guards.
+
+86 private files (including this inventory and source manifest):
+
+- `.github/workflows/b2b-review.yml`
+- `.gitignore`
+- `backend/.env.b2h.example`
+- `backend/.gitignore`
+- `backend/B2H.md`
+- `backend/compose.b2h.yaml`
+- `backend/migrations/0009_b2b_read_scope_hardening.sql`
+- `backend/migrations/catalog.b2h.expected.json`
+- `backend/migrations/registry.b2h.json`
+- `backend/openapi.b2b.json`
+- `backend/package.json`
+- `backend/scripts/b2h/b2b-regression.mjs`
+- `backend/scripts/b2h/backup.mjs`
+- `backend/scripts/b2h/catalog.mjs`
+- `backend/scripts/b2h/check-schema.mjs`
+- `backend/scripts/b2h/check-secrets.mjs`
+- `backend/scripts/b2h/infra.mjs`
+- `backend/scripts/b2h/local.mjs`
+- `backend/scripts/b2h/migrate.mjs`
+- `backend/scripts/b2h/test.mjs`
+- `backend/scripts/b2h/verify.mjs`
+- `backend/src/workforce/contracts.ts`
+- `backend/src/workforce/main.ts`
+- `backend/src/workforce/modules.ts`
+- `backend/src/workforce/repository.ts`
+- `docs/PROJECT_CONTEXT.md`
+- `docs/backend/phase03b-b2b-hardening/BEFORE_AFTER.json`
+- `docs/backend/phase03b-b2b-hardening/CHANGED_FILES.md`
+- `docs/backend/phase03b-b2b-hardening/COMMANDS.md`
+- `docs/backend/phase03b-b2b-hardening/CONTRACT_CHANGES.md`
+- `docs/backend/phase03b-b2b-hardening/MANIFEST.json`
+- `docs/backend/phase03b-b2b-hardening/MIGRATIONS_RESTORE.md`
+- `docs/backend/phase03b-b2b-hardening/OPEN_DECISIONS.md`
+- `docs/backend/phase03b-b2b-hardening/PROJECT_CONTEXT_SNAPSHOT.md`
+- `docs/backend/phase03b-b2b-hardening/README.md`
+- `docs/backend/phase03b-b2b-hardening/REVIEW.html`
+- `docs/backend/phase03b-b2b-hardening/RUNBOOK.md`
+- `docs/backend/phase03b-b2b-hardening/SANITIZATION.md`
+- `docs/backend/phase03b-b2b-hardening/SCHEDULING.md`
+- `docs/backend/phase03b-b2b-hardening/SECURITY_REVIEW.md`
+- `docs/backend/phase03b-b2b-hardening/STATIC_VALIDATION.json`
+- `docs/backend/phase03b-b2b-hardening/TECHNICAL_REPORT.md`
+- `docs/backend/phase03b-b2b-hardening/TEST_RESULTS.md`
+- `docs/backend/phase03b-b2b-hardening/VALIDATION_MATRIX.md`
+- `docs/backend/phase03b-b2b-hardening/VISIBILITY_POLICY.md`
+- `docs/backend/phase03b-b2b-hardening/actual-before-after.html`
+- `docs/backend/phase03b-b2b-hardening/actual-migration-restore.html`
+- `docs/backend/phase03b-b2b-hardening/actual-security-tests.html`
+- `docs/backend/phase03b-b2b-hardening/evidence/b0-regression.json`
+- `docs/backend/phase03b-b2b-hardening/evidence/b1a-regression.json`
+- `docs/backend/phase03b-b2b-hardening/evidence/b1b-regression.json`
+- `docs/backend/phase03b-b2b-hardening/evidence/b2a-regression.json`
+- `docs/backend/phase03b-b2b-hardening/evidence/b2b-regression.json`
+- `docs/backend/phase03b-b2b-hardening/evidence/backup.json`
+- `docs/backend/phase03b-b2b-hardening/evidence/build.log`
+- `docs/backend/phase03b-b2b-hardening/evidence/frontend-build.log`
+- `docs/backend/phase03b-b2b-hardening/evidence/frontend-typecheck.log`
+- `docs/backend/phase03b-b2b-hardening/evidence/frontend-ui.log`
+- `docs/backend/phase03b-b2b-hardening/evidence/frontend.json`
+- `docs/backend/phase03b-b2b-hardening/evidence/integration.json`
+- `docs/backend/phase03b-b2b-hardening/evidence/integration.log`
+- `docs/backend/phase03b-b2b-hardening/evidence/npm-ci.log`
+- `docs/backend/phase03b-b2b-hardening/evidence/regressions.log`
+- `docs/backend/phase03b-b2b-hardening/evidence/restore.json`
+- `docs/backend/phase03b-b2b-hardening/evidence/schema.json`
+- `docs/backend/phase03b-b2b-hardening/evidence/secrets.json`
+- `docs/backend/phase03b-b2b-hardening/evidence/typecheck.log`
+- `docs/backend/phase03b-b2b-hardening/images/actual-before-after.png`
+- `docs/backend/phase03b-b2b-hardening/images/actual-migration-restore.png`
+- `docs/backend/phase03b-b2b-hardening/images/actual-security-tests.png`
+- `docs/backend/phase03b-b2b-hardening/images/branch-timeoff-authorization.dot`
+- `docs/backend/phase03b-b2b-hardening/images/branch-timeoff-authorization.png`
+- `docs/backend/phase03b-b2b-hardening/images/branch-timeoff-authorization.svg`
+- `docs/backend/phase03b-b2b-hardening/images/contact-sheet.png`
+- `docs/backend/phase03b-b2b-hardening/images/current-calendar-versus-history.dot`
+- `docs/backend/phase03b-b2b-hardening/images/current-calendar-versus-history.png`
+- `docs/backend/phase03b-b2b-hardening/images/current-calendar-versus-history.svg`
+- `docs/backend/phase03b-b2b-hardening/migrations/0009_b2b_read_scope_hardening.sql`
+- `docs/backend/phase03b-b2b-hardening/migrations/catalog.b2h.expected.json`
+- `docs/backend/phase03b-b2b-hardening/migrations/registry.b2h.json`
+- `docs/backend/phase03b-b2b-hardening/openapi.b2b.json`
+- `docs/backend/phase03b-b2b/CONTRACT_CHANGES.md`
+- `docs/backend/phase03b-b2b/README.md`
+- `docs/backend/phase03b-b2b/SCHEDULING.md`
+- `docs/backend/phase03b-b2b/SECURITY_REVIEW.md`
+- `docs/backend/phase03b-b2b/TEST_RESULTS.md`

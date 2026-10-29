@@ -1,0 +1,816 @@
+{
+  "kind": "ACTUAL_NEST_POSTGRESQL_B2B",
+  "executedAt": "2026-10-29T22:06:59.933Z",
+  "tests": [
+    {
+      "name": "fresh install eight checksummed migrations,28 tables",
+      "status": "PASS",
+      "observed": {
+        "applied": [
+          "0001_b1_foundation",
+          "0002_b1a_runtime_boundary",
+          "0003_b1b_admin_boundary",
+          "0004_b2a_workforce_foundation",
+          "0005_b2a_history_guards",
+          "0006_b2b_scheduling_boundary",
+          "0007_b2b_scheduling_commands",
+          "0008_b2b_scheduling_reads"
+        ],
+        "currentVersion": "0008_b2b_scheduling_reads",
+        "catalog": {
+          "sha256": "d0fcf866ee251c6470871f06087dc051e5d1fecc949b0f0ab670f0b7cbb604ae",
+          "tables": 28,
+          "indexes": 89,
+          "functions": 18,
+          "foreignKeys": 88,
+          "checks": 101
+        }
+      }
+    },
+    {
+      "name": "migration rerun no-op with catalog verification",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "0001..0005 registry/source exactly preserved",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "upgrade from B2A preserves rows and leaves legacy approvals explicitly unreviewed",
+      "status": "PASS",
+      "observed": {
+        "applied": [
+          "0006_b2b_scheduling_boundary",
+          "0007_b2b_scheduling_commands",
+          "0008_b2b_scheduling_reads"
+        ],
+        "currentVersion": "0008_b2b_scheduling_reads",
+        "catalog": {
+          "sha256": "d0fcf866ee251c6470871f06087dc051e5d1fecc949b0f0ab670f0b7cbb604ae",
+          "tables": 28,
+          "indexes": 89,
+          "functions": 18,
+          "foreignKeys": 88,
+          "checks": 101
+        }
+      }
+    },
+    {
+      "name": "failed forward migration rolls back all DDL and history",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "Nest Owner creates inactive global staff/resource",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "Nest branch manager cannot modify other branch",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "Nest receptionist cannot publish",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "Nest customer has no administrative access",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "Nest rejects forged role/businessId and unknown fields",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "Nest enforces Origin/CSRF and mandatory If-Match",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "Nest branch scope cannot select foreign tenant",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "API direct field allowlist independently denies mass assignment",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "qualification/rule does not automatically publish availability",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "Nest publishes reviewed UTC shift with local evidence and source version",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "Nest read-only calendar contains published shift and no reservation claim",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "membership closure conflicting with published shift is rejected",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "qualification revocation cannot silently invalidate published shifts",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "staff deactivation cannot invalidate published shifts",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "opening-hour rewrite with published shifts requires explicit review",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "published shift content cannot be edited directly by migration owner",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "legacy timezone/catalog command refuses configured calendar context",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "out-of-membership publication denied",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "inactive staff/resource cannot publish",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "stale source rule version denied",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "offering-specific qualification alone does not grant eligibility",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "approved time off blocks publication; request alone is not approval",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "time-off approval conflicting with published shifts fails closed",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "branch manager cannot approve global staff time off",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "reviewed closure blocks publication",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "closure approval conflicting with published shifts fails closed",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "DST gap fails closed in actual production materializer",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "DST fold requires explicit reviewed resolution",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "coherent overnight local segments publish atomically across midnight",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "incomplete overnight plan rolls back all inserted shifts",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "invalid recurrence weekday/window rejected by DB checks",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "same idempotency key replays one publication and one audit/outbox",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "versioned correction explicitly archives reviewed IDs and inserts new plan",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "explicit withdrawal preserves history before leave/rejoin with new UUID",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "adjacent cross-branch shifts reject unknown transfer feasibility",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "verified identity link requires persisted verified identity and membership",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "physical resource and inactive configuration commands work through Nest",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "API lacks direct tables/private helpers/DDL/role escalation",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "bookability gates and forbidden future tables remain",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "late outbox failure rolls data/audit/idempotency/calendar version back together",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "two concurrent publishers cannot both commit stale calendar versions",
+      "status": "PASS",
+      "observed": {
+        "name": "publication vs publication",
+        "pids": [
+          131,
+          132
+        ],
+        "wait": {
+          "wait_event_type": "Lock",
+          "wait_event": "advisory"
+        },
+        "loserSqlstate": "MS412"
+      }
+    },
+    {
+      "name": "membership close vs publication serializes and revalidates",
+      "status": "PASS",
+      "observed": {
+        "name": "close vs publication",
+        "pids": [
+          133,
+          134
+        ],
+        "wait": {
+          "wait_event_type": "Lock",
+          "wait_event": "advisory"
+        },
+        "loserSqlstate": "MS412"
+      }
+    },
+    {
+      "name": "approved time off vs publication serializes and revalidates",
+      "status": "PASS",
+      "observed": {
+        "name": "timeoff vs publication",
+        "pids": [
+          143,
+          144
+        ],
+        "wait": {
+          "wait_event_type": "Lock",
+          "wait_event": "advisory"
+        },
+        "loserSqlstate": "MS412"
+      }
+    },
+    {
+      "name": "closure vs publication serializes and revalidates",
+      "status": "PASS",
+      "observed": {
+        "name": "closure vs publication",
+        "pids": [
+          145,
+          146
+        ],
+        "wait": {
+          "wait_event_type": "Lock",
+          "wait_event": "advisory"
+        },
+        "loserSqlstate": "MS412"
+      }
+    },
+    {
+      "name": "qualification revoke vs publication serializes and revalidates",
+      "status": "PASS",
+      "observed": {
+        "name": "qualification vs publication",
+        "pids": [
+          147,
+          148
+        ],
+        "wait": {
+          "wait_event_type": "Lock",
+          "wait_event": "advisory"
+        },
+        "loserSqlstate": "MS412"
+      }
+    },
+    {
+      "name": "two If-Match configuration writers have one winner",
+      "status": "PASS",
+      "observed": {
+        "name": "stale resource writers",
+        "pids": [
+          149,
+          150
+        ],
+        "wait": {
+          "wait_event_type": "Lock",
+          "wait_event": "advisory"
+        },
+        "loserSqlstate": "MS412"
+      }
+    },
+    {
+      "name": "concurrent identical idempotency key replays without duplication",
+      "status": "PASS",
+      "observed": {
+        "name": "duplicate idempotency",
+        "pids": [
+          151,
+          152
+        ],
+        "wait": {
+          "wait_event_type": "Lock",
+          "wait_event": "transactionid"
+        },
+        "loserSqlstate": null
+      }
+    },
+    {
+      "name": "cross-branch simultaneous publication has one winner and safe transfer rejection",
+      "status": "PASS",
+      "observed": {
+        "name": "cross-branch publication",
+        "pids": [
+          153,
+          154
+        ],
+        "wait": {
+          "wait_event_type": "Lock",
+          "wait_event": "advisory"
+        },
+        "loserSqlstate": "MS412"
+      }
+    },
+    {
+      "name": "every administrative GET contract executes on actual Nest",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "unchanged B1B session/config controllers run through isolated B2B adapter",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "unchanged B1B self-session revoke works on B2B without privileged grants",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "bounded calendar query rejects oversized horizon and unknown selectors",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "requested time off is explicit pending evidence and does not block shifts",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "review rejection is a new immutable exception revision",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "partial overnight withdrawal cannot break coherent reviewed plan",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "null membership end cannot masquerade as a departure",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "nested rule/materialization mass assignment is rejected",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "opening hours fully cover every local minute of published shift",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "qualification verification retains actor and evidence digest without raw reference",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "legacy runtime cannot mutate workforce or call publication boundary",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "tenant-safe rule qualification FK rejects incompatible staff context",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "applied checksum tampering is detected without repair",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "catalog drift detected; no automatic repair",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "original databases are outside B2B lifecycle allowlist",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "actual backup/custom archive and separate restore preserve rows/catalog/grants",
+      "status": "PASS",
+      "observed": {
+        "backupBytes": 290367,
+        "archiveSha256": "91cf8a735070005bc5517ed2d459a8e7e20c3c80a855948fbefc42c04555e4af",
+        "restoredTables": 28
+      }
+    },
+    {
+      "name": "restored API role executes production schedule read and retains table denial",
+      "status": "PASS",
+      "observed": "assertions passed"
+    }
+  ],
+  "rejections": [
+    {
+      "sqlstate": "22012",
+      "reason": null
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "INVALID_FIELDS"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "MEMBERSHIP_SHIFT_CONFLICT"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "PUBLISHED_SHIFT_REVIEW_REQUIRED"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "PUBLISHED_SHIFT_REVIEW_REQUIRED"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "PUBLISHED_SHIFT_REVIEW_REQUIRED"
+    },
+    {
+      "sqlstate": "23514",
+      "reason": null
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "CALENDAR_RECONCILIATION_REQUIRED"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "MEMBERSHIP_NOT_COVERED"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "INACTIVE_CONTEXT"
+    },
+    {
+      "sqlstate": "MS412",
+      "reason": "STALE_RULE"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "OFFERING_ELIGIBILITY_REQUIRED"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "TIME_OFF_CONFLICT"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "EXCEPTION_SHIFT_CONFLICT"
+    },
+    {
+      "sqlstate": "MS403",
+      "reason": "GLOBAL_APPROVAL_REQUIRED"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "CLOSURE_CONFLICT"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "EXCEPTION_SHIFT_CONFLICT"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "DST_GAP"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "DST_FOLD_REVIEW_REQUIRED"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "OVERNIGHT_PLAN_INCOMPLETE"
+    },
+    {
+      "sqlstate": "23514",
+      "reason": null
+    },
+    {
+      "sqlstate": "23514",
+      "reason": null
+    },
+    {
+      "sqlstate": "23514",
+      "reason": null
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "IDEMPOTENCY_CONFLICT"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "TRANSFER_CONFIGURATION_REQUIRED"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "VERIFIED_IDENTITY_REQUIRED"
+    },
+    {
+      "sqlstate": "42501",
+      "reason": null
+    },
+    {
+      "sqlstate": "42501",
+      "reason": null
+    },
+    {
+      "sqlstate": "42501",
+      "reason": null
+    },
+    {
+      "sqlstate": "42501",
+      "reason": null
+    },
+    {
+      "sqlstate": "42501",
+      "reason": null
+    },
+    {
+      "sqlstate": "42501",
+      "reason": null
+    },
+    {
+      "sqlstate": "23514",
+      "reason": null
+    },
+    {
+      "sqlstate": "23514",
+      "reason": null
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "SYNTHETIC_FAILURE"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "MEMBERSHIP_NOT_COVERED"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "TIME_OFF_CONFLICT"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "CLOSURE_CONFLICT"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "QUALIFICATION_REQUIRED"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "TRANSFER_CONFIGURATION_REQUIRED"
+    },
+    {
+      "sqlstate": "23505",
+      "reason": null
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "REVIEW_SET_MISMATCH"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "INVALID_MEMBERSHIP_END"
+    },
+    {
+      "sqlstate": "MS422",
+      "reason": "INVALID_SEGMENT"
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "OUTSIDE_OPENING_HOURS"
+    },
+    {
+      "sqlstate": "42501",
+      "reason": null
+    },
+    {
+      "sqlstate": "42501",
+      "reason": null
+    },
+    {
+      "sqlstate": "42501",
+      "reason": null
+    },
+    {
+      "sqlstate": "23514",
+      "reason": null
+    },
+    {
+      "sqlstate": "23503",
+      "reason": null
+    },
+    {
+      "sqlstate": "MS409",
+      "reason": "QUALIFICATION_REQUIRED"
+    },
+    {
+      "sqlstate": "B2B_CHECKSUM",
+      "reason": null
+    },
+    {
+      "sqlstate": "B2B_DRIFT",
+      "reason": null
+    },
+    {
+      "sqlstate": "42501",
+      "reason": null
+    }
+  ],
+  "concurrency": [
+    {
+      "name": "publication vs publication",
+      "pids": [
+        131,
+        132
+      ],
+      "wait": {
+        "wait_event_type": "Lock",
+        "wait_event": "advisory"
+      },
+      "loserSqlstate": "MS412"
+    },
+    {
+      "name": "close vs publication",
+      "pids": [
+        133,
+        134
+      ],
+      "wait": {
+        "wait_event_type": "Lock",
+        "wait_event": "advisory"
+      },
+      "loserSqlstate": "MS412"
+    },
+    {
+      "name": "timeoff vs publication",
+      "pids": [
+        143,
+        144
+      ],
+      "wait": {
+        "wait_event_type": "Lock",
+        "wait_event": "advisory"
+      },
+      "loserSqlstate": "MS412"
+    },
+    {
+      "name": "closure vs publication",
+      "pids": [
+        145,
+        146
+      ],
+      "wait": {
+        "wait_event_type": "Lock",
+        "wait_event": "advisory"
+      },
+      "loserSqlstate": "MS412"
+    },
+    {
+      "name": "qualification vs publication",
+      "pids": [
+        147,
+        148
+      ],
+      "wait": {
+        "wait_event_type": "Lock",
+        "wait_event": "advisory"
+      },
+      "loserSqlstate": "MS412"
+    },
+    {
+      "name": "stale resource writers",
+      "pids": [
+        149,
+        150
+      ],
+      "wait": {
+        "wait_event_type": "Lock",
+        "wait_event": "advisory"
+      },
+      "loserSqlstate": "MS412"
+    },
+    {
+      "name": "duplicate idempotency",
+      "pids": [
+        151,
+        152
+      ],
+      "wait": {
+        "wait_event_type": "Lock",
+        "wait_event": "transactionid"
+      },
+      "loserSqlstate": null
+    },
+    {
+      "name": "cross-branch publication",
+      "pids": [
+        153,
+        154
+      ],
+      "wait": {
+        "wait_event_type": "Lock",
+        "wait_event": "advisory"
+      },
+      "loserSqlstate": "MS412"
+    }
+  ],
+  "boundaries": [
+    "No capacity reservation, booking engine, payment, notification or production authentication",
+    "Synthetic identities/hours only; real business configuration not seeded"
+  ],
+  "summary": {
+    "passed": 71,
+    "failed": 0,
+    "rejections": 54,
+    "actualRaces": 8
+  },
+  "originalTestBodySha256": "3a73ffeb89686bdf724aaabbd68aa0574e362caae244843140303563bc95a94a",
+  "harness": "Unchanged B2B71 in isolated tmpfs55445; original databases/evidence untouched"
+}

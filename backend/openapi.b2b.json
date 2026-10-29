@@ -2,12 +2,12 @@
   "openapi": "3.1.0",
   "info": {
     "title": "B2B isolated administrative workforce API",
-    "version": "0.1.0",
-    "description": "Implemented30 operations. New profile only. No customer availability or bookings. Gregorian dates; all mutation If-Match headers target workforce calendar version, not individual recordVersion. See CONTRACT_CHANGES.md."
+    "version": "0.2.0",
+    "description": "Implemented30 operations. New profile only. No customer availability or bookings. Gregorian dates; all mutation If-Match headers target workforce calendar version, not individual recordVersion. See CONTRACT_CHANGES.md. Migration0009: current published/non-archived calendar by default. view=history requires explicit history permission. Global time off is clipped into branch membership/query slices. Mutable global metadata is not a historical snapshot."
   },
   "servers": [
     {
-      "url": "http://127.0.0.1:3104"
+      "url": "http://127.0.0.1:3106"
     }
   ],
   "paths": {
@@ -54,7 +54,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "const": "http://127.0.0.1:3104"
+              "const": "http://127.0.0.1:3106"
             }
           }
         ],
@@ -159,6 +159,20 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
           }
         ],
         "responses": {
@@ -251,7 +265,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "const": "http://127.0.0.1:3104"
+              "const": "http://127.0.0.1:3106"
             }
           }
         ],
@@ -355,7 +369,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "const": "http://127.0.0.1:3104"
+              "const": "http://127.0.0.1:3106"
             }
           }
         ],
@@ -459,7 +473,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "const": "http://127.0.0.1:3104"
+              "const": "http://127.0.0.1:3106"
             }
           }
         ],
@@ -573,6 +587,20 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
           }
         ],
         "responses": {
@@ -674,7 +702,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "const": "http://127.0.0.1:3104"
+              "const": "http://127.0.0.1:3106"
             }
           }
         ],
@@ -769,7 +797,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "const": "http://127.0.0.1:3104"
+              "const": "http://127.0.0.1:3106"
             }
           }
         ],
@@ -874,6 +902,20 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
           }
         ],
         "responses": {
@@ -966,7 +1008,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "const": "http://127.0.0.1:3104"
+              "const": "http://127.0.0.1:3106"
             }
           }
         ],
@@ -1080,6 +1122,20 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
           }
         ],
         "responses": {
@@ -1172,7 +1228,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "const": "http://127.0.0.1:3104"
+              "const": "http://127.0.0.1:3106"
             }
           }
         ],
@@ -1286,6 +1342,20 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
           }
         ],
         "responses": {
@@ -1387,7 +1457,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "const": "http://127.0.0.1:3104"
+              "const": "http://127.0.0.1:3106"
             }
           }
         ],
@@ -1491,7 +1561,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "const": "http://127.0.0.1:3104"
+              "const": "http://127.0.0.1:3106"
             }
           }
         ],
@@ -1605,6 +1675,20 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
           }
         ],
         "responses": {
@@ -1697,7 +1781,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "const": "http://127.0.0.1:3104"
+              "const": "http://127.0.0.1:3106"
             }
           }
         ],
@@ -1811,6 +1895,20 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
           }
         ],
         "responses": {
@@ -1903,7 +2001,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "const": "http://127.0.0.1:3104"
+              "const": "http://127.0.0.1:3106"
             }
           }
         ],
@@ -2007,7 +2105,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "const": "http://127.0.0.1:3104"
+              "const": "http://127.0.0.1:3106"
             }
           }
         ],
@@ -2111,7 +2209,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "const": "http://127.0.0.1:3104"
+              "const": "http://127.0.0.1:3106"
             }
           }
         ],
@@ -2215,7 +2313,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "const": "http://127.0.0.1:3104"
+              "const": "http://127.0.0.1:3106"
             }
           }
         ],
@@ -2328,7 +2426,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "const": "http://127.0.0.1:3104"
+              "const": "http://127.0.0.1:3106"
             }
           }
         ],
@@ -2441,7 +2539,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "const": "http://127.0.0.1:3104"
+              "const": "http://127.0.0.1:3106"
             }
           }
         ],
@@ -2545,7 +2643,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "const": "http://127.0.0.1:3104"
+              "const": "http://127.0.0.1:3106"
             }
           }
         ],
@@ -2659,6 +2757,20 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
           }
         ],
         "responses": {
@@ -2754,6 +2866,20 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
           }
         ],
         "responses": {
@@ -2867,6 +2993,20 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
           }
         ],
         "responses": {
@@ -2971,6 +3111,20 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
           }
         ],
         "responses": {
@@ -3075,6 +3229,20 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "current",
+                "history"
+              ],
+              "default": "current"
+            },
+            "description": "History supports assignments, eligibilities, rules, schedule, calendar, hours, exceptions only. Requires staff.history.read for assignments/eligibilities, schedule.history.read otherwise, with the selected branch scope. No own-schedule fallback for history."
           }
         ],
         "responses": {
@@ -4460,7 +4628,9 @@
           "starts_at",
           "ends_at",
           "review_status",
-          "supersedes_id"
+          "supersedes_id",
+          "scopeAssignmentId",
+          "intervalScope"
         ],
         "properties": {
           "id": {
@@ -4519,8 +4689,17 @@
                 "type": "null"
               }
             ]
+          },
+          "scopeAssignmentId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "intervalScope": {
+            "type": "string",
+            "const": "BRANCH_MEMBERSHIP_AND_QUERY"
           }
-        }
+        },
+        "description": "One item per nonempty visible membership slice. id remains source command ID; (id,scopeAssignmentId,starts_at,ends_at) identifies the projection item. starts_at/ends_at are clipped and never reveal the full global source interval. Do not infer global approval scope from this branch projection."
       },
       "Record.closures": {
         "type": "object",
@@ -4618,7 +4797,8 @@
           "end_minute",
           "start_resolution",
           "end_resolution",
-          "scheduleVersion"
+          "scheduleVersion",
+          "evidenceState"
         ],
         "properties": {
           "id": {
@@ -4746,6 +4926,15 @@
               "string",
               "null"
             ]
+          },
+          "evidenceState": {
+            "type": "string",
+            "enum": [
+              "PUBLISHED",
+              "DRAFT",
+              "WITHDRAWN",
+              "ARCHIVED_DRAFT"
+            ]
           }
         }
       },
@@ -4758,7 +4947,8 @@
           "limit",
           "offset",
           "ownScheduleOnly",
-          "capacityReserved"
+          "capacityReserved",
+          "projection"
         ],
         "properties": {
           "version": {
@@ -4820,6 +5010,13 @@
           "capacityReserved": {
             "const": false,
             "type": "boolean"
+          },
+          "projection": {
+            "type": "string",
+            "enum": [
+              "current",
+              "history"
+            ]
           }
         }
       }
