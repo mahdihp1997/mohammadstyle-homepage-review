@@ -1,0 +1,16 @@
+# Existing B0 tests run unchanged against this throwaway clone, never the approved B0 volume.
+name: mohammadstyle-b1a-regression
+services:
+  postgres:
+    image: postgres:18.6-bookworm@sha256:5c4783a8cc3f0074912164f94dfa1be4e043438f0f707cf968d7af9a0d31a2c8
+    environment:
+      POSTGRES_USER: ms_b0_admin
+      POSTGRES_DB: ms_b0_control
+      POSTGRES_PASSWORD: ${B0_ADMIN_PASSWORD:?generated regression credentials required}
+    ports: ["127.0.0.1:55435:5432"]
+    tmpfs: ["/var/lib/postgresql"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ms_b0_admin -d ms_b0_control"]
+      interval: 2s
+      timeout: 3s
+      retries: 30

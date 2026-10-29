@@ -1,0 +1,51 @@
+# Actual B1A assertions
+
+- PASS: fresh installation: exactly16 foundation tables and2 tracked migrations — {"applied":["0001_b1_foundation","0002_b1a_runtime_boundary"],"currentVersion":"0002_b1a_runtime_boundary","catalog":{"sha256":"110267d147a6110bf77e3b79039eae55475212952a9fbf948825f9ec96797900","tables":16,"indexes":44,"foreignKeys":40,"checks":43,"rlsPolicies":4}}
+- PASS: destructive provisioning refuses every B0 database name
+- PASS: repeated migration invocation is a verified no-op
+- PASS: catalog preserves40 FK,43 CHECK,44 indexes and4 RLS policies — {"sha256":"110267d147a6110bf77e3b79039eae55475212952a9fbf948825f9ec96797900","tables":16,"indexes":44,"foreignKeys":40,"checks":43,"rlsPolicies":4}
+- PASS: synthetic fixtures cover all16 tables with no real tariffs or customers — [{"table":"ms_b1_design.app_user","count":1},{"table":"ms_b1_design.audit_log","count":1},{"table":"ms_b1_design.auth_identity","count":1},{"table":"ms_b1_design.auth_session","count":1},{"table":"ms_b1_design.branch","count":2},{"table":"ms_b1_design.branch_service_offering","count":1},{"table":"ms_b1_design.business","count":2},{"table":"ms_b1_design.consumer_inbox","count":1},{"table":"ms_b1_design.idempotency_record","count":1},{"table":"ms_b1_design.offering_resource_requirement","count":1},{"table":"ms_b1_design.outbox_event","count":1},{"table":"ms_b1_design.permission","count":1},{"table":"ms_b1_design.role","count":1},{"table":"ms_b1_design.role_permission","count":1},{"table":"ms_b1_design.service","count":2},{"table":"ms_b1_design.user_role_assignment","count":1},{"table":"ms_b1_meta.schema_migration","count":2}]
+- PASS: tenant composite FK rejects a foreign branch — {"code":"23503","constraint":"fk_branch_service_offering_2"}
+- PASS: duplicate branch code rejected — {"code":"23505","constraint":"uq_branch_1"}
+- PASS: NULL-safe partial unique index rejects duplicate unscoped role — {"code":"23505","constraint":"ix_user_role_assignment_integrity_0"}
+- PASS: invalid offering price_rial rejected — {"code":"23514","constraint":"ck_branch_service_offering_1"}
+- PASS: invalid offering duration_minutes rejected — {"code":"23514","constraint":"ck_branch_service_offering_2"}
+- PASS: invalid offering buffer_before_minutes rejected — {"code":"23514","constraint":"ck_branch_service_offering_3"}
+- PASS: missing branch timezone rejected — {"code":"23502","constraint":null}
+- PASS: B1 inactive branch gate cannot be lifted with scalar activation — {"code":"23514","constraint":"b1_branch_inactive"}
+- PASS: B1 inactive offering gate retained even with complete synthetic scalars — {"code":"23514","constraint":"b1_branch_service_offering_inactive"}
+- PASS: repository ports read only the scoped tenant and preserve unknown amounts
+- PASS: explicit Nest persistence module resolves DI without changing health AppModule
+- PASS: RLS prevents unscoped raw reads from crossing tenant context
+- PASS: runtime with no tenant context fails closed to zero rows
+- PASS: runtime denied DDL — {"code":"42501","constraint":null}
+- PASS: runtime denied public DDL — {"code":"42501","constraint":null}
+- PASS: runtime denied metadata — {"code":"42501","constraint":null}
+- PASS: runtime denied auth sessions — {"code":"42501","constraint":null}
+- PASS: runtime denied audit mutation — {"code":"42501","constraint":null}
+- PASS: runtime denied delete — {"code":"42501","constraint":null}
+- PASS: runtime denied truncate — {"code":"42501","constraint":null}
+- PASS: runtime denied business field mutation — {"code":"42501","constraint":null}
+- PASS: runtime denied booking gate mutation — {"code":"42501","constraint":null}
+- PASS: runtime denied role elevation — {"code":"42501","constraint":null}
+- PASS: runtime denied RLS disable — {"code":"42501","constraint":null}
+- PASS: transaction-local tenant context does not leak between uses
+- PASS: two concurrent sessions use CAS version; exactly one writer succeeds — {"pids":[4225,4228],"outcomes":["2",null]}
+- PASS: stale version cannot overwrite a committed version
+- PASS: failed SQL transaction rolls back version write and pool remains usable
+- PASS: transaction scope cannot be used after callback ends
+- PASS: invalid tenant context rejected before SQL
+- PASS: runtime cannot bypass RLS with row_security=off — {"code":"42501","constraint":null}
+- PASS: drift in a safety constraint is detected and not automatically repaired
+- PASS: runtime privilege drift is detected
+- PASS: required index drift is detected
+- PASS: simultaneous migration sessions serialize and apply each version once — [["0001_b1_foundation","0002_b1a_runtime_boundary"],[]]
+- PASS: unknown migration version is rejected
+- PASS: tampered applied checksum is rejected
+- PASS: failed migration rolls back DDL and version history atomically
+- PASS: fresh untracked schema cannot be silently adopted
+- PASS: actual pg_dump produces a verified custom archive — {"bytes":68292,"archiveSha256":"ebf04110cec0c85ac29459d4255659884368c79f2fb8bb44fa024580d0098406","version":"pg_dump (PostgreSQL) 18.6 (Debian 18.6-1.pgdg12+2)"}
+- PASS: actual pg_restore into separate database preserves every row/catalog/constraint — {"status":"PASS","executedAt":"2026-10-29T17:05:58.472Z","source":"ms_b1a_dev","destination":"ms_b1a_restore","sourceUntouched":true,"rowsAndCatalogEqual":true,"archiveSha256":"ebf04110cec0c85ac29459d4255659884368c79f2fb8bb44fa024580d0098406","summary":{"sha256":"110267d147a6110bf77e3b79039eae55475212952a9fbf948825f9ec96797900","tables":16,"indexes":44,"foreignKeys":40,"checks":43,"rlsPolicies":4},"snapshot":{"catalogSha256":"110267d147a6110bf77e3b79039eae55475212952a9fbf948825f9ec96797900","tables":16,"rows":[{"table":"ms_b1_design.app_user","count":1,"sha256":"11b270673b94d16f0ef8e5fd552a78378de34fa3157b49b0764043cee37d0bc8"},{"table":"ms_b1_design.audit_log","count":1,"sha256":"eada5f98f70abbe28c167b3468c63f28167ebc2d67794f2c0f3a8e2f79923a85"},{"table":"ms_b1_design.auth_identity","count":1,"sha256":"4da1124f29be6b517ad55c73a4c50155eee21317b79672d17600038658f28b40"},{"table":"ms_b1_design.auth_session","count":1,"sha256":"73b7c5a57c2aafbf875caf32bc9c5fc33791e3156f68474b19dcd952789fe276"},{"table":"ms_b1_design.branch","count":2,"sha256":"7c29549a2c8ea5cabf004d42e338ec9dbc478b2b2589220d3294c12c3972d63b"},{"table":"ms_b1_design.branch_service_offering","count":1,"sha256":"5c71993b8d4875e721f6dc0706b9c9c00f333d6ade0a7f492e7c54d484ec0741"},{"table":"ms_b1_design.business","count":2,"sha256":"b7d83d684390ec33fa2c414c895fc421ec17c6c8f73b5b70a87925259ded6942"},{"table":"ms_b1_design.consumer_inbox","count":1,"sha256":"fe229a02ff32b0c3ffddedb4482ea9e5b72dd8a68c2486ed943cbbf15fa68c86"},{"table":"ms_b1_design.idempotency_record","count":1,"sha256":"bd1b6b533a6fb95838ef1484edc0ba5d40b48898b32e8b81f7e209a874e8c658"},{"table":"ms_b1_design.offering_resource_requirement","count":1,"sha256":"01c39b3eb1a20c8f856f3a49c879f2121241711e4e120bbb2dbfeb6916d06971"},{"table":"ms_b1_design.outbox_event","count":1,"sha256":"23c997e83310aaeffbe7bcc9acb9f44e9c760691ea5744e591c9dade517afe80"},{"table":"ms_b1_design.permission","count":1,"sha256":"d4dd3686f3e0357e2820952cdeac8c347c5a0c6060b7e9f95485661958fa69dc"},{"table":"ms_b1_design.role","count":1,"sha256":"f8e99af95ed0ca788014a33730c0b1776fd300b8739d59ef7af98443c3e129b2"},{"table":"ms_b1_design.role_permission","count":1,"sha256":"1fcee8495454046214d96820be553a8b195212a5f8c1f42335e25961dc765846"},{"table":"ms_b1_design.service","count":2,"sha256":"3993685401be6e36cdda347d1876985e00c006316bf9951af2932d078c46eb21"},{"table":"ms_b1_design.user_role_assignment","count":1,"sha256":"cbb709dbdf58502d93f58f0dd0f99d7089145e5e6df0df45f3c0554de49857c8"},{"table":"ms_b1_meta.schema_migration","count":2,"sha256":"2eebacfaa150d4edf64960ffde622d93dcac378ecfaa9a297fc5cb666a209086"}]}}
+- PASS: restored schema retains runtime RLS and denied metadata permissions
+
+See evidence/integration.json for exact outputs. No test is weakened or skipped.

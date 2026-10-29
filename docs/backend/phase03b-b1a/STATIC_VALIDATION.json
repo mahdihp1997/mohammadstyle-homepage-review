@@ -1,0 +1,76 @@
+{
+  "executedAt": "2026-10-29T17:12:57.158Z",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "native0001 exactly preserves approved executable B1 AST",
+      "status": "PASS",
+      "observed": "70 statements /16 tables; every FK/CHECK/index/inactive gate preserved (parser check distinct from actual DB execution)"
+    },
+    {
+      "name": "native0002 is only grants/RLS and contains no business DML/domain table",
+      "status": "PASS",
+      "observed": {
+        "statements": 19
+      }
+    },
+    {
+      "name": "registry checksums and reviewed actual catalog match execution",
+      "status": "PASS",
+      "observed": {
+        "versions": 2,
+        "actualTests": 47,
+        "catalogSha256": "110267d147a6110bf77e3b79039eae55475212952a9fbf948825f9ec96797900"
+      }
+    },
+    {
+      "name": "protected private refs and frontend/B0 runtime source remain unchanged",
+      "status": "PASS",
+      "observed": "No approved frontend/architecture/B0 report/test/runtime change"
+    },
+    {
+      "name": "workflow source/permission/artifact guards",
+      "status": "PASS",
+      "observed": "YAML parsed; pinned actions/read-only/no persisted token/3 JSON-only upload allowlist"
+    },
+    {
+      "name": "B0 regression actual results and original test bodies preserved",
+      "status": "PASS",
+      "observed": {
+        "status": "PASS",
+        "project": "mohammadstyle-b1a-regression",
+        "storage": "tmpfs; removed after checks",
+        "originalB0DatabasesTouched": false,
+        "results": [
+          {
+            "command": "existing backend tests",
+            "status": 0
+          },
+          {
+            "command": "existing B0 SQL35",
+            "status": 0
+          },
+          {
+            "command": "existing Prisma compatibility",
+            "status": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "actual dump/restore row and catalog evidence",
+      "status": "PASS",
+      "observed": {
+        "rows": 21,
+        "domainTables": 16,
+        "archiveBytes": 68292,
+        "archiveSha256": "ebf04110cec0c85ac29459d4255659884368c79f2fb8bb44fa024580d0098406"
+      }
+    },
+    {
+      "name": "standalone visual review actually renders without broken images/overflow",
+      "status": "PASS",
+      "observed": "7 images decode;1440/390px no overflow/JS errors; local links exist; not substituted for Next.js QA"
+    }
+  ]
+}

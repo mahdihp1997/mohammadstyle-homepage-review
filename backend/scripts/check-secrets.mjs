@@ -5,8 +5,15 @@ import { execFileSync } from 'node:child_process';
 import { root, localEnv, save } from './local.mjs';
 const repository = path.dirname(root), env = localEnv();
 const args = ['-C',repository];
-const files = execFileSync('git',[...args,'ls-files','-z','--cached','--others','--exclude-standard','--','backend','docs/backend','docs/PROJECT_CONTEXT.md','tsconfig.json'],{encoding:'utf8'}).split('\0').filter(Boolean);
+const files = execFileSync('git',[...args,'ls-files','-z','--cached','--others','--exclude-standard','--','backend','docs/backend','docs/PROJECT_CONTEXT.md','tsconfig.json','.github'],{encoding:'utf8'}).split('\0').filter(Boolean);
 const forbidden = [env.B0_ADMIN_PASSWORD, env.B0_PROBE_PASSWORD];
+const b1aEnv=path.join(root,'.env.b1a.local');
+if(fs.existsSync(b1aEnv)) {
+  for(const line of fs.readFileSync(b1aEnv,'utf8').split(/\r?\n/).filter(line=>/^B1A_.*_PASSWORD=/.test(line))) forbidden.push(line.slice(line.indexOf('=')+1));
+  execFileSync('git',[...args,'check-ignore','--quiet','backend/.env.b1a.local']);
+}
+const regressionEnv=path.join(root,'.local/b1a/b0-regression.env');
+if(fs.existsSync(regressionEnv))for(const line of fs.readFileSync(regressionEnv,'utf8').split(/\r?\n/).filter(line=>/^B0_.*_PASSWORD=/.test(line)))forbidden.push(line.slice(line.indexOf('=')+1));
 for(const file of files) {
   assert.ok(!/\.(env|pem|key)$|\.env\.local|node_modules\/|\.local\//.test(file),`Forbidden export path ${file}`);
   const data = fs.readFileSync(path.join(repository,file),'utf8');

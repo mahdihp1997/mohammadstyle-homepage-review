@@ -1,0 +1,11 @@
+digraph Repositories{graph [bgcolor="white",pad="0.35",nodesep="0.45",ranksep="0.65",fontname="Arial",fontsize=20]; node [shape=box,style="rounded,filled",fillcolor="#eef5ff",color="#7293bd",fontname="Arial",fontsize=15,margin="0.18,0.14"]; edge [color="#64748b",fontname="Arial",fontsize=12];rankdir=TB;labelloc=t;label="B1A backend boundaries — no business API";health[label="Existing B0 AppModule
+Health only, unchanged
+No persistence import/startup migration",fillcolor="#fff4d7"];module[label="PersistenceModule.forLocal
+explicit Nest DI opt-in"];tx[label="TransactionManager
+validated context · SET LOCAL
+shared scope / commit / rollback"];ports[label="Business / Branch / Service / Offering
+typed read repository ports"];reader[label="One concrete ConfigurationReader
+scoped projections + RLS"];cas[label="VersionedWriter
+CAS row_version / updated_at only
+no configuration command"];db[label="Restricted runtime pool
+separate migration credential absent"];module->tx;tx->ports;ports->reader;tx->cas;reader->db;cas->db;health->module[style=dashed,arrowhead=none,label="not wired"];}

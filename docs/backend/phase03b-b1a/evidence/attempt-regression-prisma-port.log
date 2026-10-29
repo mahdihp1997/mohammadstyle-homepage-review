@@ -1,0 +1,86 @@
+
+> mohammadstyle-b0-foundation@0.0.0 test:b0:isolated
+> node scripts/b1a/b0-regression.mjs
+
+ Network mohammadstyle-b1a-regression_default Creating
+ Network mohammadstyle-b1a-regression_default Created
+ Container mohammadstyle-b1a-regression-postgres-1 Creating
+ Container mohammadstyle-b1a-regression-postgres-1 Created
+ Container mohammadstyle-b1a-regression-postgres-1 Starting
+ Container mohammadstyle-b1a-regression-postgres-1 Started
+ Container mohammadstyle-b1a-regression-postgres-1 Waiting
+ Container mohammadstyle-b1a-regression-postgres-1 Healthy
+✔ isolated local configuration accepted (1.214ms)
+✔ invalid APP_ENV fails without leaking value (0.4643ms)
+✔ invalid API_HOST fails without leaking value (0.1271ms)
+✔ invalid API_PORT fails without leaking value (0.1352ms)
+✔ invalid PGHOST fails without leaking value (0.1276ms)
+✔ invalid PGDATABASE fails without leaking value (0.1151ms)
+✔ invalid PGUSER fails without leaking value (0.1085ms)
+✔ invalid PGPASSWORD fails without leaking value (0.1099ms)
+✔ invalid PGPORT fails without leaking value (0.1525ms)
+✔ missing configuration lists keys without values (0.3003ms)
+✔ real least-privilege database connection and denied DDL (101.8552ms)
+✔ backend startup, readiness, request identity, safe centralized 404 (1370.1772ms)
+✔ database outage leaves liveness up and readiness fails closed (1149.0721ms)
+✔ invalid startup configuration exits nonzero without logging secrets (1118.9003ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4337.974
+PASS B1: cross-tenant composite FK rejects foreign branch
+PASS B1: per-tenant branch code uniqueness
+PASS B1: absent mandatory timezone rejected
+PASS B1: negative price rejected
+PASS B1: zero duration rejected
+PASS B1: transaction rollback removes synthetic write
+PASS B1: FK deferral supports child-before-parent commit
+PASS B1: unresolved deferred FK fails COMMIT and rolls back
+PASS B1: bookable branch gate even with active branch
+PASS B1: active offering gate even with all scalar configuration
+PASS FULL: cross-tenant composite FK rejects foreign branch
+PASS FULL: per-tenant branch code uniqueness
+PASS FULL: absent mandatory timezone rejected
+PASS FULL: negative price rejected
+PASS FULL: zero duration rejected
+PASS FULL: transaction rollback removes synthetic write
+PASS FULL: FK deferral supports child-before-parent commit
+PASS FULL: unresolved deferred FK fails COMMIT and rolls back
+PASS FULL: activating missing offering configuration fails closed
+PASS FULL: independent customers may retain identical content hashes
+PASS FULL: inactive archived membership overlap still rejected
+PASS FULL: adjacent rejoin creates new historical stint and generated range
+PASS FULL: unreasoned void rejected
+PASS FULL: global staff shift exclusion across different branches
+PASS FULL: policy scope/range generation and equal-rank exclusion
+PASS FULL: revisionless DRAFT row representable
+PASS FULL: revisionless CANCELLED row representable
+PASS FULL: revisionless EXPIRED row representable
+PASS FULL: revisionless confirmed state rejected
+PASS FULL: draft without finite expiry rejected
+PASS FULL: live resource overlap rejected
+PASS FULL: adjacent half-open occupancy accepted
+PASS FULL: released ledger history does not block new live interval
+PASS FULL: separate sessions block then reject overlapping uncommitted interval
+PASS FULL: real catalog has all generated and exclusion definitions; indexes valid
+{"passed":35,"failed":0,"unexpectedSqlErrors":0,"expectedSqlRejections":23}
+{"status":"FAIL","version":"7.10.1","commands":[{"command":"prisma validate","status":0},{"command":"prisma generate","status":0},{"command":"prisma db pull --print","status":1}],"assertions":[],"error":"Prisma command failed: Loaded Prisma config from prisma.config.ts.\n\nError: P1000\n\nAuthentication failed against database server, the provided database credentials for `ms_b0_admin` are not valid.\n\nPlease make sure to provide valid database credentials for the database server at the configured address.\n\n\n\n1 !== 0\n"}
+ Container mohammadstyle-b1a-regression-postgres-1 Stopping
+ Container mohammadstyle-b1a-regression-postgres-1 Stopped
+ Container mohammadstyle-b1a-regression-postgres-1 Removing
+ Container mohammadstyle-b1a-regression-postgres-1 Removed
+ Network mohammadstyle-b1a-regression_default Removing
+ Network mohammadstyle-b1a-regression_default Removed
+file:///[PRIVATE_WORKTREE]/backend/scripts/b1a/b0-regression.mjs:12
+  const run=spawnSync(process.execPath,nodeArgs,{cwd:root,env:{...process.env,MS_B0_REGRESSION:'b1a'},encoding:'utf8',maxBuffer:5*1024*1024,timeout:180000});const log=(run.stdout??'')+(run.stderr??'');if(log.includes(admin)||log.includes(probe))throw Error('Secret in regression log');fs.writeFileSync(path.join(dir,'b0-clone-'+results.length+'.log'),log);process.stdout.write(log);results.push({command,status:run.status});if(run.status!==0)throw Error('Existing B0 regression failed');
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                ^
+
+Error: Existing B0 regression failed
+    at file:///[PRIVATE_WORKTREE]/backend/scripts/b1a/b0-regression.mjs:12:449
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+Node.js v24.16.0

@@ -4,11 +4,13 @@ import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-export const evidence = path.join(root, '.local', 'results');
+const regression = process.env.MS_B0_REGRESSION === 'b1a';
+export const evidence = path.join(root, regression ? '.local/b1a/b0-regression-results' : '.local/results');
 export function localEnv() {
-  const env = Object.fromEntries(fs.readFileSync(path.join(root, '.env.local'), 'utf8').split(/\r?\n/)
+  if(process.env.MS_B0_REGRESSION && !regression) throw new Error('Unknown isolated B0 regression profile');
+  const env = Object.fromEntries(fs.readFileSync(path.join(root, regression ? '.local/b1a/b0-regression.env' : '.env.local'), 'utf8').split(/\r?\n/)
     .filter(line => line && !line.startsWith('#')).map(line => { const i = line.indexOf('='); return [line.slice(0, i), line.slice(i + 1)]; }));
-  if (env.PGHOST !== '127.0.0.1' || env.PGPORT !== '55432' || env.PGDATABASE !== 'ms_b0_control'
+  if (env.PGHOST !== '127.0.0.1' || env.PGPORT !== (regression ? '55435' : '55432') || env.PGDATABASE !== 'ms_b0_control'
       || !/^[a-f0-9]{64}$/.test(env.B0_ADMIN_PASSWORD ?? '') || !/^[a-f0-9]{64}$/.test(env.B0_PROBE_PASSWORD ?? ''))
     throw new Error('Refusing non-isolated B0 environment');
   return env;

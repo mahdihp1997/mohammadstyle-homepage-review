@@ -6,7 +6,7 @@ import { createRequire } from 'node:module';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { root, localEnv, client, save } from './local.mjs';
 const require = createRequire(import.meta.url), local = localEnv();
-const connectionString = `postgresql://ms_b0_admin:${local.B0_ADMIN_PASSWORD}@127.0.0.1:55432/ms_b0_full_test`;
+const connectionString = `postgresql://ms_b0_admin:${local.B0_ADMIN_PASSWORD}@${local.PGHOST}:${local.PGPORT}/ms_b0_full_test`;
 const env = { ...process.env, DATABASE_URL: connectionString, CHECKPOINT_DISABLE: '1', PRISMA_HIDE_UPDATE_MESSAGE: '1' };
 const result = { executedAt: new Date().toISOString(), version: require('prisma/package.json').version, database: 'ms_b0_full_test', commands: [], assertions: [] };
 function cli(args) {

@@ -1,0 +1,13 @@
+digraph B1A{graph [bgcolor="white",pad="0.35",nodesep="0.45",ranksep="0.65",fontname="Arial",fontsize=20]; node [shape=box,style="rounded,filled",fillcolor="#eef5ff",color="#7293bd",fontname="Arial",fontsize=15,margin="0.18,0.14"]; edge [color="#64748b",fontname="Arial",fontsize=12]; rankdir=TB;labelloc=t;label="B1A — isolated persistence and role boundaries";admin[label="Local provisioning admin
+separate ignored credential"];migrator[label="Migration role
+no superuser / CREATEDB / CREATEROLE"];runtime[label="Runtime role
+4 scoped reads + version metadata only"];cluster[label="Separate PostgreSQL18.6
+127.0.0.1:55434
+B0 volume/database never mounted"];dev[label="ms_b1a_dev
+16 domain tables + migration metadata
+40 FK /43 CHECK /44 indexes /4 RLS"];restore[label="ms_b1a_restore
+actual pg_restore destination
+all21 rows + catalog match",fillcolor="#e8f7ee"];failure[label="ms_b1a_failure
+negative migration tests only"];gates[label="Safety gates retained
+branch NOT bookable
+offering NOT active",fillcolor="#fff4d7"];admin->cluster;migrator->dev[label="explicit migrations only"];runtime->dev[label="tenant context + least privilege"];cluster->dev;cluster->failure;dev->restore[label="pg_dump / pg_restore"];dev->gates;}

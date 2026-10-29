@@ -1,5 +1,7 @@
 # Phase 03B-B0 local foundation
 
+Approved follow-on B1A persistence work is documented in [B1A.md](B1A.md). It uses a separate local cluster/roles and explicit migrations; the B0 API and default environment below remain unchanged.
+
 This independent npm project contains infrastructure and disposable-database validation only. No application schema is installed in the API's control database. Homepage/Booking continue using the approved demo frontend. No operational booking, policy, payment, customer, messaging or authentication endpoint exists.
 
 ## Prerequisites and start
