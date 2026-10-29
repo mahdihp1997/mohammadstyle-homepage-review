@@ -1,0 +1,89 @@
+digraph G { graph [newrank=true, rankdir=TB, bgcolor="#f8fafc", pad="0.4", nodesep="0.28", ranksep="0.6", fontname="Arial", fontsize=24, labelloc=t, label="G / Two customers, one global staff resource\nPHASE 03A / PROPOSAL ONLY / 2026-10-29", splines=polyline]; node [shape=box,style="rounded,filled",fillcolor="#ffffff",color="#94a3b8",fontname="Arial",fontsize=12,margin="0.18,0.12"]; edge [color="#64748b",arrowsize=0.65,fontname="Arial",fontsize=10]; p0 [label="Customer A",fillcolor="#dbeafe",group="c0"];
+p1 [label="Worker A / DB",fillcolor="#dbeafe",group="c1"];
+p2 [label="Worker B / DB",fillcolor="#dbeafe",group="c2"];
+p3 [label="Customer B",fillcolor="#dbeafe",group="c3"];
+{rank=same;p0;p1;p2;p3;}
+p0->p1 [style=invis,weight=100];
+p1->p2 [style=invis,weight=100];
+p2->p3 [style=invis,weight=100];n0_0 [shape=point,width=0.025,label="",group="c0",color="#cbd5e1"];
+p0->n0_0 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n0_1 [shape=point,width=0.025,label="",group="c1",color="#cbd5e1"];
+p1->n0_1 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n0_2 [shape=point,width=0.025,label="",group="c2",color="#cbd5e1"];
+p2->n0_2 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n0_3 [shape=point,width=0.025,label="",group="c3",color="#cbd5e1"];
+p3->n0_3 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+{rank=same;n0_0;n0_1;n0_2;n0_3;}
+n0_0->n0_1 [label="01. Search: feasible plan, no reservation",constraint=false,color="#1d4ed8",fontcolor="#0f172a",penwidth=1.3];
+n1_0 [shape=point,width=0.025,label="",group="c0",color="#cbd5e1"];
+n0_0->n1_0 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n1_1 [shape=point,width=0.025,label="",group="c1",color="#cbd5e1"];
+n0_1->n1_1 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n1_2 [shape=point,width=0.025,label="",group="c2",color="#cbd5e1"];
+n0_2->n1_2 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n1_3 [shape=point,width=0.025,label="",group="c3",color="#cbd5e1"];
+n0_3->n1_3 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+{rank=same;n1_0;n1_1;n1_2;n1_3;}
+n1_3->n1_2 [label="02. Same resource/time search also feasible",constraint=false,color="#1d4ed8",fontcolor="#0f172a",penwidth=1.3];
+n2_0 [shape=point,width=0.025,label="",group="c0",color="#cbd5e1"];
+n1_0->n2_0 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n2_1 [shape=point,width=0.025,label="",group="c1",color="#cbd5e1"];
+n1_1->n2_1 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n2_2 [shape=point,width=0.025,label="",group="c2",color="#cbd5e1"];
+n1_2->n2_2 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n2_3 [shape=point,width=0.025,label="",group="c3",color="#cbd5e1"];
+n1_3->n2_3 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+{rank=same;n2_0;n2_1;n2_2;n2_3;}
+n2_0->n2_1 [label="03. Hold: sorted branch/resources locks",constraint=false,color="#1d4ed8",fontcolor="#0f172a",penwidth=1.3];
+n3_0 [shape=point,width=0.025,label="",group="c0",color="#cbd5e1"];
+n2_0->n3_0 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n3_1 [shape=point,width=0.025,label="",group="c1",color="#cbd5e1"];
+n2_1->n3_1 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n3_2 [shape=point,width=0.025,label="",group="c2",color="#cbd5e1"];
+n2_2->n3_2 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n3_3 [shape=point,width=0.025,label="",group="c3",color="#cbd5e1"];
+n2_3->n3_3 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+{rank=same;n3_0;n3_1;n3_2;n3_3;}
+n3_3->n3_2 [label="04. Hold: waits / SERIALIZABLE conflict",constraint=false,color="#1d4ed8",fontcolor="#0f172a",penwidth=1.3];
+n4_0 [shape=point,width=0.025,label="",group="c0",color="#cbd5e1"];
+n3_0->n4_0 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n4_1 [shape=point,width=0.025,label="",group="c1",color="#cbd5e1"];
+n3_1->n4_1 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n4_2 [shape=point,width=0.025,label="",group="c2",color="#cbd5e1"];
+n3_2->n4_2 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n4_3 [shape=point,width=0.025,label="",group="c3",color="#cbd5e1"];
+n3_3->n4_3 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+{rank=same;n4_0;n4_1;n4_2;n4_3;}
+n4_1->n4_2 [label="05. A inserts active [start,end) allocation; commits",constraint=false,color="#1d4ed8",fontcolor="#0f172a",penwidth=1.3];
+n5_0 [shape=point,width=0.025,label="",group="c0",color="#cbd5e1"];
+n4_0->n5_0 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n5_1 [shape=point,width=0.025,label="",group="c1",color="#cbd5e1"];
+n4_1->n5_1 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n5_2 [shape=point,width=0.025,label="",group="c2",color="#cbd5e1"];
+n4_2->n5_2 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n5_3 [shape=point,width=0.025,label="",group="c3",color="#cbd5e1"];
+n4_3->n5_3 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+{rank=same;n5_0;n5_1;n5_2;n5_3;}
+n5_2->n5_3 [label="06. B rechecks / exclusion23P01 ->409",constraint=false,color="#1d4ed8",fontcolor="#0f172a",penwidth=1.3];
+n6_0 [shape=point,width=0.025,label="",group="c0",color="#cbd5e1"];
+n5_0->n6_0 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n6_1 [shape=point,width=0.025,label="",group="c1",color="#cbd5e1"];
+n5_1->n6_1 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n6_2 [shape=point,width=0.025,label="",group="c2",color="#cbd5e1"];
+n5_2->n6_2 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n6_3 [shape=point,width=0.025,label="",group="c3",color="#cbd5e1"];
+n5_3->n6_3 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+{rank=same;n6_0;n6_1;n6_2;n6_3;}
+n6_1->n6_0 [label="07. HELD with DB expiry + immutable terms",constraint=false,color="#1d4ed8",fontcolor="#0f172a",penwidth=1.3];
+n7_0 [shape=point,width=0.025,label="",group="c0",color="#cbd5e1"];
+n6_0->n7_0 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n7_1 [shape=point,width=0.025,label="",group="c1",color="#cbd5e1"];
+n6_1->n7_1 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n7_2 [shape=point,width=0.025,label="",group="c2",color="#cbd5e1"];
+n6_2->n7_2 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+n7_3 [shape=point,width=0.025,label="",group="c3",color="#cbd5e1"];
+n6_3->n7_3 [arrowhead=none,color="#cbd5e1",style=dashed,weight=100];
+{rank=same;n7_0;n7_1;n7_2;n7_3;}
+n7_2->n7_3 [label="08. Rollback complete; explicit alternative search",constraint=false,color="#1d4ed8",fontcolor="#0f172a",penwidth=1.3];
+
+}

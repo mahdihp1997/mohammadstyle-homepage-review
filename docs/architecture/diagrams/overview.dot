@@ -1,0 +1,34 @@
+digraph G { graph [newrank=true,rankdir=TB,bgcolor="#f8fafc",fontname="Arial",fontsize=22,labelloc=t,label="Mohammad Style / architecture hardening overview\nPHASE03A / PROPOSAL ONLY / HARDENING REVIEW",pad="0.35",nodesep="0.4",ranksep="0.65",splines=polyline]; node [shape=box,style="rounded,filled",fillcolor="#fff",color="#94a3b8",fontname="Arial",fontsize=16,margin="0.2,0.14"]; edge [fontname="Arial",fontsize=12,color="#64748b",arrowsize=0.7];
+ review [label="OWNER ARCHITECTURE REVIEW
+Existing Homepage / Booking / assets / tests unchanged
+No03B implementation or database execution",fillcolor="#cffafe"];
+ hash [label="QUOTE INTEGRITY
+Non-unique content hash V2
+exact payload / independent actor idempotency",fillcolor="#dbeafe"];
+ periods [label="STAFF HISTORY
+One membership UUID per stint
+non-overlapping same-branch periods
+new eligibility/rules on rejoin",fillcolor="#dcfce7"];
+ drafts [label="DRAFT LIFECYCLE
+Revisionless aborts are representable
+monotonic plan_committed
+admitted terminal plans retain evidence",fillcolor="#ffedd5"];
+ indexes [label="INDEX BUDGET
+193 ->85 standalone definitions
+no blind created_by indexes
+15 query candidates await EXPLAIN",fillcolor="#fef3c7"];
+ b1 [label="BOUNDED B1
+16 foundation tables only
+verified inactive configuration
+create tables before scoped FKs",fillcolor="#ede9fe"];
+ policy [label="OWNER POLICY DECISION OPEN
+Unified / per-item / grouped / restricted?
+heterogeneous winners remain409
+no invented deposit/refund merge",fillcolor="#fee2e2"];
+ evidence [label="REVIEW EVIDENCE
+Full72-table source ERD +16 context projections
+SQL syntax / model / OpenAPI / DAG / vector checks
+29 future scenarios; zero runtime backend claims",fillcolor="#e2e8f0"];
+ review->hash;review->periods;review->drafts;hash->indexes [style=invis];periods->b1 [style=invis];drafts->policy [style=invis];indexes->evidence;b1->evidence;policy->evidence;
+ {rank=same;hash;periods;drafts;} {rank=same;indexes;b1;policy;}
+ }

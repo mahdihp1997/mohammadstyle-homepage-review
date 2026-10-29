@@ -1,0 +1,187 @@
+{
+  "scope": "PHASE03A_HARDENING_STATIC_SPECIFICATION_CHECKS",
+  "date": "2026-10-29",
+  "checks": [
+    {
+      "name": "PostgreSQL18 syntax parsing (no execution)",
+      "result": "PASS",
+      "details": {
+        "fullStatements": 423,
+        "b1Statements": 70,
+        "parser": "pgsql-parser18.3.1 / libpg_query18.2.1",
+        "postgresqlExecution": false
+      }
+    },
+    {
+      "name": "Review-only DDL AST whitelist and no seeds",
+      "result": "PASS",
+      "details": "No INSERT/UPDATE/DELETE/COPY, backend server or migration execution."
+    },
+    {
+      "name": "Every FK target/key/type remains valid after pruning",
+      "result": "PASS",
+      "details": {
+        "tables": 72,
+        "foreignKeys": 254,
+        "checks": 250,
+        "generatedColumns": 5
+      }
+    },
+    {
+      "name": "SQL/model column, key and constraint correspondence",
+      "result": "PASS",
+      "details": "72 model tables match parsed CREATE TABLE column/key/check counts; generated columns are separate ALTER definitions."
+    },
+    {
+      "name": "Quote identity and integrity separation in draft",
+      "result": "PASS",
+      "details": "Content hash non-unique, actor-owned UUID identity and request idempotency separate; independent rows are representable (not inserted into DB)."
+    },
+    {
+      "name": "Hash payload schema, golden digest and independent-customer vectors",
+      "result": "PASS",
+      "details": {
+        "schema": "JSON Schema2020-12 / AJV8",
+        "digestVectors": 5,
+        "independentActorsWithSameHash": 2,
+        "invalidPayloadShapesRejected": 3,
+        "scope": "Static vectors only; raw duplicate-key/Unicode, semantic rows and real requests remain future backend tests."
+      }
+    },
+    {
+      "name": "Temporal membership and period-bound references",
+      "result": "PASS",
+      "details": "Period exclusion includes closed/inactive/archived history; eligibility/rule FK retains exact stint. Cross-row date containment not executed."
+    },
+    {
+      "name": "Static membership interval examples",
+      "result": "PASS",
+      "details": "5 specification examples; no PostgreSQL exclusion or race test executed."
+    },
+    {
+      "name": "Draft shape truth table and every allowed transition",
+      "result": "PASS",
+      "details": {
+        "staticShapeCases": 80,
+        "validShapes": 12,
+        "representedTransitions": 17,
+        "monotonicOldNewValueGuard": "Required future command/grant/trigger tests; not proved by CHECK"
+      }
+    },
+    {
+      "name": "All index categories, FK coverage and no redundant unfiltered support prefixes",
+      "result": "PASS",
+      "details": {
+        "retainedByCategory": {
+          "integrity": 185,
+          "fk-support": 74,
+          "operational-recovery": 3,
+          "exclusion": 4
+        },
+        "removedIdentityHelpers": 46,
+        "deferredQueryCandidates": 15,
+        "automaticCreatedByIndexes": 0,
+        "oldStandaloneIndexes": 193,
+        "newStandaloneIndexes": 85,
+        "checkedFkSupport": 74,
+        "explainExecuted": false
+      }
+    },
+    {
+      "name": "Four exclusion definitions and deferred active-revision FK",
+      "result": "PASS",
+      "details": "4 integrity arbiters; syntax present, catalog behavior/extension volatility/concurrency not executed."
+    },
+    {
+      "name": "B1 exact table inventory, FK closure/order and inactive gates",
+      "result": "PASS",
+      "details": {
+        "tables": [
+          "app_user",
+          "business",
+          "permission",
+          "auth_identity",
+          "auth_session",
+          "role",
+          "branch",
+          "role_permission",
+          "user_role_assignment",
+          "service",
+          "branch_service_offering",
+          "offering_resource_requirement",
+          "audit_log",
+          "idempotency_record",
+          "outbox_event",
+          "consumer_inbox"
+        ],
+        "tableCount": 16,
+        "deferredTables": 56,
+        "parentClosure": true,
+        "createBeforeFks": true,
+        "temporaryInactiveGates": 2,
+        "migrationExecuted": false
+      }
+    },
+    {
+      "name": "OpenAPI3.0.3 structural/ref validity and hardened DTOs",
+      "result": "PASS",
+      "details": {
+        "paths": 69,
+        "operations": 71,
+        "schemas": 82,
+        "validator": "swagger-parser13.1.0",
+        "deployed": false
+      }
+    },
+    {
+      "name": "Module DAG and exact diagram edges",
+      "result": "PASS",
+      "details": {
+        "nodes": 18,
+        "cycles": 0
+      }
+    },
+    {
+      "name": "Full ERD and bounded-context projection coverage",
+      "result": "PASS",
+      "details": {
+        "fullEntities": 72,
+        "fullForeignKeyEdges": 254,
+        "contextViews": 16,
+        "ownedTableCoverage": 72
+      }
+    },
+    {
+      "name": "Actual image pairs and explicit payment alternatives",
+      "result": "PASS",
+      "details": {
+        "actualSvgPngPairs": 26,
+        "contextViews": 16,
+        "sequenceSource": "sequence.json + editable SVG",
+        "privateAssetsEmbedded": 0
+      }
+    },
+    {
+      "name": "Dictionary, ADR and scenario synchronization",
+      "result": "PASS",
+      "details": {
+        "scenarios": 29,
+        "adrs": 19,
+        "workingBackendTests": 0
+      }
+    },
+    {
+      "name": "Private baseline/ref and original runtime preservation",
+      "result": "PASS",
+      "details": {
+        "originalHomepageBookingAssetsTestsChanged": 0,
+        "privateArchitectureBase": "ab62e845bcbf7c351c29c6d77078d3bcfb97793a",
+        "phase02BaselinePreserved": true,
+        "frontendCommandsRerun": false
+      }
+    }
+  ],
+  "postgresqlStatementsExecuted": 0,
+  "migrationsExecuted": 0,
+  "backendRuntimeTests": 0
+}

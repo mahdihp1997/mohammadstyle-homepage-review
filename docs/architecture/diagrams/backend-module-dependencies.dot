@@ -1,0 +1,21 @@
+digraph G { graph [newrank=true,rankdir=TB,bgcolor="#f8fafc",fontname="Arial",fontsize=22,labelloc=t,label="Exact module dependency DAG / caller to callee\nPHASE03A / PROPOSAL ONLY / HARDENING REVIEW",pad="0.35",nodesep="0.4",ranksep="0.65",splines=polyline]; node [shape=box,style="rounded,filled",fillcolor="#fff",color="#94a3b8",fontname="Arial",fontsize=16,margin="0.2,0.14"]; edge [fontname="Arial",fontsize=12,color="#64748b",arrowsize=0.7]; Kernel [label="Kernel"];
+IAM [label="IAM"];IAM->Kernel;
+Business [label="Business"];Business->Kernel;
+Catalog [label="Catalog"];Catalog->Kernel;
+Customers [label="Customers"];Customers->IAM;Customers->Kernel;
+Staff [label="Staff"];Staff->Business;Staff->IAM;Staff->Catalog;
+Offerings [label="Offerings"];Offerings->Business;Offerings->Catalog;Offerings->Staff;
+Scheduling [label="Scheduling"];Scheduling->Business;Scheduling->Staff;
+Availability [label="Availability"];Availability->Business;Availability->Offerings;Availability->Scheduling;Availability->Staff;
+Policies [label="Policies"];Policies->Business;Policies->Catalog;
+Pricing [label="Pricing"];Pricing->Offerings;Pricing->Policies;Pricing->Availability;
+Booking [label="Booking"];Booking->Customers;Booking->Availability;Booking->Pricing;Booking->Policies;Booking->Scheduling;
+Payments [label="Payments"];Payments->Kernel;
+Media [label="Media"];Media->Business;Media->Catalog;Media->Staff;Media->Customers;
+Notifications [label="Notifications"];Notifications->Customers;Notifications->Booking;Notifications->Kernel;
+Audit [label="Audit"];Audit->Kernel;
+Reporting [label="Reporting"];Reporting->Booking;Reporting->Payments;Reporting->Staff;Reporting->Customers;
+Workflows [label="Workflows"];Workflows->Booking;Workflows->Payments;Workflows->Notifications;Workflows->Media;Workflows->Audit;
+Legend [shape=note,label="All18 nodes / exact dependency edges
+Database FK ownership is separate from Nest imports
+Kernel contains IDs/value types/ports only"]; }

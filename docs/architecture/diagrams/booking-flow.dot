@@ -1,0 +1,52 @@
+digraph G { graph [newrank=true, rankdir=TB, bgcolor="#f8fafc", pad="0.4", nodesep="0.28", ranksep="0.6", fontname="Arial", fontsize=24, labelloc=t, label="C / Authoritative booking data flow\nPHASE 03A / PROPOSAL ONLY / 2026-10-29", splines=polyline]; node [shape=box,style="rounded,filled",fillcolor="#ffffff",color="#94a3b8",fontname="Arial",fontsize=13,margin="0.18,0.12"]; edge [color="#64748b",arrowsize=0.65,fontname="Arial",fontsize=10];
+ customer [label="Customer / unchanged UI
+Jalali presentation / local draft"];
+ search [label="1. Availability search
+branch + offering IDs + date + preference
+server recomputes feasible whole plan"];
+ quote [label="2. Immutable quote
+verified prices/durations/config fingerprint
+resolved policy + hash + expiry"];
+ accept [label="3. Explicit consent
+quoteHash + policyArtifactHash
+opaque IDs; no trusted client slot objects"];
+ tx [label="4. HOLD transaction
+SERIALIZABLE / idempotency
+sorted branch -> global resources -> booking
+fresh eligibility/shifts/resources + DB clock",fillcolor="#fef3c7"];
+ ledger [label="PostgreSQL resource ledger
+coalesced [start,end) + buffers
+GiST excludes ALL live overlap globally",shape=cylinder,fillcolor="#ffedd5"];
+ held [label="HELD / ACTIVE hold
+immutable revision + acceptance
+audit + history + outbox committed"];
+ decision [label="Accepted deposit due?",shape=diamond];
+ pending [label="PENDING_PAYMENT
+intent persisted / provider outside locks"];
+ confirm [label="5. CONFIRMED
+locked revalidation + consume hold
+HOLD -> BOOKING without overlap gap",fillcolor="#dcfce7"];
+ expiry [label="Expiry worker / DB scan
+canonical lock order + DB clock
+EXPIRED, release all allocations"];
+ late [label="Verified money after expiry/conflict
+no resurrection
+unapplied capture -> compensation",fillcolor="#fee2e2"];
+ notify [label="Outbox -> inbox -> BullMQ
+consent/revision check -> notification
+at-least-once and idempotent"];
+ stale [label="409 stale/unavailable -> explicit refresh
+rollback leaves no partial reservation"];
+ customer->search->quote->accept->tx->ledger->held->decision;
+ decision->confirm [label="zero / approved no deposit"];
+ decision->pending [label="positive due"];
+ pending->confirm [label="verified exact payment + live hold"];
+ held->expiry [label="deadline reached"];
+ pending->expiry; expiry->late [label="late capture"];
+ ledger->stale [label="23P01 / stale config"];
+ confirm->notify; confirm->customer [label="durable booking status",constraint=false];
+ note [shape=note,label="Single provider covers all selected services; sequential MVP.
+Future multi-provider = one feasible segment DAG / all resources atomically.
+Search is not a reservation. Redis is not authoritative capacity.
+Atomic reschedule swap rolls back to old booking on conflict."];
+}

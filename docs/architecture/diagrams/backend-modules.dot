@@ -1,0 +1,30 @@
+digraph G { graph [newrank=true,rankdir=TB,bgcolor="#f8fafc",fontname="Arial",fontsize=22,labelloc=t,label="Backend modules / review map\nPHASE03A / PROPOSAL ONLY / HARDENING REVIEW",pad="0.35",nodesep="0.4",ranksep="0.65",splines=polyline]; node [shape=box,style="rounded,filled",fillcolor="#fff",color="#94a3b8",fontname="Arial",fontsize=16,margin="0.2,0.14"]; edge [fontname="Arial",fontsize=12,color="#64748b",arrowsize=0.7];
+ ui [label="Existing Next.js Homepage + Booking
+unchanged presentation / no server integration"];
+ proxy [label="Nginx / TLS / same-origin API boundary"];
+ composition [label="NestJS API + worker processes
+Application Workflows / shared transaction context",fillcolor="#cffafe"];
+ booking [label="Booking / Pricing / Policies
+whole plan / immutable terms / admitted revisions",fillcolor="#ffedd5"];
+ workforce [label="Staff / Offerings / Scheduling / Availability
+temporal membership / global resource safety",fillcolor="#fef3c7"];
+ foundation [label="Identity / Business / Catalog / Customers
+scoped actors and verified configuration",fillcolor="#dbeafe"];
+ outcomes [label="Payments / Notifications / Media
+Audit / Reporting
+outer adapters and authorized read ports",fillcolor="#f3e8ff"];
+ pg [shape=cylinder,label="PostgreSQL + Prisma / reviewed SQL
+authoritative durable state / outbox / exclusion"];
+ redis [shape=cylinder,label="Redis + BullMQ
+cache/retry dispatch; no capacity authority"];
+ providers [label="S3 / selected gateway / SMS / Telegram / Bale
+external operations OUTSIDE DB locks
+not connected in03A",style="rounded,dashed"];
+ ui->proxy->composition;composition->booking;composition->outcomes;booking->workforce->foundation;
+ outcomes->foundation [label="public ports / values"];
+ composition->pg [label="transaction adapters"];composition->redis [label="dispatch adapters"];outcomes->providers;
+ {rank=same;booking;outcomes;} {rank=same;pg;redis;providers;} foundation->pg [style=invis];
+ note [shape=note,label="Grouped map; exact DAG in companion diagram.
+Payments accepts values; outer workflow applies captures.
+16 domain contexts + workflow layer + shared kernel."]; foundation->note [style=invis];
+ }

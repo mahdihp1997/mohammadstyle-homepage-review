@@ -1,0 +1,38 @@
+digraph G { graph [newrank=true, rankdir=TB, bgcolor="#f8fafc", pad="0.4", nodesep="0.28", ranksep="0.6", fontname="Arial", fontsize=24, labelloc=t, label="D / Versioned policy resolution and acceptance\nPHASE 03A / PROPOSAL ONLY / 2026-10-29", splines=polyline]; node [shape=box,style="rounded,filled",fillcolor="#ffffff",color="#94a3b8",fontname="Arial",fontsize=13,margin="0.18,0.12"]; edge [color="#64748b",arrowsize=0.65,fontname="Arial",fontsize=10];
+ context [label="Server context at one resolution instant
+business / branch / selected offerings / package
+authorized draft or booking / override permissions"];
+ filter [label="Filter active published version + assignment
+effective windows / exact target match
+revoked or unrelated scopes excluded"];
+ rank [label="Lexicographic precedence
+ADMIN_OVERRIDE > BOOKING > PACKAGE
+> SERVICE > BRANCH > BUSINESS
+then branch specificity, then priority",fillcolor="#f3e8ff"];
+ items [label="Resolve each selected quote item
+whole-booking override may explicitly unify"];
+ conflict [label="Equal winning ranks OR mixed item versions?",shape=diamond];
+ reject [label="409 POLICY_CONFLICT
+no arbitrary UUID winner / no harshest merge",fillcolor="#fee2e2"];
+ calc [label="Deposit NONE / OPTIONAL / REQUIRED
+FIXED or basis points + explicit min/max
+integer Rial / whole-Toman-compatible rounding
+deposit > total -> configuration error"];
+ snapshot [label="Immutable quote resolution
+version + sources + terms + windows + unit
+resolverVersion + artifact hash"];
+ consent [label="Customer sees exact terms
+affirmative consent to quote + artifact
+acceptance bound to booking revision"];
+ old [label="Accepted snapshot survives later policy edits
+refund entitlement uses accepted evidence
+actual money execution remains separate",fillcolor="#dcfce7"];
+ lifecycle [label="DRAFT -> ACTIVE -> SUPERSEDED / RETIRED
+new content means NEW version
+no silent retroactive change"];
+ context->filter->rank->items->conflict;
+ conflict->reject [label="yes"];conflict->calc [label="no"];calc->snapshot->consent->old;lifecycle->filter [style=dashed];
+ legal [shape=note,label="Non-refundable is representable, not automatically enforceable.
+Applicable local law, disclosure, exceptions and proportionality need review.
+Examples are hypothetical; actual salon policies remain unknown."];
+}

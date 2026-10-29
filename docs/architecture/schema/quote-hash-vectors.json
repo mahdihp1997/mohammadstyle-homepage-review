@@ -1,0 +1,363 @@
+{
+  "status": "SYNTHETIC_STATIC_VECTORS_NOT_SALON_FACTS_OR_BACKEND_TESTS",
+  "canonicalization": "RFC8785 JCS restricted to this string/boolean/null hash domain",
+  "baselineCanonicalUtf8": "{\"branchId\":\"00000000-0000-4000-8000-000000000002\",\"businessId\":\"00000000-0000-4000-8000-000000000001\",\"configurationFingerprint\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"currency\":\"IRR\",\"depositRial\":\"0\",\"endsAt\":\"2027-01-01T07:00:00.000Z\",\"items\":[{\"bufferAfterMinutes\":\"0\",\"bufferBeforeMinutes\":\"0\",\"displayName\":\"Synthetic specification fixture\",\"durationMinutes\":\"30\",\"offeringId\":\"00000000-0000-4000-8000-000000000003\",\"offeringVersion\":\"1\",\"packageId\":null,\"position\":\"1\",\"quantity\":\"1\",\"serviceId\":\"00000000-0000-4000-8000-000000000004\",\"unitPriceRial\":\"1000\"}],\"optionalDepositChosen\":false,\"policy\":{\"contentHash\":\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"resolverVersion\":\"fixture-v1\",\"snapshotHash\":\"cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc\",\"sourceAssignments\":[{\"assignmentId\":\"00000000-0000-4000-8000-000000000008\",\"quoteItemPosition\":\"1\"}],\"versionId\":\"00000000-0000-4000-8000-000000000007\",\"versionNumber\":\"1\"},\"remainingRial\":\"1000\",\"schema\":\"MS_QUOTE_CONTENT_V2\",\"segments\":[{\"bufferAfterMinutes\":\"0\",\"bufferBeforeMinutes\":\"0\",\"dependsOnSequences\":[],\"durationMinutes\":\"30\",\"endsAt\":\"2027-01-01T07:00:00.000Z\",\"offeringId\":\"00000000-0000-4000-8000-000000000003\",\"quoteItemPosition\":\"1\",\"resources\":[{\"kind\":\"STAFF\",\"resourceId\":\"00000000-0000-4000-8000-000000000006\"}],\"sequence\":\"1\",\"staffId\":\"00000000-0000-4000-8000-000000000005\",\"startsAt\":\"2027-01-01T06:30:00.000Z\"}],\"source\":\"SERVER\",\"startsAt\":\"2027-01-01T06:30:00.000Z\",\"timeZone\":\"Asia/Tehran\",\"totalRial\":\"1000\",\"unitVersion\":\"IRR_RIAL_V1\"}",
+  "cases": [
+    {
+      "name": "baseline",
+      "payload": {
+        "schema": "MS_QUOTE_CONTENT_V2",
+        "businessId": "00000000-0000-4000-8000-000000000001",
+        "branchId": "00000000-0000-4000-8000-000000000002",
+        "source": "SERVER",
+        "currency": "IRR",
+        "unitVersion": "IRR_RIAL_V1",
+        "configurationFingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "timeZone": "Asia/Tehran",
+        "startsAt": "2027-01-01T06:30:00.000Z",
+        "endsAt": "2027-01-01T07:00:00.000Z",
+        "optionalDepositChosen": false,
+        "totalRial": "1000",
+        "depositRial": "0",
+        "remainingRial": "1000",
+        "items": [
+          {
+            "position": "1",
+            "offeringId": "00000000-0000-4000-8000-000000000003",
+            "serviceId": "00000000-0000-4000-8000-000000000004",
+            "packageId": null,
+            "offeringVersion": "1",
+            "quantity": "1",
+            "displayName": "Synthetic specification fixture",
+            "unitPriceRial": "1000",
+            "durationMinutes": "30",
+            "bufferBeforeMinutes": "0",
+            "bufferAfterMinutes": "0"
+          }
+        ],
+        "segments": [
+          {
+            "sequence": "1",
+            "quoteItemPosition": "1",
+            "offeringId": "00000000-0000-4000-8000-000000000003",
+            "staffId": "00000000-0000-4000-8000-000000000005",
+            "startsAt": "2027-01-01T06:30:00.000Z",
+            "endsAt": "2027-01-01T07:00:00.000Z",
+            "durationMinutes": "30",
+            "bufferBeforeMinutes": "0",
+            "bufferAfterMinutes": "0",
+            "resources": [
+              {
+                "resourceId": "00000000-0000-4000-8000-000000000006",
+                "kind": "STAFF"
+              }
+            ],
+            "dependsOnSequences": []
+          }
+        ],
+        "policy": {
+          "versionId": "00000000-0000-4000-8000-000000000007",
+          "versionNumber": "1",
+          "contentHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "snapshotHash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "resolverVersion": "fixture-v1",
+          "sourceAssignments": [
+            {
+              "quoteItemPosition": "1",
+              "assignmentId": "00000000-0000-4000-8000-000000000008"
+            }
+          ]
+        }
+      },
+      "sha256": "5f2046bdbe64952cac90c681e68b1cdb4c7dd9a9aa87b64ce600520d5a6669bc"
+    },
+    {
+      "name": "property-order-only",
+      "payload": {
+        "policy": {
+          "versionId": "00000000-0000-4000-8000-000000000007",
+          "versionNumber": "1",
+          "contentHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "snapshotHash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "resolverVersion": "fixture-v1",
+          "sourceAssignments": [
+            {
+              "quoteItemPosition": "1",
+              "assignmentId": "00000000-0000-4000-8000-000000000008"
+            }
+          ]
+        },
+        "segments": [
+          {
+            "sequence": "1",
+            "quoteItemPosition": "1",
+            "offeringId": "00000000-0000-4000-8000-000000000003",
+            "staffId": "00000000-0000-4000-8000-000000000005",
+            "startsAt": "2027-01-01T06:30:00.000Z",
+            "endsAt": "2027-01-01T07:00:00.000Z",
+            "durationMinutes": "30",
+            "bufferBeforeMinutes": "0",
+            "bufferAfterMinutes": "0",
+            "resources": [
+              {
+                "resourceId": "00000000-0000-4000-8000-000000000006",
+                "kind": "STAFF"
+              }
+            ],
+            "dependsOnSequences": []
+          }
+        ],
+        "items": [
+          {
+            "position": "1",
+            "offeringId": "00000000-0000-4000-8000-000000000003",
+            "serviceId": "00000000-0000-4000-8000-000000000004",
+            "packageId": null,
+            "offeringVersion": "1",
+            "quantity": "1",
+            "displayName": "Synthetic specification fixture",
+            "unitPriceRial": "1000",
+            "durationMinutes": "30",
+            "bufferBeforeMinutes": "0",
+            "bufferAfterMinutes": "0"
+          }
+        ],
+        "remainingRial": "1000",
+        "depositRial": "0",
+        "totalRial": "1000",
+        "optionalDepositChosen": false,
+        "endsAt": "2027-01-01T07:00:00.000Z",
+        "startsAt": "2027-01-01T06:30:00.000Z",
+        "timeZone": "Asia/Tehran",
+        "configurationFingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "unitVersion": "IRR_RIAL_V1",
+        "currency": "IRR",
+        "source": "SERVER",
+        "branchId": "00000000-0000-4000-8000-000000000002",
+        "businessId": "00000000-0000-4000-8000-000000000001",
+        "schema": "MS_QUOTE_CONTENT_V2"
+      },
+      "sha256": "5f2046bdbe64952cac90c681e68b1cdb4c7dd9a9aa87b64ce600520d5a6669bc"
+    },
+    {
+      "name": "different-total",
+      "payload": {
+        "schema": "MS_QUOTE_CONTENT_V2",
+        "businessId": "00000000-0000-4000-8000-000000000001",
+        "branchId": "00000000-0000-4000-8000-000000000002",
+        "source": "SERVER",
+        "currency": "IRR",
+        "unitVersion": "IRR_RIAL_V1",
+        "configurationFingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "timeZone": "Asia/Tehran",
+        "startsAt": "2027-01-01T06:30:00.000Z",
+        "endsAt": "2027-01-01T07:00:00.000Z",
+        "optionalDepositChosen": false,
+        "totalRial": "2000",
+        "depositRial": "0",
+        "remainingRial": "2000",
+        "items": [
+          {
+            "position": "1",
+            "offeringId": "00000000-0000-4000-8000-000000000003",
+            "serviceId": "00000000-0000-4000-8000-000000000004",
+            "packageId": null,
+            "offeringVersion": "1",
+            "quantity": "1",
+            "displayName": "Synthetic specification fixture",
+            "unitPriceRial": "2000",
+            "durationMinutes": "30",
+            "bufferBeforeMinutes": "0",
+            "bufferAfterMinutes": "0"
+          }
+        ],
+        "segments": [
+          {
+            "sequence": "1",
+            "quoteItemPosition": "1",
+            "offeringId": "00000000-0000-4000-8000-000000000003",
+            "staffId": "00000000-0000-4000-8000-000000000005",
+            "startsAt": "2027-01-01T06:30:00.000Z",
+            "endsAt": "2027-01-01T07:00:00.000Z",
+            "durationMinutes": "30",
+            "bufferBeforeMinutes": "0",
+            "bufferAfterMinutes": "0",
+            "resources": [
+              {
+                "resourceId": "00000000-0000-4000-8000-000000000006",
+                "kind": "STAFF"
+              }
+            ],
+            "dependsOnSequences": []
+          }
+        ],
+        "policy": {
+          "versionId": "00000000-0000-4000-8000-000000000007",
+          "versionNumber": "1",
+          "contentHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "snapshotHash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "resolverVersion": "fixture-v1",
+          "sourceAssignments": [
+            {
+              "quoteItemPosition": "1",
+              "assignmentId": "00000000-0000-4000-8000-000000000008"
+            }
+          ]
+        }
+      },
+      "sha256": "cd976b355d4aeb5bbd11067b11d11b5f7e264f186d88cf092cfb3b2a5e9b74eb"
+    },
+    {
+      "name": "different-plan-time",
+      "payload": {
+        "schema": "MS_QUOTE_CONTENT_V2",
+        "businessId": "00000000-0000-4000-8000-000000000001",
+        "branchId": "00000000-0000-4000-8000-000000000002",
+        "source": "SERVER",
+        "currency": "IRR",
+        "unitVersion": "IRR_RIAL_V1",
+        "configurationFingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "timeZone": "Asia/Tehran",
+        "startsAt": "2027-01-01T08:30:00.000Z",
+        "endsAt": "2027-01-01T09:00:00.000Z",
+        "optionalDepositChosen": false,
+        "totalRial": "1000",
+        "depositRial": "0",
+        "remainingRial": "1000",
+        "items": [
+          {
+            "position": "1",
+            "offeringId": "00000000-0000-4000-8000-000000000003",
+            "serviceId": "00000000-0000-4000-8000-000000000004",
+            "packageId": null,
+            "offeringVersion": "1",
+            "quantity": "1",
+            "displayName": "Synthetic specification fixture",
+            "unitPriceRial": "1000",
+            "durationMinutes": "30",
+            "bufferBeforeMinutes": "0",
+            "bufferAfterMinutes": "0"
+          }
+        ],
+        "segments": [
+          {
+            "sequence": "1",
+            "quoteItemPosition": "1",
+            "offeringId": "00000000-0000-4000-8000-000000000003",
+            "staffId": "00000000-0000-4000-8000-000000000005",
+            "startsAt": "2027-01-01T08:30:00.000Z",
+            "endsAt": "2027-01-01T09:00:00.000Z",
+            "durationMinutes": "30",
+            "bufferBeforeMinutes": "0",
+            "bufferAfterMinutes": "0",
+            "resources": [
+              {
+                "resourceId": "00000000-0000-4000-8000-000000000006",
+                "kind": "STAFF"
+              }
+            ],
+            "dependsOnSequences": []
+          }
+        ],
+        "policy": {
+          "versionId": "00000000-0000-4000-8000-000000000007",
+          "versionNumber": "1",
+          "contentHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "snapshotHash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "resolverVersion": "fixture-v1",
+          "sourceAssignments": [
+            {
+              "quoteItemPosition": "1",
+              "assignmentId": "00000000-0000-4000-8000-000000000008"
+            }
+          ]
+        }
+      },
+      "sha256": "dbdf2492443af36f6bf100e112748eb55986815d1d87e52d768dbb354d8402a8"
+    },
+    {
+      "name": "different-policy",
+      "payload": {
+        "schema": "MS_QUOTE_CONTENT_V2",
+        "businessId": "00000000-0000-4000-8000-000000000001",
+        "branchId": "00000000-0000-4000-8000-000000000002",
+        "source": "SERVER",
+        "currency": "IRR",
+        "unitVersion": "IRR_RIAL_V1",
+        "configurationFingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "timeZone": "Asia/Tehran",
+        "startsAt": "2027-01-01T06:30:00.000Z",
+        "endsAt": "2027-01-01T07:00:00.000Z",
+        "optionalDepositChosen": false,
+        "totalRial": "1000",
+        "depositRial": "0",
+        "remainingRial": "1000",
+        "items": [
+          {
+            "position": "1",
+            "offeringId": "00000000-0000-4000-8000-000000000003",
+            "serviceId": "00000000-0000-4000-8000-000000000004",
+            "packageId": null,
+            "offeringVersion": "1",
+            "quantity": "1",
+            "displayName": "Synthetic specification fixture",
+            "unitPriceRial": "1000",
+            "durationMinutes": "30",
+            "bufferBeforeMinutes": "0",
+            "bufferAfterMinutes": "0"
+          }
+        ],
+        "segments": [
+          {
+            "sequence": "1",
+            "quoteItemPosition": "1",
+            "offeringId": "00000000-0000-4000-8000-000000000003",
+            "staffId": "00000000-0000-4000-8000-000000000005",
+            "startsAt": "2027-01-01T06:30:00.000Z",
+            "endsAt": "2027-01-01T07:00:00.000Z",
+            "durationMinutes": "30",
+            "bufferBeforeMinutes": "0",
+            "bufferAfterMinutes": "0",
+            "resources": [
+              {
+                "resourceId": "00000000-0000-4000-8000-000000000006",
+                "kind": "STAFF"
+              }
+            ],
+            "dependsOnSequences": []
+          }
+        ],
+        "policy": {
+          "versionId": "00000000-0000-4000-8000-000000000007",
+          "versionNumber": "1",
+          "contentHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "snapshotHash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+          "resolverVersion": "fixture-v1",
+          "sourceAssignments": [
+            {
+              "quoteItemPosition": "1",
+              "assignmentId": "00000000-0000-4000-8000-000000000008"
+            }
+          ]
+        }
+      },
+      "sha256": "066a1ac9973a15f5ac03d3f160ec440997b8a99b8d5a8330a88e6afeee763db6"
+    }
+  ],
+  "independentRequests": [
+    {
+      "actor": "synthetic-customer-A",
+      "idempotencyKey": "synthetic-request-A",
+      "quoteId": "00000000-0000-4000-8000-000000000091",
+      "expiresAt": "2027-01-01T06:00:00.000Z",
+      "expectedContentSha256": "5f2046bdbe64952cac90c681e68b1cdb4c7dd9a9aa87b64ce600520d5a6669bc"
+    },
+    {
+      "actor": "synthetic-customer-B",
+      "idempotencyKey": "synthetic-request-B",
+      "quoteId": "00000000-0000-4000-8000-000000000092",
+      "expiresAt": "2027-01-01T06:01:00.000Z",
+      "expectedContentSha256": "5f2046bdbe64952cac90c681e68b1cdb4c7dd9a9aa87b64ce600520d5a6669bc"
+    }
+  ]
+}

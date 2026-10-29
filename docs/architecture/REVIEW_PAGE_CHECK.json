@@ -1,0 +1,25 @@
+{
+  "scope": "Architecture review HTML only, NOT Next app/backend QA",
+  "result": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "loadedImages": 26,
+      "checkedLocalLinks": 90,
+      "horizontalOverflow": false,
+      "jsErrors": []
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "loadedImages": 26,
+      "checkedLocalLinks": 90,
+      "horizontalOverflow": false,
+      "jsErrors": []
+    }
+  ]
+}

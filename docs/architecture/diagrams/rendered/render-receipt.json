@@ -1,0 +1,210 @@
+{
+  "renderer": "WASM Graphviz3.25.0 for DOT + deterministic source-driven SVG payment sequence + sharp PNG",
+  "date": "2026-10-29",
+  "diagrams": [
+    {
+      "name": "backend-modules",
+      "source": "backend-modules.dot",
+      "renderer": "WASM Graphviz",
+      "svgBytes": 13866,
+      "pngWidth": 1600,
+      "pngHeight": 823
+    },
+    {
+      "name": "database-erd",
+      "source": "database-erd.dot",
+      "svgBytes": 627712,
+      "pngWidth": 1400,
+      "pngHeight": 5645
+    },
+    {
+      "name": "booking-flow",
+      "source": "booking-flow.dot",
+      "svgBytes": 20761,
+      "pngWidth": 1800,
+      "pngHeight": 3016
+    },
+    {
+      "name": "policy-resolution",
+      "source": "policy-resolution.dot",
+      "svgBytes": 15238,
+      "pngWidth": 1800,
+      "pngHeight": 1655
+    },
+    {
+      "name": "multi-branch-model",
+      "source": "multi-branch-model.dot",
+      "svgBytes": 21045,
+      "pngWidth": 1800,
+      "pngHeight": 971
+    },
+    {
+      "name": "payment-sequence",
+      "source": "payment-sequence.sequence.json",
+      "renderer": "source-driven SVG sequence renderer",
+      "svgBytes": 8047,
+      "pngWidth": 1490,
+      "pngHeight": 1777
+    },
+    {
+      "name": "booking-concurrency",
+      "source": "booking-concurrency.dot",
+      "svgBytes": 19050,
+      "pngWidth": 1800,
+      "pngHeight": 1143
+    },
+    {
+      "name": "booking-state-machine",
+      "source": "booking-state-machine.dot",
+      "svgBytes": 13256,
+      "pngWidth": 1800,
+      "pngHeight": 470
+    },
+    {
+      "name": "overview",
+      "source": "overview.dot",
+      "renderer": "WASM Graphviz",
+      "svgBytes": 11144,
+      "pngWidth": 1500,
+      "pngHeight": 864
+    },
+    {
+      "name": "backend-module-dependencies",
+      "source": "backend-module-dependencies.dot",
+      "renderer": "WASM Graphviz",
+      "svgBytes": 28273,
+      "pngWidth": 1800,
+      "pngHeight": 1187
+    },
+    {
+      "name": "context-business",
+      "source": "context-business.dot",
+      "renderer": "WASM Graphviz",
+      "svgBytes": 10081,
+      "pngWidth": 1600,
+      "pngHeight": 599
+    },
+    {
+      "name": "context-iam",
+      "source": "context-iam.dot",
+      "renderer": "WASM Graphviz",
+      "svgBytes": 28429,
+      "pngWidth": 1600,
+      "pngHeight": 570
+    },
+    {
+      "name": "context-scheduling",
+      "source": "context-scheduling.dot",
+      "renderer": "WASM Graphviz",
+      "svgBytes": 50842,
+      "pngWidth": 1600,
+      "pngHeight": 643
+    },
+    {
+      "name": "context-catalog",
+      "source": "context-catalog.dot",
+      "renderer": "WASM Graphviz",
+      "svgBytes": 12788,
+      "pngWidth": 1600,
+      "pngHeight": 936
+    },
+    {
+      "name": "context-offerings",
+      "source": "context-offerings.dot",
+      "renderer": "WASM Graphviz",
+      "svgBytes": 24344,
+      "pngWidth": 1600,
+      "pngHeight": 1053
+    },
+    {
+      "name": "context-staff",
+      "source": "context-staff.dot",
+      "renderer": "WASM Graphviz",
+      "svgBytes": 21609,
+      "pngWidth": 1600,
+      "pngHeight": 1026
+    },
+    {
+      "name": "context-customers",
+      "source": "context-customers.dot",
+      "renderer": "WASM Graphviz",
+      "svgBytes": 8171,
+      "pngWidth": 1600,
+      "pngHeight": 871
+    },
+    {
+      "name": "context-availability",
+      "source": "context-availability.dot",
+      "renderer": "WASM Graphviz",
+      "svgBytes": 8918,
+      "pngWidth": 1600,
+      "pngHeight": 956
+    },
+    {
+      "name": "context-policies",
+      "source": "context-policies.dot",
+      "renderer": "WASM Graphviz",
+      "svgBytes": 48378,
+      "pngWidth": 1600,
+      "pngHeight": 958
+    },
+    {
+      "name": "context-pricing",
+      "source": "context-pricing.dot",
+      "renderer": "WASM Graphviz",
+      "svgBytes": 20160,
+      "pngWidth": 1600,
+      "pngHeight": 1202
+    },
+    {
+      "name": "context-booking",
+      "source": "context-booking.dot",
+      "renderer": "WASM Graphviz",
+      "svgBytes": 51483,
+      "pngWidth": 1600,
+      "pngHeight": 2113
+    },
+    {
+      "name": "context-payments",
+      "source": "context-payments.dot",
+      "renderer": "WASM Graphviz",
+      "svgBytes": 46961,
+      "pngWidth": 1600,
+      "pngHeight": 2154
+    },
+    {
+      "name": "context-infrastructure",
+      "source": "context-infrastructure.dot",
+      "renderer": "WASM Graphviz",
+      "svgBytes": 17024,
+      "pngWidth": 1600,
+      "pngHeight": 1210
+    },
+    {
+      "name": "context-media",
+      "source": "context-media.dot",
+      "renderer": "WASM Graphviz",
+      "svgBytes": 55567,
+      "pngWidth": 1600,
+      "pngHeight": 774
+    },
+    {
+      "name": "context-notifications",
+      "source": "context-notifications.dot",
+      "renderer": "WASM Graphviz",
+      "svgBytes": 47949,
+      "pngWidth": 1600,
+      "pngHeight": 1199
+    },
+    {
+      "name": "context-audit",
+      "source": "context-audit.dot",
+      "renderer": "WASM Graphviz",
+      "svgBytes": 10046,
+      "pngWidth": 1600,
+      "pngHeight": 849
+    }
+  ],
+  "status": "ACTUAL_RENDERED_ARCHITECTURE_ONLY",
+  "contextViews": 16
+}

@@ -1,0 +1,5 @@
+# Actual rendered architecture views
+
+Start with rendered/overview.png. Full database-erd.dot/.mmd and SVG are preserved/regenerated from all72 entities/all254 FKs. Its PNG is only a thumbnail. context-*.dot/.svg/.png give16 readable bounded-context projections covering every owned table; external stubs are dashed and common actor/business links omitted only in these projections. Key field projections link to the full dictionary. context-coverage.json is machine-checked.
+
+backend-modules is a readable grouped map; backend-module-dependencies is the exact18-node DAG. Payment primary editable source is payment-sequence.sequence.json plus payment-sequence.source.svg; the real SVG renderer uses straight arrows and explicit ALT A/ALT B versus later cancellation. The Mermaid source is a readable message listing; DOT remains an alternate historical projection, not the primary renderer. No screenshots/photos/fonts/scripts are embedded. These are actual generated diagrams, not running-backend evidence.
