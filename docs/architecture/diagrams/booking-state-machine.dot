@@ -1,0 +1,21 @@
+digraph G { graph [newrank=true, rankdir=LR, bgcolor="#f8fafc", pad="0.4", nodesep="0.28", ranksep="0.6", fontname="Arial", fontsize=24, labelloc=t, label="H / Booking state machine (actors in 04_BOOKING_ENGINE.md)\nPHASE 03A / PROPOSAL ONLY / 2026-10-29", splines=polyline]; node [shape=box,style="rounded,filled",fillcolor="#ffffff",color="#94a3b8",fontname="Arial",fontsize=13,margin="0.18,0.12"]; edge [color="#64748b",arrowsize=0.65,fontname="Arial",fontsize=10]; DRAFT->HELD;
+DRAFT->CANCELLED;
+DRAFT->EXPIRED;
+HELD->PENDING_PAYMENT;
+HELD->CONFIRMED;
+HELD->CANCELLED;
+HELD->EXPIRED;
+PENDING_PAYMENT->CONFIRMED;
+PENDING_PAYMENT->CANCELLED;
+PENDING_PAYMENT->EXPIRED;
+CONFIRMED->CHECKED_IN;
+CONFIRMED->CANCELLED;
+CONFIRMED->NO_SHOW;
+CHECKED_IN->IN_SERVICE;
+CHECKED_IN->CANCELLED;
+IN_SERVICE->COMPLETED;
+IN_SERVICE->CANCELLED;
+CONFIRMED [fillcolor="#dcfce7"]; PENDING_PAYMENT [fillcolor="#fef3c7"]; EXPIRED [fillcolor="#fee2e2"]; CANCELLED [fillcolor="#fee2e2"]; COMPLETED [fillcolor="#dcfce7"]; note [shape=note,label="No terminal-state resurrection.
+Reschedule is an immutable revision swap, not a lifecycle jump.
+Every transition: authorization + row/history + audit/outbox in one transaction."];
+}

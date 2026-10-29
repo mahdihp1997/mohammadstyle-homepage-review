@@ -1,0 +1,85 @@
+{
+  "meaning": "A -> B: A depends on public port/values from B. Physical FKs are not Nest imports.",
+  "dependencies": {
+    "Kernel": [],
+    "IAM": [
+      "Kernel"
+    ],
+    "Business": [
+      "Kernel"
+    ],
+    "Catalog": [
+      "Kernel"
+    ],
+    "Customers": [
+      "IAM",
+      "Kernel"
+    ],
+    "Staff": [
+      "Business",
+      "IAM",
+      "Catalog"
+    ],
+    "Offerings": [
+      "Business",
+      "Catalog",
+      "Staff"
+    ],
+    "Scheduling": [
+      "Business",
+      "Staff"
+    ],
+    "Availability": [
+      "Business",
+      "Offerings",
+      "Scheduling",
+      "Staff"
+    ],
+    "Policies": [
+      "Business",
+      "Catalog"
+    ],
+    "Pricing": [
+      "Offerings",
+      "Policies",
+      "Availability"
+    ],
+    "Booking": [
+      "Customers",
+      "Availability",
+      "Pricing",
+      "Policies",
+      "Scheduling"
+    ],
+    "Payments": [
+      "Kernel"
+    ],
+    "Media": [
+      "Business",
+      "Catalog",
+      "Staff",
+      "Customers"
+    ],
+    "Notifications": [
+      "Customers",
+      "Booking",
+      "Kernel"
+    ],
+    "Audit": [
+      "Kernel"
+    ],
+    "Reporting": [
+      "Booking",
+      "Payments",
+      "Staff",
+      "Customers"
+    ],
+    "Workflows": [
+      "Booking",
+      "Payments",
+      "Notifications",
+      "Media",
+      "Audit"
+    ]
+  }
+}

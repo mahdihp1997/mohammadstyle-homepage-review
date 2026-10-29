@@ -1,0 +1,69 @@
+{
+  "renderer": "@viz-js/viz 3.25.0 (WASM Graphviz) + bundled sharp",
+  "date": "2026-10-29",
+  "diagrams": [
+    {
+      "name": "backend-modules",
+      "source": "backend-modules.dot",
+      "svgBytes": 40725,
+      "pngWidth": 1800,
+      "pngHeight": 680
+    },
+    {
+      "name": "database-erd",
+      "source": "database-erd.dot",
+      "svgBytes": 624067,
+      "pngWidth": 2600,
+      "pngHeight": 10672
+    },
+    {
+      "name": "booking-flow",
+      "source": "booking-flow.dot",
+      "svgBytes": 20761,
+      "pngWidth": 1800,
+      "pngHeight": 3016
+    },
+    {
+      "name": "policy-resolution",
+      "source": "policy-resolution.dot",
+      "svgBytes": 15238,
+      "pngWidth": 1800,
+      "pngHeight": 1655
+    },
+    {
+      "name": "multi-branch-model",
+      "source": "multi-branch-model.dot",
+      "svgBytes": 21045,
+      "pngWidth": 1800,
+      "pngHeight": 971
+    },
+    {
+      "name": "payment-sequence",
+      "source": "payment-sequence.dot",
+      "svgBytes": 49547,
+      "pngWidth": 1800,
+      "pngHeight": 1667
+    },
+    {
+      "name": "booking-concurrency",
+      "source": "booking-concurrency.dot",
+      "svgBytes": 19050,
+      "pngWidth": 1800,
+      "pngHeight": 1143
+    },
+    {
+      "name": "booking-state-machine",
+      "source": "booking-state-machine.dot",
+      "svgBytes": 13256,
+      "pngWidth": 1800,
+      "pngHeight": 470
+    },
+    {
+      "name": "overview",
+      "source": "overview.dot",
+      "svgBytes": 15862,
+      "pngWidth": 1500,
+      "pngHeight": 883
+    }
+  ]
+}

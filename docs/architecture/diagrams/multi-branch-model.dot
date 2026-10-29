@@ -1,0 +1,49 @@
+digraph G { graph [newrank=true, rankdir=TB, bgcolor="#f8fafc", pad="0.4", nodesep="0.28", ranksep="0.6", fontname="Arial", fontsize=24, labelloc=t, label="F / Branch offerings, qualification and actual availability\nPHASE 03A / PROPOSAL ONLY / 2026-10-29", splines=polyline]; node [shape=box,style="rounded,filled",fillcolor="#ffffff",color="#94a3b8",fontname="Arial",fontsize=13,margin="0.18,0.12"]; edge [color="#64748b",arrowsize=0.65,fontname="Arial",fontsize=10];
+ business [label="Business
+2 active branches confirmed
+branch-two details unknown",fillcolor="#cffafe"];
+ branchA [label="Branch A
+Poonak / verified location
+timezone + operational readiness"];
+ branchB [label="Branch B
+active business operation
+unknown configuration blocks online booking"];
+ service [label="Global Service Catalog
+six confirmed services
+metadata only; no global tariff/time",fillcolor="#dcfce7"];
+ offerA [label="Branch A Offering
+price / duration / buffers
+resource requirements / version",fillcolor="#d1fae5"];
+ offerB [label="Branch B Offering
+independent verified configuration
+unknown stays null",fillcolor="#d1fae5"];
+ staff [label="One global Staff identity
+one STAFF resource across branches",fillcolor="#dbeafe"];
+ member [label="Branch memberships
+valid dates / active assignment"];
+ qualified [label="Global service qualification
+verified capability"];
+ eligibility [label="Offering staff eligibility
+assignment + qualification + branch/service agree"];
+ shifts [label="Published UTC shifts
+materialized from local rules/timezone
+global staff overlap exclusion",fillcolor="#fef3c7"];
+ resources [label="Physical resource units
+CHAIR / ROOM / DEVICE
+owned by one branch"];
+ ledger [label="Unified resource ledger
+holds / bookings / time off / closures
+global staff ID + [start,end) exclusion",fillcolor="#ffedd5"];
+ plan [label="Actual feasible whole plan
+ALL: eligibility + shifts + branch hours
+exceptions + free resources + buffers
+search revalidated inside hold transaction"];
+ business->branchA;business->branchB;branchA->offerA;branchB->offerB;service->offerA;service->offerB;
+ staff->member;staff->qualified;member->eligibility;qualified->eligibility;offerA->eligibility;offerB->eligibility;
+ member->shifts;branchA->resources;branchB->resources;staff->ledger;resources->ledger;
+ eligibility->plan;shifts->plan;ledger->plan;
+ note [shape=note,label="Membership is not qualification; qualification is not free capacity.
+Different branches cannot double-book the same human.
+Future segment-specific providers reserve a whole plan atomically.
+Travel / parallelism / handoff rules remain business decisions."];
+}

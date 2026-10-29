@@ -1,0 +1,101 @@
+{
+  "date": "2026-10-29",
+  "phase": "03A_ARCHITECTURE_ONLY",
+  "checks": [
+    {
+      "name": "PostgreSQL18 syntax parser",
+      "result": "PASS",
+      "details": {
+        "statements": 530,
+        "executedAgainstDatabase": false,
+        "parser": "pgsql-parser18.3.1 / libpg_query18.2.1"
+      }
+    },
+    {
+      "name": "No seed/DML/migration execution material",
+      "result": "PASS",
+      "details": "CREATE/ALTER/index draft only; no seed inserts."
+    },
+    {
+      "name": "Relational model keys, FK arity/types/unique targets",
+      "result": "PASS",
+      "details": {
+        "tables": 72,
+        "foreignKeys": 254,
+        "checks": 242,
+        "generatedColumns": 4
+      }
+    },
+    {
+      "name": "Global exclusions and deferred revision identity",
+      "result": "PASS",
+      "details": "3 exclusion constraints; globally keyed resource/staff, explicit expiry release, deferred active revision."
+    },
+    {
+      "name": "OpenAPI3.0.3 schema and local refs",
+      "result": "PASS",
+      "details": {
+        "validator": "@apidevtools/swagger-parser13.1.0",
+        "paths": 67,
+        "operations": 69,
+        "schemas": 78,
+        "deployed": false
+      }
+    },
+    {
+      "name": "API operation IDs / auth / concurrency / idempotency metadata",
+      "result": "PASS",
+      "details": {
+        "uniqueOperationIds": 69,
+        "allContractsHaveMetadata": true
+      }
+    },
+    {
+      "name": "Money lexical examples",
+      "result": "PASS",
+      "details": "Canonical nonnegative multiple-of10 strings; max bigint checked in future server, no runtime arithmetic implementation tested."
+    },
+    {
+      "name": "Module dependency DAG",
+      "result": "PASS",
+      "details": {
+        "nodes": 18,
+        "domainContexts": 16,
+        "compositionLayers": 1,
+        "sharedKernel": 1,
+        "cycles": 0
+      }
+    },
+    {
+      "name": "ERD entity/edge coverage and actual image artifacts",
+      "result": "PASS",
+      "details": {
+        "entities": 72,
+        "relationships": 254,
+        "actualSvgAndPngPairs": 9,
+        "embeddedPrivateAssets": 0
+      }
+    },
+    {
+      "name": "Architecture request scenario coverage",
+      "result": "PASS",
+      "details": {
+        "specifiedScenarios": 18,
+        "executedBackendScenarios": 0
+      }
+    },
+    {
+      "name": "Original feature branch and frontend source unchanged",
+      "result": "PASS",
+      "details": {
+        "originalFeatureRef": "2155872cc626d7463d94500b678d875bec0e4dc6",
+        "runtimeSourceDiff": 0,
+        "existingTestsUnmodified": true,
+        "frontendCommandsRerun": false,
+        "reason": "Documentation-only; user requires existing frontend checks only when source is touched."
+      }
+    }
+  ],
+  "backendRuntimeTests": "NOT_RUN_NO_BACKEND_OR_DATABASE",
+  "migrationsExecuted": 0
+}

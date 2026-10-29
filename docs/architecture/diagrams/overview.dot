@@ -1,0 +1,43 @@
+digraph G { graph [newrank=true, rankdir=TB, bgcolor="#f8fafc", pad="0.4", nodesep="0.28", ranksep="0.6", fontname="Arial", fontsize=24, labelloc=t, label="Mohammad Style / Phase 03A architecture overview\nPHASE 03A / PROPOSAL ONLY / 2026-10-29", splines=polyline]; node [shape=box,style="rounded,filled",fillcolor="#ffffff",color="#94a3b8",fontname="Arial",fontsize=15,margin="0.18,0.12"]; edge [color="#64748b",arrowsize=0.65,fontname="Arial",fontsize=10];
+ owner [label="OWNER REVIEW
+Specifications only / approval pending
+Existing Homepage + Booking UI unchanged",fillcolor="#cffafe"];
+ ui [label="Next.js UI
+Jalali / RTL / existing visual design"];
+ modules [label="NestJS modular monolith
+16 domain contexts + outer workflows
+scoped IAM / Booking / Pricing / Policy
+Staff / Offerings / Scheduling / Media"];
+ tx [label="BOOKING SAFETY
+server whole plan -> quote -> consent -> hold
+sorted locks + DB clock + atomic transition
+global staff resource / GiST overlap exclusion",fillcolor="#ffedd5"];
+ pg [label="PostgreSQL / Prisma + reviewed SQL
+72-table target envelope / staged MVP
+immutable quote, accepted policy and receipts",shape=cylinder];
+ policy [label="POLICY & MONEY
+versioned scope resolution or explicit conflict
+integer v1 Rial / checked Toman conversion
+verified capture / refund budget / compensation",fillcolor="#f3e8ff"];
+ worker [label="Durable outbox / inbox -> BullMQ
+Redis queues/cache, never capacity authority
+providers outside DB locks"];
+ media [label="PRIVACY / RIGHTS
+private originals and quarantine
+validated derivatives + subject consent
+no private assets in public export",fillcolor="#fce7f3"];
+ providers [label="Future external boundaries
+S3 / selected gateway / SMS / Telegram / Bale
+NO services connected or installed",style="rounded,dashed"];
+ decisions [label="OWNER DECISIONS BEFORE03B
+branch-two configuration / real roster / hours
+verified prices/durations/resources / policies
+merchant units / legal terms / retention",fillcolor="#fef3c7"];
+ gates [label="REVIEW EVIDENCE
+SQL syntax + OpenAPI/model/diagram static checks
+NO backend runtime/concurrency tests claimed
+03B requires explicit architecture approval",fillcolor="#dcfce7"];
+ owner->ui->modules->tx->pg;modules->policy;policy->pg;pg->worker->providers;modules->media->providers;owner->decisions;decisions->gates;
+ {rank=same;tx;policy;media;} {rank=same;pg;worker;} {rank=same;decisions;gates;}
+
+}

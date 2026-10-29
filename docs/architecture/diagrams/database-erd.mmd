@@ -1,0 +1,715 @@
+erDiagram
+    direction LR
+    business {
+        uuid id PK
+        text brand_name
+        text legal_name
+        text slug
+        text currency_code
+    }
+    app_user {
+        uuid id PK
+        text display_name
+        text status
+        timestamptz pii_redacted_at
+    }
+    auth_identity {
+        uuid id PK
+        uuid user_id FK
+        text provider
+        bytea subject_hash
+        timestamptz verified_at
+    }
+    auth_session {
+        uuid id PK
+        uuid user_id FK
+        bytea token_hash
+        timestamptz expires_at
+        timestamptz revoked_at
+        timestamptz last_seen_at
+    }
+    permission {
+        uuid id PK
+        text permission_key
+        text description
+    }
+    role {
+        uuid id PK
+        uuid business_id FK
+        text role_key
+        text display_name
+        boolean system_role
+    }
+    role_permission {
+        uuid id PK
+        uuid business_id FK
+        uuid role_id FK
+        uuid permission_id FK
+    }
+    branch {
+        uuid id PK
+        uuid business_id FK
+        text code
+        text display_name
+        text address
+        text time_zone
+        boolean active
+    }
+    user_role_assignment {
+        uuid id PK
+        uuid business_id FK
+        uuid user_id FK
+        uuid role_id FK
+        uuid branch_id FK
+        timestamptz revoked_at
+    }
+    branch_working_hours {
+        uuid id PK
+        uuid business_id FK
+        uuid branch_id FK
+        smallint iso_weekday
+        smallint start_minute
+        smallint end_minute
+        date valid_from
+    }
+    branch_closure {
+        uuid id PK
+        uuid business_id FK
+        uuid branch_id FK
+        timestamptz starts_at
+        timestamptz ends_at
+        text reason_code
+        uuid approved_by FK
+    }
+    resource {
+        uuid id PK
+        uuid business_id FK
+        uuid branch_id FK
+        text kind
+        text label
+        boolean active
+    }
+    service {
+        uuid id PK
+        uuid business_id FK
+        text code
+        text display_name
+        text description
+        boolean active
+    }
+    branch_service_offering {
+        uuid id PK
+        uuid business_id FK
+        uuid branch_id FK
+        uuid service_id FK
+        boolean active
+        bigint price_rial
+        integer duration_minutes
+    }
+    staff {
+        uuid id PK
+        uuid business_id FK
+        uuid user_id FK
+        uuid resource_id FK
+        text resource_kind FK
+        text display_name
+        boolean active
+    }
+    staff_branch_assignment {
+        uuid id PK
+        uuid business_id FK
+        uuid staff_id FK
+        uuid branch_id FK
+        date valid_from
+        date valid_to
+        boolean active
+    }
+    staff_service_eligibility {
+        uuid id PK
+        uuid business_id FK
+        uuid staff_id FK
+        uuid service_id FK
+        timestamptz verified_at
+        boolean active
+    }
+    offering_staff_eligibility {
+        uuid id PK
+        uuid business_id FK
+        uuid offering_id FK
+        uuid branch_id FK
+        uuid service_id FK
+        uuid staff_id FK
+        uuid assignment_id FK
+    }
+    staff_schedule_rule {
+        uuid id PK
+        uuid business_id FK
+        uuid staff_id FK
+        uuid branch_id FK
+        uuid assignment_id FK
+        smallint iso_weekday
+        smallint start_minute
+    }
+    staff_shift {
+        uuid id PK
+        uuid business_id FK
+        uuid staff_id FK
+        uuid branch_id FK
+        uuid assignment_id FK
+        uuid schedule_rule_id FK
+        timestamptz starts_at
+    }
+    staff_time_off {
+        uuid id PK
+        uuid business_id FK
+        uuid staff_id FK
+        uuid resource_id FK
+        timestamptz starts_at
+        timestamptz ends_at
+        text reason_code
+    }
+    package {
+        uuid id PK
+        uuid business_id FK
+        text code
+        text display_name
+        boolean active
+    }
+    package_service {
+        uuid id PK
+        uuid business_id FK
+        uuid package_id FK
+        uuid service_id FK
+        integer position
+        integer quantity
+    }
+    customer {
+        uuid id PK
+        uuid business_id FK
+        uuid user_id FK
+        text display_name
+        bytea contact_ciphertext
+        bytea contact_lookup_hash
+        timestamptz contact_verified_at
+    }
+    availability_configuration {
+        uuid id PK
+        uuid business_id FK
+        uuid branch_id FK
+        boolean enabled
+        integer slot_stride_minutes
+        integer lead_minutes
+        integer horizon_days
+    }
+    booking_policy {
+        uuid id PK
+        uuid business_id FK
+        text code
+        text name
+        text lifecycle
+    }
+    booking_policy_version {
+        uuid id PK
+        uuid business_id FK
+        uuid policy_id FK
+        integer version_number
+        text lifecycle
+        timestamptz effective_from
+        timestamptz effective_to
+    }
+    policy_refund_window {
+        uuid id PK
+        uuid business_id FK
+        uuid policy_version_id FK
+        integer threshold_minutes
+        integer refund_bps
+    }
+    booking_policy_assignment {
+        uuid id PK
+        uuid business_id FK
+        uuid policy_version_id FK
+        text scope_kind
+        uuid branch_id FK
+        uuid service_id FK
+        uuid package_id FK
+    }
+    pricing_quote {
+        uuid id PK
+        uuid business_id FK
+        uuid branch_id FK
+        uuid customer_id FK
+        text currency_code
+        text unit_version
+        bigint total_rial
+    }
+    pricing_quote_item {
+        uuid id PK
+        uuid business_id FK
+        uuid quote_id FK
+        uuid offering_id FK
+        uuid branch_id FK
+        uuid service_id FK
+        uuid package_id FK
+    }
+    quote_policy_resolution {
+        uuid id PK
+        uuid business_id FK
+        uuid quote_id FK
+        uuid policy_version_id FK
+        jsonb snapshot
+        bytea snapshot_hash
+        text resolver_version
+    }
+    quote_policy_source {
+        uuid id PK
+        uuid business_id FK
+        uuid resolution_id FK
+        uuid assignment_id FK
+        uuid policy_version_id FK
+    }
+    booking {
+        uuid id PK
+        uuid business_id FK
+        uuid branch_id FK
+        uuid customer_id FK
+        text status
+        text origin
+        uuid active_revision_id FK
+    }
+    booking_revision {
+        uuid id PK
+        uuid business_id FK
+        uuid booking_id FK
+        uuid branch_id FK
+        integer revision_number
+        uuid quote_id FK
+        text state
+    }
+    booking_item {
+        uuid id PK
+        uuid business_id FK
+        uuid revision_id FK
+        uuid quote_item_id FK
+        uuid quote_id FK
+        integer position
+    }
+    booking_service_segment {
+        uuid id PK
+        uuid business_id FK
+        uuid revision_id FK
+        uuid item_id FK
+        integer position
+        timestamptz starts_at
+        timestamptz ends_at
+    }
+    segment_dependency {
+        uuid id PK
+        uuid business_id FK
+        uuid revision_id FK
+        uuid segment_id FK
+        uuid predecessor_id FK
+        integer minimum_gap_minutes
+    }
+    booking_hold {
+        uuid id PK
+        uuid business_id FK
+        uuid booking_id FK
+        uuid revision_id FK
+        timestamptz expires_at
+        text status
+        timestamptz released_at
+    }
+    resource_allocation {
+        uuid id PK
+        uuid business_id FK
+        uuid resource_id FK
+        uuid branch_id FK
+        uuid revision_id FK
+        uuid hold_id FK
+        uuid time_off_id FK
+    }
+    booking_status_history {
+        uuid id PK
+        uuid business_id FK
+        uuid booking_id FK
+        text from_status
+        text to_status
+        text actor_kind
+        text reason_code
+    }
+    booking_policy_acceptance {
+        uuid id PK
+        uuid business_id FK
+        uuid booking_id FK
+        uuid revision_id FK
+        uuid quote_id FK
+        uuid resolution_id FK
+        uuid actor_user_id FK
+    }
+    payment_intent {
+        uuid id PK
+        uuid business_id FK
+        uuid revision_id FK
+        uuid hold_id FK
+        text purpose
+        text currency_code
+        text unit_version
+    }
+    gateway_event {
+        uuid id PK
+        uuid business_id FK
+        text provider_key
+        text merchant_ref
+        text event_key
+        bytea payload_hash
+        text verification_state
+    }
+    payment_transaction {
+        uuid id PK
+        uuid business_id FK
+        uuid intent_id FK
+        uuid revision_id FK
+        uuid gateway_event_id FK
+        text provider_key
+        text merchant_ref
+    }
+    payment_application {
+        uuid id PK
+        uuid business_id FK
+        uuid transaction_id FK
+        uuid revision_id FK
+        text purpose
+        bigint amount_rial
+    }
+    payment_balance {
+        uuid id PK
+        uuid business_id FK
+        uuid transaction_id FK
+        bigint captured_rial
+        bigint refund_reserved_rial
+        bigint refunded_rial
+    }
+    refund {
+        uuid id PK
+        uuid business_id FK
+        uuid transaction_id FK
+        bigint requested_rial
+        text state
+        text reason_code
+        text provider_idempotency_key
+    }
+    financial_audit_record {
+        uuid id PK
+        uuid business_id FK
+        uuid transaction_id FK
+        uuid refund_id FK
+        text entry_kind
+        bigint amount_rial
+        text operation_key
+    }
+    idempotency_record {
+        uuid id PK
+        uuid business_id FK
+        text actor_key
+        text route_key
+        text idempotency_key
+        bytea request_hash
+        text state
+    }
+    outbox_event {
+        uuid id PK
+        uuid business_id FK
+        text aggregate_type
+        uuid aggregate_id
+        bigint aggregate_version
+        text event_type
+        integer schema_version
+    }
+    consumer_inbox {
+        uuid id PK
+        uuid business_id FK
+        uuid event_id FK
+        text consumer_key
+        timestamptz processed_at
+        text state
+    }
+    media_asset {
+        uuid id PK
+        uuid business_id FK
+        uuid uploaded_by FK
+        text object_key
+        text mime_type
+        bigint byte_size
+        bytea sha256
+    }
+    media_variant {
+        uuid id PK
+        uuid business_id FK
+        uuid asset_id FK
+        text variant_key
+        text object_key
+        text mime_type
+        bigint byte_size
+    }
+    media_publication_consent {
+        uuid id PK
+        uuid business_id FK
+        uuid asset_id FK
+        uuid subject_customer_id FK
+        bytea subject_ref_hash
+        text scope
+        text evidence_key
+    }
+    portfolio_category {
+        uuid id PK
+        uuid business_id FK
+        text code
+        text display_name
+        integer sort_order
+    }
+    portfolio_item {
+        uuid id PK
+        uuid business_id FK
+        uuid branch_id FK
+        uuid staff_id FK
+        text title
+        text description
+        text kind
+    }
+    portfolio_item_category {
+        uuid id PK
+        uuid business_id FK
+        uuid item_id FK
+        uuid category_id FK
+    }
+    portfolio_service_relation {
+        uuid id PK
+        uuid business_id FK
+        uuid item_id FK
+        uuid service_id FK
+    }
+    portfolio_media {
+        uuid id PK
+        uuid business_id FK
+        uuid item_id FK
+        uuid asset_id FK
+        text role
+        uuid comparison_group
+        integer sort_order
+    }
+    portfolio_tag {
+        uuid id PK
+        uuid business_id FK
+        text slug
+        text label
+    }
+    portfolio_item_tag {
+        uuid id PK
+        uuid business_id FK
+        uuid item_id FK
+        uuid tag_id FK
+    }
+    notification_channel_config {
+        uuid id PK
+        uuid business_id FK
+        uuid branch_id FK
+        text channel
+        text provider_key
+        text secret_ref
+        boolean enabled
+    }
+    notification_template {
+        uuid id PK
+        uuid business_id FK
+        uuid branch_id FK
+        text code
+        text channel
+        integer version_number
+        text locale
+    }
+    notification_preference {
+        uuid id PK
+        uuid business_id FK
+        uuid customer_id FK
+        text channel
+        text purpose
+        boolean opted_in
+        timestamptz consented_at
+    }
+    notification_link_challenge {
+        uuid id PK
+        uuid business_id FK
+        uuid customer_id FK
+        text channel
+        bytea token_hash
+        timestamptz expires_at
+        timestamptz consumed_at
+    }
+    channel_identity {
+        uuid id PK
+        uuid business_id FK
+        uuid customer_id FK
+        text channel
+        bytea external_id_ciphertext
+        bytea external_id_hash
+        timestamptz linked_at
+    }
+    notification_event {
+        uuid id PK
+        uuid business_id FK
+        uuid customer_id FK
+        uuid booking_id FK
+        uuid booking_revision_id FK
+        uuid template_id FK
+        uuid source_event_id FK
+    }
+    notification_delivery_attempt {
+        uuid id PK
+        uuid business_id FK
+        uuid notification_event_id FK
+        integer attempt_number
+        text provider_key
+        text provider_message_ref
+        text state
+    }
+    audit_log {
+        uuid id PK
+        uuid business_id FK
+        uuid actor_user_id FK
+        uuid branch_id FK
+        text action
+        text target_type
+        uuid target_id
+    }
+    offering_resource_requirement {
+        uuid id PK
+        uuid business_id FK
+        uuid offering_id FK
+        uuid branch_id FK
+        uuid service_id FK
+        text resource_kind
+        integer quantity
+    }
+    segment_resource_assignment {
+        uuid id PK
+        uuid business_id FK
+        uuid revision_id FK
+        uuid segment_id FK
+        uuid resource_id FK
+        uuid allocation_id FK
+    }
+    app_user ||--o{ auth_identity : "user_id"
+    app_user ||--o{ auth_session : "user_id"
+    role ||--o{ role_permission : "role_id"
+    permission ||--o{ role_permission : "permission_id"
+    app_user ||--o{ user_role_assignment : "user_id"
+    role ||--o{ user_role_assignment : "role_id"
+    branch ||--o{ user_role_assignment : "branch_id"
+    branch ||--o{ branch_working_hours : "branch_id"
+    branch ||--o{ branch_closure : "branch_id"
+    app_user ||--o{ branch_closure : "approved_by"
+    branch ||--o{ resource : "branch_id"
+    branch ||--o{ branch_service_offering : "branch_id"
+    service ||--o{ branch_service_offering : "service_id"
+    app_user ||--o{ staff : "user_id"
+    resource ||--o{ staff : "resource_id_resource_kind"
+    staff ||--o{ staff_branch_assignment : "staff_id"
+    branch ||--o{ staff_branch_assignment : "branch_id"
+    staff ||--o{ staff_service_eligibility : "staff_id"
+    service ||--o{ staff_service_eligibility : "service_id"
+    branch_service_offering ||--o{ offering_staff_eligibility : "offering_id_branch_id_service_id"
+    staff_branch_assignment ||--o{ offering_staff_eligibility : "assignment_id_staff_id_branch_id"
+    staff_service_eligibility ||--o{ offering_staff_eligibility : "qualification_id_staff_id_service_id"
+    staff_branch_assignment ||--o{ staff_schedule_rule : "assignment_id_staff_id_branch_id"
+    staff_branch_assignment ||--o{ staff_shift : "assignment_id_staff_id_branch_id"
+    staff_schedule_rule ||--o{ staff_shift : "schedule_rule_id_staff_id_branch_id"
+    staff ||--o{ staff_time_off : "staff_id_resource_id"
+    app_user ||--o{ staff_time_off : "approved_by"
+    package ||--o{ package_service : "package_id"
+    service ||--o{ package_service : "service_id"
+    app_user ||--o{ customer : "user_id"
+    branch ||--o{ availability_configuration : "branch_id"
+    booking_policy ||--o{ booking_policy_version : "policy_id"
+    booking_policy_version ||--o{ policy_refund_window : "policy_version_id"
+    booking_policy_version ||--o{ booking_policy_assignment : "policy_version_id"
+    branch ||--o{ booking_policy_assignment : "branch_id"
+    service ||--o{ booking_policy_assignment : "service_id"
+    package ||--o{ booking_policy_assignment : "package_id"
+    booking ||--o{ booking_policy_assignment : "booking_id"
+    app_user ||--o{ booking_policy_assignment : "authorized_by"
+    branch ||--o{ pricing_quote : "branch_id"
+    customer ||--o{ pricing_quote : "customer_id"
+    pricing_quote ||--o{ pricing_quote_item : "quote_id_branch_id"
+    branch_service_offering ||--o{ pricing_quote_item : "offering_id_branch_id_service_id"
+    package ||--o{ pricing_quote_item : "package_id"
+    pricing_quote ||--o{ quote_policy_resolution : "quote_id"
+    booking_policy_version ||--o{ quote_policy_resolution : "policy_version_id"
+    booking_policy_version ||--o{ quote_policy_source : "policy_version_id"
+    quote_policy_resolution ||--o{ quote_policy_source : "resolution_id_policy_version_id"
+    booking_policy_assignment ||--o{ quote_policy_source : "assignment_id_policy_version_id"
+    branch ||--o{ booking : "branch_id"
+    customer ||--o{ booking : "customer_id"
+    booking_revision ||--o{ booking : "active_revision_id_id"
+    booking ||--o{ booking_revision : "booking_id_branch_id"
+    pricing_quote ||--o{ booking_revision : "quote_id_branch_id"
+    booking_revision ||--o{ booking_revision : "supersedes_revision_id_booking_id"
+    booking_revision ||--o{ booking_item : "revision_id_quote_id"
+    pricing_quote_item ||--o{ booking_item : "quote_item_id_quote_id"
+    booking_item ||--o{ booking_service_segment : "item_id_revision_id"
+    booking_service_segment ||--o{ segment_dependency : "segment_id_revision_id"
+    booking_service_segment ||--o{ segment_dependency : "predecessor_id_revision_id"
+    booking_revision ||--o{ booking_hold : "revision_id_booking_id"
+    branch ||--o{ resource_allocation : "branch_id"
+    booking_revision ||--o{ resource_allocation : "revision_id_branch_id"
+    booking_hold ||--o{ resource_allocation : "hold_id_revision_id"
+    staff_time_off ||--o{ resource_allocation : "time_off_id_resource_id"
+    resource ||--o{ resource_allocation : "resource_id_resource_kind"
+    resource ||--o{ resource_allocation : "resource_id_resource_branch_id"
+    branch_closure ||--o{ resource_allocation : "closure_id_branch_id"
+    booking ||--o{ booking_status_history : "booking_id"
+    booking_revision ||--o{ booking_policy_acceptance : "revision_id_booking_id"
+    booking_revision ||--o{ booking_policy_acceptance : "revision_id_quote_id"
+    quote_policy_resolution ||--o{ booking_policy_acceptance : "resolution_id_quote_id"
+    app_user ||--o{ booking_policy_acceptance : "actor_user_id"
+    booking_revision ||--o{ payment_intent : "revision_id"
+    booking_hold ||--o{ payment_intent : "hold_id_revision_id"
+    payment_intent ||--o{ payment_transaction : "intent_id_revision_id"
+    gateway_event ||--o{ payment_transaction : "gateway_event_id"
+    payment_transaction ||--o{ payment_application : "transaction_id_revision_id"
+    payment_transaction ||--o{ payment_balance : "transaction_id"
+    payment_transaction ||--o{ refund : "transaction_id"
+    booking_policy_acceptance ||--o{ refund : "policy_acceptance_id"
+    app_user ||--o{ refund : "authorized_by"
+    payment_transaction ||--o{ financial_audit_record : "transaction_id"
+    refund ||--o{ financial_audit_record : "refund_id"
+    outbox_event ||--o{ consumer_inbox : "event_id"
+    app_user ||--o{ media_asset : "uploaded_by"
+    media_asset ||--o{ media_variant : "asset_id"
+    media_asset ||--o{ media_publication_consent : "asset_id"
+    customer ||--o{ media_publication_consent : "subject_customer_id"
+    branch ||--o{ portfolio_item : "branch_id"
+    staff ||--o{ portfolio_item : "staff_id"
+    portfolio_item ||--o{ portfolio_item_category : "item_id"
+    portfolio_category ||--o{ portfolio_item_category : "category_id"
+    portfolio_item ||--o{ portfolio_service_relation : "item_id"
+    service ||--o{ portfolio_service_relation : "service_id"
+    portfolio_item ||--o{ portfolio_media : "item_id"
+    media_asset ||--o{ portfolio_media : "asset_id"
+    portfolio_item ||--o{ portfolio_item_tag : "item_id"
+    portfolio_tag ||--o{ portfolio_item_tag : "tag_id"
+    branch ||--o{ notification_channel_config : "branch_id"
+    branch ||--o{ notification_template : "branch_id"
+    customer ||--o{ notification_preference : "customer_id"
+    customer ||--o{ notification_link_challenge : "customer_id"
+    customer ||--o{ channel_identity : "customer_id"
+    customer ||--o{ notification_event : "customer_id"
+    booking ||--o{ notification_event : "booking_id"
+    booking_revision ||--o{ notification_event : "booking_revision_id_booking_id"
+    notification_template ||--o{ notification_event : "template_id"
+    outbox_event ||--o{ notification_event : "source_event_id"
+    notification_event ||--o{ notification_delivery_attempt : "notification_event_id"
+    app_user ||--o{ audit_log : "actor_user_id"
+    branch ||--o{ audit_log : "branch_id"
+    branch_service_offering ||--o{ offering_resource_requirement : "offering_id_branch_id_service_id"
+    booking_service_segment ||--o{ segment_resource_assignment : "segment_id_revision_id"
+    resource_allocation ||--o{ segment_resource_assignment : "allocation_id_revision_id_resource_id"

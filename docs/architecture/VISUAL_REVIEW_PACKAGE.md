@@ -1,0 +1,15 @@
+# Visual Review Package — Phase03A
+
+Architecture/specification only. Review pending. No backend/database/migration/provider was implemented. The original Homepage and Booking source/tests/assets remain unchanged.
+
+- **Architecture overview**: Start here: authority, boundaries, safety rules and approval gates. [SVG](diagrams/rendered/overview.svg), [PNG](diagrams/rendered/overview.png), [editable DOT](diagrams/overview.dot).
+- **A. Complete database ERD**: All72 entities and254 FK relationships. Open SVG and zoom; shared audit columns remain in the dictionary. [SVG](diagrams/rendered/database-erd.svg), [PNG](diagrams/rendered/database-erd.png), [editable DOT](diagrams/database-erd.dot).
+- **B. Backend modules**: Caller-to-callee port dependencies, composition layer and infrastructure boundaries. [SVG](diagrams/rendered/backend-modules.svg), [PNG](diagrams/rendered/backend-modules.png), [editable DOT](diagrams/backend-modules.dot).
+- **C. Booking data flow**: Server plan, immutable quote, explicit acceptance, transactional hold, expiry and confirmation. [SVG](diagrams/rendered/booking-flow.svg), [PNG](diagrams/rendered/booking-flow.png), [editable DOT](diagrams/booking-flow.dot).
+- **D. Policy resolution**: Version, effective context, precedence, conflict detection and accepted snapshot. [SVG](diagrams/rendered/policy-resolution.svg), [PNG](diagrams/rendered/policy-resolution.png), [editable DOT](diagrams/policy-resolution.dot).
+- **E. Payment and refund sequence**: Time moves down: verification, booking application, late-capture compensation and reserved partial refunds. [SVG](diagrams/rendered/payment-sequence.svg), [PNG](diagrams/rendered/payment-sequence.png), [editable DOT](diagrams/payment-sequence.dot).
+- **F. Multi-branch services and staff**: Separate catalog, offering, qualification, membership, actual shifts and resource occupancy. [SVG](diagrams/rendered/multi-branch-model.svg), [PNG](diagrams/rendered/multi-branch-model.png), [editable DOT](diagrams/multi-branch-model.dot).
+- **G. Concurrency example**: Two requests may search the same free interval; only one live resource allocation can commit. [SVG](diagrams/rendered/booking-concurrency.svg), [PNG](diagrams/rendered/booking-concurrency.png), [editable DOT](diagrams/booking-concurrency.dot).
+- **H. Booking state machine**: Allowed lifecycle edges; reschedule is a revision swap and terminal states cannot resurrect. [SVG](diagrams/rendered/booking-state-machine.svg), [PNG](diagrams/rendered/booking-state-machine.png), [editable DOT](diagrams/booking-state-machine.dot).
+
+Open REVIEW.html for a local visual index. Complete technical report:00_README.md; questions:11_OPEN_DECISIONS.md; actual evidence:VALIDATION_RESULTS.md; future scenarios:VALIDATION_MATRIX.md. The package contains only derived specifications and generated graphics, no photos/private fonts/visual references/raw original task/internal screenshots/credentials/Git history. SVG vectors retain full detail; huge ERD PNG is only a context thumbnail.
