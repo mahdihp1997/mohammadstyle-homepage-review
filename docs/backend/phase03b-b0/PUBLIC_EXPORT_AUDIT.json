@@ -1,0 +1,466 @@
+{
+  "scope": "PHASE03B_B0_ONLY",
+  "privateCommit": "7a51ae6ad2dde941e263d8b781cd0c52ba9bc213",
+  "publicBase": "d1f60c39464a8728d5e66e1d231eac72ca381ff3",
+  "branch": "review/phase03b-b0",
+  "target": "review/phase03a-architecture",
+  "sourceFilesTransferred": 74,
+  "sourceContentDifferences": 0,
+  "bookingBehaviorChanges": 0,
+  "privateGitObjectsImported": 0,
+  "privateBinaryHashesChecked": 177,
+  "privateCommitsChecked": 11,
+  "credentialMatches": 0,
+  "frontendAssetsTestsDependenciesChanged": 0,
+  "rootConfigurationChanges": [
+    "tsconfig excludes independent backend",
+    "public .gitignore retains private exclusions and allows sanitized B0 logs"
+  ],
+  "sanitizationDifferences": [
+    "Existing public Phase01 neutral placeholders/system fonts retained",
+    "Private global PROJECT_CONTEXT.md omitted; sanitized B0 snapshot supplied",
+    "Review logs redact workspace prefixes and normalize trailing whitespace",
+    "Public export audit metadata added; no application behavior differences",
+    "Public-only validation summary/logs and export audit metadata; no backend source or Booking behavior changes"
+  ],
+  "omitted": [
+    "private photos/fonts/reference boards/internal face screenshots",
+    "private Git history/objects",
+    "actual env credentials and connection strings",
+    "node_modules/dist/.local/generated Prisma/introspection/caches",
+    "original attached tasks/unnecessary internal artifacts"
+  ],
+  "files": [
+    {
+      "path": "backend/.dockerignore",
+      "sha256": "aa1e707a58b58fc3f7e0ef681be21d52160d135cb232af8f33e78d5597544f8b",
+      "bytes": 77
+    },
+    {
+      "path": "backend/.env.example",
+      "sha256": "fed9eaa48027a76e2239c44d0605b706e81d425dbcab99e2d409e70bf6270399",
+      "bytes": 407
+    },
+    {
+      "path": "backend/.gitignore",
+      "sha256": "3701b1abe88efa1d6652289ac30d4cbde807e013bd3d671de3e215c585345092",
+      "bytes": 93
+    },
+    {
+      "path": "backend/Dockerfile",
+      "sha256": "0868c4db8899bd117343ea7f1d1b00f3d20c2e9cbd3b1bf432f903691bdb8f11",
+      "bytes": 769
+    },
+    {
+      "path": "backend/README.md",
+      "sha256": "559192d306b369209ed0f5fd50d5ea7af69e5b6fe7b976f986c94a9aa9df49e3",
+      "bytes": 4926
+    },
+    {
+      "path": "backend/compose.yaml",
+      "sha256": "b939f6f9c39a8d4843e0be2f6f923eb9a8abe0ffb8e9e82f8c2121481bd9f498",
+      "bytes": 1437
+    },
+    {
+      "path": "backend/package-lock.json",
+      "sha256": "0833570e95167364270219746c86401878675f7474d68b94b38ccf82cc2fba87",
+      "bytes": 112097
+    },
+    {
+      "path": "backend/package.json",
+      "sha256": "0a92e6df987d9aa58932051f504099f38f798b664741974a1c8c86a5171de77f",
+      "bytes": 1197
+    },
+    {
+      "path": "backend/prisma.config.ts",
+      "sha256": "5da9e0b880f13c3bd82d0f123ca226defae16549a465274e65401cc2505023b6",
+      "bytes": 158
+    },
+    {
+      "path": "backend/prisma/schema.prisma",
+      "sha256": "fcfda4f3ee0a60fb928db948c70212844d8958c7862c2f499a17aab2aa2e9179",
+      "bytes": 418
+    },
+    {
+      "path": "backend/scripts/check-secrets.mjs",
+      "sha256": "b07162789c0bd0c2c25c352b572c882fd4af1f61f03cef2b1b80053ef306c30c",
+      "bytes": 1398
+    },
+    {
+      "path": "backend/scripts/diagnostics.mjs",
+      "sha256": "f0f41fbe741d5220b1c61434d67ec59679f8096972da24cb313c528fafe1be3f",
+      "bytes": 2273
+    },
+    {
+      "path": "backend/scripts/infra.mjs",
+      "sha256": "551effa179d3f46632eb2a966e0f09b7f4a226f7bce77e73858a40381f3cea16",
+      "bytes": 3203
+    },
+    {
+      "path": "backend/scripts/local.mjs",
+      "sha256": "e7acf68d428a0172318df183815ae33e3d5178dc34a40fc328537cb81c0c6c43",
+      "bytes": 1632
+    },
+    {
+      "path": "backend/scripts/prisma-probe.mjs",
+      "sha256": "cce7451e9810c6b05a41c66f389e033ce1f7ced431813efcd03c367cd5c1b614",
+      "bytes": 4717
+    },
+    {
+      "path": "backend/scripts/validate-db.mjs",
+      "sha256": "2e96a58433f6f9ce0b4c809d01d1ed1e4794fa89c9097e79194502eca8d3d225",
+      "bytes": 21244
+    },
+    {
+      "path": "backend/src/app.ts",
+      "sha256": "abece11d877e409f8a0196802c1c4229ffd1209af659179ade6f950e9d309b71",
+      "bytes": 724
+    },
+    {
+      "path": "backend/src/config.ts",
+      "sha256": "575269336e0d94699d0480f56a8bcb4d5018b04602881137e4b50d05f754a7ad",
+      "bytes": 1843
+    },
+    {
+      "path": "backend/src/database.ts",
+      "sha256": "0bc15cce5a0d94d43965238fb6a7877cde1f5a444721f999a96ada42aac5e3a3",
+      "bytes": 998
+    },
+    {
+      "path": "backend/src/health.ts",
+      "sha256": "9613ee1c9add6ec308e0de0779971a9bec29383150ecde86eeb29af4db96a1cc",
+      "bytes": 648
+    },
+    {
+      "path": "backend/src/main.ts",
+      "sha256": "f8dcd9ee4a962398e845ff80134c85feddacdeb9c9d57a93df086195cdf1348f",
+      "bytes": 315
+    },
+    {
+      "path": "backend/src/observability.ts",
+      "sha256": "471c5161e4ef0d46f755007f8004c387e0a238f64b7e7d93872e264561fa1011",
+      "bytes": 2026
+    },
+    {
+      "path": "backend/test/config.test.mjs",
+      "sha256": "755d244add6d18a0cc3e61ec45b46eb62181c55c4f8f350e2261cf0077f87eda",
+      "bytes": 995
+    },
+    {
+      "path": "backend/test/http.test.mjs",
+      "sha256": "28fbc592a4c8468f5a4e8b346ad04898daf2594604765c4c03a459f61b225653",
+      "bytes": 3199
+    },
+    {
+      "path": "backend/tsconfig.json",
+      "sha256": "ed43c724ffcc2ff336d587956f268767a890a5f1e3fecf946b95260e967c100b",
+      "bytes": 436
+    },
+    {
+      "path": "docs/backend/phase03b-b0/ADR-B0-001.md",
+      "sha256": "cac7c8c0903348d27ed001de89f9164a8ea4b3e7bfc59d64f67bc5e69e7fa850",
+      "bytes": 1869
+    },
+    {
+      "path": "docs/backend/phase03b-b0/CHANGED_FILES.md",
+      "sha256": "967a65094eca8b9ce599dbb897bd3063e6f6e1f27fcb878092c117d83808a3a2",
+      "bytes": 3617
+    },
+    {
+      "path": "docs/backend/phase03b-b0/COMMANDS.md",
+      "sha256": "c955a5b9f0d44e12944932d58451543eeda119da3bb59bf24d345a50ff2e9533",
+      "bytes": 3087
+    },
+    {
+      "path": "docs/backend/phase03b-b0/MANIFEST.json",
+      "sha256": "4c5d96735ffe62ec8714285a02effad2793632d4bdecd89a5f016cf5717e39a9",
+      "bytes": 7765
+    },
+    {
+      "path": "docs/backend/phase03b-b0/PRISMA_COMPATIBILITY.md",
+      "sha256": "526d0452d4766ace2b388f59fc268cb9140987772836c7f8897fdbfe7bd6f011",
+      "bytes": 2966
+    },
+    {
+      "path": "docs/backend/phase03b-b0/PROJECT_CONTEXT_SNAPSHOT.md",
+      "sha256": "3c15f15276977a0866a6b7a40f7f41f416b501ef34a188c21965a2f57861b92f",
+      "bytes": 1046
+    },
+    {
+      "path": "docs/backend/phase03b-b0/README.md",
+      "sha256": "c3efe7f9f60d2c986dc44ce22ed6a71c7eba3188138eda9987287cdcf7d1dd3e",
+      "bytes": 1089
+    },
+    {
+      "path": "docs/backend/phase03b-b0/REVIEW.html",
+      "sha256": "2e51eca2d103682d10b0c2e37fa56e32f8e89d15e5dad1af03cca197e3ab752e",
+      "bytes": 3378
+    },
+    {
+      "path": "docs/backend/phase03b-b0/RUNBOOK.md",
+      "sha256": "559192d306b369209ed0f5fd50d5ea7af69e5b6fe7b976f986c94a9aa9df49e3",
+      "bytes": 4926
+    },
+    {
+      "path": "docs/backend/phase03b-b0/SQL_ERROR_LOG.md",
+      "sha256": "78b6922abc30beed6ab8affa36d32df345aad460eea3e8139db716b53c4628af",
+      "bytes": 9784
+    },
+    {
+      "path": "docs/backend/phase03b-b0/STATIC_AND_REVIEW_CHECKS.json",
+      "sha256": "a28e57dee0d4aac36e7881b9993150dc16e406e20759ae25e715a9f30b886b17",
+      "bytes": 1821
+    },
+    {
+      "path": "docs/backend/phase03b-b0/TECHNICAL_REPORT.md",
+      "sha256": "237d3cd575e7bbdf62d5260b73424a17aef0c6d1c81240bb59f9f72192edde41",
+      "bytes": 8527
+    },
+    {
+      "path": "docs/backend/phase03b-b0/VALIDATION_MATRIX.md",
+      "sha256": "5b5b25132209fcfe5ccf9ffab262f8e33e4fa24309035e3aada0da165b250a06",
+      "bytes": 5899
+    },
+    {
+      "path": "docs/backend/phase03b-b0/diagnostic-backend.html",
+      "sha256": "312b9771eff5e683b2c9677d9e2c297c7f7313a23ec0ad0f60b6b2d5287e3abd",
+      "bytes": 1707
+    },
+    {
+      "path": "docs/backend/phase03b-b0/diagnostic-database.html",
+      "sha256": "6ddfda4b450fcabb0e7e3a020a73034cb0da46df472a3349a5da1f65d834dac3",
+      "bytes": 2665
+    },
+    {
+      "path": "docs/backend/phase03b-b0/diagnostic-runtime.html",
+      "sha256": "47a020d292d12cac1e441c26f1675faa3e3b0dc33e9d9baaa4045fd6704bef1e",
+      "bytes": 2814
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/attempt-build-network.log",
+      "sha256": "9338de02938325df8c832aab0ca47d379480c4e42ff1f642725b98bcfa26e4ec",
+      "bytes": 3940
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/attempt-internal-network-backend.log",
+      "sha256": "f12031b7c3dd61ee9263f32370f3037b038dd4c4aa5111fdce491e96101acdc0",
+      "bytes": 2230
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/attempt-internal-network-database.json",
+      "sha256": "a1e8e2ec9b86315ac20337d357c79e603cfd41410c9ee1b6209efb234d6b3a7a",
+      "bytes": 356
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/backend-build.log",
+      "sha256": "3f495baaf9b778ae67b1c21b6bd10bc61d4d95dc08f660f43491a3a29f110367",
+      "bytes": 65
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/backend-ci.log",
+      "sha256": "222cfff33d5fe60f0f3572734a3c3b733d5cd520e16b477dbea385740d3b84d0",
+      "bytes": 25
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/backend-tests.log",
+      "sha256": "c880880ed562e628ef5f6f3abf6b11f810a6fa8bd2dec45b758bbb7a53f7169b",
+      "bytes": 1126
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/backend-typecheck.log",
+      "sha256": "982814b5cd9f980b8c9422025ea56004627e6d3ea08bad318685b2e19fae00f1",
+      "bytes": 78
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/database-results.json",
+      "sha256": "fe4672c3edd5e41beebe90c53ef184fc572d75f293c3821723266945b261054e",
+      "bytes": 20425
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/database-tests.log",
+      "sha256": "a3b260b223d522584f12d296f5386660a1c088801d55c2b5c7de6f2be736820d",
+      "bytes": 2060
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/environment-results.json",
+      "sha256": "b1a798a28bea196e777ae495382eb3549d5f5478d94a065d3d6156c3506d9434",
+      "bytes": 1467
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/environment.log",
+      "sha256": "f989233cea45150a94e85cdac36a0aa23b74951a84b9ca3187d03171bdbbc0bd",
+      "bytes": 1547
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/frontend-build.log",
+      "sha256": "d204b5712783a96b86bf6bceb2099899d843cac1773b2555cb5e52352fb58074",
+      "bytes": 1097
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/frontend-summary.json",
+      "sha256": "c189fccfa773cf622ed0360a02e9393764effd53b29a4fc40f558f806dcb71b8",
+      "bytes": 335
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/frontend-typecheck.log",
+      "sha256": "fd6a81895ddfbae08afa859f9420d56c16436877ab35fa02744bae57f5a3277f",
+      "bytes": 58
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/frontend-ui.log",
+      "sha256": "1ed080fd9dc2e0323a8b92584d4b88aa79622a9b31a810244708565c554c4dab",
+      "bytes": 14700
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/infra-up.log",
+      "sha256": "73c437d3882c54f7a53d4bc3d1dc6fbd4028c9be5e736c687448de7985315962",
+      "bytes": 3982
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/prisma-results.json",
+      "sha256": "4f64f7665b7fa433e760c1de4adf6b046beace19853a74dbdf6dea29d0062332",
+      "bytes": 42536
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/prisma-tests.log",
+      "sha256": "573ac5c8f07264da6a381167cdd90f329c742686d86d584b0f18fc1707a9c1ef",
+      "bytes": 876
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/secrets-results.json",
+      "sha256": "051243635d13f0fe7e142cd42087e68b4baccbe562cfe3e8102693f2b87e278c",
+      "bytes": 204
+    },
+    {
+      "path": "docs/backend/phase03b-b0/images/constraint-results.png",
+      "sha256": "322d6f3367eb77029e213cf0bc42b86c7dffd4fd5f565746c2af1cf8d275e080",
+      "bytes": 59799
+    },
+    {
+      "path": "docs/backend/phase03b-b0/images/constraint-results.svg",
+      "sha256": "37f4eef8d101d0d375416e0d0e1ebad32aa01e65e9b19f0a5a967c61e4c02350",
+      "bytes": 2479
+    },
+    {
+      "path": "docs/backend/phase03b-b0/images/contact-sheet.png",
+      "sha256": "0a2952069991382f04926020349dfa054a0e1ea15ee5ac3ac1ef90dd4f4faf96",
+      "bytes": 225543
+    },
+    {
+      "path": "docs/backend/phase03b-b0/images/database-summary.png",
+      "sha256": "569f6fb6eeae7a0777fe6fc86182b8ee2caf77d3e9bc1d34f82ae2b44b8a9fcd",
+      "bytes": 40612
+    },
+    {
+      "path": "docs/backend/phase03b-b0/images/database-summary.svg",
+      "sha256": "defdf75117bcf37371b268bbbdbff1b240a1f9f0251e2ca45d364886ec80e753",
+      "bytes": 1769
+    },
+    {
+      "path": "docs/backend/phase03b-b0/images/diagnostic-backend.png",
+      "sha256": "f567767dae0d0f89673c39c89c5ab8f297d4c5230470ad5892540dc3c5e2e2ef",
+      "bytes": 85970
+    },
+    {
+      "path": "docs/backend/phase03b-b0/images/diagnostic-database.png",
+      "sha256": "f9837813de5c571ec3918213a882d5fee1a7caa7442421dadbdd0362ae374585",
+      "bytes": 125749
+    },
+    {
+      "path": "docs/backend/phase03b-b0/images/diagnostic-runtime.png",
+      "sha256": "ec287a1c9263da070a5a6c221b84e0bb35898b72c15027f69e9fb3ce026c9935",
+      "bytes": 103761
+    },
+    {
+      "path": "docs/backend/phase03b-b0/images/environment.dot",
+      "sha256": "17857825253675d656a2b15dbbd200833965cb5e29e0929f6fe1f9a1397b2227",
+      "bytes": 1138
+    },
+    {
+      "path": "docs/backend/phase03b-b0/images/environment.png",
+      "sha256": "0d3975a29a47d8b55d634b227f3dcb559f292e919dae44732c59d4acb2d72372",
+      "bytes": 31346
+    },
+    {
+      "path": "docs/backend/phase03b-b0/images/environment.svg",
+      "sha256": "8bc684a9eefef151de26121feae8b3f13297c06bbf9ab39bb69ff9689d0f8322",
+      "bytes": 9313
+    },
+    {
+      "path": "docs/backend/phase03b-b0/images/modules.dot",
+      "sha256": "771b049f81ccaec8175a06f5f2e44d21eb805a864aea067a9f49001153e5431b",
+      "bytes": 1087
+    },
+    {
+      "path": "docs/backend/phase03b-b0/images/modules.png",
+      "sha256": "b87219f32a2ac9f5b5c7c2ee8e3e16745e162d3cbe8861b55c7716b0b5a22786",
+      "bytes": 32582
+    },
+    {
+      "path": "docs/backend/phase03b-b0/images/modules.svg",
+      "sha256": "042a21ce841dd4100cb77dbc4be7f592d1bb0b1337ed54870c6c1c223b340a95",
+      "bytes": 7702
+    }
+  ],
+  "publicExportChecks": {
+    "executedAt": "2026-10-29T16:28:51.505Z",
+    "branch": "review/phase03b-b0",
+    "publicBase": "d1f60c39464a8728d5e66e1d231eac72ca381ff3",
+    "status": "PASS",
+    "backend": {
+      "npmCi": "PASS:249 packages from canonical lock using offline verified cache",
+      "typecheck": "PASS",
+      "build": "PASS",
+      "configTests": 10,
+      "databaseTests": "35 real SQL and14 backend tests executed in original private isolated environment; transferred backend source bytes identical. Public checkout did not provision a second B0 cluster."
+    },
+    "frontend": {
+      "typecheck": "PASS",
+      "build": "PASS",
+      "playwright": {
+        "startTime": "2026-10-29T16:24:52.326Z",
+        "duration": 205464.894,
+        "expected": 92,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    },
+    "sqlDrafts": "Equivalent source text after line-ending normalization; original approved schema logic unchanged",
+    "sourceContentDifferences": 0,
+    "logs": [
+      {
+        "path": "docs/backend/phase03b-b0/evidence/public-backend.log",
+        "bytes": 880,
+        "sha256": "05ae518275ee3338fefbf175f802ff9baa05f9dce74a8ad3bbc675c9e6dc5f78"
+      },
+      {
+        "path": "docs/backend/phase03b-b0/evidence/public-frontend-build.log",
+        "bytes": 974,
+        "sha256": "194721a83b369ee1198effb8d30a85866fdce5ba63d5d3cd47b93d3472eccdfc"
+      },
+      {
+        "path": "docs/backend/phase03b-b0/evidence/public-ui.log",
+        "bytes": 14807,
+        "sha256": "bab438da539f67eea7ef1a447a2e63c4c6e227653f3630b1ca1d2ea6a8e5594e"
+      }
+    ]
+  },
+  "publicOnlyEvidence": [
+    {
+      "path": "docs/backend/phase03b-b0/evidence/public-backend.log",
+      "bytes": 880,
+      "sha256": "05ae518275ee3338fefbf175f802ff9baa05f9dce74a8ad3bbc675c9e6dc5f78"
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/public-frontend-build.log",
+      "bytes": 974,
+      "sha256": "194721a83b369ee1198effb8d30a85866fdce5ba63d5d3cd47b93d3472eccdfc"
+    },
+    {
+      "path": "docs/backend/phase03b-b0/evidence/public-ui.log",
+      "bytes": 14807,
+      "sha256": "bab438da539f67eea7ef1a447a2e63c4c6e227653f3630b1ca1d2ea6a8e5594e"
+    }
+  ]
+}

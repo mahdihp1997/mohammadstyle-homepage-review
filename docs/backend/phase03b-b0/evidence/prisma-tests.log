@@ -1,0 +1,4 @@
+> mohammadstyle-b0-foundation@0.0.0 test:prisma
+> node scripts/prisma-probe.mjs
+
+{"status":"PASS","version":"7.10.1","commands":[{"command":"prisma validate","status":0},{"command":"prisma generate","status":0},{"command":"prisma db pull --print","status":0}],"assertions":["Real 72-table introspection returns Unsupported daterange/tstzrange fields","Selected Prisma release actually introspects partial unique and non-unique indexes with where: raw","Generated scope_key appears as optional dbgenerated default; PSL alone does not preserve GENERATED ALWAYS STORED semantics","Generated Prisma client ordinary model read: 2 synthetic businesses","Interactive transaction actually reports serializable","Parameterized native range SQL with text projection works","Validate/generate/introspect/read/transaction leave constraints, indexes and generated expressions unchanged"]}

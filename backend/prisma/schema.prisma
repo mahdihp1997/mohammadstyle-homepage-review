@@ -1,0 +1,18 @@
+// Compatibility probe only; this is not the architecture schema or a migration source.
+generator client {
+  provider = "prisma-client-js"
+  output = "./generated"
+  engineType = "client"
+}
+datasource db {
+  provider = "postgresql"
+  schemas = ["ms_design"]
+}
+model BusinessProbe {
+  id String @id @db.Uuid
+  brand_name String
+  slug String @unique
+  currency_code String
+  @@map("business")
+  @@schema("ms_design")
+}

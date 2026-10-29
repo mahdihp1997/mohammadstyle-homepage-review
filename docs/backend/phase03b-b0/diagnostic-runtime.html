@@ -1,0 +1,66 @@
+<!doctype html><html><meta charset="utf-8"><title>Actual container health and database diagnostics</title><style>body{margin:0;background:#f4f7fb;color:#172c48;font:18px/1.5 Arial;padding:35px}h1{font-size:30px}p{color:#53647a}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:white;border:1px solid #c8d5e4;border-radius:10px;padding:25px;font:17px/1.5 Consolas,monospace}</style><h1>Actual container health and database diagnostics</h1><p>Recorded command output from this run; workspace prefixes redacted. Actual Chromium screenshot of this diagnostic view.</p><pre>&gt; mohammadstyle-b0-foundation@0.0.0 diagnostics
+&gt; node scripts/diagnostics.mjs
+
+{
+  &quot;executedAt&quot;: &quot;2026-10-29T16:12:18.895Z&quot;,
+  &quot;hostNode&quot;: &quot;v24.16.0&quot;,
+  &quot;docker&quot;: &quot;29.5.2&quot;,
+  &quot;compose&quot;: &quot;5.1.3&quot;,
+  &quot;containers&quot;: [
+    {
+      &quot;name&quot;: &quot;/mohammadstyle-b0-postgres-1&quot;,
+      &quot;health&quot;: &quot;healthy&quot;,
+      &quot;ports&quot;: {
+        &quot;5432/tcp&quot;: [
+          {
+            &quot;HostIp&quot;: &quot;127.0.0.1&quot;,
+            &quot;HostPort&quot;: &quot;55432&quot;
+          }
+        ]
+      },
+      &quot;image&quot;: &quot;postgres:18.6-bookworm@sha256:5c4783a8cc3f0074912164f94dfa1be4e043438f0f707cf968d7af9a0d31a2c8&quot;,
+      &quot;project&quot;: &quot;mohammadstyle-b0&quot;
+    },
+    {
+      &quot;name&quot;: &quot;/mohammadstyle-b0-api-1&quot;,
+      &quot;health&quot;: &quot;healthy&quot;,
+      &quot;ports&quot;: {
+        &quot;3100/tcp&quot;: [
+          {
+            &quot;HostIp&quot;: &quot;127.0.0.1&quot;,
+            &quot;HostPort&quot;: &quot;3100&quot;
+          }
+        ]
+      },
+      &quot;image&quot;: &quot;mohammadstyle-b0-api&quot;,
+      &quot;project&quot;: &quot;mohammadstyle-b0&quot;
+    }
+  ],
+  &quot;containerNode&quot;: &quot;v24.16.0&quot;,
+  &quot;containerNpm&quot;: &quot;11.13.0&quot;,
+  &quot;runtimeUser&quot;: &quot;1000&quot;,
+  &quot;health&quot;: [
+    {
+      &quot;endpoint&quot;: &quot;live&quot;,
+      &quot;status&quot;: 200,
+      &quot;body&quot;: {
+        &quot;status&quot;: &quot;alive&quot;
+      }
+    },
+    {
+      &quot;endpoint&quot;: &quot;ready&quot;,
+      &quot;status&quot;: 200,
+      &quot;body&quot;: {
+        &quot;status&quot;: &quot;ready&quot;
+      }
+    }
+  ],
+  &quot;database&quot;: {
+    &quot;version&quot;: &quot;PostgreSQL 18.6 (Debian 18.6-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit&quot;,
+    &quot;current_user&quot;: &quot;ms_b0_probe&quot;,
+    &quot;current_database&quot;: &quot;ms_b0_control&quot;,
+    &quot;inet_server_port&quot;: 5432,
+    &quot;application_tables&quot;: 0
+  },
+  &quot;status&quot;: &quot;PASS&quot;
+}</pre></html>

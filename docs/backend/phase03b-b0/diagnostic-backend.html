@@ -1,0 +1,25 @@
+<!doctype html><html><meta charset="utf-8"><title>Actual backend process/config/HTTP tests</title><style>body{margin:0;background:#f4f7fb;color:#172c48;font:18px/1.5 Arial;padding:35px}h1{font-size:30px}p{color:#53647a}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:white;border:1px solid #c8d5e4;border-radius:10px;padding:25px;font:17px/1.5 Consolas,monospace}</style><h1>Actual backend process/config/HTTP tests</h1><p>Recorded command output from this run; workspace prefixes redacted. Actual Chromium screenshot of this diagnostic view.</p><pre>&gt; mohammadstyle-b0-foundation@0.0.0 test
+&gt; node --test --test-concurrency=1 test/*.test.mjs
+
+✔ isolated local configuration accepted (4.7482ms)
+✔ invalid APP_ENV fails without leaking value (3.7176ms)
+✔ invalid API_HOST fails without leaking value (0.3938ms)
+✔ invalid API_PORT fails without leaking value (0.5856ms)
+✔ invalid PGHOST fails without leaking value (0.4024ms)
+✔ invalid PGDATABASE fails without leaking value (0.2946ms)
+✔ invalid PGUSER fails without leaking value (0.2445ms)
+✔ invalid PGPASSWORD fails without leaking value (0.2785ms)
+✔ invalid PGPORT fails without leaking value (0.3383ms)
+✔ missing configuration lists keys without values (1.3733ms)
+✔ real least-privilege database connection and denied DDL (197.5488ms)
+✔ backend startup, readiness, request identity, safe centralized 404 (1477.1057ms)
+✔ database outage leaves liveness up and readiness fails closed (1684.3955ms)
+✔ invalid startup configuration exits nonzero without logging secrets (1209.9034ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5676.9792</pre></html>

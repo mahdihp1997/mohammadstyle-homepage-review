@@ -1,0 +1,28 @@
+
+added 249 packages in 45s
+
+> mohammadstyle-b0-foundation@0.0.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> mohammadstyle-b0-foundation@0.0.0 build
+> tsc -p tsconfig.json
+
+✔ isolated local configuration accepted (1.3867ms)
+✔ invalid APP_ENV fails without leaking value (0.5461ms)
+✔ invalid API_HOST fails without leaking value (0.1357ms)
+✔ invalid API_PORT fails without leaking value (0.1676ms)
+✔ invalid PGHOST fails without leaking value (0.2087ms)
+✔ invalid PGDATABASE fails without leaking value (0.1413ms)
+✔ invalid PGUSER fails without leaking value (0.1682ms)
+✔ invalid PGPASSWORD fails without leaking value (0.1206ms)
+✔ invalid PGPORT fails without leaking value (0.22ms)
+✔ missing configuration lists keys without values (0.3075ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 660.7093

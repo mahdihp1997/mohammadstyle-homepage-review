@@ -1,0 +1,24 @@
+digraph B0 { graph [bgcolor="white",pad="0.35",nodesep="0.5",ranksep="0.65",fontname="Arial",fontsize=20]; node [shape=box,style="rounded,filled",fillcolor="#eef5ff",color="#7293bd",fontname="Arial",fontsize=16,margin="0.2,0.14"]; edge [color="#64748b",fontname="Arial",fontsize=12]; rankdir=TB; label="B0 — actual local environment"; labelloc=t;
+ owner[label="Owner / test runner
+Windows Node24.16 + npm11.17"];
+ api[label="NestJS12 API · UID1000
+127.0.0.1:3100
+/health/live · /health/ready"];
+ pg[label="PostgreSQL18.6
+127.0.0.1:55432
+dedicated B0 Compose bridge"];
+ control[label="ms_b0_control
+0 business tables
+non-DDL health role",fillcolor="#e8f7ee"];
+ b1[label="ms_b0_b1_test
+16 tables · inactive gates
+DISPOSABLE ONLY"];
+ full[label="ms_b0_full_test
+72 tables · GiST / ranges
+DISPOSABLE ONLY"];
+ frontend[label="Existing Next.js Homepage / Booking
+Frontend demo unchanged
+92 regression checks PASS",fillcolor="#fff4d7"];
+ owner -> api[label="HTTP probes"]; owner -> pg[label="separate validation admin"];
+ api -> control[label="SELECT1 only"]; pg -> control; pg -> b1; pg -> full; owner -> frontend[label="Playwright"];
+ }
