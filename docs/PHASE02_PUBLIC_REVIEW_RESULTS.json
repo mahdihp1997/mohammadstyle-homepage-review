@@ -1,0 +1,102 @@
+{
+  "date": "2026-10-29",
+  "scope": "Fresh sanitized public checkout; actual Next.js app; no private test evidence reused",
+  "privateSourceCommit": "7e56ef7e584830f6a884e677f9002b9ab46ff294",
+  "publicBaseCommit": "f35a5cc20ebd497b0d8fb7b96c207549f147799f",
+  "environment": {
+    "os": "Windows",
+    "node": "v24.16.0",
+    "npm": "11.17.0",
+    "next": "15.5.28",
+    "browser": "Installed Google Chrome through Playwright channel chrome",
+    "testServer": "http://127.0.0.1:3010",
+    "freshIndependentNodeModules": true
+  },
+  "commands": [
+    {
+      "command": "npm ci",
+      "exitCode": 0,
+      "summary": "Added 29 packages; audited 30. Original package.json and package-lock.json unchanged."
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "summary": "tsc --noEmit; no diagnostics."
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "summary": "Compiled successfully in 6.0s; 5/5 static pages generated; /booking dynamically server-rendered."
+    },
+    {
+      "command": "npm run test:ui",
+      "environment": {
+        "PLAYWRIGHT_CHANNEL": "chrome",
+        "CI": "true",
+        "NEXT_TELEMETRY_DISABLED": "1"
+      },
+      "exitCode": 0,
+      "summary": "48 passed in 163.3s; zero failed, skipped or flaky tests."
+    }
+  ],
+  "tests": {
+    "passed": 48,
+    "failed": 0,
+    "skipped": 0,
+    "flaky": 0,
+    "durationMs": 163326.78199999998,
+    "startTime": "2026-10-29T11:07:48.253Z",
+    "suites": {
+      "bookingDomain": 12,
+      "bookingBrowser": 20,
+      "homepageBrowser": 16
+    },
+    "projects": [
+      {
+        "name": "desktop",
+        "viewport": {
+          "width": 1440,
+          "height": 900
+        },
+        "passed": 12
+      },
+      {
+        "name": "tablet",
+        "viewport": {
+          "width": 1024,
+          "height": 768
+        },
+        "passed": 12
+      },
+      {
+        "name": "mobile",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "passed": 12
+      },
+      {
+        "name": "mobile-small",
+        "viewport": {
+          "width": 375,
+          "height": 812
+        },
+        "passed": 12
+      }
+    ],
+    "browserAssertions": "No JS, hydration, console, HTTP or broken-image errors; no horizontal overflow; selections, keyboard/focus, date navigation, policy arithmetic, invalidation and no-JS safeguards pass."
+  },
+  "dependencyAudit": {
+    "total": 2,
+    "moderate": 1,
+    "high": 1,
+    "packages": [
+      "next",
+      "postcss"
+    ],
+    "lockfileChanged": false,
+    "majorUpgradeNotApplied": true
+  },
+  "rawLogsAndScreenshotsPublished": false
+}

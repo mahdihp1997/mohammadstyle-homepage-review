@@ -1,5 +1,7 @@
 # CODEX TASK 01 — Make the existing Homepage buildable and visually faithful
 
+> Historical Phase 01 task prompt, not a current instruction. The current branch is the authorized sanitized Phase 02 code-review export; see `PHASE02_PUBLIC_REVIEW.md` and `BOOKING_UI.md`. Stop after the draft PR; no merge or Phase 03.
+
 You are the engineer continuing an EXISTING Next.js (App Router) + TypeScript project for محمد استایل / سالن ممتاز پونک. Work within this project root. This is not a greenfield task. DO NOT scaffold a new app, DO NOT replace the homepage with a template, and DO NOT change the approved dark/champagne cinematic visual direction.
 
 Read all of these BEFORE editing:

@@ -1,0 +1,373 @@
+{
+  "date": "2026-10-29",
+  "privateSourceCommit": "7e56ef7e584830f6a884e677f9002b9ab46ff294",
+  "publicBaseCommit": "f35a5cc20ebd497b0d8fb7b96c207549f147799f",
+  "reviewBranch": "review/phase02-booking",
+  "privateHistoryIncluded": false,
+  "textHashNormalization": "UTF-8 with CRLF normalized to LF; binary hashes use exact bytes",
+  "sourceFiles": [
+    {
+      "path": "app/booking/booking.css",
+      "privateSourceSha256": "4b6ffbc62d613a806b6b1aafb94027b4ee91defe7208a465706d21385d539d37",
+      "publicSourceSha256": "4b6ffbc62d613a806b6b1aafb94027b4ee91defe7208a465706d21385d539d37",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": []
+    },
+    {
+      "path": "app/booking/page.tsx",
+      "privateSourceSha256": "52daffa2b96290e084c2a18775ec4216d3379f4d16d914fd488cf9d023f92826",
+      "publicSourceSha256": "52daffa2b96290e084c2a18775ec4216d3379f4d16d914fd488cf9d023f92826",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": []
+    },
+    {
+      "path": "components/booking/BarberSelection.tsx",
+      "privateSourceSha256": "2898713844d23e3e9c56eb1df7d60b32c41f7c67b74155df55fc18ddf2d6d041",
+      "publicSourceSha256": "2898713844d23e3e9c56eb1df7d60b32c41f7c67b74155df55fc18ddf2d6d041",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": []
+    },
+    {
+      "path": "components/booking/BookingNavigation.tsx",
+      "privateSourceSha256": "e2d7d49d787b6a5710e6a2dc9cad0a3fd7d61742178ffda8d5be2de8a89c19af",
+      "publicSourceSha256": "e2d7d49d787b6a5710e6a2dc9cad0a3fd7d61742178ffda8d5be2de8a89c19af",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": []
+    },
+    {
+      "path": "components/booking/BookingPolicySummary.tsx",
+      "privateSourceSha256": "af9c48ad069904c516981a51ddbfbf4a353ccde10b89982533dd8bff1119623b",
+      "publicSourceSha256": "af9c48ad069904c516981a51ddbfbf4a353ccde10b89982533dd8bff1119623b",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": []
+    },
+    {
+      "path": "components/booking/BookingStepper.tsx",
+      "privateSourceSha256": "c5867bc5041713bc166a3429d81ecdbf1665ede246ae38c85cbe2b3ecb2a680e",
+      "publicSourceSha256": "c5867bc5041713bc166a3429d81ecdbf1665ede246ae38c85cbe2b3ecb2a680e",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": []
+    },
+    {
+      "path": "components/booking/BookingSummary.tsx",
+      "privateSourceSha256": "5eda6627a012869e32c440bf39279bbae4555fce6409a5a666fa2a87af38ecce",
+      "publicSourceSha256": "5eda6627a012869e32c440bf39279bbae4555fce6409a5a666fa2a87af38ecce",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": []
+    },
+    {
+      "path": "components/booking/BookingWizard.tsx",
+      "privateSourceSha256": "5ff478849e8b9738cade3a6842224524b75671f0e0aeadec939f4edd3845a8e0",
+      "publicSourceSha256": "ccaaf4c060f686727faac01b44108d91a05f68c447ecf2f4a876b1718e475f0e",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": [
+        {
+          "before": "آرایشگر در حال کار؛ تصویر ارسالی مجموعه برای بازبینی داخلی",
+          "after": "جای‌نگهدار نسخه عمومی برای تصویر آرایشگر؛ عکس خصوصی حذف شده است",
+          "reason": "Accessible description of the inherited public placeholder only"
+        }
+      ]
+    },
+    {
+      "path": "components/booking/BranchSelection.tsx",
+      "privateSourceSha256": "c55c589e01a973b7118d60760e88d15e9861f109e104fe706f35a8e4db0b3317",
+      "publicSourceSha256": "c55c589e01a973b7118d60760e88d15e9861f109e104fe706f35a8e4db0b3317",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": []
+    },
+    {
+      "path": "components/booking/DateTimeSelection.tsx",
+      "privateSourceSha256": "cbe1f18cf32fdfd876379a9e0ce91a8b67972acf390f250da50dd70ecf70d49f",
+      "publicSourceSha256": "cbe1f18cf32fdfd876379a9e0ce91a8b67972acf390f250da50dd70ecf70d49f",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": []
+    },
+    {
+      "path": "components/booking/JalaliCalendar.tsx",
+      "privateSourceSha256": "e8da7dde3ce21f8e51b400bf3eb6b93436584cd9bd68d5d781b2f0213175774e",
+      "publicSourceSha256": "e8da7dde3ce21f8e51b400bf3eb6b93436584cd9bd68d5d781b2f0213175774e",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": []
+    },
+    {
+      "path": "components/booking/ServiceSelection.tsx",
+      "privateSourceSha256": "8c7bbc64ce060dc343b433b9f40c0adf94aa7ea93083c8c037e58b0e78390df6",
+      "publicSourceSha256": "01c6aba47fc1bbcb91e0deba7b584cb91993e031248987a91a9890c45a6e665b",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": [
+        {
+          "before": "تصویر ارسالی مجموعه برای ${service.name}",
+          "after": "جای‌نگهدار نسخه عمومی برای ${service.name}",
+          "reason": "Accessible description of inherited placeholders; conceptual-service descriptions unchanged"
+        }
+      ]
+    },
+    {
+      "path": "data/booking-demo.ts",
+      "privateSourceSha256": "2bb9c72c487bf26015c58a9d206b08b0082c5561ab719000051f614feb8077b5",
+      "publicSourceSha256": "0db1fb943f913e41dc03685e3bf532a0e984ee572efa29c0c7bc8dba2b3c2901",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": [
+        {
+          "before": "تصویر فضای مجموعه ارسالی کارفرما",
+          "after": "جای‌نگهدار نسخه عمومی برای تصویر فضای مجموعه",
+          "reason": "Branch image alt text only"
+        },
+        {
+          "before": "تصویر مجموعه؛ انتساب اختصاصی به این شعبه تأیید نشده است.",
+          "after": "جای‌نگهدار بررسی کد؛ عکس خصوصی و انتساب آن نمایش داده نمی‌شود.",
+          "reason": "Visible branch image caption only"
+        }
+      ]
+    },
+    {
+      "path": "lib/booking/calculations.ts",
+      "privateSourceSha256": "63d0ecd6100978f25f2f2989de329312b91f7c48251d05c5b28db537e1c00bf0",
+      "publicSourceSha256": "63d0ecd6100978f25f2f2989de329312b91f7c48251d05c5b28db537e1c00bf0",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": []
+    },
+    {
+      "path": "lib/booking/date-utils.ts",
+      "privateSourceSha256": "ca4f317991c0a68a19b6ce4bf43455ad9d2bb13788ee1a26e7b765059b4d8ee7",
+      "publicSourceSha256": "ca4f317991c0a68a19b6ce4bf43455ad9d2bb13788ee1a26e7b765059b4d8ee7",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": []
+    },
+    {
+      "path": "lib/booking/state.ts",
+      "privateSourceSha256": "5670a0aae7644ca6c0fc3f041e57185e604b9b5873d5cd0c1df9d440bcfe61c3",
+      "publicSourceSha256": "5670a0aae7644ca6c0fc3f041e57185e604b9b5873d5cd0c1df9d440bcfe61c3",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": []
+    },
+    {
+      "path": "lib/booking/validation.ts",
+      "privateSourceSha256": "f7dc6321aeafa869d6d2ad4de5d1a87a226213e2a9f0827ab6e8eaf7e7a4cc6b",
+      "publicSourceSha256": "f7dc6321aeafa869d6d2ad4de5d1a87a226213e2a9f0827ab6e8eaf7e7a4cc6b",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": []
+    },
+    {
+      "path": "tests/booking-domain.spec.ts",
+      "privateSourceSha256": "333a7b4d11959423da527a300f3141e2052aafa86fb490b2e3541feabfa31a61",
+      "publicSourceSha256": "333a7b4d11959423da527a300f3141e2052aafa86fb490b2e3541feabfa31a61",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": []
+    },
+    {
+      "path": "tests/booking.spec.ts",
+      "privateSourceSha256": "5bbc94247320c6603ce882250e124f5d12d9b4b9d988106618b88f9ae23fc27c",
+      "publicSourceSha256": "4a64146f2b0c0993287736530ba66f390c87e0870b2ae28bd55494ce474ea329",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": [
+        {
+          "before": "async ({ browser }) => {",
+          "after": "async ({ browser, baseURL }) => {",
+          "reason": "Give the no-JavaScript context the configured public app endpoint"
+        },
+        {
+          "before": "await browser.newContext({ javaScriptEnabled: false })",
+          "after": "await browser.newContext({ javaScriptEnabled: false, baseURL })",
+          "reason": "Use public Playwright baseURL (3010), never the private server (3000)"
+        },
+        {
+          "before": "page.goto(\"http://127.0.0.1:3000/booking?service=hair\")",
+          "after": "page.goto(\"/booking?service=hair\")",
+          "reason": "No assertion or browser behavior changed; only the test server address"
+        }
+      ]
+    },
+    {
+      "path": "types/booking.ts",
+      "privateSourceSha256": "e5da9a4832839dcc0b0de53726e61a658c58d77ea46d46cc37bf0d89bdecf240",
+      "publicSourceSha256": "e5da9a4832839dcc0b0de53726e61a658c58d77ea46d46cc37bf0d89bdecf240",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": []
+    }
+  ],
+  "homepageDelta": {
+    "matchesPrivatePhase02Exactly": true,
+    "preservesPublicPhase01Sanitization": true,
+    "files": [
+      "components/Homepage.tsx",
+      "app/globals.css"
+    ]
+  },
+  "preservedPublicMainFiles": [
+    {
+      "path": "public/images/barber-process.webp",
+      "sha256": "485f4cb8b65f6e34dd76340575b5a4aff978656294b4bef1dc4498b92ae2d350",
+      "normalization": "binary"
+    },
+    {
+      "path": "public/images/barber-working.webp",
+      "sha256": "54f260570da07a4cb6dc0fcbcf5e8ec89b4891e6516d3038f9f2ce873389d262",
+      "normalization": "binary"
+    },
+    {
+      "path": "public/images/before-after-groom.webp",
+      "sha256": "b1351a338445da51fdb9da1701dd9e5b9ad61ccb3421e20ad9d23b83d10d0ef7",
+      "normalization": "binary"
+    },
+    {
+      "path": "public/images/before-after-hair.webp",
+      "sha256": "9d6466e68bdd47536a729049cf14ca6c9791e8681e0bf94b34dc6c90eddd8b0f",
+      "normalization": "binary"
+    },
+    {
+      "path": "public/images/groom-look.webp",
+      "sha256": "b2071ae8b0c15645349da3d651850d79ac368a65177eef270dfee6db52b5c7d9",
+      "normalization": "binary"
+    },
+    {
+      "path": "public/images/groom-occasion.webp",
+      "sha256": "3c52f2df8a4a6491116464741ade96dbd6278e3276636d7949a951b4c179eeb0",
+      "normalization": "binary"
+    },
+    {
+      "path": "public/images/groom-team.webp",
+      "sha256": "cb87c984b7eaac71c197452fdd654c183d25d40d0617889bea7a833274137962",
+      "normalization": "binary"
+    },
+    {
+      "path": "public/images/hair-after.webp",
+      "sha256": "4c5cc697c0ff8908bd38610d9ebdf161bc4a7a2be4f38e8450f73adc28a610d4",
+      "normalization": "binary"
+    },
+    {
+      "path": "public/images/hair-before.webp",
+      "sha256": "449f377ece655fda6587fc42f80ae0136b58db07b763e22120a13b278a942a4b",
+      "normalization": "binary"
+    },
+    {
+      "path": "public/images/hero-groom.webp",
+      "sha256": "364b304d92bbb24c81c15085912fa86a9ed6ff2924bf148884d3cb8a1d216d06",
+      "normalization": "binary"
+    },
+    {
+      "path": "public/images/mohammadstyle-images/mohammadstyle-services-facial-concept.webp",
+      "sha256": "65840124d0d5053ff92974e1f3d173aa2312c18a546a965969a6592fa4c13ee7",
+      "normalization": "binary"
+    },
+    {
+      "path": "public/images/mohammadstyle-images/mohammadstyle-services-manicure-concept.webp",
+      "sha256": "b9121850b0669ad6705225a1dbb8c18ae861cd36f12245e0739c4790c8e78f96",
+      "normalization": "binary"
+    },
+    {
+      "path": "public/images/mohammadstyle-images/mohammadstyle-services-massage-concept.webp",
+      "sha256": "bce5518f40ab095940afa2fee8f6b200246bfb9a548233570c549ad0162a809b",
+      "normalization": "binary"
+    },
+    {
+      "path": "public/images/mohammadstyle-images/mohammadstyle-services-pedicure-concept.webp",
+      "sha256": "09c8261760451a4a2b30d9ef76ded623001a0ec1cc6d88a014976b9cf3477b64",
+      "normalization": "binary"
+    },
+    {
+      "path": "public/images/portrait-formal.webp",
+      "sha256": "26068f5142f8ff0d144b0c55dbe4d608da26d821199d39a7984201c7bff67731",
+      "normalization": "binary"
+    },
+    {
+      "path": "public/images/portrait-styled.webp",
+      "sha256": "f75e819f9e3b0922f9b76e89c9767db1bf66fae9f925b4e2ceddd86e2548ce7b",
+      "normalization": "binary"
+    },
+    {
+      "path": "public/images/salon-chairs.webp",
+      "sha256": "79906b2929891e50aab120b115796a9211cdea07471ac4619558d26060382370",
+      "normalization": "binary"
+    },
+    {
+      "path": "public/images/salon-interior.webp",
+      "sha256": "bfda1d20b3341833fe5eeb3eefab45891538823fb6743a2148bea4f005dfdbfc",
+      "normalization": "binary"
+    },
+    {
+      "path": "app/layout.tsx",
+      "sha256": "f16e6920b78b15e8ec23e7b010bdf034fab2f8438c62a9971706beacb2417f77",
+      "normalization": "LF"
+    },
+    {
+      "path": "app/public-review.css",
+      "sha256": "e35083c7668336f91d5578d8aab7331f473172b1cddf8d482b1b235fba87a192",
+      "normalization": "LF"
+    },
+    {
+      "path": "package.json",
+      "sha256": "ecd84f179f624eddbc6ca412ca6555d1872d6545d116e77390ac149a7dfd3919",
+      "normalization": "LF"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "44d1e24e6b47b940400768101670d1e0eb3d5a8ed7cad0d8a708a40d54406a85",
+      "normalization": "LF"
+    },
+    {
+      "path": "data/site.ts",
+      "sha256": "ee0f122cf2ad5af3bc9ad39c28b0e940f1da0afae17e7bd7cffdc3139b14acc9",
+      "normalization": "LF"
+    },
+    {
+      "path": "data/business-facts.json",
+      "sha256": "8557543a995998bbc9f9f382bb246424ad2905237edce18f6f10809c92380884",
+      "normalization": "LF"
+    },
+    {
+      "path": "data/image-provenance.json",
+      "sha256": "8b0d79c12f257e19c8df0dcf2a24422a6daee76d5992f4affb9ff7057af4cf06",
+      "normalization": "LF"
+    },
+    {
+      "path": "data/generated-service-images.json",
+      "sha256": "2f88858da195bd2f58eb14fbb8931caeb9b0e2302d41859eefd2309e16e4f25e",
+      "normalization": "LF"
+    },
+    {
+      "path": "playwright.config.ts",
+      "sha256": "94e0b4fa8beb8afd10745ad92d0814344c10a22307e84edd7ce9005fab6a85dd",
+      "normalization": "LF"
+    },
+    {
+      "path": "tests/homepage.spec.ts",
+      "sha256": "0892ce311adc6974c1b8be6a74cd9bc813db701077bc1d1d1875e2d7ccd14d09",
+      "normalization": "LF"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "924ae129ce53b7988a18435d8404238f61bd55b5aee827f750375c21b28d3b24",
+      "normalization": "LF"
+    },
+    {
+      "path": ".gitattributes",
+      "sha256": "34fc6e0cbb778225f73d6a0a145450f48c567f95d55914f801e073f29b8b72d8",
+      "normalization": "LF"
+    }
+  ],
+  "audit": {
+    "sourceFileCount": 20,
+    "exactPrivateSourceFiles": 16,
+    "publicFileCountExcludingThisManifest": 79,
+    "privateBinaryHashesChecked": 173,
+    "newBinaryFiles": 0,
+    "forbiddenPathsFound": 0,
+    "privateBinaryMatches": 0,
+    "credentialPatternMatches": 0,
+    "publicHistoryRoot": "f35a5cc20ebd497b0d8fb7b96c207549f147799f",
+    "privateCommitObjectPresent": false,
+    "unreachableCommitObjects": 0,
+    "originalPrivateHead": "7e56ef7e584830f6a884e677f9002b9ab46ff294",
+    "originalPrivateWorkingTreeClean": true,
+    "originalPrivateRemotes": []
+  },
+  "omissions": [
+    "Original client photographs (14 paths replaced on public main)",
+    "app/fonts/*.woff2",
+    "references/",
+    "All private artifacts/screenshots/logs/review bundles",
+    "scripts/create_booking_review.mjs (internal report assembly only)",
+    "Private Git objects/history, credentials/environment files, dependencies/build caches/test reports"
+  ]
+}

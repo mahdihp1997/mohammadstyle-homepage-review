@@ -1,5 +1,7 @@
 # Project context — Mohammad Style
 
+Current public review phase: **Phase 02 sanitized Booking frontend**, transferred from private commit `7e56ef7e584830f6a884e677f9002b9ab46ff294` onto public main `f35a5cc20ebd497b0d8fb7b96c207549f147799f`. `/booking` retains five steps, typed reducer state, service/barber eligibility, Jalali dates, cancellable demo availability, unknown real values and opt-in illustrative policy arithmetic. No reservation/payment/backend exists. See `BOOKING_UI.md` and `PHASE02_PUBLIC_REVIEW.md`. The original project/history is unchanged; this public draft PR is for review only, with no merge or Phase 03 authorized. The earlier Phase 1 starting notes below are historical.
+
 ## Confirmed from client-provided brochure / conversation
 - Brand name for presentation: محمد استایل
 - Brochure: سالن ممتاز پونک

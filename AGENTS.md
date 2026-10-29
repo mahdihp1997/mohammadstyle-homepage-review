@@ -1,4 +1,10 @@
 # Codex workspace rules — Mohammad Style
+
+## Public Phase 02 export context — 2026-10-29
+- This branch is an authorized sanitized code-review export of the completed private Phase 02 frontend. The Phase 1-only starting-state notes below are historical.
+- Preserve public main's placeholders/system fonts. Never import private photos, fonts, references, screenshot artifacts, secrets or Git ancestry.
+- Review `/booking` and the preserved Homepage; no behavior changes for export, merge, backend or Phase 03. Read `docs/PHASE02_PUBLIC_REVIEW.md` for the explicit differences and validation.
+
 - Start with `docs/VISUAL_CONTRACT.md` and `data/business-facts.json`; do not invent missing business data.
 - The 3 full reference boards and 6 crops are locked visual references; implement as accessible, responsive code, not as screenshot backgrounds.
 - Do not redesign or expand scope without documented approval.

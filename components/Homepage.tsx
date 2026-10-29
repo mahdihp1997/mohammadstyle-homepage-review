@@ -193,13 +193,14 @@ function BookingDrawer({ open, selectedService, setSelectedService, close, retur
   },[open,close,returnFocusRef]);
   if(!open)return null;
   return <div className="drawer-layer" role="presentation"><div className="drawer-scrim" aria-hidden="true" onClick={close}/><section ref={drawerRef} className="drawer" role="dialog" aria-modal="true" aria-labelledby="booking-title" aria-describedby="booking-preview-note"><div className="drawer-head"><div><span>BOOKING PREVIEW</span><h2 id="booking-title">رزرو نوبت</h2></div><button ref={closeRef} className="drawer-close" type="button" aria-label="بستن" onClick={close}><Icon name="close" size={23}/></button></div>
-    <div id="booking-preview-note" className="drawer-info">این بخش فقط پیش‌نمایش رزرو است. هیچ نوبتی ثبت نمی‌شود و انتخاب زمان یا پرداخت در دسترس نیست.</div>
+    <div id="booking-preview-note" className="drawer-info">این بخش فقط پیش‌نمایش رزرو است. هیچ نوبتی ثبت نمی‌شود. مسیر مرحله‌ای نیز نمایشی است و پرداخت ندارد.</div>
+    <a className="btn btn-gold drawer-booking-entry" href={selectedService ? `/booking?service=${selectedService}` : "/booking"}>شروع رزرو مرحله‌ای نمایشی <Icon name="arrow" size={18}/></a>
     <div className="drawer-step"><span>01</span><strong>انتخاب شعبه</strong></div>
     <div className="drawer-branch selected"><Icon name="check" size={17}/><div><strong>شعبه پونک</strong><small>{business.location}</small></div></div>
     <div className="drawer-branch disabled"><Icon name="clock" size={17}/><div><strong>شعبه دوم</strong><small>اطلاعات و زمان‌بندی در انتظار تأیید</small></div></div>
     <div className="drawer-step"><span>02</span><strong>انتخاب خدمت</strong></div>
     <div className="drawer-services">{services.map(s=><button key={s.id} className={selectedService===s.id?"active":undefined} aria-pressed={selectedService===s.id} onClick={()=>setSelectedService(s.id)} type="button"><Icon name={s.icon} size={20}/>{s.name}</button>)}</div>
-    <div className="drawer-next"><div><span>مرحله‌های بعد</span><p>انتخاب آرایشگر، زمان، شرایط بیعانه و پرداخت پس از تکمیل سامانه قابل استفاده می‌شوند.</p></div><button className="btn btn-gold" type="button" disabled>ادامه رزرو (غیرفعال)</button></div>
+    <div className="drawer-next"><div><span>ثبت واقعی نوبت</span><p>برای آزمایش انتخاب آرایشگر و زمان از مسیر نمایشی بالا استفاده کنید. ثبت واقعی و پرداخت همچنان فعال نیستند.</p></div><button className="btn btn-gold" type="button" disabled>ادامه رزرو (غیرفعال)</button></div>
   </section></div>;
 }
 
