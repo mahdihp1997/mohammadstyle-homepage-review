@@ -7,6 +7,11 @@ const repository = path.dirname(root), env = localEnv();
 const args = ['-C',repository];
 const files = execFileSync('git',[...args,'ls-files','-z','--cached','--others','--exclude-standard','--','backend','docs/backend','docs/PROJECT_CONTEXT.md','tsconfig.json','.github'],{encoding:'utf8'}).split('\0').filter(Boolean);
 const forbidden = [env.B0_ADMIN_PASSWORD, env.B0_PROBE_PASSWORD];
+const b1bEnv=path.join(root,'.env.b1b.local');
+if(fs.existsSync(b1bEnv)) {
+  for(const line of fs.readFileSync(b1bEnv,'utf8').split(/\r?\n/).filter(line=>/^B1B_.*_PASSWORD=/.test(line))) forbidden.push(line.slice(line.indexOf('=')+1));
+  execFileSync('git',[...args,'check-ignore','--quiet','backend/.env.b1b.local']);
+}
 const b1aEnv=path.join(root,'.env.b1a.local');
 if(fs.existsSync(b1aEnv)) {
   for(const line of fs.readFileSync(b1aEnv,'utf8').split(/\r?\n/).filter(line=>/^B1A_.*_PASSWORD=/.test(line))) forbidden.push(line.slice(line.indexOf('=')+1));

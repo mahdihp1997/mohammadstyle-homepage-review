@@ -1,0 +1,89 @@
+# Actual B1B PostgreSQL/NestJS assertions
+
+83 PASS / 0 FAIL. Executed at 2026-10-29T18:01:57.157Z. PostgreSQL 18.6 (Debian 18.6-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit.
+
+- PASS: fresh install applies three checksummed migrations, preserves16 tables/gates
+- PASS: repeat migration is verified no-op
+- PASS: original B0/B1A names cannot be reset by B1B provisioner
+- PASS: anonymous requests denied
+- PASS: invalid opaque session denied
+- PASS: malformed and duplicate cookie identities denied
+- PASS: valid server session derives actor/business/permissions without hashes
+- PASS: caller business/role headers cannot elevate or switch context
+- PASS: expired session denied
+- PASS: idle-expired session denied
+- PASS: suspended user denied even with valid session
+- PASS: Business config read is tenant scoped and nullable
+- PASS: valid owner creates branch and returns version/ETag
+- PASS: successful data audit outbox share actor/aggregate and are committed atomically
+- PASS: branch manager lists only assigned branch
+- PASS: branch manager cannot create business-wide branch
+- PASS: branch manager cannot edit unrelated branch
+- PASS: branch manager edits assigned branch with exact permission
+- PASS: cross-tenant branch update hidden from owner scope
+- PASS: unauthorized caller cannot read another tenant offerings
+- PASS: visible owner cannot discover foreign tenant offerings
+- PASS: forged businessId and role body rejected by strict DTO
+- PASS: receptionist cannot create global service
+- PASS: barber/customer missing administrative permissions denied
+- PASS: role escalation endpoint absent
+- PASS: missing Origin rejected
+- PASS: foreign Origin and cross-site fetch rejected
+- PASS: missing/incorrect CSRF denied
+- PASS: simple content type cannot mutate
+- PASS: owner creates global service, unknown description remains null
+- PASS: duplicate service/branch stable code rejected
+- PASS: stable service/branch codes cannot be renamed by update
+- PASS: missing If-Match prevents update
+- PASS: invalid quoted version rejected
+- PASS: valid service update uses optimistic version
+- PASS: stale version cannot overwrite
+- PASS: two independent authenticated writers: exactly one wins same version
+- PASS: Idempotency-Key replays exact result without extra evidence writes
+- PASS: concurrent duplicate command stores one result/evidence set
+- PASS: branch offering creates unknown price/duration as explicit null
+- PASS: receptionist cannot change service pricing
+- PASS: manager cannot edit offerings in unrelated branch
+- PASS: offering ID cannot be moved across branches
+- PASS: cross-tenant service association rejected
+- PASS: invalid/overflow/fraction/number money and bad duration rejected
+- PASS: valid synthetic offering money is lossless decimal string; stays inactive
+- PASS: API cannot activate branch bookability/offering operations
+- PASS: database still enforces both B1 gates for migration owner
+- PASS: deferred staff/resource payloads fail closed without pretending persisted
+- PASS: existing resource requirements read honestly and cannot be silently overwritten
+- PASS: IANA timezone invalid names rejected
+- PASS: pagination/sort bounded and lists scoped before limit
+- PASS: SQL injection remains text data
+- PASS: failed command with late outbox failure rolls back data/audit/idempotency
+- PASS: API runtime denied direct SQL read IAM
+- PASS: API runtime denied direct SQL read configuration
+- PASS: API runtime denied direct SQL write configuration
+- PASS: API runtime denied direct SQL audit tamper
+- PASS: API runtime denied direct SQL outbox tamper
+- PASS: API runtime denied direct SQL idempotency tamper
+- PASS: API runtime denied direct SQL DDL
+- PASS: API runtime denied direct SQL metadata
+- PASS: API runtime denied direct SQL private helper
+- PASS: API runtime denied direct SQL role elevation
+- PASS: custom RLS tenant variable cannot authorize API raw reads
+- PASS: direct function call cannot forge actor/tenant or bypass permission
+- PASS: direct function DTO mass assignment rejected independently of Nest
+- PASS: revoked role assignment takes effect on next command
+- PASS: replay rechecks permissions before returning stored result
+- PASS: repeated valid session works until explicit invalidation
+- PASS: rotation never adopts client token and revokes old privileged session
+- PASS: session storage contains hashes only and constrained business scope
+- PASS: test provisioning and API options impossible in production configuration
+- PASS: session rate limit bounds repeated requests
+- PASS: actual failed PostgreSQL connection returns sanitized503
+- PASS: catalog detects dangerous function EXECUTE grant drift
+- PASS: catalog detects missing inactive gate
+- PASS: upgrade existing B1A schema retains data then applies only0003
+- PASS: failed forward migration rolls back DDL and history
+- PASS: tampered migration checksum refuses execution
+- PASS: actual custom pg_dump backup passes source/identity/checksum guards
+- PASS: actual pg_restore preserves rows, functions and effective permissions
+- PASS: restored API role still cannot read IAM directly
+
+Original B1A regression:47 PASS/0 FAIL,30 expected rejections. Existing B0 regression:14 backend+35 SQL+Prisma PASS. Actual frontend and CI statuses are in separate receipts; no static screenshot is counted as a runtime test.

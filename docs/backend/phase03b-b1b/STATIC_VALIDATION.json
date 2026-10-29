@@ -1,0 +1,85 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-10-29T18:12:06.898Z",
+  "checks": [
+    {
+      "name": "protected private refs/ancestry preserved",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "frontend, original B1A migration/source/tests and approved docs unchanged",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "native SQL parser validation distinct from execution",
+      "status": "PASS",
+      "observed": {
+        "statements": 12,
+        "functions": 7,
+        "newTables": 0,
+        "note": "Parser only; actual PostgreSQL execution independently passed83 tests"
+      }
+    },
+    {
+      "name": "OpenAPI independently validates with Swagger Parser",
+      "status": "PASS",
+      "observed": {
+        "operations": 12,
+        "parser": "SwaggerParser"
+      }
+    },
+    {
+      "name": "actual recorded HTTP bodies conform to the admin OpenAPI schemas",
+      "status": "PASS",
+      "observed": {
+        "actualResponses": 11,
+        "formats": "UUID/identity shape tested separately by real API tests"
+      }
+    },
+    {
+      "name": "versioned source checksums and actual catalog security agree",
+      "status": "PASS",
+      "observed": {
+        "sha256": "1ed91cfcdaabab6fe8471cd7f7e919cd7b780e4df541db72bc8c34b3fa1b6fc3",
+        "tables": 16,
+        "indexes": 44,
+        "functions": 7,
+        "foreignKeys": 41,
+        "checks": 45
+      }
+    },
+    {
+      "name": "actual83 B1B/47 B1A/14+35+Prisma B0 and92 UI results",
+      "status": "PASS",
+      "observed": {
+        "b1b": 83,
+        "b1a": 47,
+        "b0Backend": 14,
+        "b0SQL": 35,
+        "prisma": "PASS",
+        "frontend": 92
+      }
+    },
+    {
+      "name": "actual backup/restore equality and baseline preservation receipts",
+      "status": "PASS",
+      "observed": {
+        "archiveBytes": 102322,
+        "totalRows": 118,
+        "catalogSha256": "1ed91cfcdaabab6fe8471cd7f7e919cd7b780e4df541db72bc8c34b3fa1b6fc3"
+      }
+    },
+    {
+      "name": "CI YAML permissions, source guard, pinned actions and JSON-only allowlist",
+      "status": "PASS",
+      "observed": "Only5 synthetic JSON results, no dumps/env/screenshots; original workflows untouched"
+    },
+    {
+      "name": "standalone review actual browser render and local links",
+      "status": "PASS",
+      "observed": "7 images decode;1440/390px no JS errors/overflow; every local link resolves"
+    }
+  ]
+}

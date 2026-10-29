@@ -1,0 +1,2548 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Mohammad Style B1B isolated admin API",
+    "version": "1.0.0-b1b",
+    "description": "Review profile of Phase03A v1 contracts. Local only; no login/production/booking/payment endpoints. Exact Origin and CSRF required for mutations. Decimal strings for bigint. Admin-only projections retain explicit nulls. Scope selectors are never authority."
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:3102",
+      "description": "Isolated local API; Secure cookies require future reviewed HTTPS for browser login"
+    }
+  ],
+  "paths": {
+    "/api/v1/session": {
+      "get": {
+        "operationId": "get_api_v1_session",
+        "summary": "session.self",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Committed or identical durable replay",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminSession"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-required-permission": "session.self",
+        "x-b1b-only": true
+      }
+    },
+    "/api/v1/session/revoke": {
+      "post": {
+        "operationId": "post_api_v1_session_revoke",
+        "summary": "session.self",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CsrfHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Committed or identical durable replay",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Revoked"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-required-permission": "session.self",
+        "x-b1b-only": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Empty"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/business": {
+      "get": {
+        "operationId": "get_api_v1_admin_business",
+        "summary": "business.read:business",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000,
+              "default": 0
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "asc"
+            },
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Committed or identical durable replay",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListAdminBusiness"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-required-permission": "business.read:business",
+        "x-b1b-only": true
+      }
+    },
+    "/api/v1/admin/branches": {
+      "get": {
+        "operationId": "get_api_v1_admin_branches",
+        "summary": "branch.read",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000,
+              "default": 0
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "asc"
+            },
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Committed or identical durable replay",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListAdminBranch"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-required-permission": "branch.read",
+        "x-b1b-only": true
+      },
+      "post": {
+        "operationId": "post_api_v1_admin_branches",
+        "summary": "branch.manage:business",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CsrfHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Committed or identical durable replay",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminBranch"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-required-permission": "branch.manage:business",
+        "x-b1b-only": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BranchWrite"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/branches/{branchId}": {
+      "put": {
+        "operationId": "put_api_v1_admin_branches__branchId_",
+        "summary": "branch.manage",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CsrfHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "branchId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          },
+          {
+            "$ref": "#/components/parameters/IfMatch"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Committed or identical durable replay",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminBranch"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-required-permission": "branch.manage",
+        "x-b1b-only": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BranchWrite"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/services": {
+      "get": {
+        "operationId": "get_api_v1_admin_services",
+        "summary": "catalog.read",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000,
+              "default": 0
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "asc"
+            },
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Committed or identical durable replay",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListAdminService"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-required-permission": "catalog.read",
+        "x-b1b-only": true
+      },
+      "post": {
+        "operationId": "post_api_v1_admin_services",
+        "summary": "catalog.manage:business",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CsrfHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Committed or identical durable replay",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminService"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-required-permission": "catalog.manage:business",
+        "x-b1b-only": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceWrite"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/services/{serviceId}": {
+      "put": {
+        "operationId": "put_api_v1_admin_services__serviceId_",
+        "summary": "catalog.manage",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CsrfHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "serviceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          },
+          {
+            "$ref": "#/components/parameters/IfMatch"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Committed or identical durable replay",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminService"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-required-permission": "catalog.manage",
+        "x-b1b-only": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceWrite"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/branches/{branchId}/offerings": {
+      "get": {
+        "operationId": "get_api_v1_admin_branches__branchId__offerings",
+        "summary": "offering.read:branch",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "branchId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000,
+              "default": 0
+            },
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "asc"
+            },
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Committed or identical durable replay",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListAdminOffering"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-required-permission": "offering.read:branch",
+        "x-b1b-only": true
+      },
+      "post": {
+        "operationId": "post_api_v1_admin_branches__branchId__offerings",
+        "summary": "offering.manage:branch",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CsrfHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "branchId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Committed or identical durable replay",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminOffering"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-required-permission": "offering.manage:branch",
+        "x-b1b-only": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OfferingWrite"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/branches/{branchId}/offerings/{offeringId}": {
+      "put": {
+        "operationId": "put_api_v1_admin_branches__branchId__offerings__offeringId_",
+        "summary": "offering.manage:branch",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CsrfHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "branchId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "offeringId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/IdempotencyKey"
+          },
+          {
+            "$ref": "#/components/parameters/IfMatch"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Committed or identical durable replay",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminOffering"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Sanitized error; no SQL or credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-required-permission": "offering.manage:branch",
+        "x-b1b-only": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OfferingWrite"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "SessionCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "ms_session",
+        "description": "Proposed opaque HttpOnly Secure SameSite session; hash at rest. Customer self/branch/resource checks. Selected authentication enrollment/OTP/IdP protocol remains an approval gate."
+      },
+      "CsrfHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-CSRF-Token",
+        "description": "Required for cookie-authenticated mutation only; GET and read-only availability do not require CSRF. Origin checks remain mandatory."
+      }
+    },
+    "parameters": {
+      "IdempotencyKey": {
+        "name": "Idempotency-Key",
+        "in": "header",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9_-]{16,128}$"
+        },
+        "description": "Actor+route scope, canonical body hash, replay-safe durable result. Not a credential."
+      },
+      "IfMatch": {
+        "name": "If-Match",
+        "in": "header",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "pattern": "^\"[1-9][0-9]{0,18}\"$"
+        },
+        "description": "Quoted current row/config version; missing/stale returns412."
+      }
+    },
+    "schemas": {
+      "BranchWrite": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
+          },
+          "displayName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "address": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 1000
+          },
+          "timeZone": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "bookable": {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          }
+        },
+        "required": [
+          "code",
+          "displayName",
+          "address",
+          "timeZone",
+          "active",
+          "bookable"
+        ],
+        "description": "IANA timezone allowlist; bookable requires separately verified hours/offerings/staff/resources/policy. Deactivation cannot silently cancel occupied plans."
+      },
+      "ServiceWrite": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
+          },
+          "displayName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 2000
+          },
+          "active": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "code",
+          "displayName",
+          "description",
+          "active"
+        ]
+      },
+      "OfferingWrite": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "serviceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "active": {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          },
+          "price": {
+            "type": "object",
+            "nullable": true,
+            "properties": {
+              "amountRial": {
+                "type": "string",
+                "pattern": "^(0|[1-9][0-9]*0)$",
+                "description": "Integer decimal string; <=9223372036854775807 and multiple of 10 in IRR_RIAL_V1 MVP. No exponent/fraction/sign."
+              },
+              "currency": {
+                "type": "string",
+                "enum": [
+                  "IRR"
+                ]
+              },
+              "unitVersion": {
+                "type": "string",
+                "enum": [
+                  "IRR_RIAL_V1"
+                ]
+              }
+            },
+            "required": [
+              "amountRial",
+              "currency",
+              "unitVersion"
+            ],
+            "additionalProperties": false
+          },
+          "durationMinutes": {
+            "type": "integer",
+            "minimum": 1,
+            "nullable": true,
+            "maximum": 2147483647
+          },
+          "bufferBeforeMinutes": {
+            "type": "integer",
+            "minimum": 0,
+            "nullable": true,
+            "maximum": 2147483647
+          },
+          "bufferAfterMinutes": {
+            "type": "integer",
+            "minimum": 0,
+            "nullable": true,
+            "maximum": 2147483647
+          },
+          "eligibleStaffIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "minItems": 0,
+            "maxItems": 0
+          },
+          "resourcesConfirmed": {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          },
+          "resourceRequirements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResourceRequirement"
+            },
+            "minItems": 0,
+            "maxItems": 0
+          }
+        },
+        "required": [
+          "serviceId",
+          "active",
+          "price",
+          "durationMinutes",
+          "bufferBeforeMinutes",
+          "bufferAfterMinutes",
+          "eligibleStaffIds",
+          "resourcesConfirmed",
+          "resourceRequirements"
+        ],
+        "description": "Unknown is null. active requires all verified values, qualifications/membership and confirmed resource requirements. Configuration change checks live allocations under shared locks."
+      },
+      "ResourceRequirement": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "CHAIR",
+              "ROOM",
+              "DEVICE"
+            ]
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "kind",
+          "quantity"
+        ]
+      },
+      "Money": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "amountRial": {
+            "type": "string",
+            "pattern": "^(0|[1-9][0-9]*0)$",
+            "description": "Integer decimal string; <=9223372036854775807 and multiple of 10 in IRR_RIAL_V1 MVP. No exponent/fraction/sign."
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "IRR"
+            ]
+          },
+          "unitVersion": {
+            "type": "string",
+            "enum": [
+              "IRR_RIAL_V1"
+            ]
+          }
+        },
+        "required": [
+          "amountRial",
+          "currency",
+          "unitVersion"
+        ],
+        "description": "Exact integer money. Bounds, sum, safe conversion and currency checks are server invariants; see ADR-007."
+      },
+      "Version": {
+        "type": "string",
+        "pattern": "^[1-9][0-9]*$",
+        "description": "Opaque row/config version, not a floating point number."
+      },
+      "AdminSession": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "authenticated": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          },
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "businessId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "assignments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "role": {
+                  "type": "string"
+                },
+                "branchId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "nullable": true
+                },
+                "permission": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "role",
+                "branchId",
+                "permission"
+              ]
+            }
+          }
+        },
+        "required": [
+          "authenticated",
+          "userId",
+          "businessId",
+          "assignments"
+        ]
+      },
+      "AdminBusiness": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "brandName": {
+            "type": "string"
+          },
+          "legalName": {
+            "type": "string",
+            "nullable": true
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "IRR"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "brandName",
+          "legalName",
+          "currency"
+        ]
+      },
+      "AdminBranch": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "configurationVersion": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "code": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
+          },
+          "displayName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "address": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 1000
+          },
+          "timeZone": {
+            "type": "string",
+            "maxLength": 100
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "bookable": {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "configurationVersion",
+          "code",
+          "displayName",
+          "address",
+          "timeZone",
+          "active",
+          "bookable"
+        ]
+      },
+      "AdminService": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "code": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$"
+          },
+          "displayName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "nullable": true,
+            "maxLength": 2000
+          },
+          "active": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "code",
+          "displayName",
+          "description",
+          "active"
+        ]
+      },
+      "AdminOffering": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "configurationVersion": {
+            "$ref": "#/components/schemas/Version"
+          },
+          "branchId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "serviceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "active": {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          },
+          "price": {
+            "type": "object",
+            "nullable": true,
+            "properties": {
+              "amountRial": {
+                "type": "string",
+                "pattern": "^(0|[1-9][0-9]*0)$",
+                "description": "Integer decimal string; <=9223372036854775807 and multiple of 10 in IRR_RIAL_V1 MVP. No exponent/fraction/sign."
+              },
+              "currency": {
+                "type": "string",
+                "enum": [
+                  "IRR"
+                ]
+              },
+              "unitVersion": {
+                "type": "string",
+                "enum": [
+                  "IRR_RIAL_V1"
+                ]
+              }
+            },
+            "required": [
+              "amountRial",
+              "currency",
+              "unitVersion"
+            ],
+            "additionalProperties": false
+          },
+          "durationMinutes": {
+            "type": "integer",
+            "minimum": 1,
+            "nullable": true,
+            "maximum": 2147483647
+          },
+          "bufferBeforeMinutes": {
+            "type": "integer",
+            "minimum": 0,
+            "nullable": true,
+            "maximum": 2147483647
+          },
+          "bufferAfterMinutes": {
+            "type": "integer",
+            "minimum": 0,
+            "nullable": true,
+            "maximum": 2147483647
+          },
+          "eligibleStaffIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "minItems": 0,
+            "maxItems": 0
+          },
+          "resourcesConfirmed": {
+            "type": "boolean"
+          },
+          "resourceRequirements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResourceRequirement"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "configurationVersion",
+          "branchId",
+          "serviceId",
+          "active",
+          "price",
+          "durationMinutes",
+          "bufferBeforeMinutes",
+          "bufferAfterMinutes",
+          "eligibleStaffIds",
+          "resourcesConfirmed",
+          "resourceRequirements"
+        ]
+      },
+      "Revoked": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "revoked": {
+            "type": "boolean",
+            "enum": [
+              true
+            ]
+          }
+        },
+        "required": [
+          "revoked"
+        ]
+      },
+      "Error": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "retryable": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "requestId",
+          "retryable"
+        ]
+      },
+      "ListAdminBusiness": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdminBusiness"
+            }
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000
+          }
+        },
+        "required": [
+          "items",
+          "limit",
+          "offset"
+        ]
+      },
+      "ListAdminBranch": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdminBranch"
+            }
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000
+          }
+        },
+        "required": [
+          "items",
+          "limit",
+          "offset"
+        ]
+      },
+      "ListAdminService": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdminService"
+            }
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000
+          }
+        },
+        "required": [
+          "items",
+          "limit",
+          "offset"
+        ]
+      },
+      "ListAdminOffering": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdminOffering"
+            }
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000
+          }
+        },
+        "required": [
+          "items",
+          "limit",
+          "offset"
+        ]
+      },
+      "Empty": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {}
+      }
+    }
+  }
+}

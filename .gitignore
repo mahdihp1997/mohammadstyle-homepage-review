@@ -22,3 +22,6 @@ playwright-report/
 
 # B1A sanitized validation evidence only.
 !docs/backend/phase03b-b1a/evidence/*.log
+
+# B1B sanitized validation evidence only.
+!docs/backend/phase03b-b1b/evidence/*.log

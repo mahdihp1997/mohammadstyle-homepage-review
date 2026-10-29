@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=24.16.0 <25" },
+  "engines": {
+    "node": ">=24.16.0 <25"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
@@ -26,7 +28,17 @@
     "b1a:backup": "node scripts/b1a/backup.mjs backup",
     "b1a:restore": "node scripts/b1a/backup.mjs restore",
     "test:b1a": "node scripts/b1a/test.mjs",
-    "test:b0:isolated": "node scripts/b1a/b0-regression.mjs"
+    "test:b0:isolated": "node scripts/b1a/b0-regression.mjs",
+    "b1b:env": "node scripts/b1b/infra.mjs env",
+    "b1b:up": "node scripts/b1b/infra.mjs up",
+    "b1b:stop": "node scripts/b1b/infra.mjs stop",
+    "b1b:migrate": "node scripts/b1b/migrate.mjs",
+    "b1b:verify": "node scripts/b1b/verify.mjs",
+    "b1b:backup": "node scripts/b1b/backup.mjs backup",
+    "b1b:restore": "node scripts/b1b/backup.mjs restore",
+    "b1b:start": "node dist/admin/main.js",
+    "test:b1b": "node scripts/b1b/test.mjs",
+    "test:b1a:isolated": "node scripts/b1b/b1a-regression.mjs"
   },
   "dependencies": {
     "@nestjs/common": "12.3.2",

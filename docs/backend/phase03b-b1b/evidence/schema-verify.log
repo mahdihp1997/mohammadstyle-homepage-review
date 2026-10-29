@@ -1,0 +1,5 @@
+
+> mohammadstyle-b0-foundation@0.0.0 b1b:verify
+> node scripts/b1b/verify.mjs
+
+{"applied":[],"currentVersion":"0003_b1b_admin_boundary","catalog":{"sha256":"1ed91cfcdaabab6fe8471cd7f7e919cd7b780e4df541db72bc8c34b3fa1b6fc3","tables":16,"indexes":44,"functions":7,"foreignKeys":41,"checks":45}}
