@@ -1,6 +1,8 @@
-> Public export note (2026-10-29): the architecture below describes the original private implementation at `7e56ef7e584830f6a884e677f9002b9ab46ff294`. This branch carries that implementation over the independent sanitized public main. References to local photographs/fonts, private screenshot evidence and the original branch describe the PRIVATE counterpart; none of those binaries/history is included. Read `PHASE02_PUBLIC_REVIEW.md` for actual public-copy differences and test evidence.
+> Public export note: architecture and private QA below describe source commit `2155872cc626d7463d94500b678d875bec0e4dc6`. Private photographs/fonts/screenshots/history are withheld. The sanitized public app retains public main's placeholders/system fonts; see `PHASE02_PUBLIC_REVIEW.md` for its separate current results and exact text/test-endpoint differences.
 
 # Phase 02 — Smart booking UI
+
+**Targeted review corrections:** [BOOKING_REVIEW_FIXES.md](BOOKING_REVIEW_FIXES.md) documents canonical slot validation, reducer-owned provider generations, branch-specific offerings, policy-context guards, regression evidence and the deferred service-segment multi-provider model. Homepage/Booking presentation is preserved. The earlier architecture descriptions below are supplemented by that current correction record.
 
 This is an **internal frontend demonstration**, developed in the original local repository on `feature/booking-ui` from `ec033307f82ef1160b188fdd6e405ba7bcdde06f`. The owner explicitly authorized Phase 02 on 2026-10-29 and identified the Phase 1 Homepage as the approved visual baseline. The sanitized public review repository is not the development source and receives no private assets or history.
 
@@ -31,7 +33,7 @@ Five steps: branch → multiple services → eligible demo barber / any eligible
 
 `types/booking.ts` defines branch configuration/timezone, service values and source, demo barber assignments, availability requests/responses, date/time types, draft, typed reducer actions and versioned policy contracts. `data/booking-demo.ts` is the only source of fictional staff, eligibility, prices/durations, slots and policy examples. Brochure names and business facts are reused from the existing source of truth; `data/business-facts.json` remains unchanged.
 
-`BookingState.draft` is authoritative. Components receive selected values and dispatch callbacks, rather than owning duplicate selection state. Catalogs, eligible barbers, totals, summaries and availability request keys are derived. View-only calendar focus/month, asynchronous provider state and retry state are separate from domain selections.
+`BookingState.draft` is authoritative. Components receive selected values and dispatch callbacks, rather than owning duplicate selection state. Branch-service offerings supply values and eligibility; catalogs, totals, summaries and request keys are derived. The reducer owns current provider state outside the draft; calendar focus/month and retry triggers remain view state. Slot actions carry only an ID/key/generation, and next/preview validate reducer-owned responses.
 
 | Action | Invalidation / preservation |
 | --- | --- |

@@ -1,102 +1,97 @@
 {
   "date": "2026-10-29",
-  "scope": "Fresh sanitized public checkout; actual Next.js app; no private test evidence reused",
-  "privateSourceCommit": "7e56ef7e584830f6a884e677f9002b9ab46ff294",
+  "scope": "Actual sanitized Next.js copy of targeted private Phase 02 fixes; separate public verification",
+  "privateSourceCommit": "2155872cc626d7463d94500b678d875bec0e4dc6",
   "publicBaseCommit": "f35a5cc20ebd497b0d8fb7b96c207549f147799f",
   "environment": {
     "os": "Windows",
     "node": "v24.16.0",
     "npm": "11.17.0",
     "next": "15.5.28",
-    "browser": "Installed Google Chrome through Playwright channel chrome",
+    "browser": "Installed Google Chrome via Playwright channel chrome",
     "testServer": "http://127.0.0.1:3010",
-    "freshIndependentNodeModules": true
+    "independentNodeModules": true
   },
   "commands": [
     {
-      "command": "npm ci",
-      "exitCode": 0,
-      "summary": "Added 29 packages; audited 30. Original package.json and package-lock.json unchanged."
-    },
-    {
       "command": "npm run typecheck",
       "exitCode": 0,
-      "summary": "tsc --noEmit; no diagnostics."
+      "summary": "tsc --noEmit; no diagnostics"
     },
     {
       "command": "npm run build",
       "exitCode": 0,
-      "summary": "Compiled successfully in 6.0s; 5/5 static pages generated; /booking dynamically server-rendered."
+      "summary": "Compiled in 2.7s; 5/5 static pages, dynamic /booking 13.9 kB / 117 kB first load"
     },
     {
       "command": "npm run test:ui",
+      "exitCode": 0,
       "environment": {
         "PLAYWRIGHT_CHANNEL": "chrome",
         "CI": "true",
         "NEXT_TELEMETRY_DISABLED": "1"
-      },
-      "exitCode": 0,
-      "summary": "48 passed in 163.3s; zero failed, skipped or flaky tests."
+      }
     }
   ],
+  "installation": "Original locked installation from npm ci retained; manifest/lockfile unchanged. No dependency upgrade or new install was needed for these fixes.",
   "tests": {
-    "passed": 48,
+    "passed": 92,
     "failed": 0,
     "skipped": 0,
     "flaky": 0,
-    "durationMs": 163326.78199999998,
-    "startTime": "2026-10-29T11:07:48.253Z",
-    "suites": {
-      "bookingDomain": 12,
-      "bookingBrowser": 20,
-      "homepageBrowser": 16
-    },
+    "durationMs": 179891.913,
+    "startTime": "2026-10-29T12:05:58.462Z",
+    "domainChecks": 52,
+    "bookingBrowserChecks": 24,
+    "homepageBrowserChecks": 16,
     "projects": [
       {
         "name": "desktop",
-        "viewport": {
-          "width": 1440,
-          "height": 900
-        },
-        "passed": 12
+        "width": 1440,
+        "height": 900,
+        "passed": 23
       },
       {
         "name": "tablet",
-        "viewport": {
-          "width": 1024,
-          "height": 768
-        },
-        "passed": 12
+        "width": 1024,
+        "height": 768,
+        "passed": 23
       },
       {
         "name": "mobile",
-        "viewport": {
-          "width": 390,
-          "height": 844
-        },
-        "passed": 12
+        "width": 390,
+        "height": 844,
+        "passed": 23
       },
       {
         "name": "mobile-small",
-        "viewport": {
-          "width": 375,
-          "height": 812
-        },
-        "passed": 12
+        "width": 375,
+        "height": 812,
+        "passed": 23
       }
     ],
-    "browserAssertions": "No JS, hydration, console, HTTP or broken-image errors; no horizontal overflow; selections, keyboard/focus, date navigation, policy arithmetic, invalidation and no-JS safeguards pass."
+    "originalCasesRetained": true
   },
-  "dependencyAudit": {
-    "total": 2,
-    "moderate": 1,
-    "high": 1,
-    "packages": [
-      "next",
-      "postcss"
-    ],
-    "lockfileChanged": false,
-    "majorUpgradeNotApplied": true
+  "privateVerification": {
+    "passed": 92,
+    "failed": 0,
+    "durationMs": 192722.892,
+    "typecheckExit": 0,
+    "buildExit": 0,
+    "source": "2155872cc626d7463d94500b678d875bec0e4dc6"
   },
-  "rawLogsAndScreenshotsPublished": false
+  "sanitization": {
+    "transferredApplicationTestFiles": 24,
+    "exactPrivateMatches": 20,
+    "filesWithDocumentedPresentationOrTestAddressEdits": 4,
+    "privateHistoryIncluded": false,
+    "privateBinariesIncluded": false,
+    "newBinaryFiles": 0
+  },
+  "knownLimitations": [
+    "Two previously recorded Next/PostCSS audit findings; original locked dependencies retained",
+    "Single-provider frontend demo; multi-provider scheduling/resource/policy decisions deferred",
+    "No backend, database, real booking/payment/policy enforcement, merge or Phase 03"
+  ],
+  "rawLogsScreenshotsPublished": false
 }

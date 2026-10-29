@@ -2,7 +2,7 @@
 
 نسخه عمومی برای بررسی کد محمد استایل، شامل صفحه اصلی و پیش‌نمایش پنج‌مرحله‌ای رزرو. **این خروجی سایت آماده انتشار یا سامانه رزرو واقعی نیست.**
 
-`review/phase02-booking` starts at sanitized public `main` (`f35a5cc20ebd497b0d8fb7b96c207549f147799f`). Application source is transferred from private Phase 02 commit `7e56ef7e584830f6a884e677f9002b9ab46ff294` as files, without importing private commits or Git objects. The original private branch remains untouched. Review through a **draft PR into public main; do not merge or begin Phase 03**.
+`review/phase02-booking` starts at sanitized public `main` (`f35a5cc20ebd497b0d8fb7b96c207549f147799f`). Application source is transferred from private Phase 02 commit `2155872cc626d7463d94500b678d875bec0e4dc6` as files, without importing private commits or Git objects. The original private branch remains untouched. Review through a **draft PR into public main; do not merge or begin Phase 03**.
 
 ## Run and test
 
@@ -28,6 +28,10 @@ Alternatively, with installed Chrome in PowerShell:
 $env:PLAYWRIGHT_CHANNEL = 'chrome'
 npm run test:ui
 ```
+
+## Targeted review fixes
+
+Current private source is committed on feature/booking-ui. Slot actions resolve IDs only from the reducer-owned current provider response, guarded by key/generation and complete metadata validation. BranchServiceOffering supplies branch-specific rates/duration/buffer/activity/staff. Shared policy matching clears unrelated scenarios. The one-provider MVP and visual presentation are preserved. Read `docs/BOOKING_REVIEW_FIXES.md` for the review corrections and deferred multi-provider model.
 
 ## Booking behavior retained
 

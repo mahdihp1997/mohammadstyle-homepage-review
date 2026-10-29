@@ -21,9 +21,13 @@ const illustrativeValues = {
 export function bookingCatalog(mode: PricingMode): BookingCatalog {
   return { branches: bookingBranches, barbers: demoBarbers, services: services.map(s => ({
     id: s.id, name: s.name, description: s.subtitle, icon: s.icon, image: s.image ?? null,
-    conceptual: s.conceptual ?? false, branchIds: ["poonak"], barberIds: demoBarbers.filter(barber => barber.serviceIds.includes(s.id)).map(barber => barber.id), valueSource: mode,
+    conceptual: s.conceptual ?? false,
+  })), offerings: services.map(s => ({
+    branchId: "poonak", serviceId: s.id, active: true, valueSource: mode,
+    barberIds: demoBarbers.filter(barber => barber.branchIds.includes("poonak") && barber.serviceIds.includes(s.id)).map(barber => barber.id),
     durationMinutes: mode === "demo" ? illustrativeValues[s.id].durationMinutes : null,
     priceToman: mode === "demo" ? illustrativeValues[s.id].priceToman : null,
+    bufferMinutes: mode === "demo" ? 0 : null,
   })) };
 }
 const basePolicy = { source: "demo" as const, scope: { kind: "branch" as const, branchId: "poonak" }, effectiveFrom: "2026-01-01T00:00:00Z", effectiveTo: null, overridesPolicyId: null, version: 1 };

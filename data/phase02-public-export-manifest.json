@@ -1,6 +1,6 @@
 {
   "date": "2026-10-29",
-  "privateSourceCommit": "7e56ef7e584830f6a884e677f9002b9ab46ff294",
+  "privateSourceCommit": "2155872cc626d7463d94500b678d875bec0e4dc6",
   "publicBaseCommit": "f35a5cc20ebd497b0d8fb7b96c207549f147799f",
   "reviewBranch": "review/phase02-booking",
   "privateHistoryIncluded": false,
@@ -50,15 +50,15 @@
     },
     {
       "path": "components/booking/BookingSummary.tsx",
-      "privateSourceSha256": "5eda6627a012869e32c440bf39279bbae4555fce6409a5a666fa2a87af38ecce",
-      "publicSourceSha256": "5eda6627a012869e32c440bf39279bbae4555fce6409a5a666fa2a87af38ecce",
+      "privateSourceSha256": "31b02cc852c9289aa84ada66cff9aa84137dc96bd2b0c757e20b780ccc7244f6",
+      "publicSourceSha256": "31b02cc852c9289aa84ada66cff9aa84137dc96bd2b0c757e20b780ccc7244f6",
       "matchesPrivateAfterReversingDocumentedStrings": true,
       "differences": []
     },
     {
       "path": "components/booking/BookingWizard.tsx",
-      "privateSourceSha256": "5ff478849e8b9738cade3a6842224524b75671f0e0aeadec939f4edd3845a8e0",
-      "publicSourceSha256": "ccaaf4c060f686727faac01b44108d91a05f68c447ecf2f4a876b1718e475f0e",
+      "privateSourceSha256": "d0b93b2bf9c097f91ebe53259fccf22ddbee76c719dccb0664839ff3e2f3ea46",
+      "publicSourceSha256": "57f4314b00b050dc6c67ae39a8c437dbfa1fb750a6484cee67e44d8d8385c67e",
       "matchesPrivateAfterReversingDocumentedStrings": true,
       "differences": [
         {
@@ -77,8 +77,8 @@
     },
     {
       "path": "components/booking/DateTimeSelection.tsx",
-      "privateSourceSha256": "cbe1f18cf32fdfd876379a9e0ce91a8b67972acf390f250da50dd70ecf70d49f",
-      "publicSourceSha256": "cbe1f18cf32fdfd876379a9e0ce91a8b67972acf390f250da50dd70ecf70d49f",
+      "privateSourceSha256": "d9e91a50bae853c85e56544a626b7607bf57d6af42cbfd69d6323fc37a407cdb",
+      "publicSourceSha256": "d9e91a50bae853c85e56544a626b7607bf57d6af42cbfd69d6323fc37a407cdb",
       "matchesPrivateAfterReversingDocumentedStrings": true,
       "differences": []
     },
@@ -91,8 +91,8 @@
     },
     {
       "path": "components/booking/ServiceSelection.tsx",
-      "privateSourceSha256": "8c7bbc64ce060dc343b433b9f40c0adf94aa7ea93083c8c037e58b0e78390df6",
-      "publicSourceSha256": "01c6aba47fc1bbcb91e0deba7b584cb91993e031248987a91a9890c45a6e665b",
+      "privateSourceSha256": "6ce1d79da0c4eaafcc30779e3f361f7c05646eff867eb3ec061e0bebad530815",
+      "publicSourceSha256": "505b98783fe9f032cff13c5039db872efd3d10878878ceab22cd12305665a262",
       "matchesPrivateAfterReversingDocumentedStrings": true,
       "differences": [
         {
@@ -104,8 +104,8 @@
     },
     {
       "path": "data/booking-demo.ts",
-      "privateSourceSha256": "2bb9c72c487bf26015c58a9d206b08b0082c5561ab719000051f614feb8077b5",
-      "publicSourceSha256": "0db1fb943f913e41dc03685e3bf532a0e984ee572efa29c0c7bc8dba2b3c2901",
+      "privateSourceSha256": "670b8f03053e239bfb98920170e873a17a4c2ecec0c57d0cf06a4fc7e94b7ae1",
+      "publicSourceSha256": "a9c43123f6cef895245061953557677924879c032ea48e16cba275b872d2cd66",
       "matchesPrivateAfterReversingDocumentedStrings": true,
       "differences": [
         {
@@ -122,8 +122,8 @@
     },
     {
       "path": "lib/booking/calculations.ts",
-      "privateSourceSha256": "63d0ecd6100978f25f2f2989de329312b91f7c48251d05c5b28db537e1c00bf0",
-      "publicSourceSha256": "63d0ecd6100978f25f2f2989de329312b91f7c48251d05c5b28db537e1c00bf0",
+      "privateSourceSha256": "242b4ef676371a9b37ce930121c8dab19db6eac80dfaa597168dd8fe9349f43a",
+      "publicSourceSha256": "242b4ef676371a9b37ce930121c8dab19db6eac80dfaa597168dd8fe9349f43a",
       "matchesPrivateAfterReversingDocumentedStrings": true,
       "differences": []
     },
@@ -136,29 +136,29 @@
     },
     {
       "path": "lib/booking/state.ts",
-      "privateSourceSha256": "5670a0aae7644ca6c0fc3f041e57185e604b9b5873d5cd0c1df9d440bcfe61c3",
-      "publicSourceSha256": "5670a0aae7644ca6c0fc3f041e57185e604b9b5873d5cd0c1df9d440bcfe61c3",
+      "privateSourceSha256": "d498102068a0398a250f330b7b9efe6631a9c5dd34376174b694ec6563148ac5",
+      "publicSourceSha256": "d498102068a0398a250f330b7b9efe6631a9c5dd34376174b694ec6563148ac5",
       "matchesPrivateAfterReversingDocumentedStrings": true,
       "differences": []
     },
     {
       "path": "lib/booking/validation.ts",
-      "privateSourceSha256": "f7dc6321aeafa869d6d2ad4de5d1a87a226213e2a9f0827ab6e8eaf7e7a4cc6b",
-      "publicSourceSha256": "f7dc6321aeafa869d6d2ad4de5d1a87a226213e2a9f0827ab6e8eaf7e7a4cc6b",
+      "privateSourceSha256": "7972a5d6b52151a1cb755489aefbb36ca47afbcca66ec428c48b67c8ca632d10",
+      "publicSourceSha256": "7972a5d6b52151a1cb755489aefbb36ca47afbcca66ec428c48b67c8ca632d10",
       "matchesPrivateAfterReversingDocumentedStrings": true,
       "differences": []
     },
     {
       "path": "tests/booking-domain.spec.ts",
-      "privateSourceSha256": "333a7b4d11959423da527a300f3141e2052aafa86fb490b2e3541feabfa31a61",
-      "publicSourceSha256": "333a7b4d11959423da527a300f3141e2052aafa86fb490b2e3541feabfa31a61",
+      "privateSourceSha256": "31fd551d49ce8bf47e927906259d7468970e0f8c8b95e615048a30878142c3ab",
+      "publicSourceSha256": "31fd551d49ce8bf47e927906259d7468970e0f8c8b95e615048a30878142c3ab",
       "matchesPrivateAfterReversingDocumentedStrings": true,
       "differences": []
     },
     {
       "path": "tests/booking.spec.ts",
-      "privateSourceSha256": "5bbc94247320c6603ce882250e124f5d12d9b4b9d988106618b88f9ae23fc27c",
-      "publicSourceSha256": "4a64146f2b0c0993287736530ba66f390c87e0870b2ae28bd55494ce474ea329",
+      "privateSourceSha256": "df0ad79aeb4f2b5cce09cf5bc4fd7b44f57e174a392aba8fa4b0a60ce7f6e27c",
+      "publicSourceSha256": "9e6ccf24df486275e402520ebc3e6967c129cbeaa4480eff1bfd158478d61e10",
       "matchesPrivateAfterReversingDocumentedStrings": true,
       "differences": [
         {
@@ -180,8 +180,36 @@
     },
     {
       "path": "types/booking.ts",
-      "privateSourceSha256": "e5da9a4832839dcc0b0de53726e61a658c58d77ea46d46cc37bf0d89bdecf240",
-      "publicSourceSha256": "e5da9a4832839dcc0b0de53726e61a658c58d77ea46d46cc37bf0d89bdecf240",
+      "privateSourceSha256": "b2095cb814c09e74b1409364ed0f0b1f6a97087f80f526f7a39d02758f28b155",
+      "publicSourceSha256": "b2095cb814c09e74b1409364ed0f0b1f6a97087f80f526f7a39d02758f28b155",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": []
+    },
+    {
+      "path": "lib/booking/availability.ts",
+      "privateSourceSha256": "00aae6bd6ee4079830cb06644c36de8a0ff163e892e822758f4874cf89a542dc",
+      "publicSourceSha256": "00aae6bd6ee4079830cb06644c36de8a0ff163e892e822758f4874cf89a542dc",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": []
+    },
+    {
+      "path": "lib/booking/catalog.ts",
+      "privateSourceSha256": "2d41362ee2bf1ac34cbfb18abbbc033bc87445b7d47190877011e0b3992e4cfd",
+      "publicSourceSha256": "2d41362ee2bf1ac34cbfb18abbbc033bc87445b7d47190877011e0b3992e4cfd",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": []
+    },
+    {
+      "path": "lib/booking/policies.ts",
+      "privateSourceSha256": "73648a76343334fbc52ee8ef7fc449a315c121841debbf3fd26515b4c1041d79",
+      "publicSourceSha256": "73648a76343334fbc52ee8ef7fc449a315c121841debbf3fd26515b4c1041d79",
+      "matchesPrivateAfterReversingDocumentedStrings": true,
+      "differences": []
+    },
+    {
+      "path": "tests/booking-review.spec.ts",
+      "privateSourceSha256": "b90ed999510ab74fc3a704a89ca455ae6922852a3b59c0c0462fcf08a6839706",
+      "publicSourceSha256": "b90ed999510ab74fc3a704a89ca455ae6922852a3b59c0c0462fcf08a6839706",
       "matchesPrivateAfterReversingDocumentedStrings": true,
       "differences": []
     }
@@ -347,9 +375,9 @@
     }
   ],
   "audit": {
-    "sourceFileCount": 20,
-    "exactPrivateSourceFiles": 16,
-    "publicFileCountExcludingThisManifest": 79,
+    "sourceFileCount": 24,
+    "exactPrivateSourceFiles": 20,
+    "publicFileCountExcludingThisManifest": 84,
     "privateBinaryHashesChecked": 173,
     "newBinaryFiles": 0,
     "forbiddenPathsFound": 0,
@@ -358,7 +386,7 @@
     "publicHistoryRoot": "f35a5cc20ebd497b0d8fb7b96c207549f147799f",
     "privateCommitObjectPresent": false,
     "unreachableCommitObjects": 0,
-    "originalPrivateHead": "7e56ef7e584830f6a884e677f9002b9ab46ff294",
+    "originalPrivateHead": "2155872cc626d7463d94500b678d875bec0e4dc6",
     "originalPrivateWorkingTreeClean": true,
     "originalPrivateRemotes": []
   },

@@ -149,6 +149,25 @@ test("Jalali keyboard/month navigation, disabled dates and mobile target bounds"
   await page.setViewportSize({ width: 844, height: 390 }); await health(page);
 });
 
+test("changing branch clears a chosen policy and optional deposit before the next preview", async ({ page }) => {
+  await openCalendar(page); await pickDateAndTime(page);
+  await page.getByLabel("سناریوی سیاست نمایشی").selectOption("demo-optional");
+  await page.getByRole("checkbox", { name: /فعال کردن بیعانه اختیاری/ }).check();
+  await page.getByRole("button", { name: "نمایش پیش‌نمایش نهایی" }).click();
+  await expect(page.locator(".booking-preview-result")).toBeVisible();
+  await page.getByRole("button", { name: "ویرایش شعبه", exact: true }).click();
+  await page.getByRole("button", { name: "پاک کردن انتخاب شعبه", exact: true }).click();
+  await expect(page.locator(".booking-preview-result")).toHaveCount(0);
+  await page.getByRole("radio", { name: /شعبه پونک/ }).check(); await next(page).click();
+  await page.getByRole("checkbox", { name: /هیرکات مو/ }).check(); await next(page).click();
+  await page.getByRole("radio", { name: /بدون ترجیح آرایشگر/ }).check(); await next(page).click();
+  await pickDateAndTime(page);
+  await expect(page.getByLabel("سناریوی سیاست نمایشی")).toHaveValue("");
+  await expect(page.getByRole("checkbox", { name: /فعال کردن بیعانه اختیاری/ })).toHaveCount(0);
+  await expect(page.locator(".booking-policy")).toContainText("شرایط واقعی بیعانه، لغو و استرداد هنوز تأیید نشده‌اند");
+  await health(page);
+});
+
 test("server-rendered form cannot submit before hydration or without JavaScript", async ({ browser, baseURL }) => {
   const context = await browser.newContext({ javaScriptEnabled: false, baseURL });
   try {

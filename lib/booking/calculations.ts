@@ -1,13 +1,15 @@
-import type { BookingPolicyVersion, BookingService, PolicyPreviewSnapshot } from "@/types/booking";
+import type { BookingPolicyVersion, BookingServiceOption, PolicyPreviewSnapshot } from "@/types/booking";
 import { faNumber } from "./date-utils";
 
 export const formatToman = (value: number | null) => value === null ? "تأیید نشده" : `${faNumber(value)} تومان`;
-export function calculateTotals(services: BookingService[]) {
-  const unknownPrices = services.filter(s => s.priceToman === null).map(s => s.id);
-  const unknownDurations = services.filter(s => s.durationMinutes === null).map(s => s.id);
+export function calculateTotals(services: BookingServiceOption[]) {
+  const unknownPrices = services.filter(s => s.offering?.priceToman == null).map(s => s.id);
+  const unknownDurations = services.filter(s => s.offering?.durationMinutes == null).map(s => s.id);
+  const unknownBuffers = services.filter(s => s.offering?.bufferMinutes == null).map(s => s.id);
   return {
-    priceToman: services.length && !unknownPrices.length ? services.reduce((n, s) => n + s.priceToman!, 0) : null,
-    durationMinutes: services.length && !unknownDurations.length ? services.reduce((n, s) => n + s.durationMinutes!, 0) : null,
+    priceToman: services.length && !unknownPrices.length ? services.reduce((n, s) => n + s.offering!.priceToman!, 0) : null,
+    durationMinutes: services.length && !unknownDurations.length ? services.reduce((n, s) => n + s.offering!.durationMinutes!, 0) : null,
+    bufferMinutes: services.length && !unknownBuffers.length ? services.reduce((n, s) => n + s.offering!.bufferMinutes!, 0) : null,
     unknownPrices, unknownDurations,
   };
 }

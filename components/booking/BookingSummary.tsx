@@ -1,12 +1,14 @@
 import { demoPolicies } from "@/data/booking-demo";
 import { calculatePolicyPreview, calculateTotals, formatToman } from "@/lib/booking/calculations";
 import { faNumber, formatJalali } from "@/lib/booking/date-utils";
+import { servicesForBranch } from "@/lib/booking/catalog";
+import { policyAppliesToDraft, selectedPolicy } from "@/lib/booking/policies";
 import type { BookingCatalog, BookingDraft, BookingStep } from "@/types/booking";
 import BookingPolicySummary from "./BookingPolicySummary";
 
 export function BookingOverview({ draft, catalog, compact = false }: { draft: BookingDraft; catalog: BookingCatalog; compact?: boolean }) {
   const branch = catalog.branches.find(b => b.id === draft.branchId);
-  const selected = catalog.services.filter(s => draft.serviceIds.includes(s.id));
+  const selected = servicesForBranch(catalog, draft.branchId).filter(s => draft.serviceIds.includes(s.id));
   const totals = calculateTotals(selected);
   const barber = draft.barberId === "any" ? "بدون ترجیح آرایشگر (نمونه)" : catalog.barbers.find(b => b.id === draft.barberId)?.displayName;
   return <div className="booking-overview">
@@ -23,14 +25,14 @@ export function BookingOverview({ draft, catalog, compact = false }: { draft: Bo
   </div>;
 }
 export default function BookingSummary({ draft, catalog, onPolicy, onOptional, onEdit }: { draft: BookingDraft; catalog: BookingCatalog; onPolicy: (id: string | null) => void; onOptional: (value: boolean) => void; onEdit: (step: BookingStep) => void }) {
-  const totals = calculateTotals(catalog.services.filter(s => draft.serviceIds.includes(s.id)));
-  const policy = demoPolicies.find(p => p.id === draft.policyId) ?? null;
+  const totals = calculateTotals(servicesForBranch(catalog, draft.branchId).filter(s => draft.serviceIds.includes(s.id)));
+  const policy = selectedPolicy(demoPolicies, draft, catalog);
   const calculation = calculatePolicyPreview(policy, totals.priceToman, draft.optionalDeposit);
   return <div className="booking-final-summary">
     <div className="booking-card-heading"><h3>انتخاب‌های این پیش‌نمایش</h3><span className="booking-badge">رزرو ثبت نشده</span></div>
     <BookingOverview draft={draft} catalog={catalog} />
     <div className="booking-edit-links">{([1, 2, 3, 4] as const).map((step, i) => <button type="button" className="booking-text-button" onClick={() => onEdit(step)} key={step}>ویرایش {["شعبه", "خدمات", "آرایشگر", "زمان"][i]}</button>)}</div>
-    <div className="booking-policy-picker"><label htmlFor="policy-scenario">سناریوی سیاست نمایشی</label><select id="policy-scenario" value={draft.policyId ?? ""} onChange={e => onPolicy(e.target.value || null)}><option value="">شرایط واقعی هنوز تأیید نشده</option>{demoPolicies.map(item => <option value={item.id} key={item.id}>{item.label}</option>)}</select>
+    <div className="booking-policy-picker"><label htmlFor="policy-scenario">سناریوی سیاست نمایشی</label><select id="policy-scenario" value={policy?.id ?? ""} onChange={e => onPolicy(e.target.value || null)}><option value="">شرایط واقعی هنوز تأیید نشده</option>{demoPolicies.filter(item => policyAppliesToDraft(item, draft, catalog)).map(item => <option value={item.id} key={item.id}>{item.label}</option>)}</select>
       {policy?.deposit.requirement === "optional" && <label className="booking-switch"><input type="checkbox" checked={draft.optionalDeposit} onChange={e => onOptional(e.target.checked)} />فعال کردن بیعانه اختیاری در نمونه</label>}
     </div>
     <BookingPolicySummary policy={policy} calculation={calculation} />

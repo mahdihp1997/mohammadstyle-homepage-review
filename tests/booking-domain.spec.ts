@@ -4,6 +4,8 @@ import { addDays, calendarWeeks, isLocalDate, jalaliParts, localToday, monthStar
 import { calculatePolicyPreview, calculateTotals, policyPreviewSnapshot } from "../lib/booking/calculations";
 import { createBookingReducer, initialBookingState } from "../lib/booking/state";
 import { eligibleBarbers } from "../lib/booking/validation";
+import { servicesForBranch } from "../lib/booking/catalog";
+import { availabilityKey, availabilityRequest } from "../lib/booking/availability";
 import type { DemoTimeSlot, LocalDate } from "../types/booking";
 
 test("Jalali Nowruz/leap boundaries, ISO date validation and Tehran midnight", () => {
@@ -22,8 +24,8 @@ test("Jalali Nowruz/leap boundaries, ISO date validation and Tehran midnight", (
 });
 
 test("unknown totals stay unknown; explicit demo arithmetic and policy cases", () => {
-  expect(calculateTotals(bookingCatalog("unconfirmed").services.slice(0, 2))).toMatchObject({ priceToman: null, durationMinutes: null });
-  const selected = bookingCatalog("demo").services.filter(s => ["hair", "facial"].includes(s.id));
+  expect(calculateTotals(servicesForBranch(bookingCatalog("unconfirmed"), "poonak").slice(0, 2))).toMatchObject({ priceToman: null, durationMinutes: null });
+  const selected = servicesForBranch(bookingCatalog("demo"), "poonak").filter(s => ["hair", "facial"].includes(s.id));
   expect(calculateTotals(selected)).toMatchObject({ priceToman: 1_000_000, durationMinutes: 75 });
   const percent = demoPolicies.find(p => p.id === "demo-percent")!;
   expect(calculatePolicyPreview(percent, 1_000_000, false)).toEqual({ deposit: 200_000, remaining: 800_000, error: null });
@@ -43,14 +45,17 @@ test("eligibility and reducer reject unconfigured branches and stale selections"
   const min: LocalDate = "2026-10-30", max: LocalDate = "2026-12-28";
   const reduce = createBookingReducer(min, max), catalog = bookingCatalog("unconfirmed");
   let state = initialBookingState("hair");
-  expect(reduce(state, { type: "next", slots: [] }).step).toBe(1);
+  expect(reduce(state, { type: "next" }).step).toBe(1);
   expect(reduce(state, { type: "branch", id: "pending" }).draft.branchId).toBeNull();
   state = reduce(state, { type: "branch", id: "poonak" });
   expect(state.draft.serviceIds).toEqual(["hair"]);
   state = reduce(state, { type: "barber", id: "demo-a" });
   state = reduce(state, { type: "date", date: min });
   const slot: DemoTimeSlot = { id: "test", date: min, startTime: "11:30", timeZone: "Asia/Tehran", barberIds: ["demo-a"], durationMinutes: null, selectable: true, source: "demo" };
-  state = reduce(state, { type: "slot", slot });
+  const key = availabilityKey(availabilityRequest(state.draft, catalog));
+  state = reduce(state, { type: "availabilityLoading", key, requestId: 1 });
+  state = reduce(state, { type: "availabilityReady", key, requestId: 1, slots: [slot] });
+  state = reduce(state, { type: "slot", id: slot.id, key, requestId: 1 });
   expect(state.draft.slot).toEqual(slot);
   expect(reduce(state, { type: "date", date: min }).draft.slot).toEqual(slot);
   state = reduce(state, { type: "service", id: "massage" });
@@ -58,7 +63,7 @@ test("eligibility and reducer reject unconfigured branches and stale selections"
   expect(eligibleBarbers(catalog, "poonak", state.draft.serviceIds).map(b => b.id)).toEqual(["demo-b"]);
   expect(reduce(state, { type: "barber", id: "demo-a" }).draft.barberId).toBeNull();
   state = reduce(state, { type: "barber", id: "any" });
-  expect(reduce(state, { type: "slot", slot }).draft.slot).toBeNull();
+  expect(reduce(state, { type: "slot", id: slot.id, key, requestId: 1 }).draft.slot).toBeNull();
   state = reduce(state, { type: "branch", id: null });
   expect(state.draft).toMatchObject({ branchId: null, serviceIds: [], barberId: null, date: null, slot: null });
 });

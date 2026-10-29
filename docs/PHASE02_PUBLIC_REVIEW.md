@@ -1,60 +1,77 @@
-# Phase 02 — sanitized public code-review export
+# Phase 02 — current sanitized review export
 
-Date: 2026-10-29. Source: private commit `7e56ef7e584830f6a884e677f9002b9ab46ff294`. Public base: `f35a5cc20ebd497b0d8fb7b96c207549f147799f`. Branch: `review/phase02-booking`. Target: public `main`; **draft PR only, no merge, no Phase 03**.
+Private development source: `2155872cc626d7463d94500b678d875bec0e4dc6` on `feature/booking-ui`. Original review baseline: `7e56ef7e584830f6a884e677f9002b9ab46ff294`. The correction commit was developed/tested in the original private project, then transferred as source files into the public review branch. Public base remains `f35a5cc20ebd497b0d8fb7b96c207549f147799f`; the earlier public export is `9d284a659fc997e56167e1318fec83b7944d708f`.
 
-## Transfer and functional parity
+Branch: `review/phase02-booking`; [draft PR #1](https://github.com/mahdihp1997/mohammadstyle-homepage-review/pull/1) targets public main. **No merge, private history transfer or Phase 03.**
 
-The export was prepared in a fresh clone of public main. Only an explicit source-file allowlist was read from the private working tree, whose clean HEAD was verified against the supplied commit. No private repository was added as a remote, fetched, merged or cherry-picked. Public main retains its original independent root. The original private branch, commit, source, assets and history are unchanged.
+## Targeted review corrections
 
-Twenty new application/test files supply the Booking route/CSS, ten Booking components, typed contracts, demo data, reducer, calculations, validation, Jalali utilities and two test suites. The exact private Phase 02 drawer delta was applied to the already-sanitized public Homepage. No application dependency/lockfile changes were needed.
+- Slot selection passes an ID/key/loading generation only. The reducer resolves the current provider response and checks unique identity, date, valid clock time, timezone, duration, selectable/source flags and every staff ID. Frozen response snapshots prevent mutation. Old responses/clicks are rejected after edits, A→B→A or same-key retries; next/final preview use reducer-owned availability.
+- `BranchServiceOffering` carries per-branch price, duration, buffer, activity and eligible staff. Shared service metadata is separate. Cards, totals and requests consume the same selected offering; invalid/duplicate/missing configuration fails closed. Existing demo values/unknown defaults and the unconfigured real second branch remain.
+- Shared policy compatibility clears unrelated scenarios and optional deposits after context changes, filters the scenario picker and validates again before final preview. No real policy enforcement is added.
+- The single-provider MVP is preserved. Future per-service staff segments, ordering/overlap/buffer/resource-lock decisions are documented in `BOOKING_REVIEW_FIXES.md`.
+- Ten new domain cases and one new browser case augment every original test. Existing domain setup was adapted to the new contract without removing assertions. Homepage/layout/CSS/photos/fonts and dependencies remain unchanged in the private implementation.
 
-Domain behavior is retained: five steps; validated service query; branch/service/barber eligibility; one reducer with the same invalidation rules; cancellable asynchronous demo availability; Tehran-local dates and Jalali keyboard/month navigation; unknown real prices/durations; opt-in sample values; versioned policy preview arithmetic; final validation and preview-only output. No fixture, rule, number, scheduling choice, API/persistence behavior, test case or assertion was dropped or weakened.
+## Exact public-only differences
 
-The source manifest records LF-normalized SHA-256 hashes and a reversible string-only allowlist. Exact matches are required for all domain modules/contracts/date utilities, route/CSS, remaining components and domain tests. Reversing the four presentation strings and three test-endpoint edits must reproduce the private source. All pre-existing public images, fonts/layout substitutes, business facts and dependencies are checked against public main.
+All fourteen Phase 01 placeholder WebPs, four labeled AI concepts, system-font layout/CSS, public notice, business facts, dependency manifest/lockfile and public Homepage test configuration remain unchanged from public main. The Homepage keeps its original sanitized descriptions plus the original Phase 02 drawer link.
 
-## Exact sanitization differences
+Only four transferred application/test files have public-specific edits: `BookingWizard.tsx` sidebar alt text; `ServiceSelection.tsx` non-concept image alt template; `booking-demo.ts` branch image alt/caption; and the no-JavaScript test in `booking.spec.ts`, which receives the configured public baseURL rather than private port 3000. These are the same seven reversible substitutions as the initial export. Every other transferred application/test file matches current private source after LF normalization. No Booking rule, fixture number, assertion, calculation or interaction is modified for export.
 
-| Path | Difference from the private implementation |
-| --- | --- |
-| `public/images/*.webp` | The same fourteen neutral labeled Phase 01 placeholders remain byte-for-byte unchanged. No private photograph is copied. |
-| `public/images/mohammadstyle-images/*.webp` | The same four permitted, visibly labeled AI service concepts remain unchanged from public main. |
-| `app/layout.tsx`, `app/public-review.css` | Existing system fonts (Tahoma/Arial), public notice and layout preserved unchanged. Private local-font imports/binaries remain absent. |
-| `components/Homepage.tsx` | Inherited Phase 01 placeholder descriptions/copy remain; only the exact private Phase 02 drawer link/copy is added. |
-| `components/booking/BookingWizard.tsx` | Sidebar image alt string describes the public placeholder. No logic changes. |
-| `components/booking/ServiceSelection.tsx` | Non-concept service-image alt template describes public placeholders. Concept labels, selections and logic unchanged. |
-| `data/booking-demo.ts` | Only the Poonak image alt/caption describe the placeholder. Every fixture, policy, calculation input and provider remains unchanged. |
-| `playwright.config.ts`, `tests/homepage.spec.ts` | Existing public Phase 01 setup remains: port 3010, system-font/notice expectations. All original interactions/diagnostics are retained. |
-| `tests/booking.spec.ts` | No-JavaScript context now receives Playwright's configured baseURL and uses a relative route, instead of hardcoding private port 3000. All assertions and five test cases remain. |
-| Documentation and manifest | Current public instructions/results and explicit sanitization. Architecture notes are labeled as describing the private counterpart. Earlier Phase 01 source/report snapshots remain historical. |
+`data/phase02-public-export-manifest.json` records all 24 transferred application/test files: 20 exact matches and four with the documented text/test-address substitutions. The exact Homepage/CSS delta still matches private Phase 02 over the sanitized public baseline. The full public graph descends only from sanitized public main; private commit objects are absent. All inherited public image and system-font files are checked against main.
 
-## Omitted files and material
+Documentation identifies private architecture/QA as such. `BOOKING_REVIEW_FIXES.md` retains the private development/visual-review narrative; the private `BOOKING_REVIEW_RESULTS.json` it mentions is intentionally withheld. Current public-copy evidence is `PHASE02_PUBLIC_REVIEW_RESULTS.json`. Public placeholders/fonts intentionally prevent photographic fidelity approval.
 
-- Private `app/fonts/iransans-regular.woff2`, `iransans-bold.woff2`, `kahroba-variable.woff2`.
-- Original versions of fourteen client-photo paths (full path list in `data/public-export-manifest.json`). The public placeholders at those paths are retained.
-- All private `references/` boards/crops, other client/source image directories and all internal screenshot binaries.
-- All private `artifacts/` (including `OWNER_REVIEW_BOOKING.html`, screenshot manifests, Playwright JSON, command logs and screenshot trees), private review ZIPs and legacy static preview outputs.
-- `scripts/create_booking_review.mjs`: internal report assembly depends on withheld screenshots/reference images. It is not runtime logic or a test. The inherited Phase 01 assembly script is historical and also requires withheld material.
-- Private Git directories/objects/history, caches, build output, node_modules, test traces/reports, environment files and credentials. Local public test captures/reports are ignored and not published.
+## Private correction file inventory
 
-## Validation of this public copy
+The private correction commit changes these 19 files. The internal normalized result JSON is withheld; the public copy has its own result JSON and export documentation/manifest updates.
 
-All commands below ran in the fresh public checkout with its own physical node_modules directory (no dependency junction to the private project). Package manifest/lockfile stayed unchanged. Node v24.16.0, npm 11.17.0, Next 15.5.28, Windows; installed Google Chrome selected with PLAYWRIGHT_CHANNEL=chrome. CI=true forced Playwright to launch its own public Next.js server on 3010. NEXT_TELEMETRY_DISABLED=1 was set. npm used a separate local cache outside the repository.
+```text
+components/booking/BookingSummary.tsx
+components/booking/BookingWizard.tsx
+components/booking/DateTimeSelection.tsx
+components/booking/ServiceSelection.tsx
+data/booking-demo.ts
+docs/BOOKING_REVIEW_FIXES.md
+docs/BOOKING_REVIEW_RESULTS.json
+docs/BOOKING_UI.md
+docs/VISUAL_REVIEW.md
+lib/booking/availability.ts
+lib/booking/calculations.ts
+lib/booking/catalog.ts
+lib/booking/policies.ts
+lib/booking/state.ts
+lib/booking/validation.ts
+tests/booking-domain.spec.ts
+tests/booking-review.spec.ts
+tests/booking.spec.ts
+types/booking.ts
+```
+
+## Withheld material
+
+- Original versions of all fourteen client-photo paths; their public placeholders are unchanged. The complete path list is in the historical `data/public-export-manifest.json`.
+- `app/fonts/iransans-regular.woff2`, `iransans-bold.woff2`, `kahroba-variable.woff2`; all private visual-reference boards/crops and client/source image directories.
+- All private `artifacts/`, internal screenshots/review pages/logs/raw reports/ZIPs, legacy static previews, and `docs/BOOKING_REVIEW_RESULTS.json`. No new binary file is added.
+- `scripts/create_booking_review.mjs`, which assembles an internal screenshot report and is neither application nor test logic. The inherited Phase 01 report assembly script remains historical and requires withheld material.
+- Private Git objects/history, environment files/credentials, dependencies/caches/build output, test traces and generated public screenshots/raw logs. Ignore rules remain in effect.
+
+## Current public validation
+
+All current commands ran on the corrected public source with its independent installed dependencies. Windows, Node v24.16.0, npm 11.17.0, Next 15.5.28; installed Chrome selected with PLAYWRIGHT_CHANNEL=chrome and CI=true. Playwright started its own public Next.js server on **3010**; the private app on 3000 was not used, including by the no-JavaScript test.
 
 | Command | Exit | Actual result |
 | --- | --- | --- |
-| `npm ci` | 0 | Added 29 packages; audited 30; two existing dependency findings. |
-| `npm run typecheck` | 0 | tsc --noEmit, no diagnostics. |
-| `npm run build` | 0 | Compiled in 6.0s; 5/5 static pages; /booking dynamically server-rendered. |
-| `npm run test:ui` | 0 | **48 passed** in 163.3s; zero failed/skipped/flaky. |
+| `npm run typecheck` | 0 | tsc --noEmit, no diagnostics |
+| `npm run build` | 0 | Compiled in 2.7s, 5/5 static pages; /booking dynamic, 13.9 kB / 117 kB first load |
+| `npm run test:ui` | 0 | **92 passed** in 179.9s; zero failed/skipped/flaky |
 
-Coverage: 12 Booking domain checks (the same three tests in each project), 20 Booking browser checks and 16 Homepage browser checks. Each viewport passes 12 tests: 1440×900, 1024×768, 390×844 and 375×812. Assertions cover all five steps, service query/unknown query, defaults and demo totals/policy scenarios, upstream invalidation/eligibility, empty and asynchronous availability, Jalali leap/Nowruz/Tehran boundaries and keyboard/month controls, hydration/no-JavaScript safeguards, mobile targets, Homepage menu/filter/Before-After/drawer focus behavior, and image/network/console/overflow health. No test case or assertion was removed. These are actual Next.js browser results, not static-preview QA.
+Each of 1440×900, 1024×768, 390×844 and 375×812 passed 23 tests: 52 domain checks, 24 Booking browser checks, 16 Homepage browser checks in total. Includes forged/stale slots, provider cancellation, branch-specific config, incompatible policies, original interactions, hydration/no-JS, Jalali keyboard/date cases, assets, console/HTTP and overflow checks. No browser/JS/hydration/image/network/overflow failures. All original cases/assertions remain. Captures come from the actual Next.js app, not a static preview; they and raw logs/reports remain ignored/local. Non-failing terminal color warnings occurred.
 
-The actual public tests generated local screenshots at all four sizes. Public desktop and mobile captures were inspected to confirm the inherited placeholders, system fonts, disclosure and demo labels. Generated screenshots, traces, raw Playwright JSON and raw command logs remain local and excluded; normalized results are in `PHASE02_PUBLIC_REVIEW_RESULTS.json`.
+The original private source separately passed typecheck/build and **92 tests** in 192.7s. Publication audit verifies 24 transferred application/test files (20 exact LF-normalized matches, four reversible text/test-endpoint differences), unchanged public images/system-font files and no private binary/history/credential matches. See the source manifest and normalized results JSON. The original locked install from npm ci is retained; no new packages/lock changes were needed for these fixes.
 
-Publication audit: 173 unique withheld private binary hashes checked; zero original binary matches, new binary files, forbidden paths or credential-pattern matches. All 18 public image files and the existing system-font files remain unchanged. Sixteen of the 20 new application/test files match private source exactly after LF normalization; the other four match after reversing only the seven documented text/test-endpoint substitutions. The Homepage/CSS Phase 02 delta exactly matches the private delta over the sanitized public baseline. The private commit object is absent from the public clone; its sole root remains sanitized public main.
+The initial public export passed npm ci, typecheck, build and 48 tests in 163.3s. That historical run belongs to 9d284a6, not this correction. Dependency manifest/lockfile are unchanged; the previously reported two Next/PostCSS audit findings remain, with no unrelated upgrade applied. No production deployment is included.
 
-`npm audit --json` additionally records two findings (one moderate, one high) through Next/PostCSS. npm proposes a major Next upgrade; none was applied in this export. Non-failing NO_COLOR/FORCE_COLOR terminal warnings occurred during Playwright. No browser/application errors were observed. See the normalized evidence and source manifest for reproducible checks.
+## Remaining architectural decisions
 
-## Review limits
-
-Images/font metrics intentionally differ from the internal approved visual baseline. The public copy is suitable for application/domain/interaction review, not photographic fidelity approval. Booking remains a local frontend demonstration: no reservation, payment, authentication, backend, database, notifications or authoritative capacity/policy engine. The second branch is unconfigured; real staff, prices, durations and policies remain unconfirmed. Physical-device, Safari and screen-reader speech verification are not claimed. Phase 02 visual/technical approval remains pending; stop before Phase 03.
+One provider must still cover all selected services. Per-service assignments require a future whole-plan availability contract and atomic server resource locking. Service ordering/parallelism, buffer occupancy and policy precedence/version acceptance remain unresolved design decisions. Real capacity, persistence, API/database/payment/messaging and policy enforcement remain deferred. Physical-device, Safari and screen-reader speech testing are not claimed. No Phase 03 or merge.
