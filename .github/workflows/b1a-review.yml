@@ -1,0 +1,78 @@
+name: Sanitized B1A persistence review
+on:
+  push:
+    branches: [review/phase03b-b1a]
+  pull_request:
+    branches: [review/phase03b-b0]
+permissions:
+  contents: read
+concurrency:
+  group: b1a-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  disposable-validation:
+    if: github.repository == 'mahdihp1997/mohammadstyle-homepage-review'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - name: Require sanitized export before installing or executing source
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import assert from 'node:assert/strict';
+          import { execFileSync } from 'node:child_process';
+          assert.match(fs.readFileSync('app/layout.tsx','utf8'), /data-public-review/);
+          const paths=execFileSync('git',['ls-files'],{encoding:'utf8'}).split('\n');
+          assert.ok(!paths.some(p=>/^(app\/fonts\/|references\/|artifacts\/|client-images\/)/.test(p)));
+          assert.ok(!paths.some(p=>/\.env\.(?:local|b1a\.local)$|\.(?:ttf|otf|woff2?)$/.test(p)));
+          NODE
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24.16.0
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            backend/package-lock.json
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+        working-directory: backend
+      - name: Separate ephemeral PostgreSQL projects and credentials
+        working-directory: backend
+        run: |
+          npm run env:init
+          npm run b1a:env
+          npm run b1a:up
+      - name: Compile and run B0/B1A backend checks
+        working-directory: backend
+        run: |
+          npm run typecheck
+          npm run build
+          npm run test:b0:isolated
+          npm run test:b1a
+          npm run b1a:verify
+          npm run check:secrets
+      - name: Existing frontend regression on sanitized assets only
+        run: |
+          npm ci --no-audit --no-fund
+          npm run typecheck
+          npm run build
+          npx playwright install --with-deps chromium
+          npm run test:ui
+      - name: Retain only synthetic result summaries, never dumps/env/UI screenshots
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: b1a-synthetic-validation
+          path: |
+            backend/.local/b1a/results/integration.json
+            backend/.local/b1a/results/backup.json
+            backend/.local/b1a/results/restore.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
+      - name: Stop only this job's disposable projects
+        if: always()
+        working-directory: backend
+        run: |
+          if [ -f .env.b1a.local ]; then npm run b1a:stop; fi

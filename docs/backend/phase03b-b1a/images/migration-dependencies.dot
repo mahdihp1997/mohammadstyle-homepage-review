@@ -1,0 +1,15 @@
+digraph Migrations{graph [bgcolor="white",pad="0.35",nodesep="0.45",ranksep="0.65",fontname="Arial",fontsize=20]; node [shape=box,style="rounded,filled",fillcolor="#eef5ff",color="#7293bd",fontname="Arial",fontsize=15,margin="0.18,0.14"]; edge [color="#64748b",fontname="Arial",fontsize=12]; rankdir=TB;labelloc=t;label="Native migration dependency-safe order";lock[label="Verify database identity
+BEGIN + advisory transaction lock"];a[label="0001 · create all16 tables first
+IAM: app_user,permission,auth_identity,auth_session
+Business/roles: business,role,branch,role_permission
+user_role_assignment
+Catalog: service,branch_service_offering
+offering_resource_requirement
+Plumbing: audit_log,idempotency_record
+outbox_event,consumer_inbox"];b[label="0001 · add40 FKs and support indexes
+Self actor reference is added after tables
+Retain both temporary inactive gates"];c[label="0002 · limited runtime grants
+Four tenant-context RLS policies
+No new domain table"];history[label="Atomic checksum/version history
+Reviewed catalog verification
+COMMIT or whole-call ROLLBACK",fillcolor="#e8f7ee"];lock->a->b->c->history;}

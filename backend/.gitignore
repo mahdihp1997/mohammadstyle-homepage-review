@@ -2,6 +2,7 @@ dist/
 node_modules/
 .env*
 !.env.example
+!.env.b1a.example
 .local/
 prisma/generated/
 prisma/introspected.prisma

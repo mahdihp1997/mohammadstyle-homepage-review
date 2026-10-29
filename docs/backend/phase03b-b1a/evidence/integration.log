@@ -1,0 +1,52 @@
+
+> mohammadstyle-b0-foundation@0.0.0 test:b1a
+> node scripts/b1a/test.mjs
+
+PASS fresh installation: exactly16 foundation tables and2 tracked migrations
+PASS destructive provisioning refuses every B0 database name
+PASS repeated migration invocation is a verified no-op
+PASS catalog preserves40 FK,43 CHECK,44 indexes and4 RLS policies
+PASS synthetic fixtures cover all16 tables with no real tariffs or customers
+PASS tenant composite FK rejects a foreign branch
+PASS duplicate branch code rejected
+PASS NULL-safe partial unique index rejects duplicate unscoped role
+PASS invalid offering price_rial rejected
+PASS invalid offering duration_minutes rejected
+PASS invalid offering buffer_before_minutes rejected
+PASS missing branch timezone rejected
+PASS B1 inactive branch gate cannot be lifted with scalar activation
+PASS B1 inactive offering gate retained even with complete synthetic scalars
+PASS repository ports read only the scoped tenant and preserve unknown amounts
+PASS explicit Nest persistence module resolves DI without changing health AppModule
+PASS RLS prevents unscoped raw reads from crossing tenant context
+PASS runtime with no tenant context fails closed to zero rows
+PASS runtime denied DDL
+PASS runtime denied public DDL
+PASS runtime denied metadata
+PASS runtime denied auth sessions
+PASS runtime denied audit mutation
+PASS runtime denied delete
+PASS runtime denied truncate
+PASS runtime denied business field mutation
+PASS runtime denied booking gate mutation
+PASS runtime denied role elevation
+PASS runtime denied RLS disable
+PASS transaction-local tenant context does not leak between uses
+PASS two concurrent sessions use CAS version; exactly one writer succeeds
+PASS stale version cannot overwrite a committed version
+PASS failed SQL transaction rolls back version write and pool remains usable
+PASS transaction scope cannot be used after callback ends
+PASS invalid tenant context rejected before SQL
+PASS runtime cannot bypass RLS with row_security=off
+PASS drift in a safety constraint is detected and not automatically repaired
+PASS runtime privilege drift is detected
+PASS required index drift is detected
+PASS simultaneous migration sessions serialize and apply each version once
+PASS unknown migration version is rejected
+PASS tampered applied checksum is rejected
+PASS failed migration rolls back DDL and version history atomically
+PASS fresh untracked schema cannot be silently adopted
+PASS actual pg_dump produces a verified custom archive
+PASS actual pg_restore into separate database preserves every row/catalog/constraint
+PASS restored schema retains runtime RLS and denied metadata permissions
+{"passed":47,"failed":0,"expectedRejections":30}

@@ -17,7 +17,16 @@
     "test:db": "node scripts/validate-db.mjs",
     "test:prisma": "node scripts/prisma-probe.mjs",
     "check:secrets": "node scripts/check-secrets.mjs",
-    "diagnostics": "node scripts/diagnostics.mjs"
+    "diagnostics": "node scripts/diagnostics.mjs",
+    "b1a:env": "node scripts/b1a/infra.mjs env",
+    "b1a:up": "node scripts/b1a/infra.mjs up",
+    "b1a:stop": "node scripts/b1a/infra.mjs stop",
+    "b1a:migrate": "node scripts/b1a/migrate.mjs",
+    "b1a:verify": "node scripts/b1a/verify.mjs",
+    "b1a:backup": "node scripts/b1a/backup.mjs backup",
+    "b1a:restore": "node scripts/b1a/backup.mjs restore",
+    "test:b1a": "node scripts/b1a/test.mjs",
+    "test:b0:isolated": "node scripts/b1a/b0-regression.mjs"
   },
   "dependencies": {
     "@nestjs/common": "12.3.2",

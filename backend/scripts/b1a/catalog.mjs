@@ -1,0 +1,23 @@
+import fs from'node:fs';import path from'node:path';import{createHash}from'node:crypto';import{root}from'./local.mjs';
+export const fingerprint=value=>createHash('sha256').update(JSON.stringify(value)).digest('hex');
+export async function catalog(db){
+ const queries={
+  tables:"SELECT c.relname AS name,c.relrowsecurity AS rls,c.relforcerowsecurity AS force_rls,pg_get_userbyid(c.relowner) AS owner FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='ms_b1_design' AND c.relkind='r' ORDER BY c.relname",
+  columns:"SELECT table_name,column_name,ordinal_position,data_type,udt_name,is_nullable,column_default,is_generated FROM information_schema.columns WHERE table_schema='ms_b1_design' ORDER BY table_name,ordinal_position",
+  constraints:"SELECT t.relname AS table_name,c.conname AS name,c.contype AS type,c.condeferrable,c.condeferred,pg_get_constraintdef(c.oid,false) AS definition FROM pg_constraint c JOIN pg_class t ON t.oid=c.conrelid JOIN pg_namespace n ON n.oid=c.connamespace WHERE n.nspname='ms_b1_design' ORDER BY t.relname,c.conname",
+  indexes:"SELECT t.relname AS table_name,c.relname AS name,pg_get_indexdef(i.indexrelid) AS definition,i.indisvalid,i.indisready FROM pg_index i JOIN pg_class t ON t.oid=i.indrelid JOIN pg_class c ON c.oid=i.indexrelid JOIN pg_namespace n ON n.oid=t.relnamespace WHERE n.nspname='ms_b1_design' ORDER BY t.relname,c.relname",
+  policies:"SELECT tablename,policyname,permissive,roles,cmd,qual,with_check FROM pg_policies WHERE schemaname='ms_b1_design' ORDER BY tablename,policyname",
+  tableGrants:"SELECT table_name,grantee,privilege_type,is_grantable FROM information_schema.table_privileges WHERE table_schema='ms_b1_design' ORDER BY table_name,grantee,privilege_type",
+  columnGrants:"SELECT table_name,column_name,grantee,privilege_type,is_grantable FROM information_schema.column_privileges WHERE table_schema='ms_b1_design' ORDER BY table_name,column_name,grantee,privilege_type",
+  schemaGrants:"SELECT n.nspname AS schema,CASE WHEN a.grantee=0 THEN 'PUBLIC' ELSE pg_get_userbyid(a.grantee) END AS grantee,pg_get_userbyid(a.grantor) AS grantor,a.privilege_type,a.is_grantable FROM pg_namespace n CROSS JOIN LATERAL aclexplode(coalesce(n.nspacl,acldefault('n',n.nspowner))) a WHERE n.nspname IN ('ms_b1_design','ms_b1_meta','public') ORDER BY schema,grantee,grantor,privilege_type",
+  extraRelations:"SELECT c.relname,c.relkind FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='ms_b1_design' AND c.relkind NOT IN ('r','i','t') ORDER BY c.relname",
+  routines:"SELECT p.proname,pg_get_function_identity_arguments(p.oid) AS args,pg_get_functiondef(p.oid) AS definition FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='ms_b1_design' ORDER BY p.proname,args",
+  triggers:"SELECT t.tgname,pg_get_triggerdef(t.oid) AS definition FROM pg_trigger t JOIN pg_class c ON c.oid=t.tgrelid JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='ms_b1_design' AND NOT t.tgisinternal ORDER BY t.tgname",
+  roles:"SELECT rolname,rolsuper,rolcreaterole,rolcreatedb,rolreplication,rolbypassrls,rolcanlogin FROM pg_roles WHERE rolname IN ('ms_b1a_migrator','ms_b1a_runtime') ORDER BY rolname",
+  roleMemberships:"SELECT pg_get_userbyid(m.roleid) AS role,pg_get_userbyid(m.member) AS member,m.admin_option FROM pg_auth_members m WHERE m.member IN (SELECT oid FROM pg_roles WHERE rolname IN ('ms_b1a_migrator','ms_b1a_runtime')) ORDER BY role,member",
+  runtimeDatabasePrivileges:"SELECT has_database_privilege('ms_b1a_runtime',current_database(),'CREATE') AS create,has_database_privilege('ms_b1a_runtime',current_database(),'TEMP') AS temp,has_database_privilege('ms_b1a_runtime',current_database(),'CONNECT') AS connect"
+ };
+ await db.query('SET search_path=pg_catalog,public');const result={};for(const[key,sql]of Object.entries(queries))result[key]=(await db.query(sql)).rows;
+ return result;
+}
+export async function assertCatalog(db){const actual=await catalog(db),file=path.join(root,'migrations/catalog.expected.json');if(!fs.existsSync(file))throw Object.assign(Error('Reviewed catalog manifest is missing'),{code:'B1A_CATALOG_MISSING'});const expected=JSON.parse(fs.readFileSync(file,'utf8'));if(fingerprint(actual)!==expected.sha256)throw Object.assign(Error('B1A catalog drift detected; no automatic repair allowed'),{code:'B1A_DRIFT',expected:expected.sha256,actual:fingerprint(actual)});return{sha256:expected.sha256,tables:actual.tables.length,indexes:actual.indexes.length,foreignKeys:actual.constraints.filter(c=>c.type==='f').length,checks:actual.constraints.filter(c=>c.type==='c').length,rlsPolicies:actual.policies.length};}
