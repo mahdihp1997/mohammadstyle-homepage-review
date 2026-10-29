@@ -1,0 +1,12 @@
+digraph{graph[bgcolor="#111b24",pad="0.35",nodesep="0.35",ranksep="0.55"];node[shape=box,style="rounded,filled",fillcolor="#213444",color="#d9c79e",fontcolor="#f3f6fa",fontname="Arial",fontsize=19,margin="0.18,0.14"];edge[color="#d9c79e",fontcolor="#e5d6b5",fontname="Arial",fontsize=15];rankdir=TB;local[label="Reviewed local Gregorian occurrence list
+ISO weekday / minute-of-day / rule UUID + version
+IANA zone from locked branch; Jalali display only"];bound[label="Bounded: <=62 segments / <=31 local days
+Effective dates + same temporal stint
+Future instants / minute precision"];resolve[label="For each local endpoint
+Enumerate 1921 UTC candidates over +/-16h
+Exact PostgreSQL IANA round-trip equality"];count[label="How many matching UTC instants?",shape=diamond];gap[label="0 -> DST_GAP
+Reject nonexistent local time"];one[label="1 -> unambiguous instant"];fold[label=">1 -> explicit earlier/later
+reject -> DST_FOLD_REVIEW_REQUIRED"];pair[label="If overnight=true: validate both local-day segments
+Same stint; UTC instants meet at local midnight"];persist[label="Revalidate full context, then persist atomically
+UTC interval + local date/zone/minutes/choices
+Rule/version reference + publication plan/version"];local->bound->resolve->count;count->gap[label="0"];count->one[label="1"];count->fold[label=">1"];one->pair;fold->pair[label="reviewed"];pair->persist;}

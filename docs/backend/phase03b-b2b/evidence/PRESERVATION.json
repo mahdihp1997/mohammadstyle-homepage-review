@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "priorEvidenceAndBackupFilesByteIdentical": 45,
+  "priorB1AB1BB2ARowAndCatalogFingerprintsEqual": true,
+  "protectedFrontendMigrationsAndTestSourceGitDiffEmpty": true
+}

@@ -1,0 +1,13 @@
+digraph{graph[bgcolor="#111b24",pad="0.35",nodesep="0.35",ranksep="0.55"];node[shape=box,style="rounded,filled",fillcolor="#213444",color="#d9c79e",fontcolor="#f3f6fa",fontname="Arial",fontsize=19,margin="0.18,0.14"];edge[color="#d9c79e",fontcolor="#e5d6b5",fontname="Arial",fontsize=15];rankdir=TB;request[label="Create explicit REQUESTED leave/closure
+Pending content immutable; not an approval"];auth[label="Review permission + calendar CAS + gate
+Global leave: business-wide approval
+Closure: permitted branch approval"];decision[label="Approve requested?",shape=diamond];deny[label="Append REJECTED successor
+Keep original evidence; does not block publication"];conflict[label="Overlap with retained published shift?",shape=diamond];fail[label="Yes -> EXCEPTION_SHIFT_CONFLICT
+Rollback, preserve pending request
+Administrator must explicitly review shifts"];approve[label="Append APPROVED successor
+Reviewer identity + immutable interval
+One successor per root"];block[label="Later publication checks effective block
+Same global staff for leave / branch for closure
+No silent shift or customer cancellations"];legacy[label="Legacy exception -> LEGACY_UNREVIEWED
+Blocks conservatively until explicit review
+Never infer approval from old nullable field"];request->auth->decision;decision->deny[label="no"];decision->conflict[label="yes"];conflict->fail[label="yes"];conflict->approve[label="no"];approve->block;legacy->auth;}

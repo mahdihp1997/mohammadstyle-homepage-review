@@ -1,0 +1,12 @@
+digraph{graph[bgcolor="#111b24",pad="0.35",nodesep="0.4",ranksep="0.6"];node[shape=box,style="rounded,filled",fillcolor="#213444",color="#d9c79e",fontcolor="#f3f6fa",fontname="Arial",fontsize=19,margin="0.18,0.14"];edge[color="#d9c79e",fontcolor="#e5d6b5",fontname="Arial",fontsize=15];rankdir=TB;source[label="All retained shift evidence
+No DELETE / historical content unchanged"];defaultview[label="Existing GET route, default view=current
+Current schedule.read or verified own-schedule authority"];current[label="Published=true AND archived_at=NULL
+Branch/staff + exact local-date window
+projection=current; evidenceState=PUBLISHED"];explicit[label="Same GET route with view=history
+Explicit current schedule.history.read for branch
+No ordinary-read / own-schedule fallback"];history[label="Retained window evidence, including current published rows
+projection=history
+PUBLISHED / DRAFT / WITHDRAWN / ARCHIVED_DRAFT"];capacity[label="Both views: capacityReserved=false
+Workforce schedule evidence only
+No customer slots, holds, bookings or financial operations"];denied[label="Missing history permission ->403
+Forged branch/staff/business cannot broaden scope"];source->defaultview->current;source->explicit->history;explicit->denied[label="unauthorized"];current->capacity;history->capacity;}

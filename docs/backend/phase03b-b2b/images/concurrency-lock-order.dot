@@ -1,0 +1,10 @@
+digraph{graph[bgcolor="#111b24",pad="0.35",nodesep="0.35",ranksep="0.55"];node[shape=box,style="rounded,filled",fillcolor="#213444",color="#d9c79e",fontcolor="#f3f6fa",fontname="Arial",fontsize=19,margin="0.18,0.14"];edge[color="#d9c79e",fontcolor="#e5d6b5",fontname="Arial",fontsize=15];rankdir=TB;actors[label="Two independent PostgreSQL sessions
+Different actor/session evidence where applicable
+Real API-role command execution"];auth[label="1. User -> session -> permission evidence"];gate[label="2. Transaction-scoped business advisory gate
+READ COMMITTED re-read after wait"];branches[label="3. All affected business branches, UUID order"];resources[label="4. Global STAFF and physical resources, UUID order"];revision[label="5. Workforce calendar revision CAS
+Then affected membership / exception rows"];effects[label="6. Revalidate; data + audit + outbox + receipt
+One commit; native shift exclusion remains"];race[label="8 observed real lock-wait races
+Publish / membership close / leave / closure / qualification
+Stale writer and duplicate idempotency"];result[label="Different stale writer ->412, reload and revalidate
+Identical durable key -> original receipt
+At most2 proven-abort retries; no external network under locks"];actors->auth->gate->branches->resources->revision->effects->race->result;}

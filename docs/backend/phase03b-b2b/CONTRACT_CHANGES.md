@@ -1,0 +1,14 @@
+> Current read-scope refinement: [B2B hardening](../phase03b-b2b-hardening/README.md) supersedes read semantics below. This original phase report/evidence is retained as historical baseline.
+
+# Explicit B2B contract changes
+
+- backend/openapi.b2b.json is the30-operation implemented profile, separate from preserved B1B12 operations and the historical architecture proposal. Current frontend/demo contracts are unchanged.
+- Branch URL scope replaces branchId in a mutable body. Assignment, recurring-rule, exception, publication and withdrawal routes are split so mutation intent is explicit. Global staff update/qualification/link commands require business-wide authority; a branch manager cannot change an employee's global eligibility.
+- Every B2B write uses the quoted **workforce calendar version** from GET workforce/context or another authorized query. It is business-wide and deliberately coarse. Individual recordVersion is read-only history metadata, not the If-Match token. This tightens the proposed per-row contract to prevent incompatible whole-calendar writers. Unrelated branch edits may yield412 and require reload.
+- New calendar revision table starts conceptually at1; first successful mutation persists and increments it. Shift.schedule_version and rule.configuration_version snapshot the calendar version used by creation. Branch.schedule_version is a separate monotonic branch mutation counter. No API caller supplies a trusted publication version or UTC interval.
+- Commands return200 receipts with server IDs/version/operation/items; queries return strict field projections,100-row pages and capacityReserved=false. Dates are ISO Gregorian; to is exclusive; callers must follow offset pages. The padded UTC query bounds accommodate branch local-day edges; these administrative views are not slot search.
+- JSON field allowlists are enforced at Nest and independently inside the DB. Nested plan/hour keys are checked inside DB. Business/role/actor keys reject. Version/money strings remain lossless.
+- New offering-staff configuration/read routes are separate from legacy OfferingWrite, which still cannot mass-assign staff/resources. The formerly deferred legacy eligibleStaffIds projection now honestly derives active configured eligibility; it is never proof of working-time availability or bookability.
+- Old B1B configuration functions share the B2B gate; after hours/rules/shifts exist, branch/catalog/offering changes return CALENDAR_RECONCILIATION_REQUIRED. This prevents timezone/activation changes bypassing scheduling review. The underlying original command is private and not executable by API. Legacy session revoke remains allowed.
+- Time-off approval needs business-wide timeoff.approve because leave affects a global STAFF resource. A manager can request it; branch-only closure approval remains delegated to that branch.
+- No HTTP login, dev bypass, production client integration or customer availability endpoint exists.

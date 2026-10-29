@@ -28,3 +28,9 @@ playwright-report/
 
 # B2A sanitized validation evidence only.
 !docs/backend/phase03b-b2a/evidence/*.log
+
+# B2B sanitized validation evidence only.
+!docs/backend/phase03b-b2b/evidence/*.log
+
+# B2B hardening sanitized validation evidence only.
+!docs/backend/phase03b-b2b-hardening/evidence/*.log

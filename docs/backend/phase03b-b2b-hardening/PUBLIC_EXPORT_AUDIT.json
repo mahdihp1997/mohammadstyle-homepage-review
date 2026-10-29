@@ -1,0 +1,449 @@
+{
+  "scope": "PHASE03B_B2B_READ_HARDENING_ONLY",
+  "privateCommit": "a3612dd31d11c7011b9b3d9e2f6d2226f920872c",
+  "privateBase": "d6e39836dfc8923ed5c6118b1f45cec3a00bdc57",
+  "publicBase": "847f9c6af3bb66db01f4036db316c27a2c814c15",
+  "branch": "review/phase03b-b2b",
+  "target": "review/phase03b-b2a",
+  "privateGitCommitObjectsImported": 0,
+  "privateCommitsChecked": 16,
+  "privateBinaryHashesChecked": 177,
+  "credentialMatches": 0,
+  "sourceContentDifferences": 0,
+  "bookingBehaviorChanges": 0,
+  "frontendAssetsFontsTestsDependenciesChanged": 0,
+  "files": [
+    {
+      "path": ".github/workflows/b2b-review.yml",
+      "sha256": "1637e1ae85a0cf98d55084b4a9b317cfa1a63781cc08a4ce735c3828984ec1bb",
+      "bytes": 3327
+    },
+    {
+      "path": "backend/.env.b2h.example",
+      "sha256": "f0dab88688bbb4faa4639795e1c2ea1d5e55834b652e506e1576d01b9f0bd0b3",
+      "bytes": 199
+    },
+    {
+      "path": "backend/.gitignore",
+      "sha256": "c10f4959dcf5bf74cf8e6ac915f44d44b8fe9a3c06965a75480e39dff3208321",
+      "bytes": 185
+    },
+    {
+      "path": "backend/B2H.md",
+      "sha256": "3c2ea3bbbb6ba76f60ba6f30391f8441faca1728d39a8773ac2ea41ca08d46b2",
+      "bytes": 208
+    },
+    {
+      "path": "backend/compose.b2h.yaml",
+      "sha256": "58eec9c5ae2fb3e3d1707caaa163ce525c9c7690085558caef94d40b38a20f74",
+      "bytes": 748
+    },
+    {
+      "path": "backend/migrations/0009_b2b_read_scope_hardening.sql",
+      "sha256": "a7c59b4a15ccb9e19302a81e5887cdbb334a06629c82ee3d4120ad30cbae3bf8",
+      "bytes": 13256
+    },
+    {
+      "path": "backend/migrations/catalog.b2h.expected.json",
+      "sha256": "45709fa858790ac7ed9bc6ecf2567252a9107191a88d776ad5706ab8a661c645",
+      "bytes": 675159
+    },
+    {
+      "path": "backend/migrations/registry.b2h.json",
+      "sha256": "af804c8f83a1f067aa291ddc851adba770b603316ec79a408c78216b994d00bf",
+      "bytes": 1871
+    },
+    {
+      "path": "backend/openapi.b2b.json",
+      "sha256": "c228c4fb7b1ecd7a0f3b1190fdde3acc32dcc0e068f8cc8da457604de4e02878",
+      "bytes": 131683
+    },
+    {
+      "path": "backend/package.json",
+      "sha256": "05d70ffae1245297558c556d7a89746f2e8cb614098fdc0dc1bb378bf3035413",
+      "bytes": 3515
+    },
+    {
+      "path": "backend/scripts/b2h/b2b-regression.mjs",
+      "sha256": "37a3353b6ec44aded884f008eaa313b764aea16fa83354509bd17f273170c69c",
+      "bytes": 3581
+    },
+    {
+      "path": "backend/scripts/b2h/backup.mjs",
+      "sha256": "173b3bc04378af3c4b3cc1867225f9e14eba0e5529b98b39736744b27e7504a1",
+      "bytes": 3651
+    },
+    {
+      "path": "backend/scripts/b2h/catalog.mjs",
+      "sha256": "1c8d361d7e090069e3565057c9e0d1d2a62111a513fb58cfca24f799e39ea55f",
+      "bytes": 2952
+    },
+    {
+      "path": "backend/scripts/b2h/check-schema.mjs",
+      "sha256": "c0c876259fb0ed7d965868325ea6b244eb2775e686feab003923b92ff5c2305f",
+      "bytes": 994
+    },
+    {
+      "path": "backend/scripts/b2h/check-secrets.mjs",
+      "sha256": "49d27c59bbb51e45468ffbdda81e3a6fd0edd652172824bfec7167adcf1865ff",
+      "bytes": 1490
+    },
+    {
+      "path": "backend/scripts/b2h/infra.mjs",
+      "sha256": "c4bf8191e7a43acfe5eddc1f1b45ac3ade54377393701064df6fe59ebc65e163",
+      "bytes": 3437
+    },
+    {
+      "path": "backend/scripts/b2h/local.mjs",
+      "sha256": "c6371c678e0bea23037f2e520cf58adf3f8fd6e53673157966e6722489d936ea",
+      "bytes": 2282
+    },
+    {
+      "path": "backend/scripts/b2h/migrate.mjs",
+      "sha256": "07cef202b3461c32332de43a2421c7d522ca1eb4acbad2acc0ca6cf2fc3a31bb",
+      "bytes": 3068
+    },
+    {
+      "path": "backend/scripts/b2h/test.mjs",
+      "sha256": "265ddf5e1569529d81eabc6980a016aa809b4a2f990b738c9d71e4057a10cd93",
+      "bytes": 25951
+    },
+    {
+      "path": "backend/scripts/b2h/verify.mjs",
+      "sha256": "a71f26fe94790b3eaf30eb82b138df8fba68e21d914009f6eadcc38dc56e4942",
+      "bytes": 254
+    },
+    {
+      "path": "backend/src/workforce/contracts.ts",
+      "sha256": "bbd66d9b99217ceea21f42fc2264bfb3bc3e19d906ef1da50476541603ece25f",
+      "bytes": 5702
+    },
+    {
+      "path": "backend/src/workforce/main.ts",
+      "sha256": "94756e2ce2e600be6bd871cc447c723a18f5b29f7043ec3d21823a617752dfdd",
+      "bytes": 596
+    },
+    {
+      "path": "backend/src/workforce/modules.ts",
+      "sha256": "a953ddb5f10fee55426edace8a8bff815a9050f119241f5dd47378a35a1028ac",
+      "bytes": 10102
+    },
+    {
+      "path": "backend/src/workforce/repository.ts",
+      "sha256": "fdeade47a02e5030f6518b2818d64e52e131305c1582758bbe956e1a1273b394",
+      "bytes": 3870
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/BEFORE_AFTER.json",
+      "sha256": "0fa7569b0e94bb3cc3268b435a791b278b1c00fd18e52d051225a4adb38b9aed",
+      "bytes": 1112
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/CHANGED_FILES.md",
+      "sha256": "3c411bc93e7c174bd80ed3f8f42e418191fecb055c3111ee80fa9d8fb6bc2025",
+      "bytes": 5528
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/COMMANDS.md",
+      "sha256": "5fb02377e6aa2a23d8fb28414789a96fd095376e255d9392a8e05fdc1484184e",
+      "bytes": 1501
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/CONTRACT_CHANGES.md",
+      "sha256": "06f2f7b30194e21a70d242f367ea8af61b14bcd452e2ee6b02b702ce4130eb09",
+      "bytes": 1706
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/MANIFEST.json",
+      "sha256": "35ec6e9059c6476140d6171ec606d6836b248aec2231e6c1112e813a9a434dca",
+      "bytes": 8684
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/MIGRATIONS_RESTORE.md",
+      "sha256": "3bc4a6d0852cbcb3b352e37cf4d4b957e466689b56db035b3bc651adbc13f496",
+      "bytes": 1217
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/OPEN_DECISIONS.md",
+      "sha256": "8230ec20ac2a1d4a7f559b9b22be1f6d81c5df01338c70473b82afa4292148e2",
+      "bytes": 844
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/PROJECT_CONTEXT_SNAPSHOT.md",
+      "sha256": "2262139e6f46b3d1b88c6af1af725d6a4ab753a709c9bc32c5dc716646f5d0a8",
+      "bytes": 612
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/README.md",
+      "sha256": "8403594b76bd6b99bc9e4b417da318acbc30fad0507322de265198f5bca0b90f",
+      "bytes": 455
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/REVIEW.html",
+      "sha256": "9b900a9ec1e79ef693fa7149cedfdda64fafc3788dc171f6448a65e2a2674909",
+      "bytes": 3590
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/RUNBOOK.md",
+      "sha256": "2f6d865413b035cf95ace27ceed60958c659206048e20af77cda79edb7f205de",
+      "bytes": 1469
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/SANITIZATION.md",
+      "sha256": "de97c26f2f588fe93c37ee13d2aac1d31462bc9ec85be505bf84495ed78c59e6",
+      "bytes": 722
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/SCHEDULING.md",
+      "sha256": "ac205376b51bf626d58adb7f212de3f86ff9dceca13b789c680bfe99c6ab0289",
+      "bytes": 1972
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/SECURITY_REVIEW.md",
+      "sha256": "d214802ebabc58137e2c186dfc75bd45c64ef328d7645c35338b224f913f1446",
+      "bytes": 2333
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/STATIC_VALIDATION.json",
+      "sha256": "45ddc603ab5b048110529165deae0d3075073987ba866a92cf1492b71d5d0419",
+      "bytes": 1153
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/TECHNICAL_REPORT.md",
+      "sha256": "58007d07c22b0fa8a5832e1ae00bca013fc0c934cec76099d82cdeae3c696f84",
+      "bytes": 7273
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/TEST_RESULTS.md",
+      "sha256": "48a8b1311652fbaf3cc5726688dc30e2981c2a40979abdb4958801e8a2fa75e1",
+      "bytes": 773
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/VALIDATION_MATRIX.md",
+      "sha256": "c6665db623e4e730e51eae7a2f1c007b25033af6d993b768b2b7f38d877bcb96",
+      "bytes": 3934
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/VISIBILITY_POLICY.md",
+      "sha256": "a20fa500eec523b7ed5232a5945859bf0a397581c21f4d6e2a9e348035eb3599",
+      "bytes": 2956
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/actual-before-after.html",
+      "sha256": "c372595be662e9bd4428086777dc4af936a30a7c6d85a214e04c146917101bf4",
+      "bytes": 2017
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/actual-migration-restore.html",
+      "sha256": "b55db5d4c44371ed901393c38f208a39ed47a770422f1100595a074bdc07e95e",
+      "bytes": 6189
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/actual-security-tests.html",
+      "sha256": "930a25569f3f75939b90ec281619db44a217816b38aed9805b0477b33aa6b9ae",
+      "bytes": 4494
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/evidence/b0-regression.json",
+      "sha256": "10bae2427ce8148281debec4c798e62ca747547383cd0df91e9cdcd7dc2e77b1",
+      "bytes": 394
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/evidence/b1a-regression.json",
+      "sha256": "b449769ab425a8b0e312c33b3ffc262d9bcdcfaab7fc0d91e03fd180fd07a524",
+      "bytes": 29353
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/evidence/b1b-regression.json",
+      "sha256": "e48050fe5d927b7953398f6156fe167e21a2263801a6657636dd62e153a73342",
+      "bytes": 28614
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/evidence/b2a-regression.json",
+      "sha256": "f60058903c7a264a930c527b1af57c9517f44f37ef707d1eec553756996cbe9c",
+      "bytes": 36358
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/evidence/b2b-regression.json",
+      "sha256": "27762e52dd57ccd6d38bcf882d408589e8613cb543a315a41893d5cb6c4a23b9",
+      "bytes": 20273
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/evidence/backup.json",
+      "sha256": "9e86f0a6531bccb3eaacc0d277b05b9fc07bab7e4368bb525d323b31bf6678a5",
+      "bytes": 5414
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/evidence/build.log",
+      "sha256": "4ffaf6934d91158574889a7ba7d598af5a65fa51e7f513236b92904cadfe0e9e",
+      "bytes": 66
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/evidence/frontend-build.log",
+      "sha256": "769abc1fedc7d1187b63694b1681ce033e1bbf808c8a065450b7abda074b1fe6",
+      "bytes": 1098
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/evidence/frontend-typecheck.log",
+      "sha256": "7ebc1d57e57e1791f507bd4f40798d6abd8adf877ab20bec6165200abaa5d8a8",
+      "bytes": 59
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/evidence/frontend-ui.log",
+      "sha256": "a42adc19b24f3090fcc785ee785eea401305af844ddc781b4126c72144608550",
+      "bytes": 14678
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/evidence/frontend.json",
+      "sha256": "8dbf1da6ca04566b1066a3cfc98f367895a6fad86a8d4e92144c4c3d458e10a4",
+      "bytes": 473
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/evidence/integration.json",
+      "sha256": "c3afa8d2f446fa9381c1ce7e27f9368de0fd15fced850ba05b5e5e2a964b8f50",
+      "bytes": 10556
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/evidence/integration.log",
+      "sha256": "3af250a77fec37e820737cc3172af3e347fc1697101be697f7d735211e3e42ad",
+      "bytes": 5896
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/evidence/npm-ci.log",
+      "sha256": "1fc113e5f8b5ab7e1cf1c81592d68b0c897742f22f2d2834eb41b6014c058bcf",
+      "bytes": 27
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/evidence/regressions.log",
+      "sha256": "05e496b41059fcd8a7f29f2f42e109a2c4806ac1901c36a24a55628a6eeccdf3",
+      "bytes": 69708
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/evidence/restore.json",
+      "sha256": "70dd806afcd14f7e9687cb20b620d17f80d0657d836d7da9916f84d53bc86a4f",
+      "bytes": 5590
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/evidence/schema.json",
+      "sha256": "a7f1f4996b1f1637710620b4d564844e461e06bee9b329d9fa9290346755f8ff",
+      "bytes": 289
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/evidence/secrets.json",
+      "sha256": "248fb3fd883848d7227d26b677fd7dd29d8fc000f16fa5a49552f86cc473709a",
+      "bytes": 217
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/evidence/typecheck.log",
+      "sha256": "5d794c1b5c9f8c74e6f3b44073a14444a8788da71259e7e8c6dbef529d8ff7cf",
+      "bytes": 79
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/images/actual-before-after.png",
+      "sha256": "4e85653ba37608415bd6e7f78fd03fd54893e51b32bf36a506fd00f26d96c0e2",
+      "bytes": 101670
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/images/actual-migration-restore.png",
+      "sha256": "9b2da2d9bf77c96342d880aa78994136a9f5281a3572f207356d18b965fd52b7",
+      "bytes": 333907
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/images/actual-security-tests.png",
+      "sha256": "3dc3ffb4c19bf69dbf36fcf1e1e3ea3fb4d5759c9342a61adbe75afa6a0bd96b",
+      "bytes": 373308
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/images/branch-timeoff-authorization.dot",
+      "sha256": "5eb74c28caa95043ef05f2ed7d55055c1b7a171aa163cd38c4452aa9bd629160",
+      "bytes": 1494
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/images/branch-timeoff-authorization.png",
+      "sha256": "37512fa8079443eadf3fbefbb5da61c7617026addbec8f6b7319f1b5312e7f58",
+      "bytes": 113389
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/images/branch-timeoff-authorization.svg",
+      "sha256": "26a5c423d6628a0329b7057d69672d15175f6ad6b6003ac4ea0aaca396814e84",
+      "bytes": 10596
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/images/contact-sheet.png",
+      "sha256": "e7f954cb81b59cd6923df678937bcc911e7eb10b06e77758f8bedeac01f4a35b",
+      "bytes": 221702
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/images/current-calendar-versus-history.dot",
+      "sha256": "26c12e4a4b12358079c63a6e9c59436d31ece94f8f41d622ee644b5cba3b8093",
+      "bytes": 1297
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/images/current-calendar-versus-history.png",
+      "sha256": "1135305affd4fa58bdbd4f25cd23ef83dc8957370be0fe29ed689db1579cf9ec",
+      "bytes": 62235
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/images/current-calendar-versus-history.svg",
+      "sha256": "9cef7a54a04f2f8c4d3c79c7b1d286d4d2e02628bf47372d31908ffe6b4c914a",
+      "bytes": 9426
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/migrations/0009_b2b_read_scope_hardening.sql",
+      "sha256": "a3b4632370f50fc8bf7f48134b72524ba3fafa9b4d895c50c77ad7380763678c",
+      "bytes": 13255
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/migrations/catalog.b2h.expected.json",
+      "sha256": "45709fa858790ac7ed9bc6ecf2567252a9107191a88d776ad5706ab8a661c645",
+      "bytes": 675159
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/migrations/registry.b2h.json",
+      "sha256": "af804c8f83a1f067aa291ddc851adba770b603316ec79a408c78216b994d00bf",
+      "bytes": 1871
+    },
+    {
+      "path": "docs/backend/phase03b-b2b-hardening/openapi.b2b.json",
+      "sha256": "c228c4fb7b1ecd7a0f3b1190fdde3acc32dcc0e068f8cc8da457604de4e02878",
+      "bytes": 131683
+    },
+    {
+      "path": "docs/backend/phase03b-b2b/CONTRACT_CHANGES.md",
+      "sha256": "d973a7d8f764e85a0cfdc45cd75766da385d6652c0817edd0b8f28b25d5c7662",
+      "bytes": 2962
+    },
+    {
+      "path": "docs/backend/phase03b-b2b/README.md",
+      "sha256": "b2af930b6644b88e2778c6d954af193a13988e805106f4e7a3b6488957cc82db",
+      "bytes": 792
+    },
+    {
+      "path": "docs/backend/phase03b-b2b/SCHEDULING.md",
+      "sha256": "68a372692d10ed67a244ae47c5cedfedd6d6d5fc0dc8c863628c38d0e82490f7",
+      "bytes": 4116
+    },
+    {
+      "path": "docs/backend/phase03b-b2b/SECURITY_REVIEW.md",
+      "sha256": "210a033113620346ddf3007374ed78be400d277e074f019bcdb86c3cc4798129",
+      "bytes": 2243
+    },
+    {
+      "path": "docs/backend/phase03b-b2b/TEST_RESULTS.md",
+      "sha256": "9c97f8ce064a4931202d9d9678bcc16ecd6c47d9a2f51226f4ac02769070c1ee",
+      "bytes": 7027
+    }
+  ],
+  "sanitizationDifferences": [
+    "Retain existing public placeholders/system fonts",
+    "Private global PROJECT_CONTEXT.md omitted; sanitized hardening snapshot supplied",
+    "Keep public asset/font ignore guards and add only hardening evidence-log exception",
+    "Public export audit/CI delivery metadata only; backend/workflow/shared reports are byte-identical"
+  ],
+  "omitted": [
+    "private photos/fonts/references/face screenshots and task attachments",
+    "private Git commit/history objects",
+    "actual env credentials and connection strings",
+    "backup dump/node_modules/dist/generated client/introspection/caches/internal scratch"
+  ]
+}

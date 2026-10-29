@@ -1,0 +1,5 @@
+# Public review export policy
+
+Public branch review/phase03b-b2b is based on sanitized review/phase03b-b2a (e741b182b763c3802ec3706d95750bc0510525b7), never private history. Copy only B2B backend/migration/workflow/derived documentation files. Preserve public Phase01 placeholders/system fonts and Phase02 behavior exactly. Shared application logic/tests/SQL are byte-identical to private B2B. Public global private PROJECT_CONTEXT is omitted; sanitized phase snapshot is included.
+
+Omit original client photographs, private font binaries/references, face screenshots, attachments/internal scratch, actual environment/session secrets, database dumps, node_modules/dist/generated clients and private Git objects. New diagrams are editable vector/code-derived; captures render actual recorded synthetic execution outputs, explicitly not fake terminal or application screenshots. PR1–6 remain Draft/unmerged; new Draft PR targets review/phase03b-b2a. No force push or merge. Exact audit and delivery receipts follow commit.

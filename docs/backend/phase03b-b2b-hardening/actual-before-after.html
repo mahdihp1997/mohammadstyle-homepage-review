@@ -1,0 +1,46 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Actual before and after security evidence</title><style>*{box-sizing:border-box}body{max-width:1440px;margin:0 auto;padding:30px;background:#111b24;color:#f1f5f9;font:19px/1.6 Arial;overflow-wrap:anywhere}h1{font-size:34px}h1,h2,a{color:#dfcda5}pre{font:17px/1.6 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;padding:20px;background:#213444}img{display:block;max-width:100%;height:auto}section{padding:24px;margin:24px 0;background:#1a2b39}nav a{display:inline-block;padding:8px}li{margin:5px 0}</style><body><h1>Actual vulnerability reproduction and correction</h1><p>Chromium capture of actual recorded PostgreSQL/Nest executions using synthetic fixtures. This is not a fabricated terminal-window or application screenshot.</p><p>Before: native0008 API-role functions. After:0009 production functions plus actual Nest routes.</p><pre>{
+  "timeoff": {
+    "before": {
+      "unauthorizedVisible": true,
+      "sourceTimeOffId": "d42d5181-4d1c-4892-a020-75cb7e59ea40",
+      "startsAt": "2027-01-10T10:00:00+00:00",
+      "endsAt": "2027-01-10T11:00:00+00:00"
+    },
+    "after": {
+      "unauthorizedVisible": false,
+      "rows": 0
+    }
+  },
+  "calendar": {
+    "before": {
+      "rows": 3,
+      "includesDraft": true,
+      "includesWithdrawn": true
+    },
+    "after": {
+      "rows": 1,
+      "includesDraft": false,
+      "includesWithdrawn": false,
+      "recordsRetained": true
+    }
+  },
+  "clippedBoundary": {
+    "A": {
+      "startsAt": "2027-01-04T19:30:00+00:00",
+      "endsAt": "2027-01-04T20:30:00+00:00"
+    },
+    "B": {
+      "startsAt": "2027-01-04T20:30:00+00:00",
+      "endsAt": "2027-01-04T21:30:00+00:00"
+    }
+  }
+}</pre><h2>Read versus membership writer: real observed wait</h2><pre>{
+  "readerPid": 6530,
+  "writerPid": 6531,
+  "observedWait": {
+    "wait_event_type": "Lock",
+    "wait_event": "transactionid"
+  },
+  "writerCommittedAfterRead": true,
+  "subsequentReadRevalidated": true
+}</pre></body></html>

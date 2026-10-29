@@ -1,0 +1,48 @@
+{
+  "kind": "ACTUAL_API_ROLE_POSTGRESQL_EXECUTION",
+  "timeoff": {
+    "before": {
+      "unauthorizedVisible": true,
+      "sourceTimeOffId": "d42d5181-4d1c-4892-a020-75cb7e59ea40",
+      "startsAt": "2027-01-10T10:00:00+00:00",
+      "endsAt": "2027-01-10T11:00:00+00:00"
+    },
+    "after": {
+      "unauthorizedVisible": false,
+      "rows": 0
+    }
+  },
+  "calendar": {
+    "before": {
+      "rows": 3,
+      "includesDraft": true,
+      "includesWithdrawn": true
+    },
+    "after": {
+      "rows": 1,
+      "includesDraft": false,
+      "includesWithdrawn": false,
+      "recordsRetained": true
+    }
+  },
+  "clippedBoundary": {
+    "A": {
+      "startsAt": "2027-01-04T19:30:00+00:00",
+      "endsAt": "2027-01-04T20:30:00+00:00"
+    },
+    "B": {
+      "startsAt": "2027-01-04T20:30:00+00:00",
+      "endsAt": "2027-01-04T21:30:00+00:00"
+    }
+  },
+  "readWriteConcurrency": {
+    "readerPid": 6530,
+    "writerPid": 6531,
+    "observedWait": {
+      "wait_event_type": "Lock",
+      "wait_event": "transactionid"
+    },
+    "writerCommittedAfterRead": true,
+    "subsequentReadRevalidated": true
+  }
+}

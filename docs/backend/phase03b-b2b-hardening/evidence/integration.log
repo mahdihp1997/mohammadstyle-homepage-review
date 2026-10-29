@@ -1,0 +1,63 @@
+PASS BEFORE: actual migration0008 reproduces former-branch time-off disclosure
+PASS BEFORE: actual migration0008 current calendar includes draft and withdrawn evidence
+PASS hardened API startup fails closed before migration0009 exists
+PASS upgrade from unchanged0001..0008 applies only0009 and preserves application rows
+PASS A: former Branch A manager cannot read later Branch B time off through SQL
+{"time":"2026-10-29T22:22:05.578Z","event":"http.completed","requestId":"50f05c5e-e6f7-4af0-b244-3e3cfbecedcd","method":"GET","status":200}
+PASS A: actual Nest Branch A exceptions deny former-member disclosure
+PASS B/C: managers see only genuine membership-period time off
+PASS former-branch staff and qualification projections cannot reveal current global metadata
+PASS global staff metadata remains available only with explicit business-wide permission
+PASS D: concurrent valid memberships grant only corresponding clipped intervals
+PASS disjoint same-branch stints produce separate slices and never expose the gap
+PASS E: voided membership grants no current or historical exception visibility
+PASS E: inactive open-ended membership does not confer future history access
+PASS archived closed past membership requires explicit historical permission
+PASS F: exact Tehran exclusive midnight splits global leave without overlap
+PASS F: time off starting at membership exclusive end is invisible
+PASS query-local midnight clipping eliminates padded UTC disclosure
+{"time":"2026-10-29T22:22:13.734Z","event":"http.completed","requestId":"f22510f2-9e94-4f9d-9f11-5fd9f2f927f0","method":"GET","status":200}
+PASS G: current calendar excludes draft/withdrawn shifts through SQL and Nest
+{"time":"2026-10-29T22:22:13.874Z","event":"http.completed","requestId":"1f28528a-5f99-447f-8bb1-8a88c5bb3848","method":"GET","status":200}
+PASS H: explicit history shows all retained evidence with distinguishable state
+{"time":"2026-10-29T22:22:13.896Z","event":"b1b.http.denied_or_failed","requestId":"034fc8e6-a1db-45da-ac83-1895949f5784","status":403}
+{"time":"2026-10-29T22:22:13.897Z","event":"http.completed","requestId":"034fc8e6-a1db-45da-ac83-1895949f5784","method":"GET","status":403}
+PASS H: current permission alone cannot request history through SQL or Nest
+PASS history grants remain branch-scoped
+PASS mutable staff/qualification records cannot masquerade as historical snapshots
+{"time":"2026-10-29T22:22:13.943Z","event":"b1b.http.denied_or_failed","requestId":"e8266fd4-b9cb-4910-8a6d-2a344341a6f0","status":403}
+{"time":"2026-10-29T22:22:13.944Z","event":"http.completed","requestId":"e8266fd4-b9cb-4910-8a6d-2a344341a6f0","method":"GET","status":403}
+{"time":"2026-10-29T22:22:13.974Z","event":"b1b.http.denied_or_failed","requestId":"c66cf671-7fc6-4c85-aab5-28a8c6c6cd92","status":422}
+{"time":"2026-10-29T22:22:13.974Z","event":"http.completed","requestId":"c66cf671-7fc6-4c85-aab5-28a8c6c6cd92","method":"GET","status":422}
+{"time":"2026-10-29T22:22:13.984Z","event":"b1b.http.denied_or_failed","requestId":"cab1afba-7d26-4a0c-b15e-080bdbb20444","status":422}
+{"time":"2026-10-29T22:22:13.984Z","event":"http.completed","requestId":"cab1afba-7d26-4a0c-b15e-080bdbb20444","method":"GET","status":422}
+{"time":"2026-10-29T22:22:14.456Z","event":"http.completed","requestId":"4ce64b21-cda2-49d8-b944-16c0f7ebdcc2","method":"GET","status":200}
+{"time":"2026-10-29T22:22:14.465Z","event":"b1b.http.denied_or_failed","requestId":"a643b473-8052-4b22-a4e1-e4e941cd7cdd","status":422}
+{"time":"2026-10-29T22:22:14.466Z","event":"http.completed","requestId":"a643b473-8052-4b22-a4e1-e4e941cd7cdd","method":"GET","status":422}
+PASS I: forged branch/staff/tenant selectors cannot broaden actual HTTP scope
+PASS I: direct SQL session tenant cannot be replaced by caller context
+PASS J: API role cannot query protected tables or private read helpers
+PASS legacy offering staff IDs exclude former branch members
+PASS DST local-day window uses real IANA midnight instants rather than UTC padding
+PASS ambiguous local-midnight membership boundaries confer no guessed visibility
+PASS inactive finite future membership cannot authorize future historical leave
+PASS archived exception evidence is confined to explicit history and still clipped
+{"time":"2026-10-29T22:22:17.032Z","event":"http.completed","requestId":"28d59e7c-6b1b-42d0-8e30-294b54081589","method":"GET","status":200}
+{"time":"2026-10-29T22:22:17.048Z","event":"b1b.http.denied_or_failed","requestId":"40f8bb12-2343-4b5e-bc6e-20ca1aedeb4a","status":403}
+{"time":"2026-10-29T22:22:17.049Z","event":"http.completed","requestId":"40f8bb12-2343-4b5e-bc6e-20ca1aedeb4a","method":"GET","status":403}
+{"time":"2026-10-29T22:22:17.094Z","event":"b1b.http.denied_or_failed","requestId":"5d216d31-9266-4f65-bc96-6b22ba60e067","status":403}
+{"time":"2026-10-29T22:22:17.095Z","event":"http.completed","requestId":"5d216d31-9266-4f65-bc96-6b22ba60e067","method":"GET","status":403}
+PASS Barber own schedule excludes draft/history and rejects other staff selectors
+{"time":"2026-10-29T22:22:17.240Z","event":"http.completed","requestId":"05045dfb-a4e2-405e-b3f5-4fa141dcd2f9","method":"GET","status":200}
+PASS current staff schedule route also excludes withdrawn/draft evidence
+PASS slice pagination preserves deterministic membership-scoped ordering
+PASS fresh install nine versions; no new tables or broad grants
+PASS repeat migration is verified no-op
+PASS original eight registry entries/checksums remain exact
+PASS catalog drift detected without repair
+PASS failed forward migration atomically rolls DDL/history back
+PASS old databases are outside the hardening lifecycle allowlist
+PASS membership writer waits for a coherent branch-scoped read transaction
+PASS actual custom backup and separate restore preserve all rows/catalog/grants
+PASS restored API preserves the denial and current/history distinction
+{"passed":42,"failed":0,"expectedDenials":17}

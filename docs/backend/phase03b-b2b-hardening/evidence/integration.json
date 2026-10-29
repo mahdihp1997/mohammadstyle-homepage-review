@@ -1,0 +1,373 @@
+{
+  "kind": "ACTUAL_B2B_READ_SCOPE_HARDENING",
+  "executedAt": "2026-10-29T22:22:02.257Z",
+  "tests": [
+    {
+      "name": "BEFORE: actual migration0008 reproduces former-branch time-off disclosure",
+      "status": "PASS",
+      "observed": {
+        "securityFailureReproduced": true
+      }
+    },
+    {
+      "name": "BEFORE: actual migration0008 current calendar includes draft and withdrawn evidence",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "hardened API startup fails closed before migration0009 exists",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "upgrade from unchanged0001..0008 applies only0009 and preserves application rows",
+      "status": "PASS",
+      "observed": {
+        "applied": [
+          "0009_b2b_read_scope_hardening"
+        ],
+        "currentVersion": "0009_b2b_read_scope_hardening",
+        "catalog": {
+          "sha256": "94804847f5fd4ff7ea7cfa359b3246510874e1e6037ee6f88af14d8d75e96dd4",
+          "tables": 28,
+          "indexes": 89,
+          "functions": 21,
+          "foreignKeys": 88,
+          "checks": 101
+        }
+      }
+    },
+    {
+      "name": "A: former Branch A manager cannot read later Branch B time off through SQL",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "A: actual Nest Branch A exceptions deny former-member disclosure",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "B/C: managers see only genuine membership-period time off",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "former-branch staff and qualification projections cannot reveal current global metadata",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "global staff metadata remains available only with explicit business-wide permission",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "D: concurrent valid memberships grant only corresponding clipped intervals",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "disjoint same-branch stints produce separate slices and never expose the gap",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "E: voided membership grants no current or historical exception visibility",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "E: inactive open-ended membership does not confer future history access",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "archived closed past membership requires explicit historical permission",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "F: exact Tehran exclusive midnight splits global leave without overlap",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "F: time off starting at membership exclusive end is invisible",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "query-local midnight clipping eliminates padded UTC disclosure",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "G: current calendar excludes draft/withdrawn shifts through SQL and Nest",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "H: explicit history shows all retained evidence with distinguishable state",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "H: current permission alone cannot request history through SQL or Nest",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "history grants remain branch-scoped",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "mutable staff/qualification records cannot masquerade as historical snapshots",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "I: forged branch/staff/tenant selectors cannot broaden actual HTTP scope",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "I: direct SQL session tenant cannot be replaced by caller context",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "J: API role cannot query protected tables or private read helpers",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "legacy offering staff IDs exclude former branch members",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "DST local-day window uses real IANA midnight instants rather than UTC padding",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "ambiguous local-midnight membership boundaries confer no guessed visibility",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "inactive finite future membership cannot authorize future historical leave",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "archived exception evidence is confined to explicit history and still clipped",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "Barber own schedule excludes draft/history and rejects other staff selectors",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "current staff schedule route also excludes withdrawn/draft evidence",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "slice pagination preserves deterministic membership-scoped ordering",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "fresh install nine versions; no new tables or broad grants",
+      "status": "PASS",
+      "observed": {
+        "applied": [
+          "0001_b1_foundation",
+          "0002_b1a_runtime_boundary",
+          "0003_b1b_admin_boundary",
+          "0004_b2a_workforce_foundation",
+          "0005_b2a_history_guards",
+          "0006_b2b_scheduling_boundary",
+          "0007_b2b_scheduling_commands",
+          "0008_b2b_scheduling_reads",
+          "0009_b2b_read_scope_hardening"
+        ],
+        "currentVersion": "0009_b2b_read_scope_hardening",
+        "catalog": {
+          "sha256": "94804847f5fd4ff7ea7cfa359b3246510874e1e6037ee6f88af14d8d75e96dd4",
+          "tables": 28,
+          "indexes": 89,
+          "functions": 21,
+          "foreignKeys": 88,
+          "checks": 101
+        }
+      }
+    },
+    {
+      "name": "repeat migration is verified no-op",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "original eight registry entries/checksums remain exact",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "catalog drift detected without repair",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "failed forward migration atomically rolls DDL/history back",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "old databases are outside the hardening lifecycle allowlist",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "membership writer waits for a coherent branch-scoped read transaction",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "actual custom backup and separate restore preserve all rows/catalog/grants",
+      "status": "PASS",
+      "observed": {
+        "backupBytes": 230347,
+        "sha256": "3c6ace94de746a63ec7e9f696153e9fbfe380735622f7f63c5988b8ea0d74c61",
+        "restore": {
+          "sha256": "94804847f5fd4ff7ea7cfa359b3246510874e1e6037ee6f88af14d8d75e96dd4",
+          "tables": 28,
+          "indexes": 89,
+          "functions": 21,
+          "foreignKeys": 88,
+          "checks": 101
+        }
+      }
+    },
+    {
+      "name": "restored API preserves the denial and current/history distinction",
+      "status": "PASS",
+      "observed": "assertions passed"
+    }
+  ],
+  "denials": [
+    {
+      "sqlstate": "MS403"
+    },
+    {
+      "sqlstate": "MS403"
+    },
+    {
+      "sqlstate": "MS403"
+    },
+    {
+      "sqlstate": "MS403"
+    },
+    {
+      "sqlstate": "MS422"
+    },
+    {
+      "sqlstate": "MS422"
+    },
+    {
+      "sqlstate": "MS403"
+    },
+    {
+      "sqlstate": "42501"
+    },
+    {
+      "sqlstate": "42501"
+    },
+    {
+      "sqlstate": "42501"
+    },
+    {
+      "sqlstate": "42501"
+    },
+    {
+      "sqlstate": "42501"
+    },
+    {
+      "sqlstate": "MS422"
+    },
+    {
+      "sqlstate": "B2H_DRIFT"
+    },
+    {
+      "sqlstate": "22012"
+    },
+    {
+      "sqlstate": "MS403"
+    },
+    {
+      "sqlstate": "42501"
+    }
+  ],
+  "beforeAfter": {
+    "timeoff": {
+      "before": {
+        "unauthorizedVisible": true,
+        "sourceTimeOffId": "d42d5181-4d1c-4892-a020-75cb7e59ea40",
+        "startsAt": "2027-01-10T10:00:00+00:00",
+        "endsAt": "2027-01-10T11:00:00+00:00"
+      },
+      "after": {
+        "unauthorizedVisible": false,
+        "rows": 0
+      }
+    },
+    "calendar": {
+      "before": {
+        "rows": 3,
+        "includesDraft": true,
+        "includesWithdrawn": true
+      },
+      "after": {
+        "rows": 1,
+        "includesDraft": false,
+        "includesWithdrawn": false,
+        "recordsRetained": true
+      }
+    },
+    "clippedBoundary": {
+      "A": {
+        "startsAt": "2027-01-04T19:30:00+00:00",
+        "endsAt": "2027-01-04T20:30:00+00:00"
+      },
+      "B": {
+        "startsAt": "2027-01-04T20:30:00+00:00",
+        "endsAt": "2027-01-04T21:30:00+00:00"
+      }
+    }
+  },
+  "boundaries": [
+    "Synthetic fixture/lifecycle writes use trusted migration credentials",
+    "All authorization/projection tests execute production PostgreSQL entry points as API role and actual Nest HTTP where named",
+    "This suite does not claim customer availability or publication engine testing; unchanged71 B2B tests cover that baseline"
+  ],
+  "readWriteConcurrency": {
+    "readerPid": 6530,
+    "writerPid": 6531,
+    "observedWait": {
+      "wait_event_type": "Lock",
+      "wait_event": "transactionid"
+    },
+    "writerCommittedAfterRead": true,
+    "subsequentReadRevalidated": true
+  },
+  "summary": {
+    "passed": 42,
+    "failed": 0,
+    "expectedDenials": 17
+  }
+}

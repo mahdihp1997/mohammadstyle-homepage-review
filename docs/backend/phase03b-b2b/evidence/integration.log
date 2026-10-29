@@ -1,0 +1,127 @@
+PASS fresh install eight checksummed migrations,28 tables
+PASS migration rerun no-op with catalog verification
+PASS 0001..0005 registry/source exactly preserved
+PASS upgrade from B2A preserves rows and leaves legacy approvals explicitly unreviewed
+PASS failed forward migration rolls back all DDL and history
+{"time":"2026-10-29T21:19:24.282Z","event":"http.completed","requestId":"3b07b99a-486e-4546-a28c-2296a3220a6e","method":"POST","status":200}
+PASS Nest Owner creates inactive global staff/resource
+{"time":"2026-10-29T21:19:24.309Z","event":"b1b.http.denied_or_failed","requestId":"c52c48e4-5b47-474e-821c-3d418ac302a1","status":403}
+{"time":"2026-10-29T21:19:24.310Z","event":"http.completed","requestId":"c52c48e4-5b47-474e-821c-3d418ac302a1","method":"POST","status":403}
+PASS Nest branch manager cannot modify other branch
+{"time":"2026-10-29T21:19:24.353Z","event":"b1b.http.denied_or_failed","requestId":"31282218-36b8-45ae-a556-21af0acb32d9","status":403}
+{"time":"2026-10-29T21:19:24.354Z","event":"http.completed","requestId":"31282218-36b8-45ae-a556-21af0acb32d9","method":"POST","status":403}
+PASS Nest receptionist cannot publish
+{"time":"2026-10-29T21:19:24.396Z","event":"b1b.http.denied_or_failed","requestId":"0b08c2e0-0f3f-41d3-bd01-3129860a84b5","status":403}
+{"time":"2026-10-29T21:19:24.397Z","event":"http.completed","requestId":"0b08c2e0-0f3f-41d3-bd01-3129860a84b5","method":"GET","status":403}
+PASS Nest customer has no administrative access
+{"time":"2026-10-29T21:19:24.428Z","event":"b1b.http.denied_or_failed","requestId":"eb258508-c08f-4f58-bb98-775575053ace","status":422}
+{"time":"2026-10-29T21:19:24.429Z","event":"http.completed","requestId":"eb258508-c08f-4f58-bb98-775575053ace","method":"POST","status":422}
+PASS Nest rejects forged role/businessId and unknown fields
+{"time":"2026-10-29T21:19:24.440Z","event":"b1b.http.denied_or_failed","requestId":"1d432758-f635-4b15-8aac-104dc2cd6271","status":403}
+{"time":"2026-10-29T21:19:24.440Z","event":"http.completed","requestId":"1d432758-f635-4b15-8aac-104dc2cd6271","method":"POST","status":403}
+{"time":"2026-10-29T21:19:24.454Z","event":"b1b.http.denied_or_failed","requestId":"7c057af0-7a8f-4fa3-96b3-6c1c4e05b8f6","status":403}
+{"time":"2026-10-29T21:19:24.455Z","event":"http.completed","requestId":"7c057af0-7a8f-4fa3-96b3-6c1c4e05b8f6","method":"POST","status":403}
+{"time":"2026-10-29T21:19:24.483Z","event":"b1b.http.denied_or_failed","requestId":"5acc439f-b48d-4200-a280-c5efd60ba6fa","status":412}
+{"time":"2026-10-29T21:19:24.484Z","event":"http.completed","requestId":"5acc439f-b48d-4200-a280-c5efd60ba6fa","method":"POST","status":412}
+PASS Nest enforces Origin/CSRF and mandatory If-Match
+{"time":"2026-10-29T21:19:24.504Z","event":"b1b.http.denied_or_failed","requestId":"8b4bea36-bc28-4284-96f7-0ad66e728c6c","status":404}
+{"time":"2026-10-29T21:19:24.505Z","event":"http.completed","requestId":"8b4bea36-bc28-4284-96f7-0ad66e728c6c","method":"POST","status":404}
+PASS Nest branch scope cannot select foreign tenant
+PASS API direct field allowlist independently denies mass assignment
+PASS qualification/rule does not automatically publish availability
+{"time":"2026-10-29T21:19:24.746Z","event":"http.completed","requestId":"743af3e2-7d24-44de-9928-8171ab946971","method":"POST","status":200}
+PASS Nest publishes reviewed UTC shift with local evidence and source version
+{"time":"2026-10-29T21:19:24.765Z","event":"http.completed","requestId":"b4f76841-afd4-4b37-bdfd-3606a0093241","method":"GET","status":200}
+PASS Nest read-only calendar contains published shift and no reservation claim
+PASS membership closure conflicting with published shift is rejected
+PASS qualification revocation cannot silently invalidate published shifts
+PASS staff deactivation cannot invalidate published shifts
+PASS opening-hour rewrite with published shifts requires explicit review
+PASS published shift content cannot be edited directly by migration owner
+PASS legacy timezone/catalog command refuses configured calendar context
+PASS out-of-membership publication denied
+PASS inactive staff/resource cannot publish
+PASS stale source rule version denied
+PASS offering-specific qualification alone does not grant eligibility
+{"time":"2026-10-29T21:19:25.691Z","event":"http.completed","requestId":"63bab979-d24c-4345-a3c2-1f87f934c96a","method":"POST","status":200}
+{"time":"2026-10-29T21:19:25.714Z","event":"http.completed","requestId":"173012a9-f6b3-4863-a2e0-a33b354f1530","method":"POST","status":200}
+PASS approved time off blocks publication; request alone is not approval
+PASS time-off approval conflicting with published shifts fails closed
+PASS branch manager cannot approve global staff time off
+{"time":"2026-10-29T21:19:25.943Z","event":"http.completed","requestId":"ba0b84b7-06aa-45f9-9346-3b82848bd0d6","method":"POST","status":200}
+{"time":"2026-10-29T21:19:25.960Z","event":"http.completed","requestId":"eec29bd2-e93b-4ee7-9977-819e547ef86f","method":"POST","status":200}
+PASS reviewed closure blocks publication
+PASS closure approval conflicting with published shifts fails closed
+PASS DST gap fails closed in actual production materializer
+PASS DST fold requires explicit reviewed resolution
+PASS coherent overnight local segments publish atomically across midnight
+PASS incomplete overnight plan rolls back all inserted shifts
+PASS invalid recurrence weekday/window rejected by DB checks
+PASS same idempotency key replays one publication and one audit/outbox
+PASS versioned correction explicitly archives reviewed IDs and inserts new plan
+PASS explicit withdrawal preserves history before leave/rejoin with new UUID
+PASS adjacent cross-branch shifts reject unknown transfer feasibility
+{"time":"2026-10-29T21:19:28.187Z","event":"http.completed","requestId":"71bce760-6c66-41f2-91fe-4410490a980f","method":"POST","status":200}
+{"time":"2026-10-29T21:19:28.202Z","event":"http.completed","requestId":"ea85863e-ff2e-4730-9421-796b964abfc8","method":"GET","status":200}
+{"time":"2026-10-29T21:19:28.211Z","event":"b1b.http.denied_or_failed","requestId":"da42a875-a42e-4058-9123-3aba94d083e0","status":403}
+{"time":"2026-10-29T21:19:28.212Z","event":"http.completed","requestId":"da42a875-a42e-4058-9123-3aba94d083e0","method":"GET","status":403}
+PASS verified identity link requires persisted verified identity and membership
+{"time":"2026-10-29T21:19:28.254Z","event":"http.completed","requestId":"d67e9d23-a23a-407c-b702-a1f3ca0f20f6","method":"POST","status":200}
+{"time":"2026-10-29T21:19:28.276Z","event":"http.completed","requestId":"71dbf2af-e2f3-42fd-9263-020df8dc67df","method":"PUT","status":200}
+{"time":"2026-10-29T21:19:28.296Z","event":"http.completed","requestId":"284e2a18-12dd-4097-87bf-cc8b94cb412b","method":"GET","status":200}
+{"time":"2026-10-29T21:19:28.313Z","event":"http.completed","requestId":"eff49feb-1147-49f5-95f9-c3e750b1a8be","method":"PUT","status":200}
+PASS physical resource and inactive configuration commands work through Nest
+PASS API lacks direct tables/private helpers/DDL/role escalation
+PASS bookability gates and forbidden future tables remain
+PASS late outbox failure rolls data/audit/idempotency/calendar version back together
+PASS two concurrent publishers cannot both commit stale calendar versions
+PASS membership close vs publication serializes and revalidates
+PASS approved time off vs publication serializes and revalidates
+PASS closure vs publication serializes and revalidates
+PASS qualification revoke vs publication serializes and revalidates
+PASS two If-Match configuration writers have one winner
+PASS concurrent identical idempotency key replays without duplication
+PASS cross-branch simultaneous publication has one winner and safe transfer rejection
+{"time":"2026-10-29T21:19:30.720Z","event":"http.completed","requestId":"71e9e499-ad69-4330-898f-0c6af8394878","method":"GET","status":200}
+{"time":"2026-10-29T21:19:30.735Z","event":"http.completed","requestId":"78f59a38-2ede-453f-8bfb-5695ef7d1281","method":"GET","status":200}
+{"time":"2026-10-29T21:19:30.749Z","event":"http.completed","requestId":"b56f52da-f7c6-4a48-b546-46458ec1bd9a","method":"GET","status":200}
+{"time":"2026-10-29T21:19:30.764Z","event":"http.completed","requestId":"b812e74c-9068-4403-b934-cf2492de4048","method":"GET","status":200}
+{"time":"2026-10-29T21:19:30.777Z","event":"http.completed","requestId":"d2761c03-374f-4bb3-8492-5ba1e6b8f336","method":"GET","status":200}
+{"time":"2026-10-29T21:19:30.794Z","event":"http.completed","requestId":"ab1ccac0-4580-41cf-aad9-aa15a1f871a6","method":"GET","status":200}
+{"time":"2026-10-29T21:19:30.807Z","event":"http.completed","requestId":"a3960a63-a979-4ef6-86ae-2e09a1b815a7","method":"GET","status":200}
+{"time":"2026-10-29T21:19:30.820Z","event":"http.completed","requestId":"9b6b373d-cacb-4135-b06c-66cbcacb6b3c","method":"GET","status":200}
+{"time":"2026-10-29T21:19:30.834Z","event":"http.completed","requestId":"daee2d5d-4f98-4ae6-9bf4-948eb8af2990","method":"GET","status":200}
+{"time":"2026-10-29T21:19:30.848Z","event":"http.completed","requestId":"3218ab60-c466-4c83-856c-68ed16ab966b","method":"GET","status":200}
+PASS every administrative GET contract executes on actual Nest
+{"time":"2026-10-29T21:19:30.855Z","event":"http.completed","requestId":"c872180d-77a8-4b5e-97df-b00c66a0c2d2","method":"GET","status":200}
+{"time":"2026-10-29T21:19:30.868Z","event":"http.completed","requestId":"f455bd10-5b68-4f6c-9fb7-9b7ff1d0b443","method":"GET","status":200}
+{"time":"2026-10-29T21:19:30.881Z","event":"http.completed","requestId":"46da6dd4-e814-40d7-9ed4-3c37290334b5","method":"GET","status":200}
+{"time":"2026-10-29T21:19:30.894Z","event":"http.completed","requestId":"c81dec1d-34ff-4bbe-aaa6-7bdb74762f45","method":"GET","status":200}
+{"time":"2026-10-29T21:19:30.910Z","event":"http.completed","requestId":"e28224cd-4cdd-499b-99f1-49d33d42a8c4","method":"GET","status":200}
+PASS unchanged B1B session/config controllers run through isolated B2B adapter
+{"time":"2026-10-29T21:19:30.926Z","event":"http.completed","requestId":"11f33d3b-d7ac-49e1-878f-be40cc05119d","method":"POST","status":200}
+{"time":"2026-10-29T21:19:30.931Z","event":"b1b.http.denied_or_failed","requestId":"1435a4b3-fc6a-4238-82ea-f191471fdc3c","status":401}
+{"time":"2026-10-29T21:19:30.932Z","event":"http.completed","requestId":"1435a4b3-fc6a-4238-82ea-f191471fdc3c","method":"GET","status":401}
+PASS unchanged B1B self-session revoke works on B2B without privileged grants
+{"time":"2026-10-29T21:19:30.960Z","event":"b2b.http.rejected","requestId":"6abadcb4-b5f4-4e3f-a176-b7695e6e0560","status":422}
+{"time":"2026-10-29T21:19:30.960Z","event":"http.completed","requestId":"6abadcb4-b5f4-4e3f-a176-b7695e6e0560","method":"GET","status":422}
+{"time":"2026-10-29T21:19:30.985Z","event":"b1b.http.denied_or_failed","requestId":"ba18ef08-5918-478f-bca1-0c5f7299d473","status":422}
+{"time":"2026-10-29T21:19:30.986Z","event":"http.completed","requestId":"ba18ef08-5918-478f-bca1-0c5f7299d473","method":"GET","status":422}
+{"time":"2026-10-29T21:19:30.994Z","event":"b1b.http.denied_or_failed","requestId":"b22ef040-ebfd-4b05-9fa2-6619aa846dac","status":422}
+{"time":"2026-10-29T21:19:30.995Z","event":"http.completed","requestId":"b22ef040-ebfd-4b05-9fa2-6619aa846dac","method":"GET","status":422}
+PASS bounded calendar query rejects oversized horizon and unknown selectors
+PASS requested time off is explicit pending evidence and does not block shifts
+PASS review rejection is a new immutable exception revision
+PASS partial overnight withdrawal cannot break coherent reviewed plan
+PASS null membership end cannot masquerade as a departure
+PASS nested rule/materialization mass assignment is rejected
+PASS opening hours fully cover every local minute of published shift
+PASS qualification verification retains actor and evidence digest without raw reference
+PASS legacy runtime cannot mutate workforce or call publication boundary
+PASS tenant-safe rule qualification FK rejects incompatible staff context
+PASS applied checksum tampering is detected without repair
+PASS catalog drift detected; no automatic repair
+PASS original databases are outside B2B lifecycle allowlist
+PASS actual backup/custom archive and separate restore preserve rows/catalog/grants
+PASS restored API role executes production schedule read and retains table denial
+{"passed":71,"failed":0,"rejections":54,"actualRaces":8}

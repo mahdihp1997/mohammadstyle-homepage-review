@@ -1,0 +1,31 @@
+{
+  "kind": "ACTUAL_PRIVATE_NEXT_PLAYWRIGHT_REGRESSION",
+  "executedAt": "2026-10-29T22:15:39.112Z",
+  "stats": {
+    "startTime": "2026-10-29T22:15:39.112Z",
+    "duration": 208420.20299999998,
+    "expected": 92,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "viewports": [
+    [
+      1440,
+      900
+    ],
+    [
+      1024,
+      768
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      375,
+      812
+    ]
+  ],
+  "privateScreenshotsExported": false
+}
