@@ -1,0 +1,14 @@
+digraph{graph[bgcolor="#111b24",pad="0.35",nodesep="0.35",ranksep="0.55"];node[shape=box,style="rounded,filled",fillcolor="#213444",color="#d9c79e",fontcolor="#f3f6fa",fontname="Arial",fontsize=19,margin="0.18,0.14"];edge[color="#d9c79e",fontcolor="#e5d6b5",fontname="Arial",fontsize=15];rankdir=TB;rule[label="Stored immutable rule
+No automatic published availability"];request[label="Explicit occurrence plan
+Rule UUID/version + local dates + DST choices
+Calendar If-Match + durable key"];check[label="Atomic authorized publication transaction
+Full membership / resource / qualification / offering
+Opening hours / exceptions / overlap / transfer"];failed[label="REJECTED / ROLLED BACK
+Constant conflict reason; no partial shifts
+No audit/outbox/idempotency side effects"];published[label="PUBLISHED shifts
+Frozen UTC + local evidence + plan UUID/version
+Native global staff exclusion"];review[label="Explicit complete-plan correction/withdrawal
+Future plans only / exact reviewed IDs / reason digest"];history[label="Retained historical content
+Audited archival metadata only
+No delete, silent rewrite or automatic cancellation"];successor[label="Correction inserts distinct successor plan
+Same complete validation transaction"];rule->request->check;check->failed[label="invalid / stale"];check->published[label="valid"];published->review->history;review->successor[label="explicit replacement"];successor->published;}

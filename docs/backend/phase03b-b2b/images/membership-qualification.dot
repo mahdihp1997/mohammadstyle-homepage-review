@@ -1,0 +1,11 @@
+digraph{graph[bgcolor="#111b24",pad="0.35",nodesep="0.35",ranksep="0.55"];node[shape=box,style="rounded,filled",fillcolor="#213444",color="#d9c79e",fontcolor="#f3f6fa",fontname="Arial",fontsize=19,margin="0.18,0.14"];edge[color="#d9c79e",fontcolor="#e5d6b5",fontname="Arial",fontsize=15];rankdir=TB;start[label="Create inactive Staff + global STAFF resource
+No inference from equal names"];activate[label="Owner explicitly activates identity/resource
+Optional link: verified account + membership + evidence digest"];member[label="Create one temporal branch stint UUID
+[valid_from, valid_to) in branch timezone"];qual[label="Owner verifies capability
+Reviewer + timestamp + evidence digest
+Qualification is not availability"];eligible[label="Optional offering-specific eligibility
+Same branch / service / staff / stint / qualification"];rule[label="Store immutable recurring rule
+Then independently review and publish occurrences"];close[label="Departure: propose exclusive end date
+Gate + lock + revalidate every retained published shift"];conflict[label="Conflict ->409, no mutation
+Explicit complete-plan review required"];rejoin[label="Close once; retain old references
+Rejoin -> NEW stint UUID + new rule/eligibility"];start->activate->member->qual->eligible->rule->close;close->conflict[label="unresolved"];close->rejoin[label="safe"];}

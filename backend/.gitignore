@@ -8,3 +8,5 @@ prisma/generated/
 prisma/introspected.prisma
 !.env.b1b.example
 !.env.b2a.example
+
+!.env.b2b.example

@@ -1,0 +1,11 @@
+digraph{graph[bgcolor="#111b24",pad="0.35",nodesep="0.35",ranksep="0.55"];node[shape=box,style="rounded,filled",fillcolor="#213444",color="#d9c79e",fontcolor="#f3f6fa",fontname="Arial",fontsize=19,margin="0.18,0.14"];edge[color="#d9c79e",fontcolor="#e5d6b5",fontname="Arial",fontsize=15];rankdir=TB;browser[label="Authenticated administrative API only
+30 new +12 existing operations / strict request and response fields"];auth[label="Existing B1B opaque-session guard
+Origin + CSRF + current permission / branch scope"];nest[label="WorkforceModule / WorkforceCommands
+Fixed parameterized repository port / bounded retry"];db[label="PostgreSQL SECURITY DEFINER entry points
+b2b_command / b2b_read
+Reauthenticate and authorize before replay"];staff[label="Staff / global STAFF resource
+Temporal stints / qualifications / offering eligibility"];sched[label="Local rules / reviewed UTC shifts
+Opening hours / explicit leave and closure review"];atomic[label="One transaction
+Calendar CAS + data + audit + outbox + idempotency"];gate[label="No customer capacity reservation
+bookable=false / offering.active=false
+No B3/B4 / payment / messaging"];browser->auth->nest->db;db->staff;db->sched;staff->atomic;sched->atomic;atomic->gate;}

@@ -1,0 +1,98 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Actual B2B API and migration results</title><style>*{box-sizing:border-box}body{max-width:1440px;margin:0 auto;padding:30px;background:#111b24;color:#f1f5f9;font:19px/1.6 Arial;overflow-wrap:anywhere}h1{font-size:34px}h1,h2,a{color:#dfcda5}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:16px/1.6 Consolas,monospace;padding:20px;background:#213444}img{display:block;max-width:100%;height:auto}section{margin:24px 0;padding:24px;background:#1a2b39}li{margin:5px 0}nav a{display:inline-block;padding:8px}</style><body><h1>Actual Nest + PostgreSQL18 B2B executions</h1><p>2026-10-29T21:19:18.144Z · 71 PASS /0 FAIL · 54 expected SQL rejections · 8 real races</p><p>This is a Chromium capture of actual recorded execution results. It is not a terminal-window or fictional application screenshot.</p><h2>Migration and API assertions</h2><ol><li>PASS fresh install eight checksummed migrations,28 tables</li><li>PASS migration rerun no-op with catalog verification</li><li>PASS 0001..0005 registry/source exactly preserved</li><li>PASS upgrade from B2A preserves rows and leaves legacy approvals explicitly unreviewed</li><li>PASS failed forward migration rolls back all DDL and history</li><li>PASS Nest Owner creates inactive global staff/resource</li><li>PASS Nest branch manager cannot modify other branch</li><li>PASS Nest receptionist cannot publish</li><li>PASS Nest customer has no administrative access</li><li>PASS Nest rejects forged role/businessId and unknown fields</li><li>PASS Nest enforces Origin/CSRF and mandatory If-Match</li><li>PASS Nest branch scope cannot select foreign tenant</li><li>PASS API direct field allowlist independently denies mass assignment</li><li>PASS qualification/rule does not automatically publish availability</li><li>PASS Nest publishes reviewed UTC shift with local evidence and source version</li><li>PASS Nest read-only calendar contains published shift and no reservation claim</li><li>PASS membership closure conflicting with published shift is rejected</li><li>PASS qualification revocation cannot silently invalidate published shifts</li><li>PASS staff deactivation cannot invalidate published shifts</li><li>PASS opening-hour rewrite with published shifts requires explicit review</li><li>PASS published shift content cannot be edited directly by migration owner</li><li>PASS legacy timezone/catalog command refuses configured calendar context</li><li>PASS out-of-membership publication denied</li><li>PASS inactive staff/resource cannot publish</li><li>PASS stale source rule version denied</li><li>PASS offering-specific qualification alone does not grant eligibility</li><li>PASS approved time off blocks publication; request alone is not approval</li><li>PASS time-off approval conflicting with published shifts fails closed</li><li>PASS branch manager cannot approve global staff time off</li><li>PASS reviewed closure blocks publication</li><li>PASS closure approval conflicting with published shifts fails closed</li><li>PASS DST gap fails closed in actual production materializer</li><li>PASS DST fold requires explicit reviewed resolution</li><li>PASS coherent overnight local segments publish atomically across midnight</li><li>PASS incomplete overnight plan rolls back all inserted shifts</li><li>PASS invalid recurrence weekday/window rejected by DB checks</li><li>PASS same idempotency key replays one publication and one audit/outbox</li><li>PASS versioned correction explicitly archives reviewed IDs and inserts new plan</li><li>PASS explicit withdrawal preserves history before leave/rejoin with new UUID</li><li>PASS adjacent cross-branch shifts reject unknown transfer feasibility</li><li>PASS verified identity link requires persisted verified identity and membership</li><li>PASS physical resource and inactive configuration commands work through Nest</li><li>PASS API lacks direct tables/private helpers/DDL/role escalation</li><li>PASS bookability gates and forbidden future tables remain</li><li>PASS late outbox failure rolls data/audit/idempotency/calendar version back together</li><li>PASS two concurrent publishers cannot both commit stale calendar versions</li><li>PASS membership close vs publication serializes and revalidates</li><li>PASS approved time off vs publication serializes and revalidates</li><li>PASS closure vs publication serializes and revalidates</li><li>PASS qualification revoke vs publication serializes and revalidates</li><li>PASS two If-Match configuration writers have one winner</li><li>PASS concurrent identical idempotency key replays without duplication</li><li>PASS cross-branch simultaneous publication has one winner and safe transfer rejection</li><li>PASS every administrative GET contract executes on actual Nest</li><li>PASS unchanged B1B session/config controllers run through isolated B2B adapter</li><li>PASS unchanged B1B self-session revoke works on B2B without privileged grants</li><li>PASS bounded calendar query rejects oversized horizon and unknown selectors</li><li>PASS requested time off is explicit pending evidence and does not block shifts</li><li>PASS review rejection is a new immutable exception revision</li><li>PASS partial overnight withdrawal cannot break coherent reviewed plan</li><li>PASS null membership end cannot masquerade as a departure</li><li>PASS nested rule/materialization mass assignment is rejected</li><li>PASS opening hours fully cover every local minute of published shift</li><li>PASS qualification verification retains actor and evidence digest without raw reference</li><li>PASS legacy runtime cannot mutate workforce or call publication boundary</li><li>PASS tenant-safe rule qualification FK rejects incompatible staff context</li><li>PASS applied checksum tampering is detected without repair</li><li>PASS catalog drift detected; no automatic repair</li><li>PASS original databases are outside B2B lifecycle allowlist</li><li>PASS actual backup/custom archive and separate restore preserve rows/catalog/grants</li><li>PASS restored API role executes production schedule read and retains table denial</li></ol><h2>Actual observed connection and lock evidence</h2><pre>[
+  {
+    "name": "publication vs publication",
+    "pids": [
+      8516,
+      8517
+    ],
+    "wait": {
+      "wait_event_type": "Lock",
+      "wait_event": "advisory"
+    },
+    "loserSqlstate": "MS412"
+  },
+  {
+    "name": "close vs publication",
+    "pids": [
+      8518,
+      8519
+    ],
+    "wait": {
+      "wait_event_type": "Lock",
+      "wait_event": "advisory"
+    },
+    "loserSqlstate": "MS412"
+  },
+  {
+    "name": "timeoff vs publication",
+    "pids": [
+      8520,
+      8521
+    ],
+    "wait": {
+      "wait_event_type": "Lock",
+      "wait_event": "advisory"
+    },
+    "loserSqlstate": "MS412"
+  },
+  {
+    "name": "closure vs publication",
+    "pids": [
+      8522,
+      8523
+    ],
+    "wait": {
+      "wait_event_type": "Lock",
+      "wait_event": "advisory"
+    },
+    "loserSqlstate": "MS412"
+  },
+  {
+    "name": "qualification vs publication",
+    "pids": [
+      8532,
+      8533
+    ],
+    "wait": {
+      "wait_event_type": "Lock",
+      "wait_event": "advisory"
+    },
+    "loserSqlstate": "MS412"
+  },
+  {
+    "name": "stale resource writers",
+    "pids": [
+      8534,
+      8535
+    ],
+    "wait": {
+      "wait_event_type": "Lock",
+      "wait_event": "advisory"
+    },
+    "loserSqlstate": "MS412"
+  },
+  {
+    "name": "duplicate idempotency",
+    "pids": [
+      8536,
+      8537
+    ],
+    "wait": {
+      "wait_event_type": "Lock",
+      "wait_event": "transactionid"
+    },
+    "loserSqlstate": null
+  },
+  {
+    "name": "cross-branch publication",
+    "pids": [
+      8538,
+      8539
+    ],
+    "wait": {
+      "wait_event_type": "Lock",
+      "wait_event": "advisory"
+    },
+    "loserSqlstate": "MS412"
+  }
+]</pre><p>No customer booking, payment, notification or deployment was executed.</p></body></html>

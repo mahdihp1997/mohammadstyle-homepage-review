@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-10-29T21:21:46.050Z",
+  "checks": [
+    {
+      "name": "PostgreSQL18 static parser",
+      "status": "PASS",
+      "statements": 215,
+      "note": "Parser success is separate from actual PostgreSQL migration/concurrency execution"
+    },
+    {
+      "name": "Implemented OpenAPI3.1 schema/refs",
+      "status": "PASS",
+      "operations": 30
+    },
+    {
+      "name": "Sanitized CI scope/read-only token",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual B2B integration and distinct-session races",
+      "status": "PASS",
+      "passed": 71,
+      "failed": 0,
+      "rejections": 54,
+      "actualRaces": 8
+    },
+    {
+      "name": "Preserved69/83/47 baselines",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual92 frontend tests",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual review-page desktop/mobile browser/no overflow/no errors/local link inventory",
+      "status": "PASS"
+    },
+    {
+      "name": "7 diagrams +2 real execution-record captures + contact sheet decode",
+      "status": "PASS",
+      "imageCount": 10
+    },
+    {
+      "name": "Protected UI/assets/contracts/locks/old migration source",
+      "status": "PASS"
+    }
+  ]
+}
