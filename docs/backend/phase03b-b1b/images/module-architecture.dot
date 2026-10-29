@@ -1,0 +1,8 @@
+digraph{graph [bgcolor="#101820",pad="0.35",nodesep="0.35",ranksep="0.55"]; node [shape=box,style="rounded,filled",fillcolor="#203442",color="#cdbb8c",fontcolor="#f4f6f8",fontname="Arial",fontsize=18,margin="0.2,0.15"]; edge [color="#cdbb8c",fontcolor="#cdbb8c",fontname="Arial",fontsize=14];rankdir=TB; web[label="Existing Next.js Homepage / Booking
+Unchanged demo; no live integration",color="#7c91a2"];http[label="Nest admin API /api/v1
+IAM | Business | Branch | Catalog | Offerings"];guard[label="SessionGuard + strict DTOs
+Origin / CSRF / bounded rate limits"];cmd[label="AdminCommands + AdminRepository
+Fixed typed read / command ports"];sql[label="3 session-bound database entry points
+No raw SQL port or client actor/tenant context"];tx[label="One PostgreSQL transaction
+Config + Audit + Outbox + Idempotency"];gates[label="B1 gates remain
+Branch not bookable | Offering inactive"];web->http[style=dashed,label="future approved adapter",arrowhead=none];http->guard->cmd->sql->tx->gates;}

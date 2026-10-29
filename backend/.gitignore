@@ -6,3 +6,4 @@ node_modules/
 .local/
 prisma/generated/
 prisma/introspected.prisma
+!.env.b1b.example

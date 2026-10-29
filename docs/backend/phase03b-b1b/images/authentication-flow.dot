@@ -1,0 +1,8 @@
+digraph{graph [bgcolor="#101820",pad="0.35",nodesep="0.35",ranksep="0.55"]; node [shape=box,style="rounded,filled",fillcolor="#203442",color="#cdbb8c",fontcolor="#f4f6f8",fontname="Arial",fontsize=18,margin="0.2,0.15"]; edge [color="#cdbb8c",fontcolor="#cdbb8c",fontname="Arial",fontsize=14];rankdir=TB;offline[label="Offline synthetic test harness ONLY
+Marked local DB + privileged migration credential"];store[label="Mint random256-bit session + CSRF secrets
+Persist hashes only; bind user + business"];cookie[label="Request: opaque HttpOnly/Secure/Strict cookie
+Mutation: exact Origin + CSRF header"];verify[label="Verify DB clock expiry / idle / revoke / user
+Current membership + role + permission + branch"];scope[label="Derive actor + tenant inside DB function
+Client IDs remain selectors; deny by default"];command[label="Lock idempotency + target / compare If-Match
+Atomic data, audit, unpublished outbox and result"];deny[label="401 / 403 / 404 / 409 / 412 / 422
+Sanitized diagnostics; no SQL or secrets"];offline->store->cookie->verify->scope->command;verify->deny[label="invalid"];scope->deny[label="forbidden"];command->deny[label="conflict"];}

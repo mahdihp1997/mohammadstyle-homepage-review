@@ -1,0 +1,11 @@
+digraph{graph [bgcolor="#101820",pad="0.35",nodesep="0.35",ranksep="0.55"]; node [shape=box,style="rounded,filled",fillcolor="#203442",color="#cdbb8c",fontcolor="#f4f6f8",fontname="Arial",fontsize=18,margin="0.2,0.15"]; edge [color="#cdbb8c",fontcolor="#cdbb8c",fontname="Arial",fontsize=14];rankdir=TB;base[label="Approved private B1A baseline045a013
+Original B0/B1A DBs and evidence preserved"];newdb[label="NEW disposable B1B cluster55436
+Independent random credentials / own volume"];first[label="0001 foundation +0002 limited RLS
+Exact original bytes / checksums"];third[label="0003 forward-only B1B boundary
+Session fields +1 FK +2 CHECK +7 functions"];catalog[label="16 tables /44 indexes /4 RLS policies
+3 API EXECUTE grants; no table grants
+Both inactive gates retained"];recovery[label="pg_dump custom -> separate restore DB
+Ordered row + catalog/ACL equality
+Restored session and denied IAM tests"];clone[label="Separate tmpfs regressions
+B0:55435 | B1A:55437
+No original DB reset"];base->newdb->first->third->catalog->recovery;base->clone[style=dashed];}

@@ -1,0 +1,21 @@
+{
+  "hashNormalization": "UTF-8 with LF line endings; all other bytes integrity-relevant",
+  "approvedB1DraftSha256": "ef9ebdb2324b678c46f3a6d4c2858aa1292d3650dc5fa5b54af76264799436e3",
+  "migrations": [
+    {
+      "id": "0001_b1_foundation",
+      "file": "0001_b1_foundation.sql",
+      "sha256": "db79869b7da75dc0d84961824e0cce8c540f4451d113457123053d92c9e15a0d"
+    },
+    {
+      "id": "0002_b1a_runtime_boundary",
+      "file": "0002_b1a_runtime_boundary.sql",
+      "sha256": "aa08a3047c4c150ea1a45e24d2844c3b40e45da19dde555ac06b66901df046d9"
+    },
+    {
+      "id": "0003_b1b_admin_boundary",
+      "file": "0003_b1b_admin_boundary.sql",
+      "sha256": "e02e6b9aaafb3e9466dea1c884a4e0279b833ae80df78f74a91f0a9432c2ab44"
+    }
+  ]
+}

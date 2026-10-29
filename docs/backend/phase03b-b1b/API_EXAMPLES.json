@@ -1,0 +1,252 @@
+[
+  {
+    "request": {
+      "method": "POST",
+      "path": "/api/v1/admin/branches",
+      "body": {
+        "code": "SYNTHETIC_NEW",
+        "displayName": "B1B SYNTHETIC branch",
+        "address": null,
+        "timeZone": "Asia/Tehran",
+        "active": false,
+        "bookable": false
+      }
+    },
+    "response": {
+      "status": 201,
+      "body": {
+        "id": "0f027bfe-98f5-43ca-b3f2-8c244218a12a",
+        "code": "SYNTHETIC_NEW",
+        "active": false,
+        "address": null,
+        "version": "1",
+        "bookable": false,
+        "timeZone": "Asia/Tehran",
+        "displayName": "B1B SYNTHETIC branch",
+        "configurationVersion": "1"
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "POST",
+      "path": "/api/v1/admin/branches",
+      "body": {
+        "code": "SYNTHETIC_NEW",
+        "displayName": "B1B SYNTHETIC branch",
+        "address": null,
+        "timeZone": "Asia/Tehran",
+        "active": false,
+        "bookable": false
+      }
+    },
+    "response": {
+      "id": "0f027bfe-98f5-43ca-b3f2-8c244218a12a",
+      "code": "SYNTHETIC_NEW",
+      "active": false,
+      "address": null,
+      "version": "1",
+      "bookable": false,
+      "timeZone": "Asia/Tehran",
+      "displayName": "B1B SYNTHETIC branch",
+      "configurationVersion": "1"
+    },
+    "status": 201
+  },
+  {
+    "request": {
+      "method": "POST",
+      "path": "/api/v1/admin/branches",
+      "body": {
+        "code": "SYNTHETIC_MANAGER",
+        "displayName": "B1B SYNTHETIC branch",
+        "address": null,
+        "timeZone": "Asia/Tehran",
+        "active": false,
+        "bookable": false
+      }
+    },
+    "response": {
+      "status": 403,
+      "body": {
+        "code": "FORBIDDEN",
+        "message": "Request could not be completed",
+        "requestId": "0ff64862-23eb-4775-85bb-889fd8b64feb",
+        "retryable": false
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "PUT",
+      "path": "/api/v1/admin/branches/37233f2f-f707-40fe-93fb-66facfca08c5",
+      "body": {
+        "code": "SYNTHETIC_B",
+        "displayName": "B1B SYNTHETIC branch",
+        "address": null,
+        "timeZone": "Asia/Tehran",
+        "active": false,
+        "bookable": false
+      }
+    },
+    "response": {
+      "status": 403,
+      "body": {
+        "code": "FORBIDDEN",
+        "message": "Request could not be completed",
+        "requestId": "d66741a5-54ce-476b-92a5-7e27e9e23cc0",
+        "retryable": false
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "path": "/api/v1/admin/branches/7209dd76-fbd3-4675-94d6-9e0d55055f29/offerings"
+    },
+    "response": {
+      "status": 403,
+      "body": {
+        "code": "FORBIDDEN",
+        "message": "Request could not be completed",
+        "requestId": "76398b61-342b-4c53-99e8-304fd7431b85",
+        "retryable": false
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "POST",
+      "path": "/api/v1/admin/services",
+      "body": {
+        "code": "SYNTHETIC_SERVICE",
+        "displayName": "B1B SYNTHETIC service",
+        "description": null,
+        "active": false
+      }
+    },
+    "response": {
+      "status": 403,
+      "body": {
+        "code": "FORBIDDEN",
+        "message": "Request could not be completed",
+        "requestId": "35600d91-f41e-4948-a26e-3db406db3d54",
+        "retryable": false
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "path": "/api/v1/admin/services"
+    },
+    "response": {
+      "status": 403,
+      "body": {
+        "code": "FORBIDDEN",
+        "message": "Request could not be completed",
+        "requestId": "942a116f-c2a4-428d-b743-23ed0c9a556b",
+        "retryable": false
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "GET",
+      "path": "/api/v1/admin/branches"
+    },
+    "response": {
+      "status": 403,
+      "body": {
+        "code": "FORBIDDEN",
+        "message": "Request could not be completed",
+        "requestId": "fe9e956d-fc0d-4e78-837a-6a58d51fe1d5",
+        "retryable": false
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "POST",
+      "path": "/api/v1/admin/services",
+      "body": {
+        "code": "SYNTHETIC_SERVICE",
+        "displayName": "B1B SYNTHETIC service",
+        "description": null,
+        "active": false
+      }
+    },
+    "response": {
+      "status": 403,
+      "body": {
+        "code": "FORBIDDEN",
+        "message": "Request could not be completed",
+        "requestId": "efb90be4-436b-4a2b-b03b-36bd52bb301d",
+        "retryable": false
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "POST",
+      "path": "/api/v1/admin/services",
+      "body": {
+        "code": "SYNTHETIC_SERVICE",
+        "displayName": "B1B SYNTHETIC service",
+        "description": null,
+        "active": false
+      }
+    },
+    "response": {
+      "status": 403,
+      "body": {
+        "code": "FORBIDDEN",
+        "message": "Request could not be completed",
+        "requestId": "cecd309a-92bd-49ea-b36c-9bb197c1b629",
+        "retryable": false
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "POST",
+      "path": "/api/v1/admin/services",
+      "body": {
+        "code": "SYNTHETIC_SERVICE",
+        "displayName": "B1B SYNTHETIC service",
+        "description": null,
+        "active": false
+      }
+    },
+    "response": {
+      "status": 403,
+      "body": {
+        "code": "FORBIDDEN",
+        "message": "Request could not be completed",
+        "requestId": "5011ba85-a7a1-47df-bc56-61edd7209b46",
+        "retryable": false
+      }
+    }
+  },
+  {
+    "request": {
+      "method": "POST",
+      "path": "/api/v1/admin/services",
+      "body": {
+        "code": "SYNTHETIC_SERVICE",
+        "displayName": "B1B SYNTHETIC service",
+        "description": null,
+        "active": false
+      }
+    },
+    "response": {
+      "status": 403,
+      "body": {
+        "code": "FORBIDDEN",
+        "message": "Request could not be completed",
+        "requestId": "f7a3ad17-64e6-4baa-9953-8738ee6fbb49",
+        "retryable": false
+      }
+    }
+  }
+]

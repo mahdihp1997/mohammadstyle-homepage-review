@@ -1,0 +1,108 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-10-29T18:02:09.139Z",
+  "source": "ms_b1b_dev",
+  "destination": "ms_b1b_restore",
+  "sourceUntouched": true,
+  "rowsAndCatalogEqual": true,
+  "archiveSha256": "d621e450fe4ef25339681c413b27cd95c2a8b7a10cf8ef86d2d4654a3bc658b4",
+  "summary": {
+    "sha256": "1ed91cfcdaabab6fe8471cd7f7e919cd7b780e4df541db72bc8c34b3fa1b6fc3",
+    "tables": 16,
+    "indexes": 44,
+    "functions": 7,
+    "foreignKeys": 41,
+    "checks": 45
+  },
+  "snapshot": {
+    "catalogSha256": "1ed91cfcdaabab6fe8471cd7f7e919cd7b780e4df541db72bc8c34b3fa1b6fc3",
+    "tables": 16,
+    "rows": [
+      {
+        "table": "ms_b1_design.app_user",
+        "count": 6,
+        "sha256": "3b6493b1e4811b87ea8dc39c9998bc0bcb13f9a709f8c0c2ef25f6e31c8e8232"
+      },
+      {
+        "table": "ms_b1_design.audit_log",
+        "count": 12,
+        "sha256": "04830dd4f3a69ce68b026b401a521ea7bd3ba488de9b543cb41283a92872eb39"
+      },
+      {
+        "table": "ms_b1_design.auth_identity",
+        "count": 0,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "table": "ms_b1_design.auth_session",
+        "count": 10,
+        "sha256": "5166736065153b3e1907655f5e648edcdc81adddd7bd9a7567b9de2677c971ec"
+      },
+      {
+        "table": "ms_b1_design.branch",
+        "count": 4,
+        "sha256": "286143711b8faaa3433b777f24a5687b8f21a6b50b52b5fa54174561d9a74c71"
+      },
+      {
+        "table": "ms_b1_design.branch_service_offering",
+        "count": 1,
+        "sha256": "de193b5e05c53a71b59771194e97e5d44109078cafbfddd9f668caf3a1d38e29"
+      },
+      {
+        "table": "ms_b1_design.business",
+        "count": 2,
+        "sha256": "7d709b9651b96db3deb85d0f8d7ceb6f535fa7c2f95138295217464908b82358"
+      },
+      {
+        "table": "ms_b1_design.consumer_inbox",
+        "count": 0,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "table": "ms_b1_design.idempotency_record",
+        "count": 12,
+        "sha256": "e6f0a410313592d7f840b7bad194ab731eb4655b311ed0aaf601043be8eb5294"
+      },
+      {
+        "table": "ms_b1_design.offering_resource_requirement",
+        "count": 1,
+        "sha256": "46491a6894525a9d04f181b49f43724b0f3fa28013cc278f91ae6b656cf376a3"
+      },
+      {
+        "table": "ms_b1_design.outbox_event",
+        "count": 12,
+        "sha256": "f4b60ff5cdedc03407314edfed43c528edfc7b7d0fcc482d1f21efb59a8b8d65"
+      },
+      {
+        "table": "ms_b1_design.permission",
+        "count": 7,
+        "sha256": "2f6275aba1da24b8a4d513fd11830304ce3892f9913bbcf511a932af4ac98be1"
+      },
+      {
+        "table": "ms_b1_design.role",
+        "count": 7,
+        "sha256": "67ec3109f6ca84121dd01036308abfecdf12c59c0662cc567756a65915c9f404"
+      },
+      {
+        "table": "ms_b1_design.role_permission",
+        "count": 28,
+        "sha256": "d72d8f2c4cc0902951abd46d47ee57344b688dbdf99a3181f223367845ea0a38"
+      },
+      {
+        "table": "ms_b1_design.service",
+        "count": 6,
+        "sha256": "6822715def412c3cca9681d1d2f1151a74065abc2d2cc367490a3d9019a826f9"
+      },
+      {
+        "table": "ms_b1_design.user_role_assignment",
+        "count": 7,
+        "sha256": "28933c0db323675c5c34416c8ca70ba8e101feb3d50fdcad0e24d71ed75d4a2e"
+      },
+      {
+        "table": "ms_b1_meta.schema_migration",
+        "count": 3,
+        "sha256": "e2c31bdea5aa4cb7b00fcb06afbfee1ff25368129cf43f58d51e24c0bf1eedff"
+      }
+    ]
+  }
+}

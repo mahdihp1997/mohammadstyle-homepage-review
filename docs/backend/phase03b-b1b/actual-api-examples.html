@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Actual synthetic API examples</title><style>*{box-sizing:border-box}body{margin:0;background:#101820;color:#edf3f8;font:19px/1.6 Arial,sans-serif;padding:38px;max-width:1400px;overflow-wrap:anywhere}h1{font-size:34px;color:#d8c497}h2{font-size:25px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#1d303e;padding:22px;border-radius:10px;font:17px/1.6 Consolas,monospace}li{padding:7px 0}.pass{color:#bce8ce}a{color:#d8c497}img{display:block;max-width:100%;height:auto}section{margin:35px 0;padding:20px;background:#172633;border-radius:10px}</style><body><h1>Actual synthetic API request / response evidence</h1><p>Recorded by the real NestJS/PostgreSQL harness; cookies, CSRF and provisioning secrets are excluded.</p><h2>POST /api/v1/admin/branches</h2><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;POST&quot;,
+    &quot;path&quot;: &quot;/api/v1/admin/branches&quot;,
+    &quot;body&quot;: {
+      &quot;code&quot;: &quot;SYNTHETIC_NEW&quot;,
+      &quot;displayName&quot;: &quot;B1B SYNTHETIC branch&quot;,
+      &quot;address&quot;: null,
+      &quot;timeZone&quot;: &quot;Asia/Tehran&quot;,
+      &quot;active&quot;: false,
+      &quot;bookable&quot;: false
+    }
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 201,
+    &quot;body&quot;: {
+      &quot;id&quot;: &quot;0f027bfe-98f5-43ca-b3f2-8c244218a12a&quot;,
+      &quot;code&quot;: &quot;SYNTHETIC_NEW&quot;,
+      &quot;active&quot;: false,
+      &quot;address&quot;: null,
+      &quot;version&quot;: &quot;1&quot;,
+      &quot;bookable&quot;: false,
+      &quot;timeZone&quot;: &quot;Asia/Tehran&quot;,
+      &quot;displayName&quot;: &quot;B1B SYNTHETIC branch&quot;,
+      &quot;configurationVersion&quot;: &quot;1&quot;
+    }
+  }
+}</pre><h2>PUT /api/v1/admin/branches/37233f2f-f707-40fe-93fb-66facfca08c5</h2><pre>{
+  &quot;request&quot;: {
+    &quot;method&quot;: &quot;PUT&quot;,
+    &quot;path&quot;: &quot;/api/v1/admin/branches/37233f2f-f707-40fe-93fb-66facfca08c5&quot;,
+    &quot;body&quot;: {
+      &quot;code&quot;: &quot;SYNTHETIC_B&quot;,
+      &quot;displayName&quot;: &quot;B1B SYNTHETIC branch&quot;,
+      &quot;address&quot;: null,
+      &quot;timeZone&quot;: &quot;Asia/Tehran&quot;,
+      &quot;active&quot;: false,
+      &quot;bookable&quot;: false
+    }
+  },
+  &quot;response&quot;: {
+    &quot;status&quot;: 403,
+    &quot;body&quot;: {
+      &quot;code&quot;: &quot;FORBIDDEN&quot;,
+      &quot;message&quot;: &quot;Request could not be completed&quot;,
+      &quot;requestId&quot;: &quot;d66741a5-54ce-476b-92a5-7e27e9e23cc0&quot;,
+      &quot;retryable&quot;: false
+    }
+  }
+}</pre></body></html>

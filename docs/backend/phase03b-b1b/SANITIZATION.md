@@ -1,0 +1,3 @@
+# Public export scope
+
+Copy only new B1B backend source/scripts/migration/contract/workflow and this sanitized report package onto public review/phase03b-b1a. No private history/commit objects or assets. Retain existing public placeholder images/system fonts. Backend logic/tests are byte-identical to private tested implementation; no Booking behavior change. Private global PROJECT_CONTEXT is omitted and replaced by this sanitized snapshot. Dumps, actual env/session secrets, node_modules/dist/generated clients/caches, task attachments, private UI screenshots/fonts/photos/references and unnecessary scratch are omitted. Public CI uses only synthetic fixtures and an explicit JSON artifact allowlist. No PR1/2/3/4 mutation, merge or force-push.

@@ -1,0 +1,3 @@
+# Sanitized B1B project context
+
+Original private B1A baseline045a013 approved. Implemented isolated12-operation admin foundation with session-bound tenant/branch authorization, strict DTOs, atomic config/audit/outbox/idempotency and version checks.16 tables remain, inactive booking gates intact, migration0001/0002 unchanged. Original Homepage/Booking/demo contracts and private assets remain unchanged and disconnected. Synthetic users/fixtures only; no known real prices/durations/staff/branch-two configuration are invented. Public export retains placeholders/system fonts and independent history. B1B test results and limitations are documented; stop for B1B approval before later phases.
