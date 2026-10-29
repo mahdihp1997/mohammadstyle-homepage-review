@@ -1,0 +1,103 @@
+
+> mohammadstyle-b0-foundation@0.0.0 test:b3
+> node scripts/b3/test.mjs
+
+PASS upgrade nine-to-eleven preserves existing application rows
+PASS fixed deposit uses server price and immutable disclosed terms
+PASS multiple branch services sum exactly
+PASS branch-specific offering prices remain separate
+PASS percentage deposits use integer half-up whole-Toman-compatible rounding
+PASS exact half increment rounds up without floating point
+PASS explicit percentage minimum bound applies
+PASS explicit percentage maximum bound applies
+PASS optional declined deposit remains zero
+PASS optional chosen deposit is calculated
+PASS explicit NONE carries no hidden deposit
+PASS deposit larger than total is rejected rather than clamped
+PASS no optional choice can alter required deposit semantics
+PASS branch override outranks higher-priority business default
+PASS service override outranks branch override
+PASS mixed service winners fail POLICY_CONFLICT
+PASS explicit exact-set whole-booking policy resolves only configured compatible winners
+PASS whole-booking assignment never applies to an unrelated subset
+PASS whole policy cannot hide a changed incompatible service winner
+PASS whole policy requires explicit override permission
+PASS staff-specific policy outranks service policy for a verified eligible provider
+PASS staff-service scope is more specific than staff scope
+PASS forged provider and missing service eligibility fail closed
+PASS ending provider membership invalidates staff-selected commercial context
+PASS qualification version changes stale a provider-selected proposal
+PASS overlapping exact-rank scope assignments are rejected natively
+PASS missing policy fails closed
+PASS new version number is monotonic and old quote terms do not change
+PASS published policy content and refund windows cannot be rewritten
+PASS draft replacement validates and publishes the replacement
+PASS retired versions remain in authorized history, excluded from current
+PASS invalid refund modes/windows and duplicate thresholds are rejected
+PASS cancellation/refund boundary minutes=1440
+PASS cancellation/refund boundary minutes=1439
+PASS cancellation/refund boundary minutes=60
+PASS cancellation/refund boundary minutes=59
+PASS cancellation/refund boundary minutes=-1
+PASS flat PARTIAL refund uses frozen snapshot and exact amount
+PASS NONE refund is explicit zero and ALL_PAID preview is labeled hypothetical
+PASS effective policy end is exclusive and entire candidate must fit
+PASS independent actors may receive identical hash with different quote identities
+PASS same idempotency key replays exact identity and original expiry
+PASS same key with different request fails rather than mutating quote
+PASS client amounts and duration fields are rejected
+PASS stale offering versions and duplicate offerings are rejected
+PASS valid current proposal can be checked but never binds a booking
+PASS tampered hash fails before returning a current result
+PASS configuration changes stale unaccepted quote without changing stored terms
+PASS expired immutable fixture uses database clock and replay does not extend TTL
+PASS immutable quote artifacts/items reject updates and deletion
+PASS integer precision above Number safe range survives PostgreSQL and JSON
+PASS aggregate bigint overflow fails closed
+PASS invalid currency precision, exponent, negative and overflow input rejected
+PASS branch manager cannot configure global terms or other branch
+PASS authorized manager creates only own branch scoped policy/version
+PASS branch read cannot disclose unrelated unassigned global policy versions
+PASS cross-tenant branch and quote selectors never widen session tenant
+PASS forged branch/offering selector cannot cross branch prices
+PASS API role cannot read tables, execute private helpers or become owner
+PASS concurrent configuration changes yield one CAS winner
+PASS concurrent same-key quote requests create exactly one durable proposal
+PASS audit/outbox/data/idempotency rollback atomically on outbox failure
+{"time":"2026-10-29T23:33:44.224Z","event":"http.completed","requestId":"b40db208-eb37-45b4-9c7b-13a1d2957222","method":"POST","status":200}
+{"time":"2026-10-29T23:33:44.250Z","event":"http.completed","requestId":"c6d6f8eb-6a62-4a12-9d5f-9019103c482b","method":"GET","status":200}
+PASS Nest real authenticated create/quote/read flow
+{"time":"2026-10-29T23:33:44.297Z","event":"http.completed","requestId":"31e263d3-f687-4c95-99bf-b9cd4eb49857","method":"POST","status":409}
+PASS Nest exposes exact policy conflict diagnostic
+{"time":"2026-10-29T23:33:44.330Z","event":"b1b.http.denied_or_failed","requestId":"36ff76d1-2ee0-4882-b114-362a5929c146","status":401}
+{"time":"2026-10-29T23:33:44.331Z","event":"http.completed","requestId":"36ff76d1-2ee0-4882-b114-362a5929c146","method":"POST","status":401}
+{"time":"2026-10-29T23:33:44.379Z","event":"b1b.http.denied_or_failed","requestId":"28ddad06-553b-4eb8-8a26-45020d89ea5b","status":403}
+{"time":"2026-10-29T23:33:44.379Z","event":"http.completed","requestId":"28ddad06-553b-4eb8-8a26-45020d89ea5b","method":"POST","status":403}
+{"time":"2026-10-29T23:33:44.392Z","event":"b1b.http.denied_or_failed","requestId":"4aaddc8e-658d-44d1-b54a-024dbb55111c","status":403}
+{"time":"2026-10-29T23:33:44.393Z","event":"http.completed","requestId":"4aaddc8e-658d-44d1-b54a-024dbb55111c","method":"POST","status":403}
+{"time":"2026-10-29T23:33:44.410Z","event":"b1b.http.denied_or_failed","requestId":"397fdcf1-18aa-44ce-a6d0-6d4c208bcf2e","status":412}
+{"time":"2026-10-29T23:33:44.411Z","event":"http.completed","requestId":"397fdcf1-18aa-44ce-a6d0-6d4c208bcf2e","method":"POST","status":412}
+PASS Nest rejects missing session, CSRF, origin and If-Match
+{"time":"2026-10-29T23:33:44.417Z","event":"b1b.http.denied_or_failed","requestId":"c27e9e87-baa7-4a39-87be-700a805c90f8","status":422}
+{"time":"2026-10-29T23:33:44.417Z","event":"http.completed","requestId":"c27e9e87-baa7-4a39-87be-700a805c90f8","method":"POST","status":422}
+{"time":"2026-10-29T23:33:44.426Z","event":"b1b.http.denied_or_failed","requestId":"f7e8ed13-58c8-47c2-8ac6-26082e9dae92","status":422}
+{"time":"2026-10-29T23:33:44.427Z","event":"http.completed","requestId":"f7e8ed13-58c8-47c2-8ac6-26082e9dae92","method":"POST","status":422}
+PASS Nest rejects duplicate JSON keys and malformed Unicode before DTO construction
+{"time":"2026-10-29T23:33:44.460Z","event":"b1b.http.denied_or_failed","requestId":"5f2a2252-a55e-4786-bea9-af7d3583d923","status":422}
+{"time":"2026-10-29T23:33:44.461Z","event":"http.completed","requestId":"5f2a2252-a55e-4786-bea9-af7d3583d923","method":"POST","status":422}
+{"time":"2026-10-29T23:33:44.486Z","event":"b1b.http.denied_or_failed","requestId":"d9973d8a-311c-42e0-8299-4dc28a2e1b4d","status":422}
+{"time":"2026-10-29T23:33:44.487Z","event":"http.completed","requestId":"d9973d8a-311c-42e0-8299-4dc28a2e1b4d","method":"POST","status":422}
+PASS Nest rejects forged tenant envelope and unknown command
+PASS SQL/JS canonical commercial hashes agree including Unicode
+PASS approved final V2 content hash vectors remain exact; identity is not hash input
+PASS fresh eleven-version install and verified no-op
+PASS old nine checksums remain exact
+PASS catalog drift rejected without automatic repair
+PASS failed forward migration rolls DDL/history back
+PASS bookability stays disabled and forbidden B4 tables do not exist
+PASS old databases are outside B3 reset allowlist
+PASS actual 60-second quote expiration and expired same-key replay retain original expiry
+PASS real custom backup and independent restore preserve all38 tables and grants
+{"time":"2026-10-29T23:34:46.018Z","event":"http.completed","requestId":"9651c460-50a6-4c8d-90e6-0e409b705621","method":"GET","status":200}
+PASS restored Nest API and SQL boundary retain immutable commercial evidence
+{"passed":78,"failed":0,"expectedDenials":52}

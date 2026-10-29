@@ -64,7 +64,16 @@
     "b2h:backup": "node scripts/b2h/backup.mjs backup",
     "b2h:restore": "node scripts/b2h/backup.mjs restore",
     "test:b2h": "node scripts/b2h/test.mjs",
-    "b2h:start": "node dist/workforce/main.js"
+    "b2h:start": "node dist/workforce/main.js",
+    "b3:env": "node scripts/b3/infra.mjs env",
+    "b3:up": "node scripts/b3/infra.mjs up",
+    "b3:stop": "node scripts/b3/infra.mjs stop",
+    "b3:migrate": "node scripts/b3/migrate.mjs",
+    "b3:verify": "node scripts/b3/verify.mjs",
+    "b3:backup": "node scripts/b3/backup.mjs backup",
+    "b3:restore": "node scripts/b3/backup.mjs restore",
+    "test:b3": "node scripts/b3/test.mjs",
+    "b3:start": "node dist/pricing/main.js"
   },
   "dependencies": {
     "@nestjs/common": "12.3.2",

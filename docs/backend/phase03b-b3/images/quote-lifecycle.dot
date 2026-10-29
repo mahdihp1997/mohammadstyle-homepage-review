@@ -1,0 +1,15 @@
+digraph {graph [bgcolor="#111b24",pad="0.4",ranksep="0.5",nodesep="0.35"];node [shape=box,style="rounded,filled",fillcolor="#213444",color="#c9b58b",fontcolor="#f1f5f9",fontname="Arial",fontsize=18,margin="0.18"];edge [color="#d8c699",arrowsize=0.8];a[label="Read CAS/branch/offering versions
+POST quote.create: verified actor + CSRF/Origin
+If-Match + durable Idempotency-Key"];b[label="MS_COMMERCIAL_PROPOSAL_V1
+Server-calculated frozen prices/terms
+Independent UUID + DB-issued expiry"];c[label="Same actor/route/key/body
+Replay exact original identity/expiry
+Expired replay never refreshes TTL"];d[label="Read / validate own proposal
+Hash tamper -> reject
+DB time expired -> QUOTE_EXPIRED
+Configuration changed -> QUOTE_STALE"];e[label="Frozen cancellation/refund preview
+Hypothetical paid base, no actual entitlement
+previewOnly=true; moneyExecuted=false"];f[label="B4 binding DISABLED
+Needs regenerated trusted provider/resource plan
+Exact V2 document + relational policy artifact equality
+Actor-owned quote + explicit consent + capacity transaction"];a->b;b->c;c->d;b->d;b->e;d->f[label="requires future approved B4",fontcolor="#d8c699"];b->f[style=dashed,label="precursor hash is never a V2 quote hash",fontcolor="#d8c699"];}

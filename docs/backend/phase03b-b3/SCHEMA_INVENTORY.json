@@ -1,0 +1,2309 @@
+{
+  "phase": "B3",
+  "newTables": [
+    {
+      "name": "pricing_configuration_revision",
+      "purpose": "Business-wide pricing CAS and serialized configuration epoch",
+      "columns": [
+        {
+          "table_name": "pricing_configuration_revision",
+          "column_name": "business_id",
+          "ordinal_position": 1,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_configuration_revision",
+          "column_name": "revision",
+          "ordinal_position": 2,
+          "data_type": "bigint",
+          "udt_name": "int8",
+          "is_nullable": "NO",
+          "column_default": "1",
+          "is_generated": "NEVER"
+        }
+      ],
+      "constraints": [
+        {
+          "table_name": "pricing_configuration_revision",
+          "name": "pricing_configuration_revision_business_id_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (business_id) REFERENCES ms_b1_design.business(id)"
+        },
+        {
+          "table_name": "pricing_configuration_revision",
+          "name": "pricing_configuration_revision_business_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL business_id"
+        },
+        {
+          "table_name": "pricing_configuration_revision",
+          "name": "pricing_configuration_revision_pkey",
+          "type": "p",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "PRIMARY KEY (business_id)"
+        },
+        {
+          "table_name": "pricing_configuration_revision",
+          "name": "pricing_configuration_revision_revision_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK ((revision > 0))"
+        },
+        {
+          "table_name": "pricing_configuration_revision",
+          "name": "pricing_configuration_revision_revision_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL revision"
+        }
+      ]
+    },
+    {
+      "name": "booking_policy",
+      "purpose": "Named business or branch policy definition",
+      "columns": [
+        {
+          "table_name": "booking_policy",
+          "column_name": "id",
+          "ordinal_position": 1,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy",
+          "column_name": "business_id",
+          "ordinal_position": 2,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy",
+          "column_name": "branch_id",
+          "ordinal_position": 3,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy",
+          "column_name": "code",
+          "ordinal_position": 4,
+          "data_type": "text",
+          "udt_name": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy",
+          "column_name": "name",
+          "ordinal_position": 5,
+          "data_type": "text",
+          "udt_name": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy",
+          "column_name": "created_by",
+          "ordinal_position": 6,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy",
+          "column_name": "created_at",
+          "ordinal_position": 7,
+          "data_type": "timestamp with time zone",
+          "udt_name": "timestamptz",
+          "is_nullable": "NO",
+          "column_default": "clock_timestamp()",
+          "is_generated": "NEVER"
+        }
+      ],
+      "constraints": [
+        {
+          "table_name": "booking_policy",
+          "name": "booking_policy_business_id_branch_id_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (business_id, branch_id) REFERENCES ms_b1_design.branch(business_id, id)"
+        },
+        {
+          "table_name": "booking_policy",
+          "name": "booking_policy_business_id_code_key",
+          "type": "u",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "UNIQUE (business_id, code)"
+        },
+        {
+          "table_name": "booking_policy",
+          "name": "booking_policy_business_id_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (business_id) REFERENCES ms_b1_design.business(id)"
+        },
+        {
+          "table_name": "booking_policy",
+          "name": "booking_policy_business_id_id_key",
+          "type": "u",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "UNIQUE (business_id, id)"
+        },
+        {
+          "table_name": "booking_policy",
+          "name": "booking_policy_business_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL business_id"
+        },
+        {
+          "table_name": "booking_policy",
+          "name": "booking_policy_code_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK ((code ~ '^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$'::text))"
+        },
+        {
+          "table_name": "booking_policy",
+          "name": "booking_policy_code_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL code"
+        },
+        {
+          "table_name": "booking_policy",
+          "name": "booking_policy_created_at_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL created_at"
+        },
+        {
+          "table_name": "booking_policy",
+          "name": "booking_policy_created_by_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (created_by) REFERENCES ms_b1_design.app_user(id)"
+        },
+        {
+          "table_name": "booking_policy",
+          "name": "booking_policy_created_by_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL created_by"
+        },
+        {
+          "table_name": "booking_policy",
+          "name": "booking_policy_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL id"
+        },
+        {
+          "table_name": "booking_policy",
+          "name": "booking_policy_name_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (((length(btrim(name)) >= 1) AND (length(btrim(name)) <= 200)))"
+        },
+        {
+          "table_name": "booking_policy",
+          "name": "booking_policy_name_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL name"
+        },
+        {
+          "table_name": "booking_policy",
+          "name": "booking_policy_pkey",
+          "type": "p",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "PRIMARY KEY (id)"
+        }
+      ]
+    },
+    {
+      "name": "booking_policy_version",
+      "purpose": "Versioned structured deposit/cancellation/refund terms; frozen after publication",
+      "columns": [
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "id",
+          "ordinal_position": 1,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "business_id",
+          "ordinal_position": 2,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "policy_id",
+          "ordinal_position": 3,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "version_number",
+          "ordinal_position": 4,
+          "data_type": "integer",
+          "udt_name": "int4",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "row_version",
+          "ordinal_position": 5,
+          "data_type": "bigint",
+          "udt_name": "int8",
+          "is_nullable": "NO",
+          "column_default": "1",
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "lifecycle",
+          "ordinal_position": 6,
+          "data_type": "text",
+          "udt_name": "text",
+          "is_nullable": "NO",
+          "column_default": "'DRAFT'::text",
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "effective_from",
+          "ordinal_position": 7,
+          "data_type": "timestamp with time zone",
+          "udt_name": "timestamptz",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "effective_to",
+          "ordinal_position": 8,
+          "data_type": "timestamp with time zone",
+          "udt_name": "timestamptz",
+          "is_nullable": "YES",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "deposit_requirement",
+          "ordinal_position": 9,
+          "data_type": "text",
+          "udt_name": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "amount_kind",
+          "ordinal_position": 10,
+          "data_type": "text",
+          "udt_name": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "fixed_rial",
+          "ordinal_position": 11,
+          "data_type": "bigint",
+          "udt_name": "int8",
+          "is_nullable": "YES",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "basis_points",
+          "ordinal_position": 12,
+          "data_type": "integer",
+          "udt_name": "int4",
+          "is_nullable": "YES",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "minimum_rial",
+          "ordinal_position": 13,
+          "data_type": "bigint",
+          "udt_name": "int8",
+          "is_nullable": "YES",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "maximum_rial",
+          "ordinal_position": 14,
+          "data_type": "bigint",
+          "udt_name": "int8",
+          "is_nullable": "YES",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "refundability",
+          "ordinal_position": 15,
+          "data_type": "text",
+          "udt_name": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "refund_base",
+          "ordinal_position": 16,
+          "data_type": "text",
+          "udt_name": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "outside_refund_bps",
+          "ordinal_position": 17,
+          "data_type": "integer",
+          "udt_name": "int4",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "cancellation_deadline_minutes",
+          "ordinal_position": 18,
+          "data_type": "integer",
+          "udt_name": "int4",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "terms_text",
+          "ordinal_position": 19,
+          "data_type": "text",
+          "udt_name": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "terms_locale",
+          "ordinal_position": 20,
+          "data_type": "text",
+          "udt_name": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "content_hash",
+          "ordinal_position": 21,
+          "data_type": "bytea",
+          "udt_name": "bytea",
+          "is_nullable": "YES",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "published_at",
+          "ordinal_position": 22,
+          "data_type": "timestamp with time zone",
+          "udt_name": "timestamptz",
+          "is_nullable": "YES",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "created_by",
+          "ordinal_position": 23,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "column_name": "created_at",
+          "ordinal_position": 24,
+          "data_type": "timestamp with time zone",
+          "udt_name": "timestamptz",
+          "is_nullable": "NO",
+          "column_default": "clock_timestamp()",
+          "is_generated": "NEVER"
+        }
+      ],
+      "constraints": [
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_business_id_id_key",
+          "type": "u",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "UNIQUE (business_id, id)"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_business_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL business_id"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_business_id_policy_id_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (business_id, policy_id) REFERENCES ms_b1_design.booking_policy(business_id, id)"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_business_id_policy_id_version_number_key",
+          "type": "u",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "UNIQUE (business_id, policy_id, version_number)"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_cancellation_deadline_minutes_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (((cancellation_deadline_minutes >= 0) AND (cancellation_deadline_minutes <= 525600)))"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_cancellation_deadline_minutes_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL cancellation_deadline_minutes"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (((effective_to IS NULL) OR (isfinite(effective_to) AND (effective_to > effective_from))))"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_check1",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK ((((deposit_requirement = 'NONE'::text) AND (num_nonnulls(amount_kind, fixed_rial, basis_points, minimum_rial, maximum_rial) = 0)) OR ((deposit_requirement <> 'NONE'::text) AND (amount_kind IS NOT NULL) AND (((amount_kind = 'FIXED'::text) AND (fixed_rial IS NOT NULL) AND (fixed_rial > 0) AND ((fixed_rial % (10)::bigint) = 0) AND (basis_points IS NULL)) OR ((amount_kind = 'PERCENTAGE'::text) AND (basis_points IS NOT NULL) AND ((basis_points >= 1) AND (basis_points <= 10000)) AND (fixed_rial IS NULL))))))"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_check2",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (((minimum_rial IS NULL) OR (maximum_rial IS NULL) OR (minimum_rial <= maximum_rial)))"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_check3",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK ((((lifecycle = 'DRAFT'::text) AND (published_at IS NULL) AND (content_hash IS NULL)) OR ((lifecycle <> 'DRAFT'::text) AND (published_at IS NOT NULL) AND (content_hash IS NOT NULL) AND (octet_length(content_hash) = 32))))"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_created_at_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL created_at"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_created_by_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (created_by) REFERENCES ms_b1_design.app_user(id)"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_created_by_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL created_by"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_deposit_requirement_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK ((deposit_requirement = ANY (ARRAY['NONE'::text, 'OPTIONAL'::text, 'REQUIRED'::text])))"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_deposit_requirement_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL deposit_requirement"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_effective_from_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (isfinite(effective_from))"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_effective_from_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL effective_from"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL id"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_lifecycle_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK ((lifecycle = ANY (ARRAY['DRAFT'::text, 'ACTIVE'::text, 'RETIRED'::text])))"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_lifecycle_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL lifecycle"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_maximum_rial_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (((maximum_rial IS NULL) OR ((maximum_rial >= 0) AND ((maximum_rial % (10)::bigint) = 0))))"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_minimum_rial_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (((minimum_rial IS NULL) OR ((minimum_rial >= 0) AND ((minimum_rial % (10)::bigint) = 0))))"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_outside_refund_bps_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (((outside_refund_bps >= 0) AND (outside_refund_bps <= 10000)))"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_outside_refund_bps_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL outside_refund_bps"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_pkey",
+          "type": "p",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_policy_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL policy_id"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_refund_base_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK ((refund_base = ANY (ARRAY['DEPOSIT_PAID'::text, 'ALL_PAID'::text])))"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_refund_base_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL refund_base"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_refundability_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK ((refundability = ANY (ARRAY['FULL'::text, 'NONE'::text, 'PARTIAL'::text, 'CONDITIONAL'::text])))"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_refundability_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL refundability"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_row_version_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK ((row_version > 0))"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_row_version_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL row_version"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_terms_locale_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK ((terms_locale ~ '^[a-z]{2}(-[A-Z]{2})?$'::text))"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_terms_locale_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL terms_locale"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_terms_text_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (((length(btrim(terms_text)) >= 1) AND (length(btrim(terms_text)) <= 8000)))"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_terms_text_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL terms_text"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_version_number_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK ((version_number > 0))"
+        },
+        {
+          "table_name": "booking_policy_version",
+          "name": "booking_policy_version_version_number_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL version_number"
+        }
+      ]
+    },
+    {
+      "name": "policy_refund_window",
+      "purpose": "Relational inclusive refund thresholds of an immutable version",
+      "columns": [
+        {
+          "table_name": "policy_refund_window",
+          "column_name": "id",
+          "ordinal_position": 1,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "policy_refund_window",
+          "column_name": "business_id",
+          "ordinal_position": 2,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "policy_refund_window",
+          "column_name": "policy_version_id",
+          "ordinal_position": 3,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "policy_refund_window",
+          "column_name": "threshold_minutes",
+          "ordinal_position": 4,
+          "data_type": "integer",
+          "udt_name": "int4",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "policy_refund_window",
+          "column_name": "refund_bps",
+          "ordinal_position": 5,
+          "data_type": "integer",
+          "udt_name": "int4",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        }
+      ],
+      "constraints": [
+        {
+          "table_name": "policy_refund_window",
+          "name": "policy_refund_window_business_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL business_id"
+        },
+        {
+          "table_name": "policy_refund_window",
+          "name": "policy_refund_window_business_id_policy_version_id_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (business_id, policy_version_id) REFERENCES ms_b1_design.booking_policy_version(business_id, id)"
+        },
+        {
+          "table_name": "policy_refund_window",
+          "name": "policy_refund_window_business_id_policy_version_id_threshol_key",
+          "type": "u",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "UNIQUE (business_id, policy_version_id, threshold_minutes)"
+        },
+        {
+          "table_name": "policy_refund_window",
+          "name": "policy_refund_window_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL id"
+        },
+        {
+          "table_name": "policy_refund_window",
+          "name": "policy_refund_window_pkey",
+          "type": "p",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "table_name": "policy_refund_window",
+          "name": "policy_refund_window_policy_version_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL policy_version_id"
+        },
+        {
+          "table_name": "policy_refund_window",
+          "name": "policy_refund_window_refund_bps_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (((refund_bps >= 0) AND (refund_bps <= 10000)))"
+        },
+        {
+          "table_name": "policy_refund_window",
+          "name": "policy_refund_window_refund_bps_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL refund_bps"
+        },
+        {
+          "table_name": "policy_refund_window",
+          "name": "policy_refund_window_threshold_minutes_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (((threshold_minutes >= 0) AND (threshold_minutes <= 525600)))"
+        },
+        {
+          "table_name": "policy_refund_window",
+          "name": "policy_refund_window_threshold_minutes_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL threshold_minutes"
+        }
+      ]
+    },
+    {
+      "name": "booking_policy_assignment",
+      "purpose": "Temporal scoped routing and reviewed revocation; native overlap exclusion",
+      "columns": [
+        {
+          "table_name": "booking_policy_assignment",
+          "column_name": "id",
+          "ordinal_position": 1,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "column_name": "business_id",
+          "ordinal_position": 2,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "column_name": "policy_version_id",
+          "ordinal_position": 3,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "column_name": "scope_kind",
+          "ordinal_position": 4,
+          "data_type": "text",
+          "udt_name": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "column_name": "branch_id",
+          "ordinal_position": 5,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "column_name": "service_id",
+          "ordinal_position": 6,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "column_name": "staff_id",
+          "ordinal_position": 7,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "column_name": "priority",
+          "ordinal_position": 8,
+          "data_type": "integer",
+          "udt_name": "int4",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "column_name": "effective_from",
+          "ordinal_position": 9,
+          "data_type": "timestamp with time zone",
+          "udt_name": "timestamptz",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "column_name": "effective_to",
+          "ordinal_position": 10,
+          "data_type": "timestamp with time zone",
+          "udt_name": "timestamptz",
+          "is_nullable": "YES",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "column_name": "context_key",
+          "ordinal_position": 11,
+          "data_type": "text",
+          "udt_name": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "column_name": "override_reason",
+          "ordinal_position": 12,
+          "data_type": "text",
+          "udt_name": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "column_name": "revoked_at",
+          "ordinal_position": 13,
+          "data_type": "timestamp with time zone",
+          "udt_name": "timestamptz",
+          "is_nullable": "YES",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "column_name": "created_by",
+          "ordinal_position": 14,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "column_name": "created_at",
+          "ordinal_position": 15,
+          "data_type": "timestamp with time zone",
+          "udt_name": "timestamptz",
+          "is_nullable": "NO",
+          "column_default": "clock_timestamp()",
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "column_name": "applicable_period",
+          "ordinal_position": 16,
+          "data_type": "tstzrange",
+          "udt_name": "tstzrange",
+          "is_nullable": "YES",
+          "column_default": null,
+          "is_generated": "ALWAYS"
+        }
+      ],
+      "constraints": [
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_business_id_branch_id_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (business_id, branch_id) REFERENCES ms_b1_design.branch(business_id, id)"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_business_id_context_key_priority_excl",
+          "type": "x",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "EXCLUDE USING gist (business_id WITH =, context_key WITH =, priority WITH =, applicable_period WITH &&) WHERE ((revoked_at IS NULL))"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_business_id_id_key",
+          "type": "u",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "UNIQUE (business_id, id)"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_business_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL business_id"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_business_id_policy_version_id_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (business_id, policy_version_id) REFERENCES ms_b1_design.booking_policy_version(business_id, id)"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_business_id_service_id_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (business_id, service_id) REFERENCES ms_b1_design.service(business_id, id)"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_business_id_staff_id_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (business_id, staff_id) REFERENCES ms_b1_design.staff(business_id, id)"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (((effective_to IS NULL) OR (isfinite(effective_to) AND (effective_to > effective_from))))"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_check1",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK ((((scope_kind = 'BUSINESS'::text) AND (num_nonnulls(branch_id, service_id, staff_id) = 0)) OR ((scope_kind = 'BRANCH'::text) AND (branch_id IS NOT NULL) AND (service_id IS NULL) AND (staff_id IS NULL)) OR ((scope_kind = 'SERVICE'::text) AND (service_id IS NOT NULL) AND (staff_id IS NULL)) OR ((scope_kind = 'STAFF'::text) AND (branch_id IS NOT NULL) AND (staff_id IS NOT NULL) AND (service_id IS NULL)) OR ((scope_kind = 'STAFF_SERVICE'::text) AND (branch_id IS NOT NULL) AND (staff_id IS NOT NULL) AND (service_id IS NOT NULL)) OR ((scope_kind = 'WHOLE_BOOKING'::text) AND (branch_id IS NOT NULL) AND (service_id IS NULL) AND (staff_id IS NULL) AND (override_reason IS NOT NULL) AND ((length(btrim(override_reason)) >= 1) AND (length(btrim(override_reason)) <= 200)))))"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_context_key_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL context_key"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_created_at_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL created_at"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_created_by_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (created_by) REFERENCES ms_b1_design.app_user(id)"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_created_by_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL created_by"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_effective_from_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (isfinite(effective_from))"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_effective_from_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL effective_from"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL id"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_pkey",
+          "type": "p",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_policy_version_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL policy_version_id"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_priority_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (((priority >= 0) AND (priority <= 1000)))"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_priority_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL priority"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_scope_kind_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK ((scope_kind = ANY (ARRAY['BUSINESS'::text, 'BRANCH'::text, 'SERVICE'::text, 'STAFF'::text, 'STAFF_SERVICE'::text, 'WHOLE_BOOKING'::text])))"
+        },
+        {
+          "table_name": "booking_policy_assignment",
+          "name": "booking_policy_assignment_scope_kind_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL scope_kind"
+        }
+      ]
+    },
+    {
+      "name": "policy_assignment_service",
+      "purpose": "Exact selected service set for explicit whole-booking override",
+      "columns": [
+        {
+          "table_name": "policy_assignment_service",
+          "column_name": "id",
+          "ordinal_position": 1,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "policy_assignment_service",
+          "column_name": "business_id",
+          "ordinal_position": 2,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "policy_assignment_service",
+          "column_name": "assignment_id",
+          "ordinal_position": 3,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "policy_assignment_service",
+          "column_name": "service_id",
+          "ordinal_position": 4,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        }
+      ],
+      "constraints": [
+        {
+          "table_name": "policy_assignment_service",
+          "name": "policy_assignment_service_assignment_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL assignment_id"
+        },
+        {
+          "table_name": "policy_assignment_service",
+          "name": "policy_assignment_service_business_id_assignment_id_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (business_id, assignment_id) REFERENCES ms_b1_design.booking_policy_assignment(business_id, id)"
+        },
+        {
+          "table_name": "policy_assignment_service",
+          "name": "policy_assignment_service_business_id_assignment_id_service_key",
+          "type": "u",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "UNIQUE (business_id, assignment_id, service_id)"
+        },
+        {
+          "table_name": "policy_assignment_service",
+          "name": "policy_assignment_service_business_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL business_id"
+        },
+        {
+          "table_name": "policy_assignment_service",
+          "name": "policy_assignment_service_business_id_service_id_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (business_id, service_id) REFERENCES ms_b1_design.service(business_id, id)"
+        },
+        {
+          "table_name": "policy_assignment_service",
+          "name": "policy_assignment_service_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL id"
+        },
+        {
+          "table_name": "policy_assignment_service",
+          "name": "policy_assignment_service_pkey",
+          "type": "p",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "table_name": "policy_assignment_service",
+          "name": "policy_assignment_service_service_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL service_id"
+        }
+      ]
+    },
+    {
+      "name": "policy_assignment_compatibility",
+      "purpose": "Exact compatible underlying winning version set for whole override",
+      "columns": [
+        {
+          "table_name": "policy_assignment_compatibility",
+          "column_name": "id",
+          "ordinal_position": 1,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "policy_assignment_compatibility",
+          "column_name": "business_id",
+          "ordinal_position": 2,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "policy_assignment_compatibility",
+          "column_name": "assignment_id",
+          "ordinal_position": 3,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "policy_assignment_compatibility",
+          "column_name": "policy_version_id",
+          "ordinal_position": 4,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        }
+      ],
+      "constraints": [
+        {
+          "table_name": "policy_assignment_compatibility",
+          "name": "policy_assignment_compatibili_business_id_assignment_id_pol_key",
+          "type": "u",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "UNIQUE (business_id, assignment_id, policy_version_id)"
+        },
+        {
+          "table_name": "policy_assignment_compatibility",
+          "name": "policy_assignment_compatibili_business_id_policy_version_i_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (business_id, policy_version_id) REFERENCES ms_b1_design.booking_policy_version(business_id, id)"
+        },
+        {
+          "table_name": "policy_assignment_compatibility",
+          "name": "policy_assignment_compatibility_assignment_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL assignment_id"
+        },
+        {
+          "table_name": "policy_assignment_compatibility",
+          "name": "policy_assignment_compatibility_business_id_assignment_id_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (business_id, assignment_id) REFERENCES ms_b1_design.booking_policy_assignment(business_id, id)"
+        },
+        {
+          "table_name": "policy_assignment_compatibility",
+          "name": "policy_assignment_compatibility_business_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL business_id"
+        },
+        {
+          "table_name": "policy_assignment_compatibility",
+          "name": "policy_assignment_compatibility_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL id"
+        },
+        {
+          "table_name": "policy_assignment_compatibility",
+          "name": "policy_assignment_compatibility_pkey",
+          "type": "p",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "table_name": "policy_assignment_compatibility",
+          "name": "policy_assignment_compatibility_policy_version_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL policy_version_id"
+        }
+      ]
+    },
+    {
+      "name": "pricing_proposal",
+      "purpose": "Immutable actor-owned commercial precursor, TTL/content digest independent of identity",
+      "columns": [
+        {
+          "table_name": "pricing_proposal",
+          "column_name": "id",
+          "ordinal_position": 1,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "column_name": "business_id",
+          "ordinal_position": 2,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "column_name": "branch_id",
+          "ordinal_position": 3,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "column_name": "created_by",
+          "ordinal_position": 4,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "column_name": "policy_version_id",
+          "ordinal_position": 5,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "column_name": "total_rial",
+          "ordinal_position": 6,
+          "data_type": "bigint",
+          "udt_name": "int8",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "column_name": "deposit_rial",
+          "ordinal_position": 7,
+          "data_type": "bigint",
+          "udt_name": "int8",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "column_name": "remaining_rial",
+          "ordinal_position": 8,
+          "data_type": "bigint",
+          "udt_name": "int8",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "column_name": "configuration_fingerprint",
+          "ordinal_position": 9,
+          "data_type": "bytea",
+          "udt_name": "bytea",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "column_name": "content_hash",
+          "ordinal_position": 10,
+          "data_type": "bytea",
+          "udt_name": "bytea",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "column_name": "content_document",
+          "ordinal_position": 11,
+          "data_type": "jsonb",
+          "udt_name": "jsonb",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "column_name": "selectors",
+          "ordinal_position": 12,
+          "data_type": "jsonb",
+          "udt_name": "jsonb",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "column_name": "created_at",
+          "ordinal_position": 13,
+          "data_type": "timestamp with time zone",
+          "udt_name": "timestamptz",
+          "is_nullable": "NO",
+          "column_default": "clock_timestamp()",
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "column_name": "expires_at",
+          "ordinal_position": 14,
+          "data_type": "timestamp with time zone",
+          "udt_name": "timestamptz",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        }
+      ],
+      "constraints": [
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_branch_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL branch_id"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_business_id_branch_id_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (business_id, branch_id) REFERENCES ms_b1_design.branch(business_id, id)"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_business_id_id_key",
+          "type": "u",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "UNIQUE (business_id, id)"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_business_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL business_id"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_business_id_policy_version_id_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (business_id, policy_version_id) REFERENCES ms_b1_design.booking_policy_version(business_id, id)"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK ((((deposit_rial)::numeric + (remaining_rial)::numeric) = (total_rial)::numeric))"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_check1",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK ((isfinite(expires_at) AND (expires_at > created_at)))"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_configuration_fingerprint_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK ((octet_length(configuration_fingerprint) = 32))"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_configuration_fingerprint_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL configuration_fingerprint"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_content_document_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (((jsonb_typeof(content_document) = 'object'::text) AND ((content_document ->> 'schema'::text) = 'MS_COMMERCIAL_PROPOSAL_V1'::text)))"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_content_document_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL content_document"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_content_hash_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK ((octet_length(content_hash) = 32))"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_content_hash_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL content_hash"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_created_at_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL created_at"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_created_by_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (created_by) REFERENCES ms_b1_design.app_user(id)"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_created_by_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL created_by"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_deposit_rial_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (((deposit_rial >= 0) AND ((deposit_rial % (10)::bigint) = 0)))"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_deposit_rial_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL deposit_rial"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_expires_at_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL expires_at"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL id"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_pkey",
+          "type": "p",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_policy_version_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL policy_version_id"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_remaining_rial_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (((remaining_rial >= 0) AND ((remaining_rial % (10)::bigint) = 0)))"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_remaining_rial_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL remaining_rial"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_selectors_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK ((jsonb_typeof(selectors) = 'object'::text))"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_selectors_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL selectors"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_total_rial_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (((total_rial >= 0) AND ((total_rial % (10)::bigint) = 0)))"
+        },
+        {
+          "table_name": "pricing_proposal",
+          "name": "pricing_proposal_total_rial_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL total_rial"
+        }
+      ]
+    },
+    {
+      "name": "pricing_proposal_item",
+      "purpose": "Normalized immutable server price/duration/version line snapshots",
+      "columns": [
+        {
+          "table_name": "pricing_proposal_item",
+          "column_name": "id",
+          "ordinal_position": 1,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "column_name": "business_id",
+          "ordinal_position": 2,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "column_name": "proposal_id",
+          "ordinal_position": 3,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "column_name": "offering_id",
+          "ordinal_position": 4,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "column_name": "branch_id",
+          "ordinal_position": 5,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "column_name": "service_id",
+          "ordinal_position": 6,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "column_name": "position",
+          "ordinal_position": 7,
+          "data_type": "integer",
+          "udt_name": "int4",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "column_name": "offering_version",
+          "ordinal_position": 8,
+          "data_type": "bigint",
+          "udt_name": "int8",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "column_name": "unit_price_rial",
+          "ordinal_position": 9,
+          "data_type": "bigint",
+          "udt_name": "int8",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "column_name": "duration_minutes",
+          "ordinal_position": 10,
+          "data_type": "integer",
+          "udt_name": "int4",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "column_name": "buffer_before_minutes",
+          "ordinal_position": 11,
+          "data_type": "integer",
+          "udt_name": "int4",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "column_name": "buffer_after_minutes",
+          "ordinal_position": 12,
+          "data_type": "integer",
+          "udt_name": "int4",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        }
+      ],
+      "constraints": [
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_branch_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL branch_id"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_buffer_after_minutes_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (((buffer_after_minutes >= 0) AND (buffer_after_minutes <= 1440)))"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_buffer_after_minutes_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL buffer_after_minutes"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_buffer_before_minutes_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (((buffer_before_minutes >= 0) AND (buffer_before_minutes <= 1440)))"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_buffer_before_minutes_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL buffer_before_minutes"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_business_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL business_id"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_business_id_offering_id_branch_id_se_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (business_id, offering_id, branch_id, service_id) REFERENCES ms_b1_design.branch_service_offering(business_id, id, branch_id, service_id)"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_business_id_proposal_id_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (business_id, proposal_id) REFERENCES ms_b1_design.pricing_proposal(business_id, id)"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_business_id_proposal_id_position_key",
+          "type": "u",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "UNIQUE (business_id, proposal_id, \"position\")"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_duration_minutes_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (((duration_minutes >= 1) AND (duration_minutes <= 1440)))"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_duration_minutes_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL duration_minutes"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL id"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_offering_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL offering_id"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_offering_version_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK ((offering_version > 0))"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_offering_version_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL offering_version"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_pkey",
+          "type": "p",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_position_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (((\"position\" >= 1) AND (\"position\" <= 12)))"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_position_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL \"position\""
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_proposal_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL proposal_id"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_service_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL service_id"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_unit_price_rial_check",
+          "type": "c",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "CHECK (((unit_price_rial >= 0) AND ((unit_price_rial % (10)::bigint) = 0)))"
+        },
+        {
+          "table_name": "pricing_proposal_item",
+          "name": "pricing_proposal_item_unit_price_rial_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL unit_price_rial"
+        }
+      ]
+    },
+    {
+      "name": "pricing_proposal_source",
+      "purpose": "Normalized immutable routing evidence references",
+      "columns": [
+        {
+          "table_name": "pricing_proposal_source",
+          "column_name": "id",
+          "ordinal_position": 1,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal_source",
+          "column_name": "business_id",
+          "ordinal_position": 2,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal_source",
+          "column_name": "proposal_id",
+          "ordinal_position": 3,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        },
+        {
+          "table_name": "pricing_proposal_source",
+          "column_name": "assignment_id",
+          "ordinal_position": 4,
+          "data_type": "uuid",
+          "udt_name": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "is_generated": "NEVER"
+        }
+      ],
+      "constraints": [
+        {
+          "table_name": "pricing_proposal_source",
+          "name": "pricing_proposal_source_assignment_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL assignment_id"
+        },
+        {
+          "table_name": "pricing_proposal_source",
+          "name": "pricing_proposal_source_business_id_assignment_id_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (business_id, assignment_id) REFERENCES ms_b1_design.booking_policy_assignment(business_id, id)"
+        },
+        {
+          "table_name": "pricing_proposal_source",
+          "name": "pricing_proposal_source_business_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL business_id"
+        },
+        {
+          "table_name": "pricing_proposal_source",
+          "name": "pricing_proposal_source_business_id_proposal_id_assignment__key",
+          "type": "u",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "UNIQUE (business_id, proposal_id, assignment_id)"
+        },
+        {
+          "table_name": "pricing_proposal_source",
+          "name": "pricing_proposal_source_business_id_proposal_id_fkey",
+          "type": "f",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "FOREIGN KEY (business_id, proposal_id) REFERENCES ms_b1_design.pricing_proposal(business_id, id)"
+        },
+        {
+          "table_name": "pricing_proposal_source",
+          "name": "pricing_proposal_source_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL id"
+        },
+        {
+          "table_name": "pricing_proposal_source",
+          "name": "pricing_proposal_source_pkey",
+          "type": "p",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "table_name": "pricing_proposal_source",
+          "name": "pricing_proposal_source_proposal_id_not_null",
+          "type": "n",
+          "condeferrable": false,
+          "condeferred": false,
+          "definition": "NOT NULL proposal_id"
+        }
+      ]
+    }
+  ]
+}

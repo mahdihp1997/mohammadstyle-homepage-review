@@ -1,0 +1,7 @@
+# Remaining owner decisions and B4 prerequisites
+
+Real branch/offering prices/durations/buffers, quote TTL, policy wording/locale, fixed/percentage/bounds/optionality, cancellation/refund windows/base and legal/customer-rights exceptions remain unconfirmed. No test fixture is a salon rule. The existing v1 whole-Toman-compatible Rial/rounding mapping needs owner/merchant confirmation before real financial use. Permanent heterogeneous service strategy remains undecided; only explicit exact-set compatible whole policy can override the temporary fail-closed conflict guard.
+
+B4 needs trusted feasible provider/resource planning and server-authenticated handles; current configuration/capacity revalidation under shared lock order; dependency-closed final quote/resolution/booking/revision/hold/allocation schema; exact V2 document/relational equality, ownership/TTL/idempotency and explicit frozen policy acceptance. Commercial proposals are not final quotes and cannot bind a booking. Actual payment/capture/refund reserved/completed limits, legal exceptions and financial execution remain later separate gates.
+
+Prior B2H privacy/retention/history grants and historical timezone-change evidence gates remain; this task does not silently resolve them. Real roster/hours/resources/transfer rules, production authentication/MFA/recovery/HTTPS/distributed limits/backup operations remain unapproved. No B4, production deployment, payments, notifications or Portfolio CMS. Stop for B3 approval.

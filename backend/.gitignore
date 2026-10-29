@@ -12,3 +12,5 @@ prisma/introspected.prisma
 !.env.b2b.example
 
 !.env.b2h.example
+
+!.env.b3.example

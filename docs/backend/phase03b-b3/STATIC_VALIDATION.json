@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-10-29T23:41:04.868Z",
+  "checks": [
+    {
+      "name": "Old0001–0009 byte hashes preserved",
+      "status": "PASS"
+    },
+    {
+      "name": "Static PG18 parser 0010_b3_commercial_foundation.sql",
+      "status": "PASS",
+      "statements": 16,
+      "note": "Separate from actual fresh/upgrade/rollback/restore execution"
+    },
+    {
+      "name": "Static PG18 parser 0011_b3_pricing_policy_boundary.sql",
+      "status": "PASS",
+      "statements": 24,
+      "note": "Separate from actual fresh/upgrade/rollback/restore execution"
+    },
+    {
+      "name": "OpenAPI3.1 references/schema",
+      "status": "PASS",
+      "newOperations": 15,
+      "retainedB1B": 12
+    },
+    {
+      "name": "Independent sanitized B3 workflow branch/token/artifact boundary",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual78 targeted/security/concurrency/expiry and restore result consistency",
+      "status": "PASS",
+      "passed": 78,
+      "failed": 0,
+      "expectedDenials": 52
+    },
+    {
+      "name": "Original regression/current frontend result consistency",
+      "status": "PASS"
+    },
+    {
+      "name": "Protected UI/assets/old assertions/migrations architecture/backend/locks/workflow",
+      "status": "PASS"
+    },
+    {
+      "name": "Review page actual Chromium at1440/390; links/images/overflow/JS",
+      "status": "PASS"
+    },
+    {
+      "name": "Five decoded PNGs / safe standalone SVG sources / manual visual review",
+      "status": "PASS"
+    }
+  ]
+}
