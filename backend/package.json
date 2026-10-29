@@ -38,7 +38,16 @@
     "b1b:restore": "node scripts/b1b/backup.mjs restore",
     "b1b:start": "node dist/admin/main.js",
     "test:b1b": "node scripts/b1b/test.mjs",
-    "test:b1a:isolated": "node scripts/b1b/b1a-regression.mjs"
+    "test:b1a:isolated": "node scripts/b1b/b1a-regression.mjs",
+    "b2a:env": "node scripts/b2a/infra.mjs env",
+    "b2a:up": "node scripts/b2a/infra.mjs up",
+    "b2a:stop": "node scripts/b2a/infra.mjs stop",
+    "b2a:migrate": "node scripts/b2a/migrate.mjs",
+    "b2a:verify": "node scripts/b2a/verify.mjs",
+    "b2a:backup": "node scripts/b2a/backup.mjs backup",
+    "b2a:restore": "node scripts/b2a/backup.mjs restore",
+    "test:b2a": "node scripts/b2a/test.mjs",
+    "test:b1b:isolated": "node scripts/b2a/b1b-regression.mjs"
   },
   "dependencies": {
     "@nestjs/common": "12.3.2",

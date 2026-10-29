@@ -1,0 +1,3 @@
+# Sanitized public review
+
+Base public review/phase03b-b2a on existing public review/phase03b-b1b; do not import private commit objects/history. Shared backend SQL/scripts/logic/tests/workflow/reports are byte-identical to private tested source. Keep public placeholder images/system fonts. Omit private global PROJECT_CONTEXT (use sanitized snapshot), original photos/fonts/references/face screenshots, attachments, env/session secrets, database dumps, node_modules/dist/generated clients/caches/ignored harness links/scratch. New diagrams/evidence contain only implemented schema and synthetic execution. Existing PRs1–5 are untouched; no merge/force push.

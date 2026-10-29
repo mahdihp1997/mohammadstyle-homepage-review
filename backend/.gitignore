@@ -7,3 +7,4 @@ node_modules/
 prisma/generated/
 prisma/introspected.prisma
 !.env.b1b.example
+!.env.b2a.example

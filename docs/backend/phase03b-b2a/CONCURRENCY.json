@@ -1,0 +1,47 @@
+[
+  {
+    "name": "same-branch membership race",
+    "pids": [
+      4514,
+      4515
+    ],
+    "observedWait": {
+      "wait_event_type": "Lock",
+      "wait_event": "transactionid"
+    },
+    "firstCommitted": true,
+    "secondSqlstate": "23P01",
+    "constraint": "no_overlapping_membership_period",
+    "secondRows": 0
+  },
+  {
+    "name": "cross-branch shift race",
+    "pids": [
+      4516,
+      4517
+    ],
+    "observedWait": {
+      "wait_event_type": "Lock",
+      "wait_event": "transactionid"
+    },
+    "firstCommitted": true,
+    "secondSqlstate": "23P01",
+    "constraint": "no_cross_branch_staff_shift",
+    "secondRows": 0
+  },
+  {
+    "name": "optimistic resource CAS",
+    "pids": [
+      4524,
+      4526
+    ],
+    "observedWait": {
+      "wait_event_type": "Lock",
+      "wait_event": "transactionid"
+    },
+    "firstCommitted": true,
+    "secondSqlstate": null,
+    "constraint": null,
+    "secondRows": 0
+  }
+]

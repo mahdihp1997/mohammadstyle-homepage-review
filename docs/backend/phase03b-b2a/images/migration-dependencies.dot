@@ -1,0 +1,10 @@
+digraph{graph[bgcolor="#101820",pad="0.35",nodesep="0.4",ranksep="0.65"];node[shape=box,style="rounded,filled",fillcolor="#203442",color="#d8c497",fontcolor="#f4f7f9",fontname="Arial",fontsize=18,margin="0.18,0.14"];edge[color="#d8c497",fontcolor="#d8c497",fontname="Arial",fontsize=13];rankdir=TB;base[label="Approved B1B private2477f3b
+Original B0/B1A/B1B data + evidence preserved"];isolated[label="NEW B2A cluster55438
+Independent credentials / volume / marked DBs"];legacy[label="0001 ->0002 ->0003
+Exact original source/checksums/grants"];four[label="0004 approved dependency-closed11 tables
+2 generated ranges +2 GiST exclusions
+btree_gist; no booking cohort"];five[label="0005 local history/version/IANA guards
+No API grants or management endpoints"];actual[label="27 tables /82 FK /93 CHECK /84 indexes
+9 functions /12 triggers /4 RLS policies"];recovery[label="Actual pg_dump -> separate pg_restore
+Rows, generated expressions, constraints,
+indexes, functions/triggers/ACLs match"];base->isolated->legacy->four->five->actual->recovery;}
