@@ -1,0 +1,30 @@
+{
+  "verified_or_user_provided": {
+    "brand_name": "محمد استایل",
+    "brochure_title": "سالن ممتاز پونک",
+    "instagram": "mohammadstyle1",
+    "branch_count": 2,
+    "branch_1_location": "پونک، ساختمان رونیکا پالاس، لابی",
+    "services": [
+      "استایل دامادی",
+      "هیرکات مو",
+      "فیشیال صورت",
+      "ماساژ",
+      "مانیکور",
+      "پدیکور"
+    ]
+  },
+  "requires_verification": [
+    "legal_business_name",
+    "brand_final_name",
+    "branch_2_name_and_address",
+    "branch_specific_images",
+    "staff_names_and_schedule",
+    "services_by_branch",
+    "service_prices",
+    "service_durations",
+    "deposit_and_cancellation_policies",
+    "phone_numbers",
+    "photo_publication_rights"
+  ]
+}

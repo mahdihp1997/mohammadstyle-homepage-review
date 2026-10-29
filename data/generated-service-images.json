@@ -1,0 +1,73 @@
+{
+  "date": "2026-10-28",
+  "authorization": "Owner explicitly requested generated relevant imagery for the four remaining brochure services in this conversation.",
+  "generator": "Built-in image_gen tool; four independent calls with the exact shared style prefix.",
+  "usage": "Illustrative AI-generated service concepts only. Not client work, not salon-location or equipment evidence. Existing client-photo restrictions remain unchanged.",
+  "style": "Photorealistic editorial concept photography for a premium men's grooming service card. Unified series style: warm soft directional light from the upper left, restrained champagne highlights (#e9c890), charcoal and black environment (#111214, #08090a), tactile towels and natural skin texture, subtle warm desaturated cinematic grade, shallow depth of field, close three-quarter camera angle. Generic anonymous treatment space, no recognizable real person or salon. Portrait composition 2:3, intended final web export 640x960 pixels. The service action is unmistakable and centered in the upper two-thirds with room around it for narrow responsive crops; keep the lower third quiet and dark for HTML captions. Adult subjects only; professional nonsexual care. No text, lettering, signage, logos, watermarks, collages, UI, borders or brand marks. Natural correct anatomy, no extra fingers or limbs.",
+  "exportDimensions": {
+    "width": 640,
+    "height": 960
+  },
+  "images": [
+    {
+      "id": "facial",
+      "filename": "mohammadstyle-services-facial-concept.webp",
+      "alt": "تصویر مفهومی فیشیال مردانه؛ استفاده از براش ماسک روی گونه در فضای تیره و گرم",
+      "prompt": "Photorealistic editorial concept photography for a premium men's grooming service card. Unified series style: warm soft directional light from the upper left, restrained champagne highlights (#e9c890), charcoal and black environment (#111214, #08090a), tactile towels and natural skin texture, subtle warm desaturated cinematic grade, shallow depth of field, close three-quarter camera angle. Generic anonymous treatment space, no recognizable real person or salon. Portrait composition 2:3, intended final web export 640x960 pixels. The service action is unmistakable and centered in the upper two-thirds with room around it for narrow responsive crops; keep the lower third quiet and dark for HTML captions. Adult subjects only; professional nonsexual care. No text, lettering, signage, logos, watermarks, collages, UI, borders or brand marks. Natural correct anatomy, no extra fingers or limbs.\n\nPrimary subject: a male facial skincare treatment. Anonymous adult man resting on a treatment bed with eyes closed and a neat ivory towel headband; a practitioner's black nitrile gloved hand gently applying a thin white cosmetic mask to the cheek with one small spa brush. Face angled diagonally, include forehead and part of clean facial hair without suggesting a particular real client. Dark towel and blurred warm treatment light behind. Show the facial treatment clearly. No needles, no invasive procedure, no medical device or product branding.",
+      "generatedSource": "exec-beb6113d-d148-4644-95c8-e5dcad902fd0.png",
+      "width": 640,
+      "height": 960,
+      "bytes": 59632,
+      "sha256": "65840124d0d5053ff92974e1f3d173aa2312c18a546a965969a6592fa4c13ee7",
+      "sourceDimensions": {
+        "width": 1024,
+        "height": 1536
+      }
+    },
+    {
+      "id": "massage",
+      "filename": "mohammadstyle-services-massage-concept.webp",
+      "alt": "تصویر مفهومی ماساژ؛ دست‌های درمانگر روی شانه‌های مردی با پوشش حوله",
+      "prompt": "Photorealistic editorial concept photography for a premium men's grooming service card. Unified series style: warm soft directional light from the upper left, restrained champagne highlights (#e9c890), charcoal and black environment (#111214, #08090a), tactile towels and natural skin texture, subtle warm desaturated cinematic grade, shallow depth of field, close three-quarter camera angle. Generic anonymous treatment space, no recognizable real person or salon. Portrait composition 2:3, intended final web export 640x960 pixels. The service action is unmistakable and centered in the upper two-thirds with room around it for narrow responsive crops; keep the lower third quiet and dark for HTML captions. Adult subjects only; professional nonsexual care. No text, lettering, signage, logos, watermarks, collages, UI, borders or brand marks. Natural correct anatomy, no extra fingers or limbs.\n\nPrimary subject: professional men's shoulder and upper-back massage. Anonymous adult male lying prone on a massage bed, waist and lower body fully covered with a thick ivory towel. Crop around upper back and shoulders; face is outside frame. Two correctly formed bare practitioner hands applying gentle pressure to the trapezius muscles. Only a modest portion of shoulders and upper back visible, neutral professional wellness context. Dark linen, blurred charcoal surroundings, tiny warm brass lighting accents. No sensual pose, no nudity beyond the treatment area.",
+      "generatedSource": "exec-4d19cffb-d056-4b13-9ef5-22a6e19799cf.png",
+      "width": 640,
+      "height": 960,
+      "bytes": 47354,
+      "sha256": "bce5518f40ab095940afa2fee8f6b200246bfb9a548233570c549ad0162a809b",
+      "sourceDimensions": {
+        "width": 1024,
+        "height": 1536
+      }
+    },
+    {
+      "id": "manicure",
+      "filename": "mohammadstyle-services-manicure-concept.webp",
+      "alt": "تصویر مفهومی مانیکور مردانه؛ سوهان‌زدن ناخن طبیعی دست روی حولهٔ تیره",
+      "prompt": "Photorealistic editorial concept photography for a premium men's grooming service card. Unified series style: warm soft directional light from the upper left, restrained champagne highlights (#e9c890), charcoal and black environment (#111214, #08090a), tactile towels and natural skin texture, subtle warm desaturated cinematic grade, shallow depth of field, close three-quarter camera angle. Generic anonymous treatment space, no recognizable real person or salon. Portrait composition 2:3, intended final web export 640x960 pixels. The service action is unmistakable and centered in the upper two-thirds with room around it for narrow responsive crops; keep the lower third quiet and dark for HTML captions. Adult subjects only; professional nonsexual care. No text, lettering, signage, logos, watermarks, collages, UI, borders or brand marks. Natural correct anatomy, no extra fingers or limbs.\n\nPrimary subject: professional men's manicure, close-up of one adult masculine hand with natural short unpainted nails resting on folded charcoal towel. A practitioner's correctly formed black nitrile gloved hands gently stabilize one fingertip and shape the nail with a simple fine emery nail file. Show enough wrist and all five naturally arranged fingers to make the action clear, with generous framing around the working nail. An out-of-focus small steel manicure tool lies aside. No nail polish, artificial nails, jewelry, nail injuries, feet or branding.",
+      "generatedSource": "exec-f3e125a7-d338-4f65-bdc1-d668cf608b47.png",
+      "width": 640,
+      "height": 960,
+      "bytes": 50720,
+      "sha256": "b9121850b0669ad6705225a1dbb8c18ae861cd36f12245e0739c4790c8e78f96",
+      "sourceDimensions": {
+        "width": 1024,
+        "height": 1536
+      }
+    },
+    {
+      "id": "pedicure",
+      "filename": "mohammadstyle-services-pedicure-concept.webp",
+      "alt": "تصویر مفهومی پدیکور مردانه؛ مراقبت از کف پا و ناخن‌ها روی حولهٔ روشن",
+      "prompt": "Photorealistic editorial concept photography for a premium men's grooming service card. Unified series style: warm soft directional light from the upper left, restrained champagne highlights (#e9c890), charcoal and black environment (#111214, #08090a), tactile towels and natural skin texture, subtle warm desaturated cinematic grade, shallow depth of field, close three-quarter camera angle. Generic anonymous treatment space, no recognizable real person or salon. Portrait composition 2:3, intended final web export 640x960 pixels. The service action is unmistakable and centered in the upper two-thirds with room around it for narrow responsive crops; keep the lower third quiet and dark for HTML captions. Adult subjects only; professional nonsexual care. No text, lettering, signage, logos, watermarks, collages, UI, borders or brand marks. Natural correct anatomy, no extra fingers or limbs.\n\nPrimary subject: professional men's pedicure, an anonymous adult male foot resting naturally on a folded ivory towel with the lower leg exiting the top of the frame. A practitioner's correctly formed black nitrile gloved hands gently support the heel and use a small clean foot-care file on the heel, the other toes remain naturally relaxed and visible. Natural unpainted short toenails, exactly five anatomically correct toes, clean healthy skin. Blurred dark ceramic footbath in background, subtle warm brass accents. Matter-of-fact salon treatment photography, no injuries or invasive tools, no sensual or fetish framing, no hands being mistaken for feet.",
+      "generatedSource": "exec-89e65be3-ab0e-4b38-9879-b930ef35a020.png",
+      "width": 640,
+      "height": 960,
+      "bytes": 64210,
+      "sha256": "09c8261760451a4a2b30d9ef76ded623001a0ec1cc6d88a014976b9cf3477b64",
+      "sourceDimensions": {
+        "width": 1024,
+        "height": 1536
+      }
+    }
+  ]
+}

@@ -1,0 +1,297 @@
+{
+  "date": "2026-10-29",
+  "sourceCommit": "ec033307f82ef1160b188fdd6e405ba7bcdde06f",
+  "privateHistoryIncluded": false,
+  "privateImagePathsReplaced": [
+    {
+      "path": "public/images/barber-process.webp",
+      "placeholderSha256": "485f4cb8b65f6e34dd76340575b5a4aff978656294b4bef1dc4498b92ae2d350",
+      "privateAssetIncluded": false
+    },
+    {
+      "path": "public/images/barber-working.webp",
+      "placeholderSha256": "54f260570da07a4cb6dc0fcbcf5e8ec89b4891e6516d3038f9f2ce873389d262",
+      "privateAssetIncluded": false
+    },
+    {
+      "path": "public/images/before-after-groom.webp",
+      "placeholderSha256": "b1351a338445da51fdb9da1701dd9e5b9ad61ccb3421e20ad9d23b83d10d0ef7",
+      "privateAssetIncluded": false
+    },
+    {
+      "path": "public/images/before-after-hair.webp",
+      "placeholderSha256": "9d6466e68bdd47536a729049cf14ca6c9791e8681e0bf94b34dc6c90eddd8b0f",
+      "privateAssetIncluded": false
+    },
+    {
+      "path": "public/images/groom-look.webp",
+      "placeholderSha256": "b2071ae8b0c15645349da3d651850d79ac368a65177eef270dfee6db52b5c7d9",
+      "privateAssetIncluded": false
+    },
+    {
+      "path": "public/images/groom-occasion.webp",
+      "placeholderSha256": "3c52f2df8a4a6491116464741ade96dbd6278e3276636d7949a951b4c179eeb0",
+      "privateAssetIncluded": false
+    },
+    {
+      "path": "public/images/groom-team.webp",
+      "placeholderSha256": "cb87c984b7eaac71c197452fdd654c183d25d40d0617889bea7a833274137962",
+      "privateAssetIncluded": false
+    },
+    {
+      "path": "public/images/hair-after.webp",
+      "placeholderSha256": "4c5cc697c0ff8908bd38610d9ebdf161bc4a7a2be4f38e8450f73adc28a610d4",
+      "privateAssetIncluded": false
+    },
+    {
+      "path": "public/images/hair-before.webp",
+      "placeholderSha256": "449f377ece655fda6587fc42f80ae0136b58db07b763e22120a13b278a942a4b",
+      "privateAssetIncluded": false
+    },
+    {
+      "path": "public/images/hero-groom.webp",
+      "placeholderSha256": "364b304d92bbb24c81c15085912fa86a9ed6ff2924bf148884d3cb8a1d216d06",
+      "privateAssetIncluded": false
+    },
+    {
+      "path": "public/images/portrait-formal.webp",
+      "placeholderSha256": "26068f5142f8ff0d144b0c55dbe4d608da26d821199d39a7984201c7bff67731",
+      "privateAssetIncluded": false
+    },
+    {
+      "path": "public/images/portrait-styled.webp",
+      "placeholderSha256": "f75e819f9e3b0922f9b76e89c9767db1bf66fae9f925b4e2ceddd86e2548ce7b",
+      "privateAssetIncluded": false
+    },
+    {
+      "path": "public/images/salon-chairs.webp",
+      "placeholderSha256": "79906b2929891e50aab120b115796a9211cdea07471ac4619558d26060382370",
+      "privateAssetIncluded": false
+    },
+    {
+      "path": "public/images/salon-interior.webp",
+      "placeholderSha256": "bfda1d20b3341833fe5eeb3eefab45891538823fb6743a2148bea4f005dfdbfc",
+      "privateAssetIncluded": false
+    }
+  ],
+  "omitted": [
+    "app/fonts/",
+    "references/",
+    "artifacts/",
+    "legacy static preview files",
+    ".git/"
+  ],
+  "files": [
+    {
+      "path": ".gitignore",
+      "originalSha256": "c4d6c4e9af2567939700a66087a92c3c910068bd42c9e4d0934ba6739ffb1621",
+      "exportedSha256": "924ae129ce53b7988a18435d8404238f61bd55b5aee827f750375c21b28d3b24",
+      "changedForPublicReview": true
+    },
+    {
+      "path": "AGENTS.md",
+      "originalSha256": "d745755062c3b883b5bb0c38919fc97141861e5694c3dfd1d192bc553cbdf658",
+      "exportedSha256": "d745755062c3b883b5bb0c38919fc97141861e5694c3dfd1d192bc553cbdf658",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "README.md",
+      "originalSha256": "78ddab595e863da078d1febcb48fa14ac44e03cdb8ff54d6e4aff51ba2e9e181",
+      "exportedSha256": "3a7106b10652af7847e340dfba44ca1f35328ca798eab02edf50de585c203542",
+      "changedForPublicReview": true
+    },
+    {
+      "path": "START_HERE_CODEX.md",
+      "originalSha256": "c4cb01ee9c05c426059adf1eaded255cac7e46c0af07ba1dd1ee78d03a0426b9",
+      "exportedSha256": "c4cb01ee9c05c426059adf1eaded255cac7e46c0af07ba1dd1ee78d03a0426b9",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "app/globals.css",
+      "originalSha256": "f6ba0e1fe47c8e93ac74a7a7ca3afc214a891667184f16d5e3cc2c45f289fb0d",
+      "exportedSha256": "f6ba0e1fe47c8e93ac74a7a7ca3afc214a891667184f16d5e3cc2c45f289fb0d",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "app/icon.svg",
+      "originalSha256": "51946f5fbf1c06a92ace72ca36ab3ca690dfb09670ec6f387fd10dc3cf96e9b9",
+      "exportedSha256": "51946f5fbf1c06a92ace72ca36ab3ca690dfb09670ec6f387fd10dc3cf96e9b9",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "app/layout.tsx",
+      "originalSha256": "a3bd0cdd4e33efd40d6ffa0c16288c50d77f54dbb843f322d5e63a0941b52098",
+      "exportedSha256": "f16e6920b78b15e8ec23e7b010bdf034fab2f8438c62a9971706beacb2417f77",
+      "changedForPublicReview": true
+    },
+    {
+      "path": "app/page.tsx",
+      "originalSha256": "a4fa3f027766789ab2580e43b2c6ebd5e1235ff5470264e57ba376bc0de6c21f",
+      "exportedSha256": "a4fa3f027766789ab2580e43b2c6ebd5e1235ff5470264e57ba376bc0de6c21f",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "components/Homepage.tsx",
+      "originalSha256": "927fdf8eccb285e819d318b0b179e2fc6079463c733c1ab8b2bfe78fab80bf49",
+      "exportedSha256": "81c55fbeda2b02a6e777431b7427c782d09846d842ea38310cba96d819405b47",
+      "changedForPublicReview": true
+    },
+    {
+      "path": "components/Icon.tsx",
+      "originalSha256": "50f686b4949081c05d75fed6ef014af1699362bbd2c57f80539d8d04528ccc79",
+      "exportedSha256": "50f686b4949081c05d75fed6ef014af1699362bbd2c57f80539d8d04528ccc79",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "data/business-facts.json",
+      "originalSha256": "8557543a995998bbc9f9f382bb246424ad2905237edce18f6f10809c92380884",
+      "exportedSha256": "8557543a995998bbc9f9f382bb246424ad2905237edce18f6f10809c92380884",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "data/generated-service-images.json",
+      "originalSha256": "2f88858da195bd2f58eb14fbb8931caeb9b0e2302d41859eefd2309e16e4f25e",
+      "exportedSha256": "2f88858da195bd2f58eb14fbb8931caeb9b0e2302d41859eefd2309e16e4f25e",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "data/image-provenance.json",
+      "originalSha256": "0e9f6b34e321985a3efe4d927381376bf75914047efc8c79fac93f53e5e72cee",
+      "exportedSha256": "8b0d79c12f257e19c8df0dcf2a24422a6daee76d5992f4affb9ff7057af4cf06",
+      "changedForPublicReview": true
+    },
+    {
+      "path": "data/site.ts",
+      "originalSha256": "ee0f122cf2ad5af3bc9ad39c28b0e940f1da0afae17e7bd7cffdc3139b14acc9",
+      "exportedSha256": "ee0f122cf2ad5af3bc9ad39c28b0e940f1da0afae17e7bd7cffdc3139b14acc9",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "docs/ACCEPTANCE_CRITERIA.md",
+      "originalSha256": "6d99b1889282f43c508fa755bd752fd505b1d44ce556ae9c652e4e4919ec8214",
+      "exportedSha256": "6d99b1889282f43c508fa755bd752fd505b1d44ce556ae9c652e4e4919ec8214",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "docs/CODEX_BASELINE.md",
+      "originalSha256": "10516096416678876add48a339be4dd3ee73619fad9b1be516af59374488959d",
+      "exportedSha256": "10516096416678876add48a339be4dd3ee73619fad9b1be516af59374488959d",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "docs/CODEX_NEXT_PROMPT.md",
+      "originalSha256": "289d0da26a5074dbe9de834dd9d04b628a3bde0534db5aeae2fc3fd9cd1e7ea8",
+      "exportedSha256": "289d0da26a5074dbe9de834dd9d04b628a3bde0534db5aeae2fc3fd9cd1e7ea8",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "docs/FONT_PROVENANCE.md",
+      "originalSha256": "e7f61312a3f366ca8336373ab3b4dff2925bbc0b56cb9f8202aabd5b03256594",
+      "exportedSha256": "e7f61312a3f366ca8336373ab3b4dff2925bbc0b56cb9f8202aabd5b03256594",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "docs/PROJECT_CONTEXT.md",
+      "originalSha256": "ac6d7d05b1fdd5bd7ec6dbbcc7ee97888ef86c7a087239c2b014a197a4f98240",
+      "exportedSha256": "ac6d7d05b1fdd5bd7ec6dbbcc7ee97888ef86c7a087239c2b014a197a4f98240",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "docs/VISUAL_CONTRACT.md",
+      "originalSha256": "4ce9a48a6c6ace783c442b8275b37b65012c7e77dbdfb9d41b516957fd37769a",
+      "exportedSha256": "4ce9a48a6c6ace783c442b8275b37b65012c7e77dbdfb9d41b516957fd37769a",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "docs/VISUAL_REVIEW.md",
+      "originalSha256": "f6126b8e0f6a4663dee878982b7179d02da47a8b84f846d377c8530130fb9c31",
+      "exportedSha256": "f6126b8e0f6a4663dee878982b7179d02da47a8b84f846d377c8530130fb9c31",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "next-env.d.ts",
+      "originalSha256": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6",
+      "exportedSha256": "85ae5aee75f011967cf2d25cbc342f62d69314e9d925f7f4aa3456fc2cffcca6",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "next.config.ts",
+      "originalSha256": "28f6d022b82fcc9492c29609347770aad11efc9964d70c9d4066dd3e6ff31f8e",
+      "exportedSha256": "28f6d022b82fcc9492c29609347770aad11efc9964d70c9d4066dd3e6ff31f8e",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "package-lock.json",
+      "originalSha256": "44d1e24e6b47b940400768101670d1e0eb3d5a8ed7cad0d8a708a40d54406a85",
+      "exportedSha256": "44d1e24e6b47b940400768101670d1e0eb3d5a8ed7cad0d8a708a40d54406a85",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "package.json",
+      "originalSha256": "ecd84f179f624eddbc6ca412ca6555d1872d6545d116e77390ac149a7dfd3919",
+      "exportedSha256": "ecd84f179f624eddbc6ca412ca6555d1872d6545d116e77390ac149a7dfd3919",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "playwright.config.ts",
+      "originalSha256": "cdc58e8091ad896ff4d4e39bae39f20ca92211881593e76491db1708664028ad",
+      "exportedSha256": "94e0b4fa8beb8afd10745ad92d0814344c10a22307e84edd7ce9005fab6a85dd",
+      "changedForPublicReview": true
+    },
+    {
+      "path": "public/images/mohammadstyle-images/mohammadstyle-services-facial-concept.webp",
+      "originalSha256": "65840124d0d5053ff92974e1f3d173aa2312c18a546a965969a6592fa4c13ee7",
+      "exportedSha256": "65840124d0d5053ff92974e1f3d173aa2312c18a546a965969a6592fa4c13ee7",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "public/images/mohammadstyle-images/mohammadstyle-services-manicure-concept.webp",
+      "originalSha256": "b9121850b0669ad6705225a1dbb8c18ae861cd36f12245e0739c4790c8e78f96",
+      "exportedSha256": "b9121850b0669ad6705225a1dbb8c18ae861cd36f12245e0739c4790c8e78f96",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "public/images/mohammadstyle-images/mohammadstyle-services-massage-concept.webp",
+      "originalSha256": "bce5518f40ab095940afa2fee8f6b200246bfb9a548233570c549ad0162a809b",
+      "exportedSha256": "bce5518f40ab095940afa2fee8f6b200246bfb9a548233570c549ad0162a809b",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "public/images/mohammadstyle-images/mohammadstyle-services-pedicure-concept.webp",
+      "originalSha256": "09c8261760451a4a2b30d9ef76ded623001a0ec1cc6d88a014976b9cf3477b64",
+      "exportedSha256": "09c8261760451a4a2b30d9ef76ded623001a0ec1cc6d88a014976b9cf3477b64",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "scripts/create_owner_review.mjs",
+      "originalSha256": "81a5ab79154bcc3aa5755ee889c932815a0930660dce64bdf17a276fe1510519",
+      "exportedSha256": "81a5ab79154bcc3aa5755ee889c932815a0930660dce64bdf17a276fe1510519",
+      "changedForPublicReview": false
+    },
+    {
+      "path": "tests/homepage.spec.ts",
+      "originalSha256": "5eb35add18e2b35858d6516c0dabc3b4d97190c1f9011821063b30d532374ebd",
+      "exportedSha256": "0892ce311adc6974c1b8be6a74cd9bc813db701077bc1d1d1875e2d7ccd14d09",
+      "changedForPublicReview": true
+    },
+    {
+      "path": "tsconfig.json",
+      "originalSha256": "31b87c82bddc626a59a7299303a17c5c6934d0dfb01b293edf4d3481c65d9335",
+      "exportedSha256": "31b87c82bddc626a59a7299303a17c5c6934d0dfb01b293edf4d3481c65d9335",
+      "changedForPublicReview": false
+    }
+  ],
+  "publicValidation": {
+    "date": "2026-10-29",
+    "typecheckExit": 0,
+    "buildExit": 0,
+    "browserStats": {
+      "startTime": "2026-10-29T08:59:20.763Z",
+      "duration": 76090.224,
+      "expected": 16,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  }
+}

@@ -1,0 +1,3 @@
+/* Public code-review export only; the internal approved visual draft is unchanged. */
+:root { --font-iransans:Tahoma,Arial,sans-serif; --font-kahroba:Tahoma,Arial,sans-serif; }
+.public-review-notice { margin:0; padding:12px 24px; background:#292116; color:#f6ddb0; border-bottom:1px solid #b78c4e; font:13px/1.9 Tahoma,Arial,sans-serif; text-align:center; overflow-wrap:anywhere; }

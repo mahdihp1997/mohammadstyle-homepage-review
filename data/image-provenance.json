@@ -1,0 +1,23 @@
+{
+  "usage_status": "Public code-review export: all fourteen supplied client-image paths contain neutral labeled placeholders. The assets mapping records the PRIVATE internal source counterparts, not current public image content. Four separately generated service concepts remain visibly labeled. No original client photo is published.",
+  "assets": {
+    "hero-groom.webp": "IMG_2777.jpeg",
+    "barber-working.webp": "IMG_2776.jpeg",
+    "barber-process.webp": "IMG_2791.jpeg",
+    "salon-interior.webp": "IMG_2782.jpeg",
+    "salon-chairs.webp": "IMG_2781.jpeg",
+    "groom-look.webp": "IMG_2789.jpeg — owner identified this person as the barber in this conversation on 2026-10-28; show as barber portrait, not a customer result.",
+    "groom-occasion.webp": "IMG_2792.jpeg",
+    "groom-team.webp": "IMG_2790.jpeg",
+    "portrait-styled.webp": "IMG_2779.jpeg",
+    "portrait-formal.webp": "IMG_2778.jpeg",
+    "before-after-hair.webp": "IMG_2785.png",
+    "before-after-groom.webp": "IMG_2786.jpeg",
+    "hair-before.webp": "IMG_2785.png (left half)",
+    "hair-after.webp": "IMG_2785.png (right half)",
+    "mohammadstyle-images/mohammadstyle-services-facial-concept.webp": "Owner-requested AI-generated facial service concept, built-in image_gen; not a real salon/client photo. Full prompt and export details in generated-service-images.json.",
+    "mohammadstyle-images/mohammadstyle-services-massage-concept.webp": "Owner-requested AI-generated massage service concept, built-in image_gen; not a real salon/client photo. Full prompt and export details in generated-service-images.json.",
+    "mohammadstyle-images/mohammadstyle-services-manicure-concept.webp": "Owner-requested AI-generated manicure service concept, built-in image_gen; not a real salon/client photo. Full prompt and export details in generated-service-images.json.",
+    "mohammadstyle-images/mohammadstyle-services-pedicure-concept.webp": "Owner-requested AI-generated pedicure service concept, built-in image_gen; not a real salon/client photo. Full prompt and export details in generated-service-images.json."
+  }
+}
