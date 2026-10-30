@@ -1,6 +1,6 @@
 {
   "scope": "SANITIZED_MVP_SOURCE",
-  "privateCommit": "bfeb7c9cb48957751f1538341d938767bfdcf29e",
+  "privateCommit": "5f1dda5f9de6867f769702b9bf80cf119afee033",
   "publicBase": "51c868cc2963331c33e080fcc58efe804d4626c7",
   "files": [
     {
@@ -155,8 +155,8 @@
     },
     {
       "path": "backend/scripts/mvp/test.mjs",
-      "sha256": "3d36d2c32198d50f5b239ee03a6f718668d3a8a2b22c446fd870e697c6d82147",
-      "bytes": 36114
+      "sha256": "c1398ec3f62da92533c8ddf2fc59c8a8693fcf5a9c75fe857ca6f28df44a45fa",
+      "bytes": 37847
     },
     {
       "path": "backend/scripts/mvp/ui-media.mjs",
@@ -190,8 +190,8 @@
     },
     {
       "path": "backend/src/mvp/media.ts",
-      "sha256": "40a8d2efc79a85a768fae8c944f6f1dd89d2b7f2e11b56c7dcb1e0e62525adbf",
-      "bytes": 15987
+      "sha256": "976e2a5eb7a5fd0141e5633ec31157c45314e850024b163994214d8dbca919f7",
+      "bytes": 16193
     },
     {
       "path": "backend/src/mvp/repository.ts",
@@ -270,8 +270,8 @@
     },
     {
       "path": "docs/backend/mvp-integration/TECHNICAL_REPORT.md",
-      "sha256": "efccfa3c2168155f79706d2651bfae225e6b9634b12ed928b25fa72b66df486f",
-      "bytes": 6549
+      "sha256": "e9cd996037812a6e4e3f85d42913749aace43d4853923d469c0b9a00220276a6",
+      "bytes": 7074
     },
     {
       "path": "docs/backend/mvp-integration/VISUAL_REVIEW.md",
@@ -280,8 +280,8 @@
     },
     {
       "path": "docs/backend/mvp-integration/evidence/VALIDATION.json",
-      "sha256": "7ace7dcf58e79be1c0b306f21b110887554239e5b533add9e8c6d55826d6f5c4",
-      "bytes": 3312
+      "sha256": "34fb3bd43c13aec1d05ff9d13cb3ee07507d76e13facd029de379e9ebfcf3585",
+      "bytes": 3473
     },
     {
       "path": "docs/backend/mvp-integration/evidence/b0-regression.json",
@@ -340,8 +340,8 @@
     },
     {
       "path": "docs/backend/mvp-integration/evidence/integration.json",
-      "sha256": "84652ee897fa9edcfbbdc1624ea2c95660ead5ec6a0220e7b72f3988ede76e0f",
-      "bytes": 5637
+      "sha256": "2d8b571c5f42f0f66b7d1eb3e2c3d6132ce56afe384fd0ec4091fa0786548ad4",
+      "bytes": 5784
     },
     {
       "path": "docs/backend/mvp-integration/evidence/media-restore.json",

@@ -8,6 +8,7 @@ import { client, connection, root, save, identify } from "./local.mjs";
 import { createFixture } from "./fixture.mjs";
 import { hash, terms } from "../b4/fixtures.mjs";
 import { createMvpApp } from "../../dist/mvp/app.js";
+import { MvpRepository } from "../../dist/mvp/repository.js";
 import {
   LocalMediaStorage,
   S3MediaStorage,
@@ -599,6 +600,60 @@ try {
     const gallery = await ok("portfolio");
     assert.equal(gallery.items.length, 0);
     await denied("portfolio/" + asset.id + "/DISPLAY", 404, { binary: true });
+  });
+  await test("two uploads racing during real authorization admit exactly one processor and release the gate", async () => {
+    const repo = app.get(MvpRepository),
+      original = repo.mediaAuthorize.bind(repo);
+    let release,
+      entered,
+      calls = 0;
+    const gate = new Promise((resolve) => (release = resolve)),
+      arrived = new Promise((resolve) => (entered = resolve));
+    repo.mediaAuthorize = async (...args) => {
+      const result = await original(...args);
+      if (++calls === 1) {
+        entered();
+        await gate;
+      }
+      return result;
+    };
+    let first;
+    try {
+      first = request("admin/media/upload", {
+        method: "POST",
+        data: {
+          fileName: "race-first.png",
+          base64: image.toString("base64"),
+          branchId: f.branch.id,
+        },
+      });
+      await Promise.race([
+        arrived,
+        new Promise((_, reject) => {
+          const t = setTimeout(
+            () => reject(Error("authorization barrier timeout")),
+            5000,
+          );
+          t.unref();
+        }),
+      ]);
+      const second = await request("admin/media/upload", {
+        method: "POST",
+        data: {
+          fileName: "race-second.png",
+          base64: image.toString("base64"),
+          branchId: f.branch.id,
+        },
+      });
+      assert.equal(second.status, 429);
+      assert.equal(second.body.code, "MEDIA_PROCESSOR_BUSY");
+      assert.equal(calls, 1);
+    } finally {
+      release();
+      if (first) assert.equal((await first).status, 201);
+      repo.mediaAuthorize = original;
+    }
+    assert.ok((await upload("race-after-release.png", image)).items.length);
   });
   await test("parallel authenticated thumbnail delivery preserves session security without serialization failures", async () => {
     const responses = await Promise.all(

@@ -216,23 +216,8 @@ export class MediaService {
   async upload(e: Evidence, key: string, raw: unknown) {
     if (this.busy) return fail("MEDIA_PROCESSOR_BUSY", 429);
     const file = decodeUpload(raw);
-    // Authorization precedes ZIP parsing, decoding images or executing native video tools.
-    await this.repo.mediaAuthorize(e.hash, e.csrf, file.branchId);
-    const digest = sha(
-      Buffer.concat([
-        Buffer.from(JSON.stringify({ name: file.name, branch: file.branchId })),
-        file.bytes,
-      ]),
-    );
-    const prior = await this.repo.portalRead(
-      e.hash,
-      "upload-receipt",
-      file.branchId,
-      null,
-      0,
-      { key, hash: digest },
-    );
-    if (prior) return prior;
+    // Acquire synchronously, before any await: two authorized requests must never
+    // both pass an idle check while authorization/receipt lookup is pending.
     this.busy = true;
     let scratch: string | undefined;
     const deadline = Date.now() + 120000;
@@ -242,6 +227,25 @@ export class MediaService {
       return Math.min(limit, remaining);
     };
     try {
+      // Authorization still precedes ZIP/image parsing and native video tools.
+      await this.repo.mediaAuthorize(e.hash, e.csrf, file.branchId);
+      const digest = sha(
+        Buffer.concat([
+          Buffer.from(
+            JSON.stringify({ name: file.name, branch: file.branchId }),
+          ),
+          file.bytes,
+        ]),
+      );
+      const prior = await this.repo.portalRead(
+        e.hash,
+        "upload-receipt",
+        file.branchId,
+        null,
+        0,
+        { key, hash: digest },
+      );
+      if (prior) return prior;
       await this.storage.prepare?.();
       scratch = await fs.mkdtemp(path.join(tmpdir(), "ms-mvp-media-"));
       const zipped = /\.zip$/i.test(file.name);

@@ -40,3 +40,7 @@ Native processing produces metadata-stripped WebP thumbnails/display images and 
 S3 checks use the actual official SDK against an independently signature-verifying local protocol fixture. A live cloud account/provider was not configured or tested; an attempted official MinIO image pull was rejected by its registry. No live-cloud success is claimed.
 
 Production identity/login/recovery/MFA, real salon workforce/pricing/policies, legal consent verification/retention, production S3/provider recovery, CDN strategy and operational deployment remain approval decisions. There is no production auth bypass. Synthetic fixtures are explicitly separate from real salon data. This phase is ready for review, not production release.
+
+## Final upload admission hardening
+
+The process-wide media gate is acquired synchronously before the first authorization/receipt await and released in finally, including authorization failures and idempotent returns. Two uploads racing during actual database authorization now admit exactly one processor; the other receives a retryable 429. A real HTTP/SQL barrier regression verifies admission and later gate release. All 41 integration cases pass; Booking isolation, authorization and commercial behavior are unchanged.
