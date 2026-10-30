@@ -1,0 +1,1115 @@
+{
+  "kind": "ACTUAL_PLAYWRIGHT_NEXT_BROWSER",
+  "startTime": "2026-10-30T16:27:38.673Z",
+  "duration": 202037.203,
+  "expected": 92,
+  "skipped": 0,
+  "unexpected": 0,
+  "flaky": 0,
+  "cases": [
+    {
+      "name": "Jalali Nowruz/leap boundaries, ISO date validation and Tehran midnight",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 46,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "unknown totals stay unknown; explicit demo arithmetic and policy cases",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 11,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "eligibility and reducer reject unconfigured branches and stale selections",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 7,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "Jalali Nowruz/leap boundaries, ISO date validation and Tehran midnight",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 37,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "unknown totals stay unknown; explicit demo arithmetic and policy cases",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 10,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "eligibility and reducer reject unconfigured branches and stale selections",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 8,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "Jalali Nowruz/leap boundaries, ISO date validation and Tehran midnight",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 37,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "unknown totals stay unknown; explicit demo arithmetic and policy cases",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 10,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "eligibility and reducer reject unconfigured branches and stale selections",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 7,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "Jalali Nowruz/leap boundaries, ISO date validation and Tehran midnight",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 39,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "unknown totals stay unknown; explicit demo arithmetic and policy cases",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 10,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "eligibility and reducer reject unconfigured branches and stale selections",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 8,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "slot selection accepts only a provider ID; forged objects cannot become the draft slot",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 5,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "slot metadata, selectable status, staff and duplicate identities are checked again at final preview",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 21,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "late responses and clicks are rejected across A-B-A dates, same-key retries and errors",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 6,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "every scheduling edit immediately invalidates the authoritative availability response",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 19,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "branch-specific offerings drive rates, durations, buffers, active state and staff intersection",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 8,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "missing, inactive, duplicate and invalid branch configuration fails closed without partial totals",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 17,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "configuration snapshots invalidate old slots when branch timezone or an offering changes",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 12,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "policy context changes clear incompatible scenarios, optional deposits and preview snapshots",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 12,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "final validation rejects an injected unrelated policy even with an otherwise valid current slot",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "the actual cancellable demo provider supplies slots resolved against the same request",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 463,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "slot selection accepts only a provider ID; forged objects cannot become the draft slot",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "slot metadata, selectable status, staff and duplicate identities are checked again at final preview",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 20,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "late responses and clicks are rejected across A-B-A dates, same-key retries and errors",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 7,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "every scheduling edit immediately invalidates the authoritative availability response",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 9,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "branch-specific offerings drive rates, durations, buffers, active state and staff intersection",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 5,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "missing, inactive, duplicate and invalid branch configuration fails closed without partial totals",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 10,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "configuration snapshots invalidate old slots when branch timezone or an offering changes",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 7,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "policy context changes clear incompatible scenarios, optional deposits and preview snapshots",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 6,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "final validation rejects an injected unrelated policy even with an otherwise valid current slot",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "the actual cancellable demo provider supplies slots resolved against the same request",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 457,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "slot selection accepts only a provider ID; forged objects cannot become the draft slot",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "slot metadata, selectable status, staff and duplicate identities are checked again at final preview",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 17,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "late responses and clicks are rejected across A-B-A dates, same-key retries and errors",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 6,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "every scheduling edit immediately invalidates the authoritative availability response",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 8,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "branch-specific offerings drive rates, durations, buffers, active state and staff intersection",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 5,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "missing, inactive, duplicate and invalid branch configuration fails closed without partial totals",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 11,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "configuration snapshots invalidate old slots when branch timezone or an offering changes",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 9,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "policy context changes clear incompatible scenarios, optional deposits and preview snapshots",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 8,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "final validation rejects an injected unrelated policy even with an otherwise valid current slot",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "the actual cancellable demo provider supplies slots resolved against the same request",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 476,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "slot selection accepts only a provider ID; forged objects cannot become the draft slot",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "slot metadata, selectable status, staff and duplicate identities are checked again at final preview",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 18,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "late responses and clicks are rejected across A-B-A dates, same-key retries and errors",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 5,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "every scheduling edit immediately invalidates the authoritative availability response",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 8,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "branch-specific offerings drive rates, durations, buffers, active state and staff intersection",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 5,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "missing, inactive, duplicate and invalid branch configuration fails closed without partial totals",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 10,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "configuration snapshots invalidate old slots when branch timezone or an offering changes",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 7,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "policy context changes clear incompatible scenarios, optional deposits and preview snapshots",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 6,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "final validation rejects an injected unrelated policy even with an otherwise valid current slot",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "the actual cancellable demo provider supplies slots resolved against the same request",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 462,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "Homepage entry preserves service, validates choices and handles unknown values",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 8299,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "all booking steps, demo totals and policy scenarios produce a preview without a reservation",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 7736,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "eligibility, upstream edits, empty dates and asynchronous invalidation remain consistent",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 7390,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "Jalali keyboard/month navigation, disabled dates and mobile target bounds",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4090,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "changing branch clears a chosen policy and optional deposit before the next preview",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4887,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "server-rendered form cannot submit before hydration or without JavaScript",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1110,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "Homepage entry preserves service, validates choices and handles unknown values",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 8750,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "all booking steps, demo totals and policy scenarios produce a preview without a reservation",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 7088,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "eligibility, upstream edits, empty dates and asynchronous invalidation remain consistent",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 8240,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "Jalali keyboard/month navigation, disabled dates and mobile target bounds",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 3486,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "changing branch clears a chosen policy and optional deposit before the next preview",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 5068,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "server-rendered form cannot submit before hydration or without JavaScript",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1237,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "Homepage entry preserves service, validates choices and handles unknown values",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 8670,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "all booking steps, demo totals and policy scenarios produce a preview without a reservation",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 6383,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "eligibility, upstream edits, empty dates and asynchronous invalidation remain consistent",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 7418,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "Jalali keyboard/month navigation, disabled dates and mobile target bounds",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 3968,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "changing branch clears a chosen policy and optional deposit before the next preview",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 5232,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "server-rendered form cannot submit before hydration or without JavaScript",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1124,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "Homepage entry preserves service, validates choices and handles unknown values",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 8253,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "all booking steps, demo totals and policy scenarios produce a preview without a reservation",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 6637,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "eligibility, upstream edits, empty dates and asynchronous invalidation remain consistent",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 7127,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "Jalali keyboard/month navigation, disabled dates and mobile target bounds",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 3917,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "changing branch clears a chosen policy and optional deposit before the next preview",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 5316,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "server-rendered form cannot submit before hydration or without JavaScript",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1027,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "real Next.js render, factual content, assets, RTL and review screenshots",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 5248,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "portfolio filters and Before/After pointer and keyboard operation",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2663,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "service preview, drawer focus loop, isolation and all close methods",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4892,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "navigation, mobile menu Escape and focus, skip link",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2378,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "real Next.js render, factual content, assets, RTL and review screenshots",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4574,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "portfolio filters and Before/After pointer and keyboard operation",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2928,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "service preview, drawer focus loop, isolation and all close methods",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4645,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "navigation, mobile menu Escape and focus, skip link",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2408,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "real Next.js render, factual content, assets, RTL and review screenshots",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4551,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "portfolio filters and Before/After pointer and keyboard operation",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2972,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "service preview, drawer focus loop, isolation and all close methods",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4410,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "navigation, mobile menu Escape and focus, skip link",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 3032,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "real Next.js render, factual content, assets, RTL and review screenshots",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4302,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "portfolio filters and Before/After pointer and keyboard operation",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2918,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "service preview, drawer focus loop, isolation and all close methods",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4136,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "navigation, mobile menu Escape and focus, skip link",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 3361,
+          "errorCount": 0
+        }
+      ]
+    }
+  ]
+}

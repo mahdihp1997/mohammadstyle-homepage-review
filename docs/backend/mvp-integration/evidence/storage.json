@@ -1,0 +1,38 @@
+{
+  "kind": "ACTUAL_OFFICIAL_SDK_LOCAL_S3_PROTOCOL_FIXTURE",
+  "liveCloudProviderTested": false,
+  "tests": [
+    {
+      "name": "official SDK signs private bucket policy and owner ACL checks",
+      "status": "PASS"
+    },
+    {
+      "name": "conditional private PUT and streamed GET preserve actual bytes",
+      "status": "PASS"
+    },
+    {
+      "name": "same-byte retries are idempotent, changed bytes cannot overwrite",
+      "status": "PASS"
+    },
+    {
+      "name": "actual signed Range GET validates response bounds",
+      "status": "PASS"
+    },
+    {
+      "name": "public ACL fails closed before any media delivery",
+      "status": "PASS"
+    },
+    {
+      "name": "any bucket policy fails closed before publication delivery",
+      "status": "PASS"
+    },
+    {
+      "name": "traversal key is rejected without network access",
+      "status": "PASS"
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 0
+  }
+}

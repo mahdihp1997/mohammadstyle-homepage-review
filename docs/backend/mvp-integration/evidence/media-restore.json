@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "kind": "ACTUAL_LOCAL_OBJECT_BACKUP_AND_SEPARATE_COPY_RESTORE",
+  "objects": 133,
+  "manifestSha256": "7904bce3a314436e8592de5a73be7377384e182e5dd2964bfd6e779a2463b6f2",
+  "sourceUntouched": true,
+  "liveS3BackupTested": false
+}

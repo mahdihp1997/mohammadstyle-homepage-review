@@ -85,21 +85,38 @@
     "test:b4": "node scripts/b4/test.mjs && node scripts/b4/extra.mjs",
     "test:b3:isolated": "node scripts/b4/b3-regression.mjs",
     "b4:ui-fixture": "node scripts/b4/ui-fixture.mjs",
-    "b4:reap": "node scripts/b4/reap.mjs"
+    "b4:reap": "node scripts/b4/reap.mjs",
+    "mvp:env": "node scripts/mvp/infra.mjs env",
+    "mvp:up": "node scripts/mvp/infra.mjs up",
+    "mvp:stop": "node scripts/mvp/infra.mjs stop",
+    "mvp:migrate": "node scripts/mvp/migrate.mjs",
+    "mvp:verify": "node scripts/mvp/verify.mjs",
+    "mvp:backup": "node scripts/mvp/backup.mjs backup",
+    "mvp:restore": "node scripts/mvp/backup.mjs restore",
+    "mvp:start": "node scripts/mvp/start.mjs",
+    "mvp:fixture": "node scripts/mvp/fixture.mjs",
+    "test:mvp": "node scripts/mvp/test.mjs",
+    "test:mvp:storage": "node scripts/mvp/storage-test.mjs",
+    "test:mvp:schema": "node scripts/mvp/schema-test.mjs",
+    "test:b4:isolated": "node scripts/mvp/b4-regression.mjs"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "3.1160.0",
     "@nestjs/common": "12.3.2",
     "@nestjs/core": "12.3.2",
     "@nestjs/platform-express": "12.3.2",
     "pg": "8.23.1",
     "reflect-metadata": "0.2.2",
-    "rxjs": "7.8.2"
+    "rxjs": "7.8.2",
+    "sharp": "0.35.5",
+    "yauzl": "3.4.0"
   },
   "devDependencies": {
     "@prisma/adapter-pg": "7.10.1",
     "@prisma/client": "7.10.1",
     "@types/node": "24.10.1",
     "@types/pg": "8.23.1",
+    "@types/yauzl": "3.4.0",
     "prisma": "7.10.1",
     "typescript": "5.9.3"
   }

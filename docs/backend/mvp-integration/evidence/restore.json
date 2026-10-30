@@ -1,0 +1,303 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-10-30T16:38:42.676Z",
+  "source": "ms_mvp_dev",
+  "destination": "ms_mvp_restore",
+  "sourceUntouched": true,
+  "rowsAndCatalogEqual": true,
+  "archiveSha256": "b25acc5c15dddf1bdc408a1f2890ceb8e81ad4c140840eebc1e5de356b2de120",
+  "summary": {
+    "sha256": "bd9a6073012cba09541963c66bffe5927a533f05f7c013e8698fe3139e232341",
+    "tables": 55,
+    "indexes": 172,
+    "functions": 63,
+    "foreignKeys": 153,
+    "checks": 188
+  },
+  "snapshot": {
+    "catalogSha256": "bd9a6073012cba09541963c66bffe5927a533f05f7c013e8698fe3139e232341",
+    "tables": 55,
+    "rows": [
+      {
+        "table": "ms_b1_design.app_user",
+        "count": 96,
+        "sha256": "3cb6ecd2782e3a0477a00e775aebe93d497c6cb754de3690f1972498c149ebee"
+      },
+      {
+        "table": "ms_b1_design.audit_log",
+        "count": 433,
+        "sha256": "66f2a1a34e3aeb6c656a050697925441328e1c4547d5cc340b55b9fb0b949cf4"
+      },
+      {
+        "table": "ms_b1_design.auth_identity",
+        "count": 86,
+        "sha256": "f529e96cf7b6ed9509272c88bbd5d2f732b9dbf1b0f11fcdc5aaa27850f39dae"
+      },
+      {
+        "table": "ms_b1_design.auth_session",
+        "count": 96,
+        "sha256": "340cc75e872b3c460538129fcfd6c30f7ee7e0c46b8f4135df3c4a53690882cf"
+      },
+      {
+        "table": "ms_b1_design.availability_configuration",
+        "count": 10,
+        "sha256": "1b9e75dd60a0c238f1eb2600d4998e57a76875d693dc021bbf3b2d11fa14c475"
+      },
+      {
+        "table": "ms_b1_design.booking",
+        "count": 25,
+        "sha256": "1637300cc8139515045b08983183adfadb4f8aa60b12dbcdf59601fe718bf10c"
+      },
+      {
+        "table": "ms_b1_design.booking_hold",
+        "count": 29,
+        "sha256": "f3119c7b2b3ea11f7d8e37fcb4abda95820d4dfdefcdd9d67941fe00b409eb9b"
+      },
+      {
+        "table": "ms_b1_design.booking_plan",
+        "count": 246,
+        "sha256": "27edf4e542658403898b3cab416aa89ab347e68156debb76427b831a78bcbfde"
+      },
+      {
+        "table": "ms_b1_design.booking_policy",
+        "count": 21,
+        "sha256": "3be56eda972bbe0a7b00a7bbd4b186a6ae3ba15a3f7fe770aa2cf06ddc7df0b2"
+      },
+      {
+        "table": "ms_b1_design.booking_policy_acceptance",
+        "count": 29,
+        "sha256": "fbf18b0c185d1e560d1c458159326dd4e7a4673676cb965e90484d5cb6d30d5d"
+      },
+      {
+        "table": "ms_b1_design.booking_policy_assignment",
+        "count": 12,
+        "sha256": "7d34b8e3532a9313f6e81adfe361445e7313882d610f2e7169f69dd46eb37c34"
+      },
+      {
+        "table": "ms_b1_design.booking_policy_version",
+        "count": 16,
+        "sha256": "2255d9178e7c275b5ca08d69907647119be69e1c3311a932eed75993ada9ef47"
+      },
+      {
+        "table": "ms_b1_design.booking_revision",
+        "count": 29,
+        "sha256": "5f64bbd4e7b5b72623700b832891e4a0b04871cd35e2018e18231701e59167db"
+      },
+      {
+        "table": "ms_b1_design.booking_service_segment",
+        "count": 58,
+        "sha256": "9f189f0f5d77c24626d18722c3f7441b3f2b3745b9b8a04b6a80f60f7028b13f"
+      },
+      {
+        "table": "ms_b1_design.booking_status_history",
+        "count": 103,
+        "sha256": "6a73f7335c73db290f0b88c452cfcc7a1285912150ebfd8a1a45af7aebd6fe9d"
+      },
+      {
+        "table": "ms_b1_design.branch",
+        "count": 30,
+        "sha256": "c0610173a67e6ad99b725e61cd853df2d025df2f140fdf998f96f216757ee4c7"
+      },
+      {
+        "table": "ms_b1_design.branch_closure",
+        "count": 0,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "table": "ms_b1_design.branch_service_offering",
+        "count": 24,
+        "sha256": "1273efe04e0fcb44367c1f3a7b9be01df8b1d1815091e4c2aae4e9d8f9b43bfc"
+      },
+      {
+        "table": "ms_b1_design.branch_working_hours",
+        "count": 10,
+        "sha256": "89adfaeb2b70db95bf9fd717e38f913ad780f47217898494fa1f294f3801a899"
+      },
+      {
+        "table": "ms_b1_design.business",
+        "count": 10,
+        "sha256": "1f141cd1a1c36e10a81a42fafcac65f0765e36844b8fd016d9206300807adc99"
+      },
+      {
+        "table": "ms_b1_design.consumer_inbox",
+        "count": 0,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "table": "ms_b1_design.idempotency_record",
+        "count": 508,
+        "sha256": "ed75885ac6ac063f9c2df18ff9d3c1b2a65b91329b03948d2037f6698e4d404c"
+      },
+      {
+        "table": "ms_b1_design.media_asset",
+        "count": 42,
+        "sha256": "988205b10cdf1b6626120ba73f09726715d36dca3da03c03deeb897db69ac51b"
+      },
+      {
+        "table": "ms_b1_design.media_asset_category",
+        "count": 20,
+        "sha256": "626918c6a117eab970e8449b023b25e762acdfa01f4d7387b89e8d5c9a9d45bc"
+      },
+      {
+        "table": "ms_b1_design.media_category",
+        "count": 20,
+        "sha256": "0bdc860c357bb901bce048df9a43b4a760b5a8204ca6ddb3d9113fed68c95ab5"
+      },
+      {
+        "table": "ms_b1_design.media_rights_event",
+        "count": 45,
+        "sha256": "6b7489c37a95d6d3bffcf6b5ab33221c262589a540fc19f7de0142419f266fc3"
+      },
+      {
+        "table": "ms_b1_design.media_variant",
+        "count": 91,
+        "sha256": "7bca465c7a9b8a86177e0f0b8f6a3691130e9ee6ce067edb1669ee8170cd0ca1"
+      },
+      {
+        "table": "ms_b1_design.offering_resource_requirement",
+        "count": 44,
+        "sha256": "1244e85e4831f8f8e4357648146d3e59f93949ad7ed6e7063f5573c4c833195f"
+      },
+      {
+        "table": "ms_b1_design.offering_staff_eligibility",
+        "count": 40,
+        "sha256": "86f5fcfe96a1c09dd00892330df5d7a7f5eb773b2204cc54a714bf6b0dd77dd7"
+      },
+      {
+        "table": "ms_b1_design.outbox_event",
+        "count": 433,
+        "sha256": "9dc1d8aacad2f987306c68d241a912221b05ff6750aaafad298f9ec1747aef02"
+      },
+      {
+        "table": "ms_b1_design.permission",
+        "count": 31,
+        "sha256": "e40ee3142370b9487b0119e9b58ff06df37a76b46708855459de2ddd6326050f"
+      },
+      {
+        "table": "ms_b1_design.policy_assignment_compatibility",
+        "count": 0,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "table": "ms_b1_design.policy_assignment_service",
+        "count": 0,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "table": "ms_b1_design.policy_refund_window",
+        "count": 0,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "table": "ms_b1_design.pricing_configuration_revision",
+        "count": 10,
+        "sha256": "3a0c75a3250c207ff93c805e35c5074adfa045bbc4fcfb813b3488a60ed6f04a"
+      },
+      {
+        "table": "ms_b1_design.pricing_proposal",
+        "count": 0,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "table": "ms_b1_design.pricing_proposal_item",
+        "count": 0,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "table": "ms_b1_design.pricing_proposal_source",
+        "count": 0,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "table": "ms_b1_design.pricing_quote",
+        "count": 41,
+        "sha256": "da511cd3207cd768c9ce0eb9e5b47038f8c874da309f6ec29364fbbfb9aec7c1"
+      },
+      {
+        "table": "ms_b1_design.pricing_quote_item",
+        "count": 82,
+        "sha256": "0954c8faa6c8b198b9e8be44456e899ad2bb567deb72aef6867a6a422f0937af"
+      },
+      {
+        "table": "ms_b1_design.quote_policy_source",
+        "count": 82,
+        "sha256": "62c83050510f6eabf20a19d4d3c2addd7937db6b20599ec0cd86c33d85249f3f"
+      },
+      {
+        "table": "ms_b1_design.resource",
+        "count": 60,
+        "sha256": "b8c4749eb4fe864478fd86d1aa6226fa590eb648dda072ab90b60e7906385e48"
+      },
+      {
+        "table": "ms_b1_design.resource_allocation",
+        "count": 116,
+        "sha256": "e03ce8de373827f94a3250b8ec16f178c047e6938533ee256386e9b8893f2799"
+      },
+      {
+        "table": "ms_b1_design.role",
+        "count": 96,
+        "sha256": "a2b0ecbce1a39dc3564e24bff75589ad8837233474377bde309546c9dfda5b27"
+      },
+      {
+        "table": "ms_b1_design.role_permission",
+        "count": 386,
+        "sha256": "69692a4785e9a2a4c57b2cca1e0c6a658959db9d6b8d67f5c1353101bbd3348a"
+      },
+      {
+        "table": "ms_b1_design.segment_resource_assignment",
+        "count": 174,
+        "sha256": "9b98dd91adb21c0989a3e2406ed52ee908f1b72aebf539a1f9c2533af9a68d7f"
+      },
+      {
+        "table": "ms_b1_design.service",
+        "count": 30,
+        "sha256": "48353cf1eb008f4e336031d0db5efc582b7b99fcbe3aac9891981f6bd970cd5b"
+      },
+      {
+        "table": "ms_b1_design.staff",
+        "count": 30,
+        "sha256": "49e7aa8ba53767befa76ccd6985e7a1232b593541192f32341217a5e62501a07"
+      },
+      {
+        "table": "ms_b1_design.staff_branch_assignment",
+        "count": 24,
+        "sha256": "78059f9d252ef02d48f07de833c990099228f8e1ddc88e55351597f61b99a937"
+      },
+      {
+        "table": "ms_b1_design.staff_schedule_rule",
+        "count": 0,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "table": "ms_b1_design.staff_service_eligibility",
+        "count": 40,
+        "sha256": "c8b2504b154aa3795bafab4d962922724541866e49e8d71a81fd9cf985f95f1d"
+      },
+      {
+        "table": "ms_b1_design.staff_shift",
+        "count": 20,
+        "sha256": "db1246849f20de7481d392a801b0ad18c050c47c93d0be0513e303bc2682a82f"
+      },
+      {
+        "table": "ms_b1_design.staff_time_off",
+        "count": 3,
+        "sha256": "d7f79fab7226e99cdac653a254d08255c63d6954c2ca83601d1979ddb6daa736"
+      },
+      {
+        "table": "ms_b1_design.user_role_assignment",
+        "count": 96,
+        "sha256": "7c5e996602ad513f87d326ac692873caab9b956f8736ee2de042168cb418cee9"
+      },
+      {
+        "table": "ms_b1_design.workforce_calendar_revision",
+        "count": 8,
+        "sha256": "efa9ea8294e50ab9f2a70c11e9cee7d01e00562f4da944e8d55999b6ca2641f9"
+      },
+      {
+        "table": "ms_b1_meta.schema_migration",
+        "count": 15,
+        "sha256": "927bed60f4bf6e9b126c9ead04f26e6cbc29b1ccd189ee4fc58eb376019a550c"
+      }
+    ]
+  }
+}

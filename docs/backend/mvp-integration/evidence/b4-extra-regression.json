@@ -1,0 +1,92 @@
+{
+  "kind": "ACTUAL_B4_ADDITIONAL_BOUNDARIES",
+  "executedAt": "2026-10-30T15:55:19.396Z",
+  "tests": [
+    {
+      "name": "pagination covers later feasible times without accepting a forged cursor",
+      "status": "PASS"
+    },
+    {
+      "name": "retained published work at another branch conservatively blocks transfer",
+      "status": "PASS"
+    },
+    {
+      "name": "physical quantity requirements cannot reuse one device twice",
+      "status": "PASS"
+    },
+    {
+      "name": "inactive membership removes the provider from whole-booking applicability",
+      "status": "PASS"
+    },
+    {
+      "name": "active offering cannot lose a required price at the database boundary",
+      "status": "PASS"
+    },
+    {
+      "name": "no policy produces no final quote or slots, never a hidden default",
+      "status": "PASS"
+    },
+    {
+      "name": "policy routing changes stale an unaccepted final quote without rewriting its terms",
+      "status": "PASS"
+    },
+    {
+      "name": "revisionless persisted DRAFT can expire without a fictional active revision",
+      "status": "PASS"
+    },
+    {
+      "name": "two concurrent same-key holds replay one revision and one original TTL",
+      "status": "PASS"
+    },
+    {
+      "name": "schedule writer racing admission cannot deactivate capacity under a successful hold",
+      "status": "PASS"
+    },
+    {
+      "name": "required percentage rounded to zero is never silently confirmed without payment approval",
+      "status": "PASS"
+    },
+    {
+      "name": "expired quote is refused with server clock even when the client retains its handle",
+      "status": "PASS"
+    },
+    {
+      "name": "current session revocation prevents status changes despite retained CSRF",
+      "status": "PASS"
+    },
+    {
+      "name": "two fully configured branches can hold the same instant with distinct staff and branch resources",
+      "status": "PASS"
+    }
+  ],
+  "races": [
+    {
+      "scenario": "same-key concurrent admission",
+      "responses": 2,
+      "revisions": 1,
+      "expiryUnchanged": true
+    },
+    {
+      "scenario": "resource writer vs hold",
+      "bothSucceeded": false,
+      "outcomes": [
+        "MS409",
+        "committed"
+      ]
+    },
+    {
+      "scenario": "two configured branches / same instant / independent staff and physical units",
+      "successfulHolds": 2,
+      "wrongBranchAllocations": 0,
+      "branchPricesRial": [
+        "300000",
+        "400000"
+      ]
+    }
+  ],
+  "summary": {
+    "passed": 14,
+    "failed": 0
+  },
+  "originalTestBodySha256": "9321d11a79099b5cd68e38f191773126421badac2ce20fa1d29ab49dfa9102b7"
+}

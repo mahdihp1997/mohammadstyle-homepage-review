@@ -1,0 +1,156 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-10-30T17:12:02.644Z",
+  "privateBase": "a278995fdafde1f6a78738908866e7cd09d1a732",
+  "publicBase": "51c868cc2963331c33e080fcc58efe804d4626c7",
+  "commands": [
+    [
+      "npm ci (frontend)",
+      "PASS",
+      "29 packages; exact existing lock"
+    ],
+    [
+      "npm ci (backend)",
+      "PASS",
+      "282 packages; new pinned media/storage dependencies; existing direct versions preserved"
+    ],
+    [
+      "npm run typecheck (frontend + backend)",
+      "PASS",
+      "exit 0; no diagnostics"
+    ],
+    [
+      "npm run build (frontend + backend)",
+      "PASS",
+      "Next 15.5.28 and TypeScript compiled; 5/5 static pages; new dynamic routes"
+    ],
+    [
+      "npm run test:mvp",
+      "PASS",
+      {
+        "passed": 41,
+        "failed": 0
+      }
+    ],
+    [
+      "npm run test:mvp:schema",
+      "PASS",
+      {
+        "passed": 5,
+        "failed": 0
+      }
+    ],
+    [
+      "npm run test:mvp:storage",
+      "PASS",
+      {
+        "passed": 7,
+        "failed": 0
+      }
+    ],
+    [
+      "npm run test:b4:isolated",
+      "PASS",
+      "unchanged B0–B4 bodies on disposable clones; seven original databases untouched"
+    ],
+    [
+      "npm run test:ui:mvp",
+      "PASS",
+      {
+        "passed": 23,
+        "skipped": 9,
+        "failed": 0,
+        "reason": "3 desktop-only mutations not redundantly repeated on the other sizes; all 9 panes and core flows tested in 4 sizes"
+      }
+    ],
+    [
+      "npm run test:ui",
+      "PASS",
+      "92 original cases"
+    ],
+    [
+      "npm run test:ui:server",
+      "PASS",
+      "12 unchanged cases against integrated MVP API"
+    ],
+    [
+      "npm run mvp:backup / mvp:restore",
+      "PASS",
+      "actual pg_dump + separate 55-table fingerprint equality"
+    ],
+    [
+      "node scripts/mvp/media-backup.mjs",
+      "PASS",
+      {
+        "status": "PASS",
+        "kind": "ACTUAL_LOCAL_OBJECT_BACKUP_AND_SEPARATE_COPY_RESTORE",
+        "objects": 133,
+        "manifestSha256": "7904bce3a314436e8592de5a73be7377384e182e5dd2964bfd6e779a2463b6f2",
+        "sourceUntouched": true,
+        "liveS3BackupTested": false
+      }
+    ],
+    [
+      "original source/data preservation",
+      "PASS",
+      {
+        "status": "PASS",
+        "protectedFiles": 1083,
+        "originalB4BranchUnchanged": true,
+        "privateHistoryPreserved": true,
+        "originalDatabases": {
+          "b1a": {
+            "unchanged": true,
+            "tables": 16
+          },
+          "b1b": {
+            "unchanged": true,
+            "tables": 16
+          },
+          "b2a": {
+            "unchanged": true,
+            "tables": 27
+          },
+          "b2b": {
+            "unchanged": true,
+            "tables": 28
+          },
+          "b2h": {
+            "unchanged": true,
+            "tables": 28
+          },
+          "b3": {
+            "unchanged": true,
+            "tables": 38
+          },
+          "b4": {
+            "unchanged": true,
+            "tables": 50
+          }
+        }
+      }
+    ]
+  ],
+  "browser": {
+    "mvp": 23,
+    "homepage": 92,
+    "server": 12,
+    "failed": 0,
+    "flaky": 0
+  },
+  "nativePostgresExecuted": true,
+  "liveS3ProviderTested": false,
+  "productionDeployment": false,
+  "originalBranchesAndDatabasesPreserved": true,
+  "finalUploadGateRegression": {
+    "status": "PASS",
+    "realAuthorizationBarrier": true,
+    "singleProcessor": true,
+    "bookingLogicUnchanged": true
+  },
+  "browserSessionIsolation": {
+    "separateVerifiedAdministratorPerViewport": true,
+    "serverRateLimitsUnchanged": true,
+    "assertionsUnchanged": true
+  }
+}

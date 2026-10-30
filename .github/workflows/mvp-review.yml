@@ -1,0 +1,104 @@
+name: Sanitized MVP admin and portfolio review
+on:
+  push:
+    branches: [review/mvp-admin-portfolio]
+  pull_request:
+    branches: [review/phase03b-b4]
+permissions:
+  contents: read
+concurrency:
+  group: mvp-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  isolated-integration:
+    if: github.repository == 'mahdihp1997/mohammadstyle-homepage-review'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - name: Require sanitized source before execution
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';import assert from 'node:assert/strict';import {execFileSync} from 'node:child_process';
+          assert.match(fs.readFileSync('app/layout.tsx','utf8'),/data-public-review/);
+          const paths=execFileSync('git',['ls-files'],{encoding:'utf8'}).split('\n');
+          assert.ok(!paths.some(p=>/^(app\/fonts\/|references\/|artifacts\/|client-images\/)/.test(p)));
+          assert.ok(!paths.some(p=>/\.env\.(?:local|(?:b1[ab]|b2[abh]|b3|b4|mvp)\.local)$|\.(?:dump|ttf|otf|woff2?)$/.test(p)));
+          NODE
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24.16.0
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            backend/package-lock.json
+      - name: Native media tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg python3
+      - run: npm ci --no-audit --no-fund
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+        working-directory: backend
+      - name: Compile both applications
+        run: |
+          npm run typecheck
+          npm run build
+          npm --prefix backend run typecheck
+          npm --prefix backend run build
+      - name: Actual PostgreSQL, native media, official S3 SDK protocol and recovery checks
+        env:
+          APP_ENV: mvp-local
+        working-directory: backend
+        run: |
+          npm run mvp:env
+          npm run mvp:up
+          npm run mvp:migrate
+          npm run mvp:verify
+          npm run test:mvp:schema
+          npm run test:mvp
+          npm run test:mvp:storage
+          npm run mvp:fixture
+          node scripts/mvp/ui-media.mjs
+          node scripts/mvp/booking-fixture.mjs
+          mkdir -p .local/b4
+          cp .local/mvp/booking-session.json .local/b4/ui-session.json
+          npm run mvp:backup
+          npm run mvp:restore
+          node scripts/mvp/media-backup.mjs
+          npm run mvp:start > .local/mvp/api.log 2>&1 &
+          for i in $(seq 1 30); do if curl -s -o /dev/null http://127.0.0.1:3112/; then break; fi; sleep 1; done
+      - name: Existing 92 DEMO/Homepage regressions
+        run: |
+          npx playwright install --with-deps chromium
+          npm run test:ui
+      - name: Actual MVP admin, media, calendar and public gallery browser checks
+        run: npm run test:ui:mvp
+      - name: Existing 12 SERVER booking regressions against integrated API
+        env:
+          MS_MVP_ENABLED: '1'
+          MS_BOOKING_SERVER_ENABLED: '1'
+          MS_BOOKING_SERVER_PROFILE: mvp-local
+        run: npm run test:ui:server
+      - name: Allowlisted synthetic evidence only
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: mvp-integration-validation
+          path: |
+            backend/.local/mvp/results/integration.json
+            backend/.local/mvp/results/storage.json
+            backend/.local/mvp/results/schema.json
+            backend/.local/mvp/results/backup.json
+            backend/.local/mvp/results/restore.json
+            backend/.local/mvp/results/media-restore.json
+            backend/.local/mvp/results/ui-raw.json
+            backend/.local/b4/results/server-ui-raw.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
+      - name: Stop this job's disposable MVP project
+        if: always()
+        working-directory: backend
+        run: |
+          if [ -f .env.mvp.local ]; then npm run mvp:stop; fi

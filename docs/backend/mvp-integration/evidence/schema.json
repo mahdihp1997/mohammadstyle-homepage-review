@@ -1,0 +1,29 @@
+{
+  "kind": "ACTUAL_POSTGRES18_MVP_UPGRADE_AND_BOUNDARY",
+  "tests": [
+    {
+      "name": "actual fourteen-to-fifteen upgrade preserves all existing synthetic B4 table rows",
+      "status": "PASS"
+    },
+    {
+      "name": "second migration run is a no-op with a verified native catalog",
+      "status": "PASS"
+    },
+    {
+      "name": "runtime and public roles receive neither table access nor helper execution",
+      "status": "PASS"
+    },
+    {
+      "name": "failed forward DDL and migration metadata roll back together",
+      "status": "PASS"
+    },
+    {
+      "name": "catalog drift is detected and rolled back without automatic repair",
+      "status": "PASS"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0
+  }
+}
