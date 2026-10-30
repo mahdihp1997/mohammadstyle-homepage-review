@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "protectedFiles": 1083,
+  "originalB4BranchUnchanged": true,
+  "privateHistoryPreserved": true,
+  "originalDatabases": {
+    "b1a": {
+      "unchanged": true,
+      "tables": 16
+    },
+    "b1b": {
+      "unchanged": true,
+      "tables": 16
+    },
+    "b2a": {
+      "unchanged": true,
+      "tables": 27
+    },
+    "b2b": {
+      "unchanged": true,
+      "tables": 28
+    },
+    "b2h": {
+      "unchanged": true,
+      "tables": 28
+    },
+    "b3": {
+      "unchanged": true,
+      "tables": 38
+    },
+    "b4": {
+      "unchanged": true,
+      "tables": 50
+    }
+  }
+}

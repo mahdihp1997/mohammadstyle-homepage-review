@@ -12,7 +12,7 @@ export class WorkforceCommands {
  async read(req:Request,res:Response,kind:string,p:Record<string,string>,q:Record<string,unknown>):Promise<WorkforcePage>{const x=query(q);if(p.branchId&&x.branch&&p.branchId!==x.branch||p.id&&x.staff&&p.id!==x.staff)invalid();const branch=p.branchId?uuid(p.branchId):x.branch,staff=p.id?uuid(p.id):x.staff;const result=await this.repository.read(evidence(req).hash,kind,branch,staff,x.from,x.to,x.offset,x.view);res.setHeader('ETag','"'+result.version+'"');return result;}
 }
 @Controller('api/v1/admin') @UseGuards(SessionGuard)
-class WorkforceController {
+export class WorkforceController {
  constructor(private readonly commands:WorkforceCommands){}
  @Post('staff') write0(@Req() req:Request,@Res({passthrough:true}) res:Response,@Param() p:Record<string,string>,@Body() d:unknown){return this.commands.write(req,res,'staff.create',p.branchId?uuid(p.branchId):null,p.id?uuid(p.id):null,d);}
  @Put('staff/:id') write1(@Req() req:Request,@Res({passthrough:true}) res:Response,@Param() p:Record<string,string>,@Body() d:unknown){return this.commands.write(req,res,'staff.update',p.branchId?uuid(p.branchId):null,p.id?uuid(p.id):null,d);}

@@ -1,0 +1,155 @@
+{
+  "kind": "ACTUAL_PLAYWRIGHT_NEXT_BROWSER",
+  "startTime": "2026-10-30T16:31:18.447Z",
+  "duration": 281178.534,
+  "expected": 12,
+  "skipped": 0,
+  "unexpected": 0,
+  "flaky": 0,
+  "cases": [
+    {
+      "name": "actual authenticated SERVER flow, exact consent, controlled reschedule and cancellation",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 30508,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "missing authentication produces a focused recoverable message and leaves DEMO available",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1529,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "changing provider clears an optional deposit choice and requires fresh consent under the new policy",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 33758,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "actual authenticated SERVER flow, exact consent, controlled reschedule and cancellation",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 39606,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "missing authentication produces a focused recoverable message and leaves DEMO available",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1585,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "changing provider clears an optional deposit choice and requires fresh consent under the new policy",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 32630,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "actual authenticated SERVER flow, exact consent, controlled reschedule and cancellation",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 32394,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "missing authentication produces a focused recoverable message and leaves DEMO available",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1706,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "changing provider clears an optional deposit choice and requires fresh consent under the new policy",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 32586,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "actual authenticated SERVER flow, exact consent, controlled reschedule and cancellation",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 33038,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "missing authentication produces a focused recoverable message and leaves DEMO available",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1755,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "changing provider clears an optional deposit choice and requires fresh consent under the new policy",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 33668,
+          "errorCount": 0
+        }
+      ]
+    }
+  ]
+}

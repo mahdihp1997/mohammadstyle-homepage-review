@@ -1,0 +1,177 @@
+{
+  "kind": "ACTUAL_MVP_POSTGRES_NEST_STORAGE_INTEGRATION",
+  "startedAt": "2026-10-30T16:38:10.437Z",
+  "tests": [
+    {
+      "name": "all nine workspace views delegate to the approved scoped APIs in a consistent snapshot",
+      "status": "PASS"
+    },
+    {
+      "name": "unconfigured public tenant returns an empty gallery, without private fallbacks",
+      "status": "PASS"
+    },
+    {
+      "name": "session, Origin, CSRF, verified identity and customer-only admin access fail closed",
+      "status": "PASS"
+    },
+    {
+      "name": "branches can be created after a calendar exists, without enabling booking",
+      "status": "PASS"
+    },
+    {
+      "name": "branch metadata updates preserve activation; timezone changes with schedules are rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "service creation and inactive branch offering reuse the existing command boundary",
+      "status": "PASS"
+    },
+    {
+      "name": "real offering price/duration and confirmed physical requirements persist with row CAS",
+      "status": "PASS"
+    },
+    {
+      "name": "forged price fields, missing confirmation and cross-tenant offering references are rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "concurrent admin price updates have one CAS winner and one stale rejection",
+      "status": "PASS"
+    },
+    {
+      "name": "current branch-local instant conversion uses the original IANA resolver",
+      "status": "PASS"
+    },
+    {
+      "name": "staff creation and future membership use the unchanged workforce API and version",
+      "status": "PASS"
+    },
+    {
+      "name": "published shifts remain readable through the hardened calendar projection",
+      "status": "PASS"
+    },
+    {
+      "name": "existing policy create/publish APIs freeze a version and reject silent edits",
+      "status": "PASS"
+    },
+    {
+      "name": "the unchanged booking flow creates a real non-payment confirmation in integration",
+      "status": "PASS"
+    },
+    {
+      "name": "admin price edits leave accepted booking terms and prices byte-identical",
+      "status": "PASS"
+    },
+    {
+      "name": "capacity edits with an active reservation fail closed",
+      "status": "PASS"
+    },
+    {
+      "name": "admin cancellation requires scope, CAS, explicit confirmation and records a reason",
+      "status": "PASS"
+    },
+    {
+      "name": "branch-scoped readers cannot inspect another branch or global media",
+      "status": "PASS"
+    },
+    {
+      "name": "manual upload produces actual private optimized variants, without publication rights",
+      "status": "PASS"
+    },
+    {
+      "name": "parallel authenticated thumbnail delivery preserves session security without serialization failures",
+      "status": "PASS"
+    },
+    {
+      "name": "upload retries retain one asset identity and never overwrite immutable objects",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong CSRF is rejected before native processing and does not create media records",
+      "status": "PASS"
+    },
+    {
+      "name": "publication without an active rights attestation is denied",
+      "status": "PASS"
+    },
+    {
+      "name": "category and accessible public metadata persist with actual server validation",
+      "status": "PASS"
+    },
+    {
+      "name": "a media editor cannot assert rights or publish without the separate permissions",
+      "status": "PASS"
+    },
+    {
+      "name": "rights require affirmative confirmation and a private evidence reference",
+      "status": "PASS"
+    },
+    {
+      "name": "only explicitly published approved media appears, with no private fields",
+      "status": "PASS"
+    },
+    {
+      "name": "real WebP delivery strips source metadata and supports Range and HEAD safely",
+      "status": "PASS"
+    },
+    {
+      "name": "metadata edits and renewed rights each require a separate new publication",
+      "status": "PASS"
+    },
+    {
+      "name": "invalid category edits roll back metadata, version and publication atomically",
+      "status": "PASS"
+    },
+    {
+      "name": "media original identity and source object references cannot be rewritten",
+      "status": "PASS"
+    },
+    {
+      "name": "revoke immediately removes gallery membership and stops new derivative requests",
+      "status": "PASS"
+    },
+    {
+      "name": "rights and derivative evidence are immutable even for trusted SQL edits",
+      "status": "PASS"
+    },
+    {
+      "name": "ZIP import accepts nested safe media, atomically private and without rights",
+      "status": "PASS"
+    },
+    {
+      "name": "ZIP traversal, symlinks, duplicate names, non-media, excessive count and bombs fail atomically",
+      "status": "PASS"
+    },
+    {
+      "name": "a malformed file in an otherwise valid ZIP cannot leave partially registered media",
+      "status": "PASS"
+    },
+    {
+      "name": "video is actually transcoded to faststart H264 with WebP thumbnail/poster and ranged delivery",
+      "status": "PASS"
+    },
+    {
+      "name": "local storage rejects traversal and mutation, and byte ranges validate safe bounds",
+      "status": "PASS"
+    },
+    {
+      "name": "S3 adapter rejects insecure remote endpoints and absent private bucket settings",
+      "status": "PASS"
+    },
+    {
+      "name": "original native capacity constraints and table/function privilege boundary remain intact",
+      "status": "PASS"
+    }
+  ],
+  "video": {
+    "actuallyTranscoded": true,
+    "faststart": true,
+    "codec": "H264",
+    "originalPrivate": true
+  },
+  "summary": {
+    "passed": 40,
+    "failed": 0
+  },
+  "finishedAt": "2026-10-30T16:38:36.441Z"
+}

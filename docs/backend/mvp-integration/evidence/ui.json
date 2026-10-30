@@ -1,0 +1,395 @@
+{
+  "kind": "ACTUAL_PLAYWRIGHT_NEXT_BROWSER",
+  "startTime": "2026-10-30T16:24:01.843Z",
+  "duration": 215443.729,
+  "expected": 23,
+  "skipped": 9,
+  "unexpected": 0,
+  "flaky": 0,
+  "cases": [
+    {
+      "name": "all authorized panes render real API data, RTL, responsive navigation and actual screenshots",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 24242,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "actual admin forms create branch, service, staff, configured price and a policy draft",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 12415,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "CMS manual upload, metadata, category, evidence, publish, gallery dialog and immediate revoke",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 9114,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "admin cancellation keeps accepted quote and shows immutable cancellation reason",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 9609,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "missing authentication is focused, no admin mutation is exposed, DEMO remains available",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 3144,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "ZIP upload creates private image/video, browser plays optimized approved video",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 6015,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "a media editor has no rights/publication/operational actions",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1357,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "schedule UI records and reviews a real time-off request with calendar history",
+      "project": "desktop",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 16338,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "all authorized panes render real API data, RTL, responsive navigation and actual screenshots",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 21053,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "actual admin forms create branch, service, staff, configured price and a policy draft",
+      "project": "tablet",
+      "status": "skipped",
+      "results": [
+        {
+          "status": "skipped",
+          "duration": 173,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "CMS manual upload, metadata, category, evidence, publish, gallery dialog and immediate revoke",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 7413,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "admin cancellation keeps accepted quote and shows immutable cancellation reason",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 8332,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "missing authentication is focused, no admin mutation is exposed, DEMO remains available",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2213,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "ZIP upload creates private image/video, browser plays optimized approved video",
+      "project": "tablet",
+      "status": "skipped",
+      "results": [
+        {
+          "status": "skipped",
+          "duration": 179,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "a media editor has no rights/publication/operational actions",
+      "project": "tablet",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1141,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "schedule UI records and reviews a real time-off request with calendar history",
+      "project": "tablet",
+      "status": "skipped",
+      "results": [
+        {
+          "status": "skipped",
+          "duration": 207,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "all authorized panes render real API data, RTL, responsive navigation and actual screenshots",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 21675,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "actual admin forms create branch, service, staff, configured price and a policy draft",
+      "project": "mobile",
+      "status": "skipped",
+      "results": [
+        {
+          "status": "skipped",
+          "duration": 238,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "CMS manual upload, metadata, category, evidence, publish, gallery dialog and immediate revoke",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 7440,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "admin cancellation keeps accepted quote and shows immutable cancellation reason",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 8215,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "missing authentication is focused, no admin mutation is exposed, DEMO remains available",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1975,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "ZIP upload creates private image/video, browser plays optimized approved video",
+      "project": "mobile",
+      "status": "skipped",
+      "results": [
+        {
+          "status": "skipped",
+          "duration": 223,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "a media editor has no rights/publication/operational actions",
+      "project": "mobile",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1240,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "schedule UI records and reviews a real time-off request with calendar history",
+      "project": "mobile",
+      "status": "skipped",
+      "results": [
+        {
+          "status": "skipped",
+          "duration": 256,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "all authorized panes render real API data, RTL, responsive navigation and actual screenshots",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 23110,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "actual admin forms create branch, service, staff, configured price and a policy draft",
+      "project": "mobile-small",
+      "status": "skipped",
+      "results": [
+        {
+          "status": "skipped",
+          "duration": 189,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "CMS manual upload, metadata, category, evidence, publish, gallery dialog and immediate revoke",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 7573,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "admin cancellation keeps accepted quote and shows immutable cancellation reason",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 7775,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "missing authentication is focused, no admin mutation is exposed, DEMO remains available",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1972,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "ZIP upload creates private image/video, browser plays optimized approved video",
+      "project": "mobile-small",
+      "status": "skipped",
+      "results": [
+        {
+          "status": "skipped",
+          "duration": 210,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "a media editor has no rights/publication/operational actions",
+      "project": "mobile-small",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1485,
+          "errorCount": 0
+        }
+      ]
+    },
+    {
+      "name": "schedule UI records and reviews a real time-off request with calendar history",
+      "project": "mobile-small",
+      "status": "skipped",
+      "results": [
+        {
+          "status": "skipped",
+          "duration": 241,
+          "errorCount": 0
+        }
+      ]
+    }
+  ]
+}

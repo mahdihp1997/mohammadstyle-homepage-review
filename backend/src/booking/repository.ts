@@ -3,25 +3,29 @@ import type { SessionView } from '../admin/contracts.js';
 import { finalQuoteContentHash } from '../pricing/final-quote-contract.js';
 export interface BookingOptions {
     host: '127.0.0.1';
-    port: 55446;
-    database: 'ms_b4_dev' | 'ms_b4_restore';
+    port: 55446 | 55450;
+    database: 'ms_b4_dev' | 'ms_b4_restore' | 'ms_mvp_dev' | 'ms_mvp_restore';
     user: 'ms_b1b_api';
     password: string;
-    origin: 'http://127.0.0.1:3110';
+    origin: 'http://127.0.0.1:3110' | 'http://127.0.0.1:3112';
 }
 export class BookingRepository {
-    private readonly pool: Pool;
+    protected readonly pool: Pool;
+    private readonly marker: string;
     constructor(o: BookingOptions) {
-        if (process.env.NODE_ENV === 'production' || process.env.APP_ENV === 'production' || o.host !== '127.0.0.1' || o.port !== 55446 || !['ms_b4_dev', 'ms_b4_restore'].includes(o.database) || o.user !== 'ms_b1b_api' || o.origin !== 'http://127.0.0.1:3110' || !/^[a-f0-9]{64}$/.test(o.password))
+        const original = o.port === 55446 && ['ms_b4_dev','ms_b4_restore'].includes(o.database) && o.origin === 'http://127.0.0.1:3110';
+        const integration = process.env.APP_ENV === 'mvp-local' && o.port === 55450 && ['ms_mvp_dev','ms_mvp_restore'].includes(o.database) && o.origin === 'http://127.0.0.1:3112';
+        this.marker = integration ? 'mohammadstyle-mvp-disposable-v1' : 'mohammadstyle-b4-disposable-v1';
+        if (process.env.NODE_ENV === 'production' || process.env.APP_ENV === 'production' || o.host !== '127.0.0.1' || !(original || integration) || o.user !== 'ms_b1b_api' || !/^[a-f0-9]{64}$/.test(o.password))
             throw Error('B4 isolated local profile required');
         const { origin: _origin, ...connection } = o;
         this.pool = new Pool({ ...connection, max: 4, connectionTimeoutMillis: 2000, statement_timeout: 30000, idle_in_transaction_session_timeout: 15000 });
         this.pool.on('error', () => { });
     }
-    async onModuleInit() { const r = (await this.pool.query("SELECT current_database() db,current_setting('server_version_num')::int version,shobj_description((SELECT oid FROM pg_database WHERE datname=current_database()),'pg_database') marker,has_function_privilege(current_user,to_regprocedure('ms_b1_design.b4_command(bytea,bytea,text,text,uuid,jsonb)'),'EXECUTE') ready")).rows[0]; if (!r.ready || r.marker !== 'mohammadstyle-b4-disposable-v1' || r.version < 180000 || r.version >= 190000)
+    async onModuleInit() { const r = (await this.pool.query("SELECT current_database() db,current_setting('server_version_num')::int version,shobj_description((SELECT oid FROM pg_database WHERE datname=current_database()),'pg_database') marker,has_function_privilege(current_user,to_regprocedure('ms_b1_design.b4_command(bytea,bytea,text,text,uuid,jsonb)'),'EXECUTE') ready")).rows[0]; if (!r.ready || r.marker !== this.marker || r.version < 180000 || r.version >= 190000)
         throw Error('Reviewed B4 PostgreSQL18 migrations required'); }
     async session(h: Buffer): Promise<SessionView> { return (await this.pool.query('SELECT ms_b1_design.b1b_session($1) result', [h])).rows[0].result; }
-    private async transaction<T>(fn: (c: PoolClient) => Promise<T>): Promise<T> {
+    protected async transaction<T>(fn: (c: PoolClient) => Promise<T>): Promise<T> {
         for (let attempt = 0;; attempt++) {
             const c = await this.pool.connect();
             try {

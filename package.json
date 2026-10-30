@@ -8,7 +8,8 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test:ui": "playwright test",
-    "test:ui:server": "playwright test -c playwright.server.config.ts"
+    "test:ui:server": "playwright test -c playwright.server.config.ts",
+    "test:ui:mvp": "playwright test -c playwright.mvp.config.ts"
   },
   "dependencies": {
     "next": "^15.5.0",

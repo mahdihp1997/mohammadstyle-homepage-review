@@ -11,7 +11,7 @@ import { BookingRepository, type BookingOptions } from './repository.js';
 import {validateCommand} from './contracts.js';
 const operations = new Set(['availability', 'quote', 'draft', 'hold', 'confirm', 'cancel', 'reschedule', 'configuration.enable']);
 @Catch()
-class BookingFilter extends AdminExceptionFilter {
+export class BookingFilter extends AdminExceptionFilter {
     override catch(error: unknown, host: ArgumentsHost) {
         const e = error as {
             code?: string;
@@ -28,7 +28,7 @@ class BookingFilter extends AdminExceptionFilter {
 }
 @Controller('api/v1/booking')
 @UseGuards(SessionGuard)
-class BookingController {
+export class BookingController {
     constructor(private readonly repository: BookingRepository) { }
     @Post('read/:kind')
     @HttpCode(200)

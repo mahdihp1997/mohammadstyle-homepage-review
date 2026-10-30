@@ -1,0 +1,407 @@
+{
+  "scope": "SANITIZED_MVP_SOURCE",
+  "privateCommit": "bfeb7c9cb48957751f1538341d938767bfdcf29e",
+  "publicBase": "51c868cc2963331c33e080fcc58efe804d4626c7",
+  "files": [
+    {
+      "path": ".github/workflows/mvp-review.yml",
+      "sha256": "ca2ee9847b7fcf16408ec9d3fb5dd02fb12a547d26735e770b818c288910190e",
+      "bytes": 4222
+    },
+    {
+      "path": "app/admin/admin.css",
+      "sha256": "323c5640ea217eef828c8de29ebeda67a2c0b00cff9db58a60798953149eb453",
+      "bytes": 17995
+    },
+    {
+      "path": "app/admin/page.tsx",
+      "sha256": "53469706929358320dfc7213249c9ba7a69b2eb03d86db9b00093ff7bb9d4e1a",
+      "bytes": 707
+    },
+    {
+      "path": "app/api/booking-server/[...path]/route.ts",
+      "sha256": "4317b2925c6f0f96263f3bb6f76c6bacb1c6fa31b07e647077f29060e693afd1",
+      "bytes": 2782
+    },
+    {
+      "path": "app/api/mvp/[...path]/route.ts",
+      "sha256": "4ee88d74f42444c2da5ff83dd16f50c9ade90543ea334ad3d4c6f181b41f1b0b",
+      "bytes": 397
+    },
+    {
+      "path": "app/api/portfolio/[[...path]]/route.ts",
+      "sha256": "97a1313eabf82263ae1b9d53d56a028d358b6610ce3576b7212cd76f1115791a",
+      "bytes": 442
+    },
+    {
+      "path": "app/portfolio/page.tsx",
+      "sha256": "09c21146f64fc469e6922dcd579e3036a2955744d9d55bd8a2e897ee91187808",
+      "bytes": 282
+    },
+    {
+      "path": "app/portfolio/portfolio.css",
+      "sha256": "1e44acf92d497ac9ad244616132dd8ba38dacba99e94c1421db2ea479d43c480",
+      "bytes": 6707
+    },
+    {
+      "path": "backend/.env.mvp.example",
+      "sha256": "730786153248453abd0daaf494e5521b3135cd405f9f7c462c93176797531d2b",
+      "bytes": 187
+    },
+    {
+      "path": "backend/.gitignore",
+      "sha256": "1dc9d0e5ef7ff2bb012ebd11a9f359eb1787a78ff7ee8813bc0f7e083b48406c",
+      "bytes": 239
+    },
+    {
+      "path": "backend/compose.mvp.yaml",
+      "sha256": "4cc9e7ff7c7d2f055be259eca139592c74c86ae07abf8e4211f078b1bf98e60f",
+      "bytes": 748
+    },
+    {
+      "path": "backend/migrations/0015_mvp_admin_media.sql",
+      "sha256": "bd4b6b93e617c980a8765df8a4b58052d295dff8d3c17991791a2a4c4dcdddbd",
+      "bytes": 36677
+    },
+    {
+      "path": "backend/migrations/catalog.mvp.expected.json",
+      "sha256": "4e5efe52c5a1b9f36710bbbdb7fd27ea42342acf2e4079bf261a0acd93e2b71c",
+      "bytes": 1278347
+    },
+    {
+      "path": "backend/migrations/registry.mvp.json",
+      "sha256": "517578f2a385a66544b7c179c4c1c47f947fba39aca787257dc8eb51613226dd",
+      "bytes": 2975
+    },
+    {
+      "path": "backend/package-lock.json",
+      "sha256": "75ab1f61c61bc6470aafd4301493a4d7db15cd2e88f0f0748facbfbb800bb575",
+      "bytes": 148249
+    },
+    {
+      "path": "backend/package.json",
+      "sha256": "052a56f30fc0c60d504c8646b3b6223635d04ae8177dfa15b9120965617d8419",
+      "bytes": 5371
+    },
+    {
+      "path": "backend/scripts/mvp/b4-regression.mjs",
+      "sha256": "ead310b92cbcabf4fabbe70c41ca6f0e4e7b659a441658956c0057b3ce2f6c76",
+      "bytes": 4607
+    },
+    {
+      "path": "backend/scripts/mvp/backup.mjs",
+      "sha256": "691032f48fdf16ca4d8e1e1c5a7666ac5653e9c8c741e666412d678207e978eb",
+      "bytes": 4505
+    },
+    {
+      "path": "backend/scripts/mvp/booking-fixture.mjs",
+      "sha256": "b13d1ac218996ecca3f99f4fc9e17ca14dda06ffcf7747c1f77979240b54ca38",
+      "bytes": 4276
+    },
+    {
+      "path": "backend/scripts/mvp/catalog.mjs",
+      "sha256": "ac1c19075ab307e661fa437e7da4d6c29b067ca0bd01234b7eb7c8a135a4774a",
+      "bytes": 3245
+    },
+    {
+      "path": "backend/scripts/mvp/fixture.mjs",
+      "sha256": "b6918cb98ce6306be47802748b530925cfcc58e79b71a8315a3991eaad1ce4e6",
+      "bytes": 6087
+    },
+    {
+      "path": "backend/scripts/mvp/infra.mjs",
+      "sha256": "9ed16736cbd999d466adf8ab7242d9f4fe6b18ee2f5c8b65a102d73bb55f98d8",
+      "bytes": 4106
+    },
+    {
+      "path": "backend/scripts/mvp/local.mjs",
+      "sha256": "d5e2aacaece4d7ab949045f36ca0f2fe981508b436b1e28e853fe07f30537a3e",
+      "bytes": 2638
+    },
+    {
+      "path": "backend/scripts/mvp/media-backup.mjs",
+      "sha256": "59030bc18c4b52672bc2e0aee69e43b2f788bd9fcf23103c6a955fb039c357dd",
+      "bytes": 2172
+    },
+    {
+      "path": "backend/scripts/mvp/migrate.mjs",
+      "sha256": "7f58d73673c39c19f86d35d1c3d9916eb1cb98986a25191472435874bd910fa3",
+      "bytes": 3707
+    },
+    {
+      "path": "backend/scripts/mvp/open-review.mjs",
+      "sha256": "b80378fb3a0b1eab1d0cfb6cb794395b217347d32afa2b6a1756ee7108f77c37",
+      "bytes": 1836
+    },
+    {
+      "path": "backend/scripts/mvp/refresh-session.mjs",
+      "sha256": "c971d81320496efbf0bb404400fcf816f730cabdc5978baf6989cde7b10180fb",
+      "bytes": 2578
+    },
+    {
+      "path": "backend/scripts/mvp/schema-test.mjs",
+      "sha256": "82fc28fb67eedc008d33fbb364d61a095b25383a08543676044cca4590cfc880",
+      "bytes": 4514
+    },
+    {
+      "path": "backend/scripts/mvp/start.mjs",
+      "sha256": "c81bfe8b0487703604848fd21d86aa5dcf47b67a916b37417a24ad8425d0023f",
+      "bytes": 947
+    },
+    {
+      "path": "backend/scripts/mvp/storage-test.mjs",
+      "sha256": "0b4617e169e10285d07280f7e5cd6ac00c4c04c8ee1e40ca7750a2112d547ed2",
+      "bytes": 7870
+    },
+    {
+      "path": "backend/scripts/mvp/test.mjs",
+      "sha256": "3d36d2c32198d50f5b239ee03a6f718668d3a8a2b22c446fd870e697c6d82147",
+      "bytes": 36114
+    },
+    {
+      "path": "backend/scripts/mvp/ui-media.mjs",
+      "sha256": "c99bba11463e4126eab5fd479dad73dc40dbb2054c8cdafc2891382becf5fd50",
+      "bytes": 1563
+    },
+    {
+      "path": "backend/scripts/mvp/verify.mjs",
+      "sha256": "6aea6bd9ce6e418a57dc0835c01d24cf5e7f66be41d7416053e69f4f4a5d3624",
+      "bytes": 282
+    },
+    {
+      "path": "backend/src/booking/app.ts",
+      "sha256": "35f75bfabd3b77406b165327720291a9e60877445b9e02b1f48904e8cde343d9",
+      "bytes": 4555
+    },
+    {
+      "path": "backend/src/booking/repository.ts",
+      "sha256": "6c2adf845e6694140f1acc1961a6bb83bcc54d168091dcd6c19dd4b7c7fc8a8d",
+      "bytes": 4654
+    },
+    {
+      "path": "backend/src/mvp/app.ts",
+      "sha256": "3316649fe20f96084a455dcb949d54e4152fbab6acd77b204b6611a94e4ab6aa",
+      "bytes": 11576
+    },
+    {
+      "path": "backend/src/mvp/main.ts",
+      "sha256": "06a3f1d21e62a975b4dc9988d0ca018ea247a7360c58007487322b46c53f5f1e",
+      "bytes": 1530
+    },
+    {
+      "path": "backend/src/mvp/media.ts",
+      "sha256": "40a8d2efc79a85a768fae8c944f6f1dd89d2b7f2e11b56c7dcb1e0e62525adbf",
+      "bytes": 15987
+    },
+    {
+      "path": "backend/src/mvp/repository.ts",
+      "sha256": "26c5110558db375cb22493408808aff9259b2786fdc600310144585db7e9cac9",
+      "bytes": 10609
+    },
+    {
+      "path": "backend/src/mvp/storage.ts",
+      "sha256": "fd2c4dd4db442380e37e6c70c5527e41f988a927d1479ab743fef1c6f74d96e5",
+      "bytes": 7025
+    },
+    {
+      "path": "backend/src/pricing/app.ts",
+      "sha256": "f70c3b227dac352e51b271747a8ec2c25dec24c86cd1a8b17e9623b477660d5a",
+      "bytes": 4557
+    },
+    {
+      "path": "backend/src/workforce/modules.ts",
+      "sha256": "88feb2f7aa80b9e460c93e0a7bb6a10ff51bc28e9794e20c0ac0c953dfc90797",
+      "bytes": 10109
+    },
+    {
+      "path": "components/admin/AdminDashboard.tsx",
+      "sha256": "cceea0898cdbe317abbfbce71b0fdd3735069f8e4bb2d51ae3e9b5b0dd55e330",
+      "bytes": 79074
+    },
+    {
+      "path": "components/admin/AdminForm.tsx",
+      "sha256": "4a7b0b53dc053eb17dbe88866f972e368dc6ed284e239956379fa78548a44e76",
+      "bytes": 8064
+    },
+    {
+      "path": "components/admin/MediaPanel.tsx",
+      "sha256": "a6bcc86e4176f82032b3e2ef7c092c6fff3d3eacff8447d265be82e531001c84",
+      "bytes": 18550
+    },
+    {
+      "path": "components/admin/PolicyPanel.tsx",
+      "sha256": "e597528705bdc06f3b59443b499f373e5425d47c9cf47b5527bd17c514c6bdef",
+      "bytes": 29068
+    },
+    {
+      "path": "components/admin/types.ts",
+      "sha256": "ab78f44575307abc6f4fca77913a967a549408b3faa7845ed5f84734846d2143",
+      "bytes": 749
+    },
+    {
+      "path": "components/portfolio/PortfolioGallery.tsx",
+      "sha256": "f7bdb01aa72c2bd92aebff4fdced7789d6bdf6cc40d8a44b54404406ea937f39",
+      "bytes": 9534
+    },
+    {
+      "path": "docs/backend/mvp-integration/API_AND_AUTH.md",
+      "sha256": "88f017127553fba147844201a7112de3764fa5a9bd0488bf4621a0e2329add21",
+      "bytes": 3015
+    },
+    {
+      "path": "docs/backend/mvp-integration/CHANGED_FILES.md",
+      "sha256": "a4fbf77682cd4398d66d97b98aee4ca3123c965befbb42b301d5837f9611f030",
+      "bytes": 3530
+    },
+    {
+      "path": "docs/backend/mvp-integration/MEDIA_LIFECYCLE.md",
+      "sha256": "f91dfc807a1de4854c86c406217190f310fcae37ddf992e584b5250062c0f9b1",
+      "bytes": 3213
+    },
+    {
+      "path": "docs/backend/mvp-integration/README.md",
+      "sha256": "fd0905e7a197010b74e524873b0bee50bc5882957d17b847d986b29a587f9166",
+      "bytes": 1157
+    },
+    {
+      "path": "docs/backend/mvp-integration/RUNBOOK.md",
+      "sha256": "8f68dd4efdcd8991830b35597ad1929ebd23773b781f6ca42e66038dfa3661fb",
+      "bytes": 4254
+    },
+    {
+      "path": "docs/backend/mvp-integration/TECHNICAL_REPORT.md",
+      "sha256": "efccfa3c2168155f79706d2651bfae225e6b9634b12ed928b25fa72b66df486f",
+      "bytes": 6549
+    },
+    {
+      "path": "docs/backend/mvp-integration/VISUAL_REVIEW.md",
+      "sha256": "fd3ff10eb39a7fb85bc89ea0f04398cae15f2206663b270ecfafd8328d53285c",
+      "bytes": 2493
+    },
+    {
+      "path": "docs/backend/mvp-integration/evidence/VALIDATION.json",
+      "sha256": "7ace7dcf58e79be1c0b306f21b110887554239e5b533add9e8c6d55826d6f5c4",
+      "bytes": 3312
+    },
+    {
+      "path": "docs/backend/mvp-integration/evidence/b0-regression.json",
+      "sha256": "10bae2427ce8148281debec4c798e62ca747547383cd0df91e9cdcd7dc2e77b1",
+      "bytes": 394
+    },
+    {
+      "path": "docs/backend/mvp-integration/evidence/b1a-regression.json",
+      "sha256": "d43a3129aaa7365cab8b71aa5ca0db52e76bff1fff73ef9b8f5bd2080d37b02c",
+      "bytes": 29353
+    },
+    {
+      "path": "docs/backend/mvp-integration/evidence/b1b-regression.json",
+      "sha256": "2688f7f365b97dc533d16204b32389440b006328f58a21df28a170bb40f9bcc2",
+      "bytes": 28614
+    },
+    {
+      "path": "docs/backend/mvp-integration/evidence/b2a-regression.json",
+      "sha256": "0810d2d69ce505fe15c492dd3b2c673105fa033b2481723df7b86a9826a4fdb8",
+      "bytes": 36362
+    },
+    {
+      "path": "docs/backend/mvp-integration/evidence/b2b-regression.json",
+      "sha256": "2bfc531c4cad6444d1ff406d0c7025afb4c68b649ac9a84935212c614cbdec21",
+      "bytes": 20273
+    },
+    {
+      "path": "docs/backend/mvp-integration/evidence/b2h-regression.json",
+      "sha256": "094d0a6644bd0798e6e6b9f113e79331cf37bceaa318d811b7ccd81f8e8e6317",
+      "bytes": 10650
+    },
+    {
+      "path": "docs/backend/mvp-integration/evidence/b3-regression.json",
+      "sha256": "fbcd2d15b34277934f37013bdf7de597c4e17e946839b31bb75bdec408a29f55",
+      "bytes": 20855
+    },
+    {
+      "path": "docs/backend/mvp-integration/evidence/b4-extra-regression.json",
+      "sha256": "6c7e5ee90bcd1f8579fa0c6321e29e5341b087c883c62c66affffd536f1d9b84",
+      "bytes": 2629
+    },
+    {
+      "path": "docs/backend/mvp-integration/evidence/b4-integration-regression.json",
+      "sha256": "e85eb84d2e493b77c555b4fbf9ef94f776bdf74f95ba11cab9d75d52a693b98b",
+      "bytes": 17579
+    },
+    {
+      "path": "docs/backend/mvp-integration/evidence/backup.json",
+      "sha256": "6172e7ce2a6d584bbc88ec3db498ea256733a99f6057ad6e5d595d506835e05a",
+      "bytes": 10190
+    },
+    {
+      "path": "docs/backend/mvp-integration/evidence/home-ui.json",
+      "sha256": "c880b893fffcd5c31ab962585592d29bbb34226988542c35a3a7445e26ed147c",
+      "bytes": 27640
+    },
+    {
+      "path": "docs/backend/mvp-integration/evidence/integration.json",
+      "sha256": "84652ee897fa9edcfbbdc1624ea2c95660ead5ec6a0220e7b72f3988ede76e0f",
+      "bytes": 5637
+    },
+    {
+      "path": "docs/backend/mvp-integration/evidence/media-restore.json",
+      "sha256": "b295b56d91f6931beb99c9e22c88d58e7e41296e47262c3e7eb846b69f64f041",
+      "bytes": 253
+    },
+    {
+      "path": "docs/backend/mvp-integration/evidence/preservation.json",
+      "sha256": "f2f5e513f47248376dca7c9737426b2af4eee22df83f699830b4fed17f6e36e7",
+      "bytes": 596
+    },
+    {
+      "path": "docs/backend/mvp-integration/evidence/restore.json",
+      "sha256": "c06e680328b8eff99ded34eeb6e252905624a55bec74f6299d25171671f04ad7",
+      "bytes": 10368
+    },
+    {
+      "path": "docs/backend/mvp-integration/evidence/schema.json",
+      "sha256": "1f65922098de1ee6b9d7667e2ca0ea8dd035489fddfba7d08af05ff37d06bfa3",
+      "bytes": 742
+    },
+    {
+      "path": "docs/backend/mvp-integration/evidence/server-ui.json",
+      "sha256": "bbe3dbfea4dc9f5f1930e26b92679389eac69f070a3f972a96c4082a990a5fb0",
+      "bytes": 3925
+    },
+    {
+      "path": "docs/backend/mvp-integration/evidence/storage.json",
+      "sha256": "64ba9b51d1f6a2076de2dcaac2b1bc42c64ddbe6f5b9cc37b33e1385cc5da80a",
+      "bytes": 937
+    },
+    {
+      "path": "docs/backend/mvp-integration/evidence/ui.json",
+      "sha256": "8dcf92ae3d09821a29643208a02e8077a28e3757b2605bfb3a6e45f9724f38fb",
+      "bytes": 9801
+    },
+    {
+      "path": "lib/mvp/client.ts",
+      "sha256": "7b243d7e5fbe00dc891ed8c71b9ef90373b33d1a5cc9fef89aa32d53e382a467",
+      "bytes": 8164
+    },
+    {
+      "path": "lib/mvp/proxy.ts",
+      "sha256": "dc241a542fc95fc870cfbd7eb414f0b70a6c98faed425e52bb91223861956d5a",
+      "bytes": 5297
+    },
+    {
+      "path": "package.json",
+      "sha256": "795397f4ff87be9d1d2e45868511f1f71f27c52e658f19c49342e300add727db",
+      "bytes": 667
+    },
+    {
+      "path": "playwright.mvp.config.ts",
+      "sha256": "69900847457ce669155368dac2e3e3dd3b7b91098380905bec33e94179b9ce5b",
+      "bytes": 1419
+    },
+    {
+      "path": "tests-mvp/admin.spec.ts",
+      "sha256": "ff35501858f9b19917c64bfb82eefc9dae87937b556a857b5ac35f3863b9a499",
+      "bytes": 19402
+    }
+  ]
+}
