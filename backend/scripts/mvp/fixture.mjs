@@ -85,8 +85,14 @@ export async function createFixture(db) {
   const scoped = await f.actor("branch scoped");
   await grant(scoped, ["media.manage", "booking.read"], f.branch.id);
   const accounts = { owner: f.owner, editor: mediaEditor, scoped };
-  for (const viewport of ["desktop", "tablet", "mobile", "mobile-small"])
+  for (const viewport of ["desktop", "tablet", "mobile", "mobile-small"]) {
     accounts[viewport] = await f.actor("MVP " + viewport);
+    // Independent verified browser administrators keep viewport runs isolated
+    // without raising or disabling the approved per-session request limits.
+    const admin = await f.actor("MVP administrator " + viewport);
+    await grant(admin, [...permissions, "booking.configure"]);
+    accounts["owner-" + viewport] = admin;
+  }
   const api = client("ms_mvp_dev", "api");
   await api.connect();
   try {

@@ -147,5 +147,10 @@
     "realAuthorizationBarrier": true,
     "singleProcessor": true,
     "bookingLogicUnchanged": true
+  },
+  "browserSessionIsolation": {
+    "separateVerifiedAdministratorPerViewport": true,
+    "serverRateLimitsUnchanged": true,
+    "assertionsUnchanged": true
   }
 }

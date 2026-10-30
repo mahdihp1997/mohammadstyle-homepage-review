@@ -9,7 +9,10 @@ const fixture = JSON.parse(
   folder = path.resolve("backend/.local/mvp/ui");
 fs.mkdirSync(folder, { recursive: true });
 async function login(context: BrowserContext, role = "owner") {
-  const a = fixture.accounts[role];
+  const key = role === "owner" ? "owner-" + test.info().project.name : role;
+  const a = fixture.accounts[key];
+  if (!a)
+    throw Error("Prepare current isolated MVP fixtures before browser tests.");
   await context.addCookies([
     {
       name: "ms_session",
@@ -28,6 +31,13 @@ async function login(context: BrowserContext, role = "owner") {
     },
   ]);
 }
+test.afterEach(async ({ page }, info) => {
+  if (info.status !== info.expectedStatus)
+    console.log(
+      "ADMIN_FAILURE",
+      JSON.stringify(await page.locator(".admin-error").allTextContents()),
+    );
+});
 async function ready(page: Page) {
   await expect(page.locator(".admin-feedback")).not.toHaveText(
     "در حال دریافت دادهٔ مجاز از سرور…",

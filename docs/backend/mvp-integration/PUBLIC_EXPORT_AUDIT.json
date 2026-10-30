@@ -1,7 +1,7 @@
 {
   "status": "PASS",
   "kind": "INDEPENDENT_SANITIZED_MVP_EXPORT",
-  "privateCommit": "5f1dda5f9de6867f769702b9bf80cf119afee033",
+  "privateCommit": "d3896a9168738aff4a780dcbbe11696c819c901e",
   "privateBase": "a278995fdafde1f6a78738908866e7cd09d1a732",
   "publicBase": "51c868cc2963331c33e080fcc58efe804d4626c7",
   "branch": "review/mvp-admin-portfolio",
@@ -114,8 +114,8 @@
     },
     {
       "path": "backend/scripts/mvp/fixture.mjs",
-      "sha256": "b6918cb98ce6306be47802748b530925cfcc58e79b71a8315a3991eaad1ce4e6",
-      "bytes": 6087
+      "sha256": "ff3ff435750b09d9ca58252959298347af2485aaf33537c7437018d144055098",
+      "bytes": 6421
     },
     {
       "path": "backend/scripts/mvp/infra.mjs",
@@ -279,8 +279,8 @@
     },
     {
       "path": "docs/backend/mvp-integration/TECHNICAL_REPORT.md",
-      "sha256": "e9cd996037812a6e4e3f85d42913749aace43d4853923d469c0b9a00220276a6",
-      "bytes": 7074
+      "sha256": "d02a18ee28d2d29ccf329c3b70fe5578cd2ed2424517d3a357e1e1921e59f076",
+      "bytes": 7616
     },
     {
       "path": "docs/backend/mvp-integration/VISUAL_REVIEW.md",
@@ -289,8 +289,8 @@
     },
     {
       "path": "docs/backend/mvp-integration/evidence/VALIDATION.json",
-      "sha256": "34fb3bd43c13aec1d05ff9d13cb3ee07507d76e13facd029de379e9ebfcf3585",
-      "bytes": 3473
+      "sha256": "89e40eb6ee6b64a5b52fa1606bdb7816cb414e81ce92e71ca686d8c4cb28c8b5",
+      "bytes": 3634
     },
     {
       "path": "docs/backend/mvp-integration/evidence/b0-regression.json",
@@ -349,7 +349,7 @@
     },
     {
       "path": "docs/backend/mvp-integration/evidence/integration.json",
-      "sha256": "2d8b571c5f42f0f66b7d1eb3e2c3d6132ce56afe384fd0ec4091fa0786548ad4",
+      "sha256": "7b66a0d7439e581cf66978f3dd1de22a30829f9e69291470d6e033acc2926bf8",
       "bytes": 5784
     },
     {
@@ -409,8 +409,8 @@
     },
     {
       "path": "tests-mvp/admin.spec.ts",
-      "sha256": "ff35501858f9b19917c64bfb82eefc9dae87937b556a857b5ac35f3863b9a499",
-      "bytes": 19402
+      "sha256": "29f6e5946ffedb276cd8a798c9eaaa33f77b6eef18ed660e7da6ee8a7e745085",
+      "bytes": 19781
     }
   ],
   "sanitizationDifferences": [
@@ -426,5 +426,6 @@
     "Media objects/uploads, backup dumps, build output, dependencies/caches and scratch",
     "Unnecessary previous internal artifacts"
   ],
-  "uploadAdmissionHardening": true
+  "uploadAdmissionHardening": true,
+  "viewportSessionIsolation": true
 }

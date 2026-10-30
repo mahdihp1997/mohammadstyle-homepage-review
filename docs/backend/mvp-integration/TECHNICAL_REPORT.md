@@ -44,3 +44,7 @@ Production identity/login/recovery/MFA, real salon workforce/pricing/policies, l
 ## Final upload admission hardening
 
 The process-wide media gate is acquired synchronously before the first authorization/receipt await and released in finally, including authorization failures and idempotent returns. Two uploads racing during actual database authorization now admit exactly one processor; the other receives a retryable 429. A real HTTP/SQL barrier regression verifies admission and later gate release. All 41 integration cases pass; Booking isolation, authorization and commercial behavior are unchanged.
+
+## Browser test isolation
+
+Each viewport uses its own verified synthetic administrator/session, with identical authorized scopes. This separates request quotas and keep-alive state while preserving the original 120/session, 240/IP and 60/write-per-minute server limits and every browser assertion. The independent push run passed while a shared-session PR run reported one transient tablet workspace error; failed runs now print the safe visible error message. These fixture/diagnostic changes do not change application or Booking behavior.

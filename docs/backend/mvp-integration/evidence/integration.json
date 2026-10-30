@@ -1,6 +1,6 @@
 {
   "kind": "ACTUAL_MVP_POSTGRES_NEST_STORAGE_INTEGRATION",
-  "startedAt": "2026-10-30T17:09:33.536Z",
+  "startedAt": "2026-10-30T17:28:45.662Z",
   "tests": [
     {
       "name": "all nine workspace views delegate to the approved scoped APIs in a consistent snapshot",
@@ -177,5 +177,5 @@
     "passed": 41,
     "failed": 0
   },
-  "finishedAt": "2026-10-30T17:09:58.644Z"
+  "finishedAt": "2026-10-30T17:29:05.137Z"
 }
