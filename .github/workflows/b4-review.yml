@@ -1,0 +1,92 @@
+name: Sanitized B4 verified booking review
+on:
+  push:
+    branches: [review/phase03b-b4]
+  pull_request:
+    branches: [review/phase03b-b3]
+permissions:
+  contents: read
+concurrency:
+  group: b4-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  disposable-validation:
+    if: github.repository == 'mahdihp1997/mohammadstyle-homepage-review'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - name: Require sanitized source before execution
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';import assert from 'node:assert/strict';import {execFileSync} from 'node:child_process';
+          assert.match(fs.readFileSync('app/layout.tsx','utf8'),/data-public-review/);
+          const paths=execFileSync('git',['ls-files'],{encoding:'utf8'}).split('\n');
+          assert.ok(!paths.some(p=>/^(app\/fonts\/|references\/|artifacts\/|client-images\/)/.test(p)));
+          assert.ok(!paths.some(p=>/\.env\.(?:local|(?:b1[ab]|b2[abh]|b3|b4)\.local)$|\.(?:dump|ttf|otf|woff2?)$/.test(p)));
+          NODE
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24.16.0
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            backend/package-lock.json
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+        working-directory: backend
+      - name: Compile and run B0 through B4 on independent PostgreSQL clusters
+        working-directory: backend
+        run: |
+          npm run env:init
+          npm run b4:env
+          npm run b4:up
+          npm run typecheck
+          npm run build
+          npm run test:b3:isolated
+          npm run test:b4
+          npm run b4:verify
+          node scripts/b4/check-schema.mjs
+          node scripts/b4/check-secrets.mjs
+      - name: Existing 92 frontend regressions
+        run: |
+          npm ci --no-audit --no-fund
+          npm run typecheck
+          npm run build
+          npx playwright install --with-deps chromium
+          npm run test:ui
+      - name: Actual authenticated isolated SERVER browser flow
+        env:
+          APP_ENV: b4-local
+        run: |
+          node backend/scripts/b4/ui-fixture.mjs
+          node backend/dist/booking/main.js > backend/.local/b4/api.log 2>&1 &
+          for i in $(seq 1 30); do if curl -s -o /dev/null http://127.0.0.1:3110/; then break; fi; sleep 1; done
+          npm run test:ui:server
+      - name: Only allowlisted synthetic evidence; no credentials, dumps or browser state
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: b4-booking-validation
+          path: |
+            backend/.local/b4/results/integration.json
+            backend/.local/b4/results/extra.json
+            backend/.local/b4/results/backup.json
+            backend/.local/b4/results/restore.json
+            backend/.local/b4/results/b3-regression.json
+            backend/.local/b4/results/b2h-regression.json
+            backend/.local/b4/results/b2b-regression.json
+            backend/.local/b4/results/b2a-regression.json
+            backend/.local/b4/results/b1b-regression.json
+            backend/.local/b4/results/b1a-regression.json
+            backend/.local/b4/results/b0-regression.json
+            backend/.local/b4/results/schema.json
+            backend/.local/b4/results/server-ui-raw.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
+      - name: Stop only this job's disposable B4 project
+        if: always()
+        working-directory: backend
+        run: |
+          if [ -f .env.b4.local ]; then npm run b4:stop; fi

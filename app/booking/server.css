@@ -1,0 +1,9 @@
+.server-hash{overflow-wrap:anywhere;word-break:break-word;font-size:11px;direction:ltr}
+.server-terms-text{white-space:pre-wrap;overflow-wrap:anywhere}
+.server-quote-values{display:grid;gap:8px}
+.server-quote-values>div{display:flex;justify-content:space-between;gap:16px}
+.server-quote-values dd{margin:0;color:var(--champagne-300);overflow-wrap:anywhere;text-align:end}
+.server-aside-copy{padding:18px;font-size:13px}
+.server-history{margin-top:28px}
+.server-history h2{font-size:22px}
+.server-history-actions{display:flex;gap:20px;flex-wrap:wrap}

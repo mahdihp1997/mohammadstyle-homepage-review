@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "protectedFiles": 478,
+  "originalMigrationBytes": 11,
+  "oldDatabases": {
+    "b1a": {
+      "unchanged": true,
+      "tables": 16
+    },
+    "b1b": {
+      "unchanged": true,
+      "tables": 16
+    },
+    "b2a": {
+      "unchanged": true,
+      "tables": 27
+    },
+    "b2b": {
+      "unchanged": true,
+      "tables": 28
+    },
+    "b2h": {
+      "unchanged": true,
+      "tables": 28
+    },
+    "b3": {
+      "unchanged": true,
+      "tables": 38
+    }
+  },
+  "originalB3BranchUnchanged": true,
+  "originalPrivateGitHistoryPreserved": true
+}

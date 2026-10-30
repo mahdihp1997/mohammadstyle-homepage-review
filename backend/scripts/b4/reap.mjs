@@ -1,0 +1,4 @@
+// Trusted local durable sweep entry point, restartable and bounded; never a payment scheduler.
+import {client,identify} from './local.mjs';
+if(process.env.APP_ENV!=='b4-local'||process.env.NODE_ENV==='production')throw Error('Isolated B4 environment required');
+const db=client('ms_b4_dev');await db.connect();try{await identify(db,'ms_b4_dev');const businesses=(await db.query('SELECT DISTINCT business_id FROM ms_b1_design.booking ORDER BY business_id')).rows;let expired=0;for(const {business_id}of businesses){await db.query('BEGIN');try{await db.query("SET LOCAL lock_timeout='5s'");const r=await db.query('SELECT ms_b1_design.b4_expire_business($1) n',[business_id]);expired+=r.rows[0].n;await db.query('COMMIT');}catch(e){await db.query('ROLLBACK');throw e;}}console.log(JSON.stringify({status:'PASS',expired,businesses:businesses.length}));}finally{await db.end();}

@@ -1,0 +1,1365 @@
+{
+  "kind": "ACTUAL_POSTGRESQL18_B2A_PERSISTENCE",
+  "executedAt": "2026-10-30T10:11:17.740Z",
+  "tests": [
+    {
+      "name": "fresh installation applies five checksummed versions /27 tables",
+      "status": "PASS",
+      "observed": {
+        "applied": [
+          "0001_b1_foundation",
+          "0002_b1a_runtime_boundary",
+          "0003_b1b_admin_boundary",
+          "0004_b2a_workforce_foundation",
+          "0005_b2a_history_guards"
+        ],
+        "currentVersion": "0005_b2a_history_guards",
+        "catalog": {
+          "sha256": "9347294bb877d0e1fcc395a7183390a95c48a9fea2ea40f7b3d7760e04b04f06",
+          "tables": 27,
+          "indexes": 84,
+          "functions": 9,
+          "foreignKeys": 82,
+          "checks": 93
+        }
+      }
+    },
+    {
+      "name": "repeat migration verifies catalog and is a no-op",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "original B0/B1A/B1B databases cannot be reset by B2A lifecycle",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "new registry exactly preserves first three migration checksums",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "all indexes and FK constraints are valid; two generated ranges/exclusions present",
+      "status": "PASS",
+      "observed": {
+        "indexes": 84,
+        "foreignKeys": 82,
+        "generated": [
+          {
+            "table_name": "staff_branch_assignment",
+            "attname": "membership_period",
+            "attgenerated": "s",
+            "expression": "daterange(valid_from, valid_to, '[)'::text)"
+          },
+          {
+            "table_name": "staff_shift",
+            "attname": "working_period",
+            "attgenerated": "s",
+            "expression": "tstzrange(starts_at, ends_at, '[)'::text)"
+          }
+        ],
+        "exclusions": [
+          {
+            "table_name": "staff_branch_assignment",
+            "name": "no_overlapping_membership_period",
+            "type": "x",
+            "condeferrable": false,
+            "condeferred": false,
+            "definition": "EXCLUDE USING gist (business_id WITH =, staff_id WITH =, branch_id WITH =, membership_period WITH &&) WHERE ((voided_at IS NULL))"
+          },
+          {
+            "table_name": "staff_shift",
+            "name": "no_cross_branch_staff_shift",
+            "type": "x",
+            "condeferrable": false,
+            "condeferred": false,
+            "definition": "EXCLUDE USING gist (staff_id WITH =, working_period WITH &&) WHERE ((published AND (archived_at IS NULL)))"
+          }
+        ]
+      }
+    },
+    {
+      "name": "one global staff identity/resource belongs to two branches",
+      "status": "PASS",
+      "observed": {
+        "staffId": "35071196-8ed7-407b-be41-2db860b1e7af",
+        "resourceId": "8203cdae-6e66-451a-8b93-c1261d7f5d4a",
+        "branches": [
+          "b580e339-4647-4b17-8984-4866b8f72ce9",
+          "943980b7-da39-444b-9263-05a1160284b6"
+        ]
+      }
+    },
+    {
+      "name": "staff resource cannot be duplicated per branch",
+      "status": "PASS",
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "ck_resource_2",
+        "expected": true
+      }
+    },
+    {
+      "name": "known staff user cannot receive second global identity in business",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "global STAFF resource maps to at most one staff identity",
+      "status": "PASS",
+      "observed": {
+        "sqlstate": "23505",
+        "constraint": "uq_staff_1",
+        "expected": true
+      }
+    },
+    {
+      "name": "physical CHAIR ROOM DEVICE are distinct branch capacity units",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "physical resource requires exactly one branch",
+      "status": "PASS",
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "ck_resource_2",
+        "expected": true
+      }
+    },
+    {
+      "name": "cross-tenant physical branch reference rejected",
+      "status": "PASS",
+      "observed": {
+        "sqlstate": "23503",
+        "constraint": "fk_resource_2",
+        "expected": true
+      }
+    },
+    {
+      "name": "overlapping same-branch membership rejected",
+      "status": "PASS",
+      "observed": {
+        "sqlstate": "23P01",
+        "constraint": "no_overlapping_membership_period",
+        "expected": true
+      }
+    },
+    {
+      "name": "leaving closes a stint and rejoining creates a new adjacent historical UUID",
+      "status": "PASS",
+      "observed": [
+        {
+          "period": "[2027-01-01,2027-03-01)"
+        },
+        {
+          "period": "[2027-03-01,)"
+        }
+      ]
+    },
+    {
+      "name": "inactive and archived membership still prevents historical overlap",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "closed membership cannot reopen or extend",
+      "status": "PASS",
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "b2a_membership_end_frozen",
+        "expected": true
+      }
+    },
+    {
+      "name": "membership stable identity cannot be reparented",
+      "status": "PASS",
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "b2a_identity_frozen",
+        "expected": true
+      }
+    },
+    {
+      "name": "infinite/empty membership periods rejected",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "two membership writers serialize through native GiST exclusion",
+      "status": "PASS",
+      "observed": {
+        "name": "same-branch membership race",
+        "pids": [
+          99,
+          100
+        ],
+        "observedWait": {
+          "wait_event_type": "Lock",
+          "wait_event": "transactionid"
+        },
+        "firstCommitted": true,
+        "secondSqlstate": "23P01",
+        "constraint": "no_overlapping_membership_period",
+        "secondRows": 0
+      }
+    },
+    {
+      "name": "qualification does not automatically create branch offering eligibility",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "offering eligibility binds exact qualification staff service and membership stint",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "returning staff gets new eligibility row and old assignment reference remains",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "active qualification requires verification evidence",
+      "status": "PASS",
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "ck_staff_service_eligibility_1",
+        "expected": true
+      }
+    },
+    {
+      "name": "published overlapping shifts for same staff fail",
+      "status": "PASS",
+      "observed": {
+        "sqlstate": "23P01",
+        "constraint": "no_cross_branch_staff_shift",
+        "expected": true
+      }
+    },
+    {
+      "name": "different-branch published overlap fails globally",
+      "status": "PASS",
+      "observed": {
+        "sqlstate": "23P01",
+        "constraint": "no_cross_branch_staff_shift",
+        "expected": true
+      }
+    },
+    {
+      "name": "cross-branch concurrent published shift waits then fails23P01",
+      "status": "PASS",
+      "observed": {
+        "name": "cross-branch shift race",
+        "pids": [
+          103,
+          104
+        ],
+        "observedWait": {
+          "wait_event_type": "Lock",
+          "wait_event": "transactionid"
+        },
+        "firstCommitted": true,
+        "secondSqlstate": "23P01",
+        "constraint": "no_cross_branch_staff_shift",
+        "secondRows": 0
+      }
+    },
+    {
+      "name": "adjacent cross-branch shifts accepted under half-open semantics",
+      "status": "PASS",
+      "observed": "Native interval adjacency only; travel time is unapproved/not enforced"
+    },
+    {
+      "name": "unpublished overlapping draft shifts do not claim availability",
+      "status": "PASS",
+      "observed": {
+        "id": "4c2f3195-d9ca-48c7-8435-42f775d45e06",
+        "business_id": "677cd23e-22aa-4f74-83d2-36ecd8b1be5b",
+        "staff_id": "35071196-8ed7-407b-be41-2db860b1e7af",
+        "branch_id": "b580e339-4647-4b17-8984-4866b8f72ce9",
+        "assignment_id": "0610f44a-4040-448c-a43d-60a49e8fd7c8",
+        "schedule_rule_id": "16d2b691-972d-49e2-99b0-520c31dc8a66",
+        "starts_at": "2027-01-04T04:30:00.000Z",
+        "ends_at": "2027-01-04T06:30:00.000Z",
+        "published": false,
+        "schedule_version": "1",
+        "created_at": "2026-10-30T10:11:18.959Z",
+        "created_by": null,
+        "updated_at": "2026-10-30T10:11:18.959Z",
+        "row_version": "1",
+        "archived_at": null,
+        "working_period": "[\"2027-01-04 04:30:00+00\",\"2027-01-04 06:30:00+00\")"
+      }
+    },
+    {
+      "name": "same-stint shift-to-rule composite FK rejects mismatched assignment",
+      "status": "PASS",
+      "observed": {
+        "sqlstate": "23503",
+        "constraint": "fk_staff_shift_3",
+        "expected": true
+      }
+    },
+    {
+      "name": "rule revisions preserve old published references",
+      "status": "PASS",
+      "observed": {
+        "oldRule": "16d2b691-972d-49e2-99b0-520c31dc8a66",
+        "newRule": "2f9f327b-e25b-4dcc-bcd2-de2424c24e69",
+        "oldScheduleVersion": "1"
+      }
+    },
+    {
+      "name": "published instants/version cannot be overwritten or silently unpublished",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "stored generated ranges cannot be forged by direct writes",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "archiving retains shift and forbids unarchive/delete history",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "invalid timezone fails at database boundary, not only HTTP DTO",
+      "status": "PASS",
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "b2a_branch_timezone",
+        "expected": true
+      }
+    },
+    {
+      "name": "invalid recurrence weekday rejected",
+      "status": "PASS",
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "ck_staff_schedule_rule_1",
+        "expected": true
+      }
+    },
+    {
+      "name": "invalid recurrence overnight wrap rejected",
+      "status": "PASS",
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "ck_staff_schedule_rule_2",
+        "expected": true
+      }
+    },
+    {
+      "name": "invalid recurrence end beyond1440 rejected",
+      "status": "PASS",
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "ck_staff_schedule_rule_2",
+        "expected": true
+      }
+    },
+    {
+      "name": "invalid recurrence infinite date rejected",
+      "status": "PASS",
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "b2a_rule_finite_from",
+        "expected": true
+      }
+    },
+    {
+      "name": "invalid recurrence zero config version rejected",
+      "status": "PASS",
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "ck_staff_schedule_rule_4",
+        "expected": true
+      }
+    },
+    {
+      "name": "overnight working hours split into two explicit local-day entries",
+      "status": "PASS",
+      "observed": "Sunday22:00–24:00 and Monday00:00–02:00 local rules; no UTC materializer"
+    },
+    {
+      "name": "working hours invalid weekday/finite dates fail",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "time-off binds exact global staff resource and bounded instants",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "branch closure finite positive interval and tenant FK enforced",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "time-off/closure content is immutable; correction needs retained successor",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "known gap: time-off/closure overlap is recorded without claiming ledger enforcement",
+      "status": "PASS",
+      "observed": {
+        "notEnforced": "Exception versus shift cross-row reconciliation belongs to B2B/admission; no ResourceAllocation table"
+      }
+    },
+    {
+      "name": "known gap: membership FK is identity, not temporal containment",
+      "status": "PASS",
+      "observed": {
+        "notEnforced": "Future command must reject publication outside assignment, recurrence and active readiness"
+      }
+    },
+    {
+      "name": "unknown availability configuration stays null and disabled",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "enabling incomplete configuration fails scalar completeness check",
+      "status": "PASS",
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "ck_availability_configuration_7",
+        "expected": true
+      }
+    },
+    {
+      "name": "configuration and row versions must both advance exactly once",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "two actual CAS writers cannot silently overwrite same revision",
+      "status": "PASS",
+      "observed": {
+        "name": "optimistic resource CAS",
+        "pids": [
+          105,
+          106
+        ],
+        "observedWait": {
+          "wait_event_type": "Lock",
+          "wait_event": "transactionid"
+        },
+        "firstCommitted": true,
+        "secondSqlstate": null,
+        "constraint": null,
+        "secondRows": 0
+      }
+    },
+    {
+      "name": "blind stale version update also fails native version guard",
+      "status": "PASS",
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "b2a_next_row_version",
+        "expected": true
+      }
+    },
+    {
+      "name": "resource identity cannot move branches or change kind",
+      "status": "PASS",
+      "observed": {
+        "sqlstate": "23514",
+        "constraint": "b2a_identity_frozen",
+        "expected": true
+      }
+    },
+    {
+      "name": "staff/resource deactivation retains stable historical references",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "unreferenced correction keeps voided membership and cannot silently unvoid",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "failed multi-table transaction leaves no resource/staff orphan",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "both B1 inactive booking constraints remain enforced",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "runtime cannot read or mutate any of11 new tables",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "api cannot read or mutate any of11 new tables",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "API function grants remain exactly three without new table privileges",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "catalog drift detects generated expression, exclusion or trigger change",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "concurrent migration attempts apply once using transaction advisory lock",
+      "status": "PASS",
+      "observed": [
+        [
+          "0001_b1_foundation",
+          "0002_b1a_runtime_boundary",
+          "0003_b1b_admin_boundary",
+          "0004_b2a_workforce_foundation",
+          "0005_b2a_history_guards"
+        ],
+        []
+      ]
+    },
+    {
+      "name": "B1B upgrade retains existing row evidence and applies only0004/0005",
+      "status": "PASS",
+      "observed": {
+        "applied": [
+          "0004_b2a_workforce_foundation",
+          "0005_b2a_history_guards"
+        ],
+        "currentVersion": "0005_b2a_history_guards",
+        "catalog": {
+          "sha256": "9347294bb877d0e1fcc395a7183390a95c48a9fea2ea40f7b3d7760e04b04f06",
+          "tables": 27,
+          "indexes": 84,
+          "functions": 9,
+          "foreignKeys": 82,
+          "checks": 93
+        }
+      }
+    },
+    {
+      "name": "failed forward migration rolls back new DDL and history",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "tampered checksum and unknown history fail closed",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "synthetic fixtures cover all11 new tables without actual staff or tariffs",
+      "status": "PASS",
+      "observed": [
+        {
+          "table": "ms_b1_design.availability_configuration",
+          "count": 1
+        },
+        {
+          "table": "ms_b1_design.branch_closure",
+          "count": 1
+        },
+        {
+          "table": "ms_b1_design.branch_working_hours",
+          "count": 2
+        },
+        {
+          "table": "ms_b1_design.offering_staff_eligibility",
+          "count": 2
+        },
+        {
+          "table": "ms_b1_design.resource",
+          "count": 9
+        },
+        {
+          "table": "ms_b1_design.staff",
+          "count": 2
+        },
+        {
+          "table": "ms_b1_design.staff_branch_assignment",
+          "count": 5
+        },
+        {
+          "table": "ms_b1_design.staff_schedule_rule",
+          "count": 2
+        },
+        {
+          "table": "ms_b1_design.staff_service_eligibility",
+          "count": 2
+        },
+        {
+          "table": "ms_b1_design.staff_shift",
+          "count": 7
+        },
+        {
+          "table": "ms_b1_design.staff_time_off",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "name": "existing B1B session/read/atomic command entry points work on upgraded27-table schema",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "actual custom-format pg_dump contains verified B2A source snapshot",
+      "status": "PASS",
+      "observed": {
+        "bytes": 163056,
+        "sha256": "7cfb09bb3c89430d01418da2e9ecf2974d10fc4441b5baac9a613fcd1e42f9a5",
+        "version": "pg_dump (PostgreSQL) 18.6 (Debian 18.6-1.pgdg12+2)"
+      }
+    },
+    {
+      "name": "actual separate pg_restore preserves all27 tables, generated ranges and grants",
+      "status": "PASS",
+      "observed": {
+        "sha256": "9347294bb877d0e1fcc395a7183390a95c48a9fea2ea40f7b3d7760e04b04f06",
+        "tables": 27,
+        "indexes": 84,
+        "functions": 9,
+        "foreignKeys": 82,
+        "checks": 93
+      }
+    },
+    {
+      "name": "restored exclusion and historical/version triggers remain executable",
+      "status": "PASS",
+      "observed": "assertions passed"
+    }
+  ],
+  "rejections": [
+    {
+      "sqlstate": "23514",
+      "constraint": "ck_resource_2",
+      "expected": true
+    },
+    {
+      "sqlstate": "23505",
+      "constraint": "uq_staff_2",
+      "expected": true
+    },
+    {
+      "sqlstate": "23505",
+      "constraint": "uq_staff_1",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "ck_resource_2",
+      "expected": true
+    },
+    {
+      "sqlstate": "23503",
+      "constraint": "fk_resource_2",
+      "expected": true
+    },
+    {
+      "sqlstate": "23P01",
+      "constraint": "no_overlapping_membership_period",
+      "expected": true
+    },
+    {
+      "sqlstate": "23P01",
+      "constraint": "no_overlapping_membership_period",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "b2a_membership_end_frozen",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "b2a_identity_frozen",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "ck_staff_branch_assignment_2",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "ck_staff_branch_assignment_1",
+      "expected": true
+    },
+    {
+      "sqlstate": "23P01",
+      "constraint": "no_overlapping_membership_period",
+      "expected": true
+    },
+    {
+      "sqlstate": "23503",
+      "constraint": "fk_offering_staff_eligibility_3",
+      "expected": true
+    },
+    {
+      "sqlstate": "23503",
+      "constraint": "fk_offering_staff_eligibility_4",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "b2a_identity_frozen",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "ck_staff_service_eligibility_1",
+      "expected": true
+    },
+    {
+      "sqlstate": "23P01",
+      "constraint": "no_cross_branch_staff_shift",
+      "expected": true
+    },
+    {
+      "sqlstate": "23P01",
+      "constraint": "no_cross_branch_staff_shift",
+      "expected": true
+    },
+    {
+      "sqlstate": "23P01",
+      "constraint": "no_cross_branch_staff_shift",
+      "expected": true
+    },
+    {
+      "sqlstate": "23503",
+      "constraint": "fk_staff_shift_3",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "b2a_revision_immutable",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "b2a_revision_immutable",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "b2a_revision_immutable",
+      "expected": true
+    },
+    {
+      "sqlstate": "428C9",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "428C9",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "b2a_archive_frozen",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "b2a_history_retained",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "b2a_branch_timezone",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "ck_staff_schedule_rule_1",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "ck_staff_schedule_rule_2",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "ck_staff_schedule_rule_2",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "b2a_rule_finite_from",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "ck_staff_schedule_rule_4",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "ck_branch_working_hours_1",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "b2a_hours_finite_from",
+      "expected": true
+    },
+    {
+      "sqlstate": "23503",
+      "constraint": "fk_staff_time_off_2",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "ck_staff_time_off_1",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "ck_branch_closure_3",
+      "expected": true
+    },
+    {
+      "sqlstate": "23503",
+      "constraint": "fk_branch_closure_2",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "b2a_revision_immutable",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "b2a_revision_immutable",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "ck_availability_configuration_7",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "b2a_next_configuration_version",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "b2a_next_row_version",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "b2a_identity_frozen",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "b2a_identity_frozen",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "ck_staff_branch_assignment_4",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "b2a_void_frozen",
+      "expected": true
+    },
+    {
+      "sqlstate": "23503",
+      "constraint": "fk_staff_3",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "b1_branch_inactive",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "b1_branch_service_offering_inactive",
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "42501",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "22012",
+      "constraint": null,
+      "expected": true
+    },
+    {
+      "sqlstate": "23P01",
+      "constraint": "no_cross_branch_staff_shift",
+      "expected": true
+    },
+    {
+      "sqlstate": "23514",
+      "constraint": "b2a_history_retained",
+      "expected": true
+    }
+  ],
+  "concurrency": [
+    {
+      "name": "same-branch membership race",
+      "pids": [
+        99,
+        100
+      ],
+      "observedWait": {
+        "wait_event_type": "Lock",
+        "wait_event": "transactionid"
+      },
+      "firstCommitted": true,
+      "secondSqlstate": "23P01",
+      "constraint": "no_overlapping_membership_period",
+      "secondRows": 0
+    },
+    {
+      "name": "cross-branch shift race",
+      "pids": [
+        103,
+        104
+      ],
+      "observedWait": {
+        "wait_event_type": "Lock",
+        "wait_event": "transactionid"
+      },
+      "firstCommitted": true,
+      "secondSqlstate": "23P01",
+      "constraint": "no_cross_branch_staff_shift",
+      "secondRows": 0
+    },
+    {
+      "name": "optimistic resource CAS",
+      "pids": [
+        105,
+        106
+      ],
+      "observedWait": {
+        "wait_event_type": "Lock",
+        "wait_event": "transactionid"
+      },
+      "firstCommitted": true,
+      "secondSqlstate": null,
+      "constraint": null,
+      "secondRows": 0
+    }
+  ],
+  "notEnforced": [
+    "Cross-row membership containment of every published shift/local date, including later membership closure/void correction",
+    "Recurrence materialization, DST ambiguity/gap resolution, branch opening coverage and horizon completeness",
+    "Shift versus time-off/branch-closure reconciliation; resource allocation ledger is a later cohort",
+    "Travel time between branches; adjacent intervals do not imply practical travel feasibility",
+    "Current active/verified/archived qualification/assignment/resource readiness across references",
+    "Monotonic branch-wide schedule publication version and atomic audited B2B revision/exception commands",
+    "Authoritative slot generation, booking/hold/resource-allocation admission and complete double-booking protection"
+  ],
+  "server": "PostgreSQL 18.6 (Debian 18.6-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+  "rejoinId": "8cf9504c-0349-4bcd-bda9-19e2a2aecf3d",
+  "finalCatalog": {
+    "sha256": "9347294bb877d0e1fcc395a7183390a95c48a9fea2ea40f7b3d7760e04b04f06",
+    "tables": 27,
+    "indexes": 84,
+    "functions": 9,
+    "foreignKeys": 82,
+    "checks": 93
+  },
+  "snapshot": {
+    "catalogSha256": "9347294bb877d0e1fcc395a7183390a95c48a9fea2ea40f7b3d7760e04b04f06",
+    "tables": 27,
+    "rows": [
+      {
+        "table": "ms_b1_design.app_user",
+        "count": 1,
+        "sha256": "5558367120adb69729dfa56ba80b3d1a464f2c564a17a734f4690a94d9da1c46"
+      },
+      {
+        "table": "ms_b1_design.audit_log",
+        "count": 1,
+        "sha256": "e75d83d76af97b79ebac1b1251f6051974b4b8116754f679d55a6b418f6772ca"
+      },
+      {
+        "table": "ms_b1_design.auth_identity",
+        "count": 0,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "table": "ms_b1_design.auth_session",
+        "count": 1,
+        "sha256": "74dcee4890f7433f21a34771b4667b7be3a3810d34100ef2031efd9c783d0e68"
+      },
+      {
+        "table": "ms_b1_design.availability_configuration",
+        "count": 1,
+        "sha256": "2d64bbcbe076bb2afeb854a3c7cccd078b885ac80ab04c2f3eb90850b61b96c5"
+      },
+      {
+        "table": "ms_b1_design.branch",
+        "count": 4,
+        "sha256": "2652a93d6d01ba16b9037d7efc86165adb318122572cb94dc0d185cfc802bf75"
+      },
+      {
+        "table": "ms_b1_design.branch_closure",
+        "count": 1,
+        "sha256": "028a5fc52745aaf1295fa1fd195867f85e2876d10854dae2dacd86b952b53299"
+      },
+      {
+        "table": "ms_b1_design.branch_service_offering",
+        "count": 1,
+        "sha256": "018502a13ca4ad2e32a2bffec7743237a4aa33b550adc934a3f4a6c88211ad9c"
+      },
+      {
+        "table": "ms_b1_design.branch_working_hours",
+        "count": 2,
+        "sha256": "cce4d6a9d0fe986ffc6b7088fe8fb09cd619db32aebce289b4af8a5e5fe2a4ec"
+      },
+      {
+        "table": "ms_b1_design.business",
+        "count": 2,
+        "sha256": "1b1766996128e039cc1674d798067f1b9f329db53885e6f873baf436a58dc0b3"
+      },
+      {
+        "table": "ms_b1_design.consumer_inbox",
+        "count": 0,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "table": "ms_b1_design.idempotency_record",
+        "count": 1,
+        "sha256": "41808f21f87fbfc52dddece55235f860288b1eb29e533d4a525b870b18e5ff23"
+      },
+      {
+        "table": "ms_b1_design.offering_resource_requirement",
+        "count": 0,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "table": "ms_b1_design.offering_staff_eligibility",
+        "count": 2,
+        "sha256": "02c8539bb87da813130d39bbd10e335d6ebb9f816e4bcf7ceec03b8cd8fb9186"
+      },
+      {
+        "table": "ms_b1_design.outbox_event",
+        "count": 1,
+        "sha256": "c89ed8d42b12570f8c64e7463e35ed6bcbcf25817be0709f2728189235b6f9dd"
+      },
+      {
+        "table": "ms_b1_design.permission",
+        "count": 2,
+        "sha256": "4a28d0f45088e70bbf3758cceed912ca20bc1a9415a1e9bc65b1473e2120c29f"
+      },
+      {
+        "table": "ms_b1_design.resource",
+        "count": 9,
+        "sha256": "e28058f4b74a2f98699685703407fe9f51297d29af0538b9883b5b4469b60d66"
+      },
+      {
+        "table": "ms_b1_design.role",
+        "count": 1,
+        "sha256": "9210868de7a40bdb68d2b86fd9bd46043d5e2026d4d18db671bf6d043d3e4c5c"
+      },
+      {
+        "table": "ms_b1_design.role_permission",
+        "count": 2,
+        "sha256": "7e0421ee04254c59a5e883e1cf4bdda716328205723fd98a6cc1fad74cabe49f"
+      },
+      {
+        "table": "ms_b1_design.service",
+        "count": 2,
+        "sha256": "0e19e2b012d75005a1164d6263cd2ea3001734a89369380438020c73d85da14f"
+      },
+      {
+        "table": "ms_b1_design.staff",
+        "count": 2,
+        "sha256": "6b8d71a866e48812702d02facd5c02b1a879c5732c57973ebb4c632502a4dedd"
+      },
+      {
+        "table": "ms_b1_design.staff_branch_assignment",
+        "count": 5,
+        "sha256": "2fc44d1c3a6a93b84144510a9b7c7c8acfc6b6d719c2d30166f5b55836521d5e"
+      },
+      {
+        "table": "ms_b1_design.staff_schedule_rule",
+        "count": 2,
+        "sha256": "1fd5abb701e7fed3b0f5e11e28520f1efa7ff20b7dc5c3a658b836e9385f6b66"
+      },
+      {
+        "table": "ms_b1_design.staff_service_eligibility",
+        "count": 2,
+        "sha256": "04907c5e0c157f61bbfbb8b1a61c7d6e2f3f7518b19bc67af97e6d7b803753b9"
+      },
+      {
+        "table": "ms_b1_design.staff_shift",
+        "count": 7,
+        "sha256": "81c000612a05aaa1d82ab70b1e193a4d3e38d15a348ad26c6fa19025d51508ab"
+      },
+      {
+        "table": "ms_b1_design.staff_time_off",
+        "count": 1,
+        "sha256": "fc2d2cdf3f464cd0fde666d585867c8d62637d1e079072d24d3d54014549dbde"
+      },
+      {
+        "table": "ms_b1_design.user_role_assignment",
+        "count": 1,
+        "sha256": "f150697b98002b10724305c2d5cc073ff5a77ca30c06e784e3128767ae9860dd"
+      },
+      {
+        "table": "ms_b1_meta.schema_migration",
+        "count": 5,
+        "sha256": "f440333837a810f7a5faea83f72f7a7594e9c8cc88a4bdf3382e1b5cd88a3cd2"
+      }
+    ]
+  },
+  "summary": {
+    "passed": 69,
+    "failed": 0,
+    "expectedSQLRejections": 100,
+    "observedConcurrencyCases": 3
+  },
+  "originalTestBodySha256": "794285727d6f2d98dbea5d7a70485401562e5941e4eeb6876a016160d9067368",
+  "harness": "Unchanged B2A69 in isolated tmpfs55441; original databases/evidence untouched"
+}

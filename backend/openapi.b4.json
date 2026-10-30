@@ -1,0 +1,1108 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Mohammad Style isolated B4 booking API",
+    "version": "0.0.0-b4",
+    "description": "Loopback-only test profile, not production login/payment. Every POST requires exact Origin http://127.0.0.1:3110, JSON, SameSite session and CSRF. State changes use verified test identities. Native SQL is authoritative; no client price/time/resource document is accepted. Next proxy is disabled by default and in production; accepts only 127.0.0.1:3000 with MS_BOOKING_SERVER_ENABLED=1. Confirm with deposit>0 stays PENDING_PAYMENT."
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:3110"
+    }
+  ],
+  "security": [
+    {
+      "session": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "session": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "ms_session"
+      }
+    }
+  },
+  "paths": {
+    "/api/v1/booking/commands/availability": {
+      "post": {
+        "operationId": "booking_availability",
+        "summary": "availability",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "branchId",
+                  "offeringIds",
+                  "staffId",
+                  "date",
+                  "optionalDepositChosen",
+                  "rescheduleBookingId",
+                  "cursor"
+                ],
+                "properties": {
+                  "branchId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "offeringIds": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 12,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  },
+                  "staffId": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "optionalDepositChosen": {
+                    "type": "boolean"
+                  },
+                  "rescheduleBookingId": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "cursor": {
+                    "type": "string",
+                    "pattern": "^(0|[1-9][0-9]{0,3})$",
+                    "description": "Local grid minute, 0..1439 and divisible by configured stride; initial 0. Up to six fully verified plans/page; follow nextCursor."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Server result; reads do not create a booking. Idempotent replay retains original identity/expiry; read current status afterwards."
+          },
+          "401": {
+            "description": "Unverified/expired session"
+          },
+          "403": {
+            "description": "CSRF, Origin, role or verified identity denied"
+          },
+          "404": {
+            "description": "Hidden/missing owned target"
+          },
+          "409": {
+            "description": "Stale/expired quote or plan; resource conflict; invalid state"
+          },
+          "412": {
+            "description": "Stale booking version"
+          },
+          "422": {
+            "description": "Contract/configuration/consent/policy boundary rejected"
+          },
+          "429": {
+            "description": "Bounded process rate limit"
+          },
+          "503": {
+            "description": "Unavailable/unknown outcome: retry same idempotency key, then read current state"
+          }
+        }
+      }
+    },
+    "/api/v1/booking/commands/quote": {
+      "post": {
+        "operationId": "booking_quote",
+        "summary": "quote",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "planId"
+                ],
+                "properties": {
+                  "planId": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Server result; reads do not create a booking. Idempotent replay retains original identity/expiry; read current status afterwards."
+          },
+          "401": {
+            "description": "Unverified/expired session"
+          },
+          "403": {
+            "description": "CSRF, Origin, role or verified identity denied"
+          },
+          "404": {
+            "description": "Hidden/missing owned target"
+          },
+          "409": {
+            "description": "Stale/expired quote or plan; resource conflict; invalid state"
+          },
+          "412": {
+            "description": "Stale booking version"
+          },
+          "422": {
+            "description": "Contract/configuration/consent/policy boundary rejected"
+          },
+          "429": {
+            "description": "Bounded process rate limit"
+          },
+          "503": {
+            "description": "Unavailable/unknown outcome: retry same idempotency key, then read current state"
+          }
+        }
+      }
+    },
+    "/api/v1/booking/commands/draft": {
+      "post": {
+        "operationId": "booking_draft",
+        "summary": "draft",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "branchId"
+                ],
+                "properties": {
+                  "branchId": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Server result; reads do not create a booking. Idempotent replay retains original identity/expiry; read current status afterwards."
+          },
+          "401": {
+            "description": "Unverified/expired session"
+          },
+          "403": {
+            "description": "CSRF, Origin, role or verified identity denied"
+          },
+          "404": {
+            "description": "Hidden/missing owned target"
+          },
+          "409": {
+            "description": "Stale/expired quote or plan; resource conflict; invalid state"
+          },
+          "412": {
+            "description": "Stale booking version"
+          },
+          "422": {
+            "description": "Contract/configuration/consent/policy boundary rejected"
+          },
+          "429": {
+            "description": "Bounded process rate limit"
+          },
+          "503": {
+            "description": "Unavailable/unknown outcome: retry same idempotency key, then read current state"
+          }
+        }
+      }
+    },
+    "/api/v1/booking/commands/hold": {
+      "post": {
+        "operationId": "booking_hold",
+        "summary": "hold",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "bookingId",
+                  "version",
+                  "quoteId",
+                  "contentHash",
+                  "snapshotHash",
+                  "accepted"
+                ],
+                "properties": {
+                  "bookingId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "version": {
+                    "type": "string",
+                    "pattern": "^[1-9][0-9]{0,18}$"
+                  },
+                  "quoteId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "contentHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "snapshotHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "accepted": {
+                    "type": "boolean",
+                    "const": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Server result; reads do not create a booking. Idempotent replay retains original identity/expiry; read current status afterwards."
+          },
+          "401": {
+            "description": "Unverified/expired session"
+          },
+          "403": {
+            "description": "CSRF, Origin, role or verified identity denied"
+          },
+          "404": {
+            "description": "Hidden/missing owned target"
+          },
+          "409": {
+            "description": "Stale/expired quote or plan; resource conflict; invalid state"
+          },
+          "412": {
+            "description": "Stale booking version"
+          },
+          "422": {
+            "description": "Contract/configuration/consent/policy boundary rejected"
+          },
+          "429": {
+            "description": "Bounded process rate limit"
+          },
+          "503": {
+            "description": "Unavailable/unknown outcome: retry same idempotency key, then read current state"
+          }
+        }
+      }
+    },
+    "/api/v1/booking/commands/reschedule": {
+      "post": {
+        "operationId": "booking_reschedule",
+        "summary": "reschedule",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "bookingId",
+                  "version",
+                  "quoteId",
+                  "contentHash",
+                  "snapshotHash",
+                  "accepted"
+                ],
+                "properties": {
+                  "bookingId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "version": {
+                    "type": "string",
+                    "pattern": "^[1-9][0-9]{0,18}$"
+                  },
+                  "quoteId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "contentHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "snapshotHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "accepted": {
+                    "type": "boolean",
+                    "const": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Server result; reads do not create a booking. Idempotent replay retains original identity/expiry; read current status afterwards."
+          },
+          "401": {
+            "description": "Unverified/expired session"
+          },
+          "403": {
+            "description": "CSRF, Origin, role or verified identity denied"
+          },
+          "404": {
+            "description": "Hidden/missing owned target"
+          },
+          "409": {
+            "description": "Stale/expired quote or plan; resource conflict; invalid state"
+          },
+          "412": {
+            "description": "Stale booking version"
+          },
+          "422": {
+            "description": "Contract/configuration/consent/policy boundary rejected"
+          },
+          "429": {
+            "description": "Bounded process rate limit"
+          },
+          "503": {
+            "description": "Unavailable/unknown outcome: retry same idempotency key, then read current state"
+          }
+        }
+      }
+    },
+    "/api/v1/booking/commands/confirm": {
+      "post": {
+        "operationId": "booking_confirm",
+        "summary": "confirm",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "bookingId",
+                  "version"
+                ],
+                "properties": {
+                  "bookingId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "version": {
+                    "type": "string",
+                    "pattern": "^[1-9][0-9]{0,18}$"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Server result; reads do not create a booking. Idempotent replay retains original identity/expiry; read current status afterwards."
+          },
+          "401": {
+            "description": "Unverified/expired session"
+          },
+          "403": {
+            "description": "CSRF, Origin, role or verified identity denied"
+          },
+          "404": {
+            "description": "Hidden/missing owned target"
+          },
+          "409": {
+            "description": "Stale/expired quote or plan; resource conflict; invalid state"
+          },
+          "412": {
+            "description": "Stale booking version"
+          },
+          "422": {
+            "description": "Contract/configuration/consent/policy boundary rejected"
+          },
+          "429": {
+            "description": "Bounded process rate limit"
+          },
+          "503": {
+            "description": "Unavailable/unknown outcome: retry same idempotency key, then read current state"
+          }
+        }
+      }
+    },
+    "/api/v1/booking/commands/cancel": {
+      "post": {
+        "operationId": "booking_cancel",
+        "summary": "cancel",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "bookingId",
+                  "version"
+                ],
+                "properties": {
+                  "bookingId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "version": {
+                    "type": "string",
+                    "pattern": "^[1-9][0-9]{0,18}$"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Server result; reads do not create a booking. Idempotent replay retains original identity/expiry; read current status afterwards."
+          },
+          "401": {
+            "description": "Unverified/expired session"
+          },
+          "403": {
+            "description": "CSRF, Origin, role or verified identity denied"
+          },
+          "404": {
+            "description": "Hidden/missing owned target"
+          },
+          "409": {
+            "description": "Stale/expired quote or plan; resource conflict; invalid state"
+          },
+          "412": {
+            "description": "Stale booking version"
+          },
+          "422": {
+            "description": "Contract/configuration/consent/policy boundary rejected"
+          },
+          "429": {
+            "description": "Bounded process rate limit"
+          },
+          "503": {
+            "description": "Unavailable/unknown outcome: retry same idempotency key, then read current state"
+          }
+        }
+      }
+    },
+    "/api/v1/booking/commands/configuration.enable": {
+      "post": {
+        "operationId": "booking_configuration_enable",
+        "summary": "Explicit complete-configuration activation; booking.configure required; not proxied by Next",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{16,128}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "branchId",
+                  "offeringIds"
+                ],
+                "properties": {
+                  "branchId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "offeringIds": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 12,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Server result; reads do not create a booking. Idempotent replay retains original identity/expiry; read current status afterwards."
+          },
+          "401": {
+            "description": "Unverified/expired session"
+          },
+          "403": {
+            "description": "CSRF, Origin, role or verified identity denied"
+          },
+          "404": {
+            "description": "Hidden/missing owned target"
+          },
+          "409": {
+            "description": "Stale/expired quote or plan; resource conflict; invalid state"
+          },
+          "412": {
+            "description": "Stale booking version"
+          },
+          "422": {
+            "description": "Contract/configuration/consent/policy boundary rejected"
+          },
+          "429": {
+            "description": "Bounded process rate limit"
+          },
+          "503": {
+            "description": "Unavailable/unknown outcome: retry same idempotency key, then read current state"
+          }
+        }
+      }
+    },
+    "/api/v1/booking/read/catalog": {
+      "post": {
+        "operationId": "booking_read_catalog",
+        "summary": "catalog (owner scope, finite pagination, DB clock; may sweep expired holds in independent transaction)",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "entityId",
+                  "pageOffset"
+                ],
+                "properties": {
+                  "entityId": {
+                    "type": "null"
+                  },
+                  "pageOffset": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 10000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Server result; reads do not create a booking. Idempotent replay retains original identity/expiry; read current status afterwards."
+          },
+          "401": {
+            "description": "Unverified/expired session"
+          },
+          "403": {
+            "description": "CSRF, Origin, role or verified identity denied"
+          },
+          "404": {
+            "description": "Hidden/missing owned target"
+          },
+          "409": {
+            "description": "Stale/expired quote or plan; resource conflict; invalid state"
+          },
+          "412": {
+            "description": "Stale booking version"
+          },
+          "422": {
+            "description": "Contract/configuration/consent/policy boundary rejected"
+          },
+          "429": {
+            "description": "Bounded process rate limit"
+          },
+          "503": {
+            "description": "Unavailable/unknown outcome: retry same idempotency key, then read current state"
+          }
+        }
+      }
+    },
+    "/api/v1/booking/read/history": {
+      "post": {
+        "operationId": "booking_read_history",
+        "summary": "history (owner scope, finite pagination, DB clock; may sweep expired holds in independent transaction)",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "entityId",
+                  "pageOffset"
+                ],
+                "properties": {
+                  "entityId": {
+                    "type": "null"
+                  },
+                  "pageOffset": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 10000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Server result; reads do not create a booking. Idempotent replay retains original identity/expiry; read current status afterwards."
+          },
+          "401": {
+            "description": "Unverified/expired session"
+          },
+          "403": {
+            "description": "CSRF, Origin, role or verified identity denied"
+          },
+          "404": {
+            "description": "Hidden/missing owned target"
+          },
+          "409": {
+            "description": "Stale/expired quote or plan; resource conflict; invalid state"
+          },
+          "412": {
+            "description": "Stale booking version"
+          },
+          "422": {
+            "description": "Contract/configuration/consent/policy boundary rejected"
+          },
+          "429": {
+            "description": "Bounded process rate limit"
+          },
+          "503": {
+            "description": "Unavailable/unknown outcome: retry same idempotency key, then read current state"
+          }
+        }
+      }
+    },
+    "/api/v1/booking/read/booking": {
+      "post": {
+        "operationId": "booking_read_booking",
+        "summary": "booking (owner scope, finite pagination, DB clock; may sweep expired holds in independent transaction)",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "entityId",
+                  "pageOffset"
+                ],
+                "properties": {
+                  "entityId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "pageOffset": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 10000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Server result; reads do not create a booking. Idempotent replay retains original identity/expiry; read current status afterwards."
+          },
+          "401": {
+            "description": "Unverified/expired session"
+          },
+          "403": {
+            "description": "CSRF, Origin, role or verified identity denied"
+          },
+          "404": {
+            "description": "Hidden/missing owned target"
+          },
+          "409": {
+            "description": "Stale/expired quote or plan; resource conflict; invalid state"
+          },
+          "412": {
+            "description": "Stale booking version"
+          },
+          "422": {
+            "description": "Contract/configuration/consent/policy boundary rejected"
+          },
+          "429": {
+            "description": "Bounded process rate limit"
+          },
+          "503": {
+            "description": "Unavailable/unknown outcome: retry same idempotency key, then read current state"
+          }
+        }
+      }
+    },
+    "/api/v1/booking/read/events": {
+      "post": {
+        "operationId": "booking_read_events",
+        "summary": "events (owner scope, finite pagination, DB clock; may sweep expired holds in independent transaction)",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "entityId",
+                  "pageOffset"
+                ],
+                "properties": {
+                  "entityId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "pageOffset": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 10000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Server result; reads do not create a booking. Idempotent replay retains original identity/expiry; read current status afterwards."
+          },
+          "401": {
+            "description": "Unverified/expired session"
+          },
+          "403": {
+            "description": "CSRF, Origin, role or verified identity denied"
+          },
+          "404": {
+            "description": "Hidden/missing owned target"
+          },
+          "409": {
+            "description": "Stale/expired quote or plan; resource conflict; invalid state"
+          },
+          "412": {
+            "description": "Stale booking version"
+          },
+          "422": {
+            "description": "Contract/configuration/consent/policy boundary rejected"
+          },
+          "429": {
+            "description": "Bounded process rate limit"
+          },
+          "503": {
+            "description": "Unavailable/unknown outcome: retry same idempotency key, then read current state"
+          }
+        }
+      }
+    },
+    "/api/v1/booking/read/cancellation-preview": {
+      "post": {
+        "operationId": "booking_read_cancellation_preview",
+        "summary": "cancellation-preview (owner scope, finite pagination, DB clock; may sweep expired holds in independent transaction)",
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "entityId",
+                  "pageOffset"
+                ],
+                "properties": {
+                  "entityId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "pageOffset": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 10000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Server result; reads do not create a booking. Idempotent replay retains original identity/expiry; read current status afterwards."
+          },
+          "401": {
+            "description": "Unverified/expired session"
+          },
+          "403": {
+            "description": "CSRF, Origin, role or verified identity denied"
+          },
+          "404": {
+            "description": "Hidden/missing owned target"
+          },
+          "409": {
+            "description": "Stale/expired quote or plan; resource conflict; invalid state"
+          },
+          "412": {
+            "description": "Stale booking version"
+          },
+          "422": {
+            "description": "Contract/configuration/consent/policy boundary rejected"
+          },
+          "429": {
+            "description": "Bounded process rate limit"
+          },
+          "503": {
+            "description": "Unavailable/unknown outcome: retry same idempotency key, then read current state"
+          }
+        }
+      }
+    }
+  }
+}

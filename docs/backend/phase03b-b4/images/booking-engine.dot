@@ -1,0 +1,58 @@
+digraph Booking {
+ graph [rankdir=TB,bgcolor="#f7f5f0",pad="0.35",ranksep="0.65",nodesep="0.45",fontname="Arial",fontsize=20,label="B4 • isolated verified booking engine
+Actual application components; no payment gateway or production login",labelloc=t];
+ node [shape=box,style="rounded,filled",fillcolor="white",color="#776445",fontname="Arial",fontsize=17,margin="0.2,0.15"];
+ edge [color="#776445",fontname="Arial",fontsize=13,arrowsize=0.8];
+ subgraph cluster_browser {label="Existing Next.js application";color="#baa374";style=rounded;
+ demo[label="DEMO
+Original 5-step preview unchanged",fillcolor="#ede9e0"];
+ ui[label="SERVER / local feature flag
+Existing visual shell + Jalali calendar
+Current response only / exact terms consent"];
+ proxy[label="Loopback-only Next proxy
+Session + CSRF + exact Origin
+Disabled by default and in production"];
+ {rank=same;demo;ui;proxy;}ui->proxy;}
+ subgraph cluster_api {label="NestJS / isolated API3110";color="#baa374";style=rounded;
+ auth[label="Existing SessionGuard + strict DTO
+Verified identity / tenant / ownership
+Rate limits / duplicate JSON rejection"];
+ tx[label="Repository transaction boundary
+SERIALIZABLE / <=3 safe attempts
+Same-key durable receipts / no TTL refresh"];
+ {rank=same;auth;tx;}auth->tx;}
+ subgraph cluster_db {label="PostgreSQL18 / EXECUTE-only API role";color="#baa374";style=rounded;
+ locks[label="One canonical aggregate lock order
+Pricing revision → B2B business mutex
+Sorted branches → resources → booking"];
+ planner[label="Real feasible plan
+Published shifts + opening hours + IANA
+Membership / qualifications / exceptions
+One provider + physical units + buffers"];
+ quote[label="Immutable owned plan + final quote
+MS_QUOTE_CONTENT_V2 + exact JCS digest
+B3 prices / policy revalidation
+Independent UUID / TTL / frozen terms"];
+ ledger[label="Atomic booking admission
+Coalesced resource allocations
+Native global GiST overlap exclusion
+Revision + consent + history + audit/outbox"];
+ state[label="Explicit NONE / declined OPTIONAL + zero
+→ CONFIRMED
+Required/chosen deposit (even rounded zero)
+→ PENDING_PAYMENT; no fake settlement",fillcolor="#e6efea"];
+ release[label="Expiry / cancellation / safe reschedule
+Same complete lock set / DB clock
+Atomic release or old+new revision swap
+No money movement",fillcolor="#f0e8db"];
+ {rank=same;locks;planner;}{rank=same;quote;ledger;}{rank=same;state;release;}
+ locks->planner->quote->ledger->state;
+ ledger->release;release->ledger[label="capacity reusable",style=dashed];}
+ proxy->auth;tx->locks[label="authenticate before locks"];
+ sweep[label="Independent durable SQL sweep
+Before API work + explicit local CLI
+Bounded, restartable; never inline reclaim
+while holding a partial resource set",fillcolor="#ede9e0"];
+ tx->sweep[style=dashed,label="separate transaction first"];
+ sweep->release[style=dashed];
+}

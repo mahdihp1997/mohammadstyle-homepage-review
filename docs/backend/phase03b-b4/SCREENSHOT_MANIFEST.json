@@ -1,0 +1,152 @@
+{
+  "kind": "ACTUAL_PLAYWRIGHT_SERVER_UI",
+  "screenshots": [
+    {
+      "path": "images/ui/desktop-availability-fold.png",
+      "width": 1440,
+      "height": 900,
+      "sha256": "e7608e461b1772799a571054a8e15dd264242d78c73f65d5a37a2d71afeceab7"
+    },
+    {
+      "path": "images/ui/desktop-availability-full.png",
+      "width": 1440,
+      "height": 1700,
+      "sha256": "b96c7c56146eab5e03b9486041ffad0be4dc2704ddd9795116e9ac461466d70a"
+    },
+    {
+      "path": "images/ui/desktop-branch.png",
+      "width": 1440,
+      "height": 1502,
+      "sha256": "7362b4f6d137a6751c489354337217ce95be4c73d83b7048eef5bfe9317b23cd"
+    },
+    {
+      "path": "images/ui/desktop-cancelled.png",
+      "width": 1440,
+      "height": 1523,
+      "sha256": "5b8aee87e9a6a014535d78677c0fe725d076fda530102603a5535f895cdff279"
+    },
+    {
+      "path": "images/ui/desktop-confirmed.png",
+      "width": 1440,
+      "height": 1337,
+      "sha256": "472e1fc66fe77d2b9054563292cdb9d287027abe5ea85d6b0ace5c348a70b943"
+    },
+    {
+      "path": "images/ui/desktop-terms.png",
+      "width": 1440,
+      "height": 1939,
+      "sha256": "06ca0ea61a89874efd6af51a97f276f1224e44d484685630b8f410728ec8d876"
+    },
+    {
+      "path": "images/ui/mobile-availability-fold.png",
+      "width": 390,
+      "height": 844,
+      "sha256": "6f57c098530dcb8432176871489123724ed54e7209a6ce36fe571249437bec33"
+    },
+    {
+      "path": "images/ui/mobile-availability-full.png",
+      "width": 390,
+      "height": 2320,
+      "sha256": "13bbdac57404263d316cab856e36bf641e5f552af5affa5da047557722f7f806"
+    },
+    {
+      "path": "images/ui/mobile-branch.png",
+      "width": 390,
+      "height": 1818,
+      "sha256": "f7543823471293882c5ca36718a3f181f72cb3b68760c16254fb67747ca0ff54"
+    },
+    {
+      "path": "images/ui/mobile-cancelled.png",
+      "width": 390,
+      "height": 1787,
+      "sha256": "9f9f86deaef8c6e6e9cbfc56e5a67953f884f4a977a7bcff5918a019e74a39c2"
+    },
+    {
+      "path": "images/ui/mobile-confirmed.png",
+      "width": 390,
+      "height": 1662,
+      "sha256": "e58cca80d48e5f47ba8d5cd8c576931c3997c1f6b5c70c4292e184b7c58bcebb"
+    },
+    {
+      "path": "images/ui/mobile-small-availability-fold.png",
+      "width": 375,
+      "height": 812,
+      "sha256": "d684ac00ba279022cbdec305667e19d926a6ea26d5830d08ba3de28d8b953d5b"
+    },
+    {
+      "path": "images/ui/mobile-small-availability-full.png",
+      "width": 375,
+      "height": 2308,
+      "sha256": "5d937ff165e656ff7a23e1a302676dbfa6dfa76a65e2058b787b7c3c928629e5"
+    },
+    {
+      "path": "images/ui/mobile-small-branch.png",
+      "width": 375,
+      "height": 1805,
+      "sha256": "077a64c4ff580a264138659a43c5f8b1f440e8d695c3618888a9077d376fc077"
+    },
+    {
+      "path": "images/ui/mobile-small-cancelled.png",
+      "width": 375,
+      "height": 1731,
+      "sha256": "e2776db12aa2d54491b8f59fac18c281d2bfe8c5e4d2763cc5b3abbc8e6ebe0f"
+    },
+    {
+      "path": "images/ui/mobile-small-confirmed.png",
+      "width": 375,
+      "height": 1775,
+      "sha256": "be0b28c6d76352ebd5edb3910049c13a70e20eaab80e57c614fe2535d8a1d288"
+    },
+    {
+      "path": "images/ui/mobile-small-terms.png",
+      "width": 375,
+      "height": 2481,
+      "sha256": "285a70754b39803096d2c50e5c52692a87787655b527fb8af1bb5dff8593572f"
+    },
+    {
+      "path": "images/ui/mobile-terms.png",
+      "width": 390,
+      "height": 2494,
+      "sha256": "6ac38c82b145b35f778db2fde422802413ec53ea50a3b18ab6eb479ebb1e2c9d"
+    },
+    {
+      "path": "images/ui/tablet-availability-fold.png",
+      "width": 1024,
+      "height": 768,
+      "sha256": "1d5c0b6c2be44cc26a281515df3bf6d0acd8bf84dc7f62485a2df21608db4597"
+    },
+    {
+      "path": "images/ui/tablet-availability-full.png",
+      "width": 1024,
+      "height": 1970,
+      "sha256": "fa2017f566e56b99fd3ffd032be3676264a0e471480b05bf2449c9ca5cf67215"
+    },
+    {
+      "path": "images/ui/tablet-branch.png",
+      "width": 1024,
+      "height": 1418,
+      "sha256": "cb5e05861efa66da0fa75a2f294759ece392d716376412eabbe78ec3c185cefb"
+    },
+    {
+      "path": "images/ui/tablet-cancelled.png",
+      "width": 1024,
+      "height": 1494,
+      "sha256": "7328aef308d99a4aed91da3d39a6b56db23d14fabb688153de32d226dd3de355"
+    },
+    {
+      "path": "images/ui/tablet-confirmed.png",
+      "width": 1024,
+      "height": 1538,
+      "sha256": "aa8d788b0b13b35279b8a31506ad268ed02db94d1733566a6e875d619399491e"
+    },
+    {
+      "path": "images/ui/tablet-terms.png",
+      "width": 1024,
+      "height": 1893,
+      "sha256": "58149cd7b46a2b88a1d7b635788b5db661165b367a53ff0e26ad9d8307986ef1"
+    }
+  ],
+  "source": "tests-server/booking.spec.ts",
+  "noClientImages": true,
+  "contactSheet": "Deterministic resized composition; individual PNGs are untouched browser captures"
+}
