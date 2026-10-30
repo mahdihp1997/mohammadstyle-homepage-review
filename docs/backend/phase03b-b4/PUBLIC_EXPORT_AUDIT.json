@@ -1,0 +1,530 @@
+{
+  "scope": "INDEPENDENT_SANITIZED_B4",
+  "privateCommit": "a278995fdafde1f6a78738908866e7cd09d1a732",
+  "privateBase": "e74bec2fd6a08f280070d02ecb0ea9d7a2ec4070",
+  "publicBase": "8b0a0df64bd3e87e76892bd0ba8cd0f36a3e38dc",
+  "branch": "review/phase03b-b4",
+  "target": "review/phase03b-b3",
+  "sourceContentDifferences": 0,
+  "bookingLogicDifferences": 0,
+  "privateGitCommitObjectsImported": 0,
+  "privateCommitsChecked": 19,
+  "privateBinaryHashesChecked": 177,
+  "protectedPublicFilesChecked": 186,
+  "knownCredentialAndSessionMatches": 0,
+  "files": [
+    {
+      "path": ".github/workflows/b4-review.yml",
+      "sha256": "5de7b2a9194009e935c6d82a4af736ea755aa8e6edbe05bb299c072ba06eeec1",
+      "bytes": 3841
+    },
+    {
+      "path": "app/api/booking-server/[...path]/route.ts",
+      "sha256": "8c34d572e115c7bc9806e4e5219f2c5297b6060fa78fa76a9749c3d8ada6ea79",
+      "bytes": 2651
+    },
+    {
+      "path": "app/booking/page.tsx",
+      "sha256": "516de7c20462ca3edfe7a5e74bb02db9366968cba2ca7d26b9a541cb01cbf85f",
+      "bytes": 1018
+    },
+    {
+      "path": "app/booking/server.css",
+      "sha256": "2e9105c1fcf791ac9a84f9e6a7ae941c8acf40fa409f9b55d99901080f8fb6e1",
+      "bytes": 550
+    },
+    {
+      "path": "backend/.env.b4.example",
+      "sha256": "fd2508f7340d5e376b4fd927512a86087fc0c1626a92e5daf2ef20d7ffdc1ef1",
+      "bytes": 81
+    },
+    {
+      "path": "backend/.gitignore",
+      "sha256": "a98aa07637228f5d6e0d5d1a1d21e47d3b6277ec9fb6f7b76622d92f757b1243",
+      "bytes": 220
+    },
+    {
+      "path": "backend/compose.b4.yaml",
+      "sha256": "a13f7a38d21cddc66b22238bcc5e924ab58260d0e26b2a216565b032e8561e4c",
+      "bytes": 738
+    },
+    {
+      "path": "backend/migrations/0012_b4_booking_ledger.sql",
+      "sha256": "1eb8986abaf366f36acda36a54a9ff1c099eb20c178dd480bf079dd79c395eae",
+      "bytes": 11334
+    },
+    {
+      "path": "backend/migrations/0013_b4_verified_planner.sql",
+      "sha256": "06d2bb7d454902a82659bd29cb961b4b1404d82a197ee478897f206fdd04b7eb",
+      "bytes": 16105
+    },
+    {
+      "path": "backend/migrations/0014_b4_booking_commands.sql",
+      "sha256": "dcff426b45ba52b2830fd2c828dd2876b99c69c8833ff15780d114ca7d559e13",
+      "bytes": 34887
+    },
+    {
+      "path": "backend/migrations/catalog.b4.expected.json",
+      "sha256": "0a30f28dfe0431e9d44798228997183c3ea16f0708c045eda1c3cd39b1a02cd7",
+      "bytes": 1154756
+    },
+    {
+      "path": "backend/migrations/registry.b4.json",
+      "sha256": "d073f5939ca5f2a9dd8d28967caf2864e008c58eb463da82f0c1f71b0c6d78b8",
+      "bytes": 2801
+    },
+    {
+      "path": "backend/openapi.b4.json",
+      "sha256": "64d37c1885bc2de0cc47db6938155ab11393840d345948c54e532eb04397225c",
+      "bytes": 34488
+    },
+    {
+      "path": "backend/package.json",
+      "sha256": "2ee03e56f5d83e4ec4ec0b094dfc6108a01909785600b669786d7ffa20359652",
+      "bytes": 4573
+    },
+    {
+      "path": "backend/scripts/b4/b3-regression.mjs",
+      "sha256": "ed32667c9e5f5412fdf5cf07478260f45ad6abaa2e989f208163d9761cdda39e",
+      "bytes": 4484
+    },
+    {
+      "path": "backend/scripts/b4/backup.mjs",
+      "sha256": "4da088c7bd98fcadd5652a9743bdf007cf7094afc2362b547365f2f419f215e9",
+      "bytes": 3676
+    },
+    {
+      "path": "backend/scripts/b4/catalog.mjs",
+      "sha256": "1349bfe2bbd7a76f531038272ce6dc2695e9b306339230db216f503221cad24c",
+      "bytes": 2949
+    },
+    {
+      "path": "backend/scripts/b4/check-schema.mjs",
+      "sha256": "4b3cf4c4ab7612614d23c3a111b6c097824d495c0537e594af30b6bdbb9ece10",
+      "bytes": 1132
+    },
+    {
+      "path": "backend/scripts/b4/check-secrets.mjs",
+      "sha256": "e0e3640bd41d806e4fa97d662f6a321895d48db47f2ed94d35d97781e13a1482",
+      "bytes": 1755
+    },
+    {
+      "path": "backend/scripts/b4/extra.mjs",
+      "sha256": "9321d11a79099b5cd68e38f191773126421badac2ce20fa1d29ab49dfa9102b7",
+      "bytes": 13387
+    },
+    {
+      "path": "backend/scripts/b4/fixtures.mjs",
+      "sha256": "7d0aae0411e8bc54bb177dc7521153131665f52a16ab15409b9c4864a076f3d4",
+      "bytes": 5992
+    },
+    {
+      "path": "backend/scripts/b4/infra.mjs",
+      "sha256": "22212d9e49f33245f4cc4ec298ec40a988655738b5f296865889a48b13bd69f4",
+      "bytes": 3418
+    },
+    {
+      "path": "backend/scripts/b4/local.mjs",
+      "sha256": "8b3480d2da9bdea737cbaf6f19dc421bf914f826d19d2b913e60d3b0364fc984",
+      "bytes": 2265
+    },
+    {
+      "path": "backend/scripts/b4/migrate.mjs",
+      "sha256": "b10f393c69d3716cb30401f261e3a86e7a34bba2512e5b0e80ac8616b6c39b53",
+      "bytes": 3060
+    },
+    {
+      "path": "backend/scripts/b4/reap.mjs",
+      "sha256": "e75b8f5e629a0c4760fb6615bfb7f2b45ce29ad97f73c0363122b7a38ddfd05e",
+      "bytes": 875
+    },
+    {
+      "path": "backend/scripts/b4/test.mjs",
+      "sha256": "d536b714d0ca54802aa44efcd48d4d74d887be7635ab2f4567f47422cb73cae1",
+      "bytes": 28263
+    },
+    {
+      "path": "backend/scripts/b4/ui-fixture.mjs",
+      "sha256": "bfb3b97f368c85ce017414e23a1daec6bc85e9ad5e87c7851c2c423cbfe16f68",
+      "bytes": 3337
+    },
+    {
+      "path": "backend/scripts/b4/verify.mjs",
+      "sha256": "9e4c2d97462799889614459a8faca516dc3e1ebb9c323fdc81020b07da94fe86",
+      "bytes": 251
+    },
+    {
+      "path": "backend/src/booking/app.ts",
+      "sha256": "564a8095d5be1c1cb976e70ffde05a07cf1b52b1fb6defa5c904e2e71b530bee",
+      "bytes": 4541
+    },
+    {
+      "path": "backend/src/booking/contracts.ts",
+      "sha256": "960bc1aa2fec0a4d9b7003fed5f5419e2ad84bab464a30b0a797c3fe4063a72c",
+      "bytes": 1872
+    },
+    {
+      "path": "backend/src/booking/main.ts",
+      "sha256": "8a7fe2fee1a007f2b09ea0c06a5497bf70813db5aa9540e58f6708ae86ffcbb3",
+      "bytes": 597
+    },
+    {
+      "path": "backend/src/booking/repository.ts",
+      "sha256": "06a1b762ce07cb1d72ee3593e5d6ac90246641cba741331496537e68f9180ddf",
+      "bytes": 4228
+    },
+    {
+      "path": "components/booking/BookingStepper.tsx",
+      "sha256": "8619ee86a0fd323a9a2c13cad54249a6eff675437ffb090d489d17df34193c37",
+      "bytes": 1220
+    },
+    {
+      "path": "components/booking/ServerBookingWizard.tsx",
+      "sha256": "099d53ec267def26813b19d91af61e9f016f7efc1f4720c7408128bc6eb9b187",
+      "bytes": 23859
+    },
+    {
+      "path": "components/booking/ServerFrozenTerms.tsx",
+      "sha256": "45a4337a224b64d0ec6c95dd7e144f93180177e6fdd6cea7f860f1dcfce8fbf1",
+      "bytes": 3011
+    },
+    {
+      "path": "docs/backend/phase03b-b4/API_INVENTORY.md",
+      "sha256": "3e97281d1658a3ffa201a92a429699376f5d23758505a3c47f72a47ba31d904e",
+      "bytes": 1287
+    },
+    {
+      "path": "docs/backend/phase03b-b4/CHANGED_FILES.md",
+      "sha256": "3179c60a82aa281918e2a2eae5c0a666bcce9258bc6be1d6dcb485c49ffd9899",
+      "bytes": 5030
+    },
+    {
+      "path": "docs/backend/phase03b-b4/COMMANDS.md",
+      "sha256": "bd1cd23cb5456b4af754ea6ee962ce4e3d8558156df92d219ccf89dc67252fc7",
+      "bytes": 1775
+    },
+    {
+      "path": "docs/backend/phase03b-b4/MIGRATIONS.md",
+      "sha256": "c0ca6495aa2b13dbf02c92094978d792a154cf0066f808fd4f841cba9310cd62",
+      "bytes": 1799
+    },
+    {
+      "path": "docs/backend/phase03b-b4/OPEN_DECISIONS.md",
+      "sha256": "dd70ca13bf862fc92dbc341b1f3e3de4a8471361da9b5576d9d73981cc425f0c",
+      "bytes": 1850
+    },
+    {
+      "path": "docs/backend/phase03b-b4/PROJECT_CONTEXT_SNAPSHOT.md",
+      "sha256": "ea5de40dd4e2a92d9200a172aa304282a5385e394d0eca143512b73e50e77408",
+      "bytes": 861
+    },
+    {
+      "path": "docs/backend/phase03b-b4/README.md",
+      "sha256": "af8bf7355913812cc29d92e06d296bbbce9e16f2b1ff7cd27a57ed15985c2a0f",
+      "bytes": 647
+    },
+    {
+      "path": "docs/backend/phase03b-b4/REST_MAPPING.md",
+      "sha256": "4a2215372a56a6aa1d981958b85c6c0c0ce5a394eccd4b9fe4a2427b2fa5e247",
+      "bytes": 2618
+    },
+    {
+      "path": "docs/backend/phase03b-b4/REVIEW.html",
+      "sha256": "596bb91a711877b73168b795eec6fcaa3cc5cc690485150d839003ad87acf653",
+      "bytes": 10631
+    },
+    {
+      "path": "docs/backend/phase03b-b4/RUNBOOK.md",
+      "sha256": "f459f03cb5804f5d84793e80c5201f043245954b79e4a2bdc62589eddd56e76b",
+      "bytes": 2597
+    },
+    {
+      "path": "docs/backend/phase03b-b4/SANITIZATION.md",
+      "sha256": "462de33878ae86b923f4476bfb83b5e56fcfeb5538aedf6fd388414e64701cdc",
+      "bytes": 1271
+    },
+    {
+      "path": "docs/backend/phase03b-b4/SCREENSHOT_MANIFEST.json",
+      "sha256": "8de45a4673b6c4876dbdd71c7640fc37276fc650df3a6efe9c22f3147495725c",
+      "bytes": 4790
+    },
+    {
+      "path": "docs/backend/phase03b-b4/STATIC_VALIDATION.json",
+      "sha256": "11ca3654e58f7bcb126d8e330eaf8b96b7397dad35aaf51d0aec4aea84c76e74",
+      "bytes": 1577
+    },
+    {
+      "path": "docs/backend/phase03b-b4/TECHNICAL_REPORT.md",
+      "sha256": "8ce4f7b23d9af99f7f043656ae3ee4b47feb95dc805374a706d38cd2255ec06c",
+      "bytes": 8498
+    },
+    {
+      "path": "docs/backend/phase03b-b4/TEST_RESULTS.md",
+      "sha256": "3184254a3f9d81ef94044cc38003b9009ccd93ffbb895a32f4af4a66487b0770",
+      "bytes": 7502
+    },
+    {
+      "path": "docs/backend/phase03b-b4/evidence/b0-regression.json",
+      "sha256": "10bae2427ce8148281debec4c798e62ca747547383cd0df91e9cdcd7dc2e77b1",
+      "bytes": 394
+    },
+    {
+      "path": "docs/backend/phase03b-b4/evidence/b1a-regression.json",
+      "sha256": "5a6ad9fce5e49d04947ab540f7d020aa993e3185b17d519665e4f83c7c4f0b04",
+      "bytes": 29353
+    },
+    {
+      "path": "docs/backend/phase03b-b4/evidence/b1b-regression.json",
+      "sha256": "6985841b77507741283b15a9113f7dfea831791a54aa028bec17aabf0521ca39",
+      "bytes": 28614
+    },
+    {
+      "path": "docs/backend/phase03b-b4/evidence/b2a-regression.json",
+      "sha256": "c9506e59d306d36a79c05bda45212848e757dd77e5cdf9aee4e7de8c50b90903",
+      "bytes": 36360
+    },
+    {
+      "path": "docs/backend/phase03b-b4/evidence/b2b-regression.json",
+      "sha256": "77349ff088744b97098aae0ed7a2bc7c57fc1a841752fdcad0b44ae1064a8657",
+      "bytes": 20273
+    },
+    {
+      "path": "docs/backend/phase03b-b4/evidence/b2h-regression.json",
+      "sha256": "7de0818ef50a6d05593fb4eb34125fa9728db672b70b1a3d21449e2a022f9580",
+      "bytes": 10650
+    },
+    {
+      "path": "docs/backend/phase03b-b4/evidence/b3-regression.json",
+      "sha256": "8dce8a7c665afbc3041945e7bbf783866848e3b020833336a8015c35934a4e15",
+      "bytes": 20855
+    },
+    {
+      "path": "docs/backend/phase03b-b4/evidence/backup.json",
+      "sha256": "1ee9902d9512b6fed6c34fffe79563ef36d28e847edcef43c9d632f1fda4e232",
+      "bytes": 9324
+    },
+    {
+      "path": "docs/backend/phase03b-b4/evidence/extra.json",
+      "sha256": "9d4b8e8a6d5dc5470a8f2f8869062ebd457dfe39dc7c5a22a91414b2fc318fdb",
+      "bytes": 2533
+    },
+    {
+      "path": "docs/backend/phase03b-b4/evidence/frontend.json",
+      "sha256": "ba76a820bf6298e942674f1cf46b2133cf67af6951bc3e1b97383a8f02cf7e66",
+      "bytes": 653
+    },
+    {
+      "path": "docs/backend/phase03b-b4/evidence/integration.json",
+      "sha256": "6ce045c04c41c4c1e9d89fe5ef4d5b068944b514a843c07b51ed3cb16619eb68",
+      "bytes": 17483
+    },
+    {
+      "path": "docs/backend/phase03b-b4/evidence/preservation.json",
+      "sha256": "0396486f1f933481eb7d559d8b01c816dc1cef6e609739aac01e5e4b56f60d79",
+      "bytes": 570
+    },
+    {
+      "path": "docs/backend/phase03b-b4/evidence/restore.json",
+      "sha256": "b1a3c9a01d5fe6251c804597b50d7be785a0ef6c4a55494890036dd2ec9106a1",
+      "bytes": 9501
+    },
+    {
+      "path": "docs/backend/phase03b-b4/evidence/schema.json",
+      "sha256": "d2b16507bc8cfac4c8cba4e6dee4c8d186ab72b5d93a92cf8531c178c6511556",
+      "bytes": 292
+    },
+    {
+      "path": "docs/backend/phase03b-b4/evidence/secrets.json",
+      "sha256": "577276fff62dd7bd6fff2ee04459c58a7c684d40cf77e39f8ad0f037717f9468",
+      "bytes": 217
+    },
+    {
+      "path": "docs/backend/phase03b-b4/evidence/server-ui.json",
+      "sha256": "e052fcfef0388196f2f10e85d714e556601dab95ea6097885143cc8cb7ce5766",
+      "bytes": 520
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/booking-engine.dot",
+      "sha256": "49b6fc1c756daf84f4fdf9847e5b6716ba250b5c483543d8679260ecb7816bd8",
+      "bytes": 2847
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/booking-engine.png",
+      "sha256": "51a5fda707ded9658eec6fec5a3612b308542338a825a09d6b95ed0d22b44bd1",
+      "bytes": 287698
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/booking-engine.svg",
+      "sha256": "d8c09d0edc65516123dd9cfccda407cbc732ac03b09707a1ff56c775bdcd9b89",
+      "bytes": 18415
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/contact-sheet.png",
+      "sha256": "53e772bcd53e9d36c1c7b6b484cc5f805c7c6563ddfc9b2e94b986903972e77f",
+      "bytes": 808747
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/desktop-availability-fold.png",
+      "sha256": "e7608e461b1772799a571054a8e15dd264242d78c73f65d5a37a2d71afeceab7",
+      "bytes": 106186
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/desktop-availability-full.png",
+      "sha256": "b96c7c56146eab5e03b9486041ffad0be4dc2704ddd9795116e9ac461466d70a",
+      "bytes": 151407
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/desktop-branch.png",
+      "sha256": "7362b4f6d137a6751c489354337217ce95be4c73d83b7048eef5bfe9317b23cd",
+      "bytes": 123728
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/desktop-cancelled.png",
+      "sha256": "5b8aee87e9a6a014535d78677c0fe725d076fda530102603a5535f895cdff279",
+      "bytes": 116511
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/desktop-confirmed.png",
+      "sha256": "472e1fc66fe77d2b9054563292cdb9d287027abe5ea85d6b0ace5c348a70b943",
+      "bytes": 119350
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/desktop-terms.png",
+      "sha256": "06ca0ea61a89874efd6af51a97f276f1224e44d484685630b8f410728ec8d876",
+      "bytes": 191861
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/mobile-availability-fold.png",
+      "sha256": "6f57c098530dcb8432176871489123724ed54e7209a6ce36fe571249437bec33",
+      "bytes": 60348
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/mobile-availability-full.png",
+      "sha256": "13bbdac57404263d316cab856e36bf641e5f552af5affa5da047557722f7f806",
+      "bytes": 121962
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/mobile-branch.png",
+      "sha256": "f7543823471293882c5ca36718a3f181f72cb3b68760c16254fb67747ca0ff54",
+      "bytes": 99283
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/mobile-cancelled.png",
+      "sha256": "9f9f86deaef8c6e6e9cbfc56e5a67953f884f4a977a7bcff5918a019e74a39c2",
+      "bytes": 86000
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/mobile-confirmed.png",
+      "sha256": "e58cca80d48e5f47ba8d5cd8c576931c3997c1f6b5c70c4292e184b7c58bcebb",
+      "bytes": 85423
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/mobile-small-availability-fold.png",
+      "sha256": "d684ac00ba279022cbdec305667e19d926a6ea26d5830d08ba3de28d8b953d5b",
+      "bytes": 58867
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/mobile-small-availability-full.png",
+      "sha256": "5d937ff165e656ff7a23e1a302676dbfa6dfa76a65e2058b787b7c3c928629e5",
+      "bytes": 121307
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/mobile-small-branch.png",
+      "sha256": "077a64c4ff580a264138659a43c5f8b1f440e8d695c3618888a9077d376fc077",
+      "bytes": 98192
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/mobile-small-cancelled.png",
+      "sha256": "e2776db12aa2d54491b8f59fac18c281d2bfe8c5e4d2763cc5b3abbc8e6ebe0f",
+      "bytes": 84984
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/mobile-small-confirmed.png",
+      "sha256": "be0b28c6d76352ebd5edb3910049c13a70e20eaab80e57c614fe2535d8a1d288",
+      "bytes": 93279
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/mobile-small-terms.png",
+      "sha256": "285a70754b39803096d2c50e5c52692a87787655b527fb8af1bb5dff8593572f",
+      "bytes": 159866
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/mobile-terms.png",
+      "sha256": "6ac38c82b145b35f778db2fde422802413ec53ea50a3b18ab6eb479ebb1e2c9d",
+      "bytes": 160647
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/tablet-availability-fold.png",
+      "sha256": "1d5c0b6c2be44cc26a281515df3bf6d0acd8bf84dc7f62485a2df21608db4597",
+      "bytes": 82634
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/tablet-availability-full.png",
+      "sha256": "fa2017f566e56b99fd3ffd032be3676264a0e471480b05bf2449c9ca5cf67215",
+      "bytes": 141410
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/tablet-branch.png",
+      "sha256": "cb5e05861efa66da0fa75a2f294759ece392d716376412eabbe78ec3c185cefb",
+      "bytes": 112335
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/tablet-cancelled.png",
+      "sha256": "7328aef308d99a4aed91da3d39a6b56db23d14fabb688153de32d226dd3de355",
+      "bytes": 107654
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/tablet-confirmed.png",
+      "sha256": "aa8d788b0b13b35279b8a31506ad268ed02db94d1733566a6e875d619399491e",
+      "bytes": 117133
+    },
+    {
+      "path": "docs/backend/phase03b-b4/images/ui/tablet-terms.png",
+      "sha256": "58149cd7b46a2b88a1d7b635788b5db661165b367a53ff0e26ad9d8307986ef1",
+      "bytes": 181563
+    },
+    {
+      "path": "docs/backend/phase03b-b4/openapi.b4.json",
+      "sha256": "64d37c1885bc2de0cc47db6938155ab11393840d345948c54e532eb04397225c",
+      "bytes": 34488
+    },
+    {
+      "path": "lib/booking/server-adapter.ts",
+      "sha256": "991b98435cadab2578810aff9e1529027a37762e915c8a4278b0f1906e394f58",
+      "bytes": 3748
+    },
+    {
+      "path": "package.json",
+      "sha256": "08943413ad4712a599aa2bb6371c03d882f7b0e20cf8c28ebd80e7580941d643",
+      "bytes": 601
+    },
+    {
+      "path": "playwright.server.config.ts",
+      "sha256": "95962cb7248fe70bbc3a26877b5ccbd188e652b61f3ca6cd834397d053606a62",
+      "bytes": 1015
+    },
+    {
+      "path": "tests-server/booking.spec.ts",
+      "sha256": "adc6f6f2eb38c8f06e28f70923c0fba83106f03589559f4f5cdeea317843444c",
+      "bytes": 8098
+    },
+    {
+      "path": "types/booking-server.ts",
+      "sha256": "693c8894d8c1a7e1385074d13f425643d66ce75848cbb324855509c428b21a36",
+      "bytes": 3178
+    }
+  ],
+  "sanitizationDifferences": [
+    "Retain existing public placeholders/system fonts/disclosure and asset ignore rules",
+    "Omit private global PROJECT_CONTEXT.md; provide sanitized phase snapshot",
+    "Generate public source/export manifests for public scope instead of copying the private manifest",
+    "Review metadata only; executable source and actual synthetic evidence are byte-identical"
+  ],
+  "omitted": [
+    "Original photos/private fonts/visual reference images/client-face screenshots",
+    "Private Git history/commit objects",
+    "Credentials/session fixture/browser state/traces/backup dumps",
+    "Build outputs/dependencies/generated clients/caches/internal scratch",
+    "Private global PROJECT_CONTEXT.md and private source manifest"
+  ]
+}

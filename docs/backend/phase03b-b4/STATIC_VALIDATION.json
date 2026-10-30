@@ -1,0 +1,53 @@
+{
+  "status": "PASS",
+  "executedAt": "2026-10-30T11:53:02.315Z",
+  "checks": [
+    {
+      "name": "0001–0011 original byte hashes",
+      "status": "PASS"
+    },
+    {
+      "name": "Static PG18 parser 0012_b4_booking_ledger.sql",
+      "status": "PASS",
+      "statements": 34,
+      "note": "Separate from actual execution of14 migrations on PostgreSQL18, races, rollback and restore"
+    },
+    {
+      "name": "Static PG18 parser 0013_b4_verified_planner.sql",
+      "status": "PASS",
+      "statements": 19,
+      "note": "Separate from actual execution of14 migrations on PostgreSQL18, races, rollback and restore"
+    },
+    {
+      "name": "Static PG18 parser 0014_b4_booking_commands.sql",
+      "status": "PASS",
+      "statements": 22,
+      "note": "Separate from actual execution of14 migrations on PostgreSQL18, races, rollback and restore"
+    },
+    {
+      "name": "Concrete OpenAPI3.1 validation",
+      "status": "PASS",
+      "operations": 13
+    },
+    {
+      "name": "Independent current-branch sanitized CI/token/artifact boundary",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual58 current / previous profile /92+12 browser result consistency",
+      "status": "PASS"
+    },
+    {
+      "name": "Protected Homepage/DEMO/assets/old tests/contracts/locks/architecture unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "Actual owner review HTML links/images/overflow/JS at1440 and390",
+      "status": "PASS"
+    },
+    {
+      "name": "24 actual screenshot hashes / safe code-native diagram",
+      "status": "PASS"
+    }
+  ]
+}

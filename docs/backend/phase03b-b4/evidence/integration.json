@@ -1,0 +1,598 @@
+{
+  "kind": "ACTUAL_B4_POSTGRES18_NEST_BOOKING",
+  "executedAt": "2026-10-30T10:44:09.900Z",
+  "tests": [
+    {
+      "name": "eleven-to-fourteen upgrade preserves B3 data and leaves all gates disabled",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "unconfigured branch cannot activate and failed activation rolls back all gates",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "ordinary customer cannot activate a branch",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "explicit reviewed activation proves complete future published capacity",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "gates cannot be enabled by ordinary runtime SQL or legacy implicit path",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "missing configuration and no approved verified identity fail closed",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "real multi-service availability has a single eligible provider and correct IANA date",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "selected provider is authoritative; forged provider returns no slots",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "slot objects, client prices and resource lists are rejected",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "final V2 has exact hash, normalized segments, dependency chain and frozen policy resolution",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "independent owners can receive identical quote hashes without unique conflict",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "commercial B3 proposals cannot substitute for verified final quotes",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "stale workforce snapshots cannot be quoted",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "stale price/policy context is revalidated at hold time",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "buffers and opening hours constrain the full busy envelope",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "legacy/unreviewed closure suppresses overlapping slots and restores after removal",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "unreviewed time off blocks the selected provider, not another eligible provider",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "missing physical device or staff qualification fails closed",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "revisionless draft cancellation is representable without dropping history",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "explicit exact-term acceptance is mandatory and tampered hashes are denied",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "outbox failure atomically rolls back hold, revision, consent and allocations",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "two authenticated concurrent sessions cannot hold the same multi-service capacity",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "adjacent per-service buffers are coalesced, native ledger has no live overlap",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "schedule/resource edits cannot displace accepted live capacity",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "ownership is enforced for reads, confirmation, cancellation and history",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "eligible zero-deposit confirmation preserves allocations and accepted snapshot",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "idempotent replay returns original identity/version/expiry without extending lease",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "native GiST exclusion arbitrates conflicting writes from two independent PostgreSQL sessions",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "controlled reschedule atomically replaces revision and capacity with identical accepted commercial terms",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "failed reschedule rolls back release and keeps original reservation intact",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "cancellation preview uses frozen policy and reports zero actual money movement",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "cancellation releases all resources and capacity is immediately reusable",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "required deposit cannot be fabricated into confirmed payment or rescheduled financially",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "unconfigured policy and incompatible service policies fail closed",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "forged quote documents and accepted snapshots remain immutable",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "expired hold reaper and competing cancellation/confirmation release exactly once",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "stale availability loses to capacity admitted after quote; no forged draft enters ledger",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "actual Nest catalog/availability/quote/draft/consent/hold/confirm/cancel flow",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "Nest rejects absent session, CSRF, invalid Origin, injected price and unknown operation",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "unknown tenant and quote identifiers cannot widen identity scope",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "fresh fourteen-migration install, no-op, catalog/grants and all eleven byte hashes",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "failed forward migration rolls DDL and metadata back",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "real pg_dump custom backup and separate restore match all50 table/catalog fingerprints",
+      "status": "PASS",
+      "observed": "assertions passed"
+    },
+    {
+      "name": "restored runtime ownership and frozen history remain functional",
+      "status": "PASS",
+      "observed": "assertions passed"
+    }
+  ],
+  "denials": [
+    {
+      "code": "MS404",
+      "reason": "expected rejection"
+    },
+    {
+      "code": "MS403",
+      "reason": "expected rejection"
+    },
+    {
+      "code": "42501",
+      "reason": "expected rejection"
+    },
+    {
+      "code": "MS422",
+      "reason": "EXPLICIT_ACTIVATION_REQUIRED"
+    },
+    {
+      "code": "MS404",
+      "reason": "expected rejection"
+    },
+    {
+      "code": "MS403",
+      "reason": "VERIFIED_IDENTITY_REQUIRED"
+    },
+    {
+      "code": "MS422",
+      "reason": "INVALID_FIELDS"
+    },
+    {
+      "code": "MS422",
+      "reason": "INVALID_FIELDS"
+    },
+    {
+      "code": "MS422",
+      "reason": "INVALID_FIELDS"
+    },
+    {
+      "code": "MS422",
+      "reason": "INVALID_FIELDS"
+    },
+    {
+      "code": "MS404",
+      "reason": "expected rejection"
+    },
+    {
+      "code": "MS404",
+      "reason": "expected rejection"
+    },
+    {
+      "code": "MS409",
+      "reason": "PLAN_STALE"
+    },
+    {
+      "code": "MS409",
+      "reason": "QUOTE_STALE"
+    },
+    {
+      "code": "MS422",
+      "reason": "EXPLICIT_CONSENT_REQUIRED"
+    },
+    {
+      "code": "MS409",
+      "reason": "QUOTE_TAMPERED"
+    },
+    {
+      "code": "MS409",
+      "reason": "QUOTE_TAMPERED"
+    },
+    {
+      "code": "P0001",
+      "reason": "expected rejection"
+    },
+    {
+      "code": "MS409",
+      "reason": "LIVE_RESERVATIONS_REQUIRE_REVIEW"
+    },
+    {
+      "code": "MS409",
+      "reason": "LIVE_RESERVATIONS_REQUIRE_REVIEW"
+    },
+    {
+      "code": "MS404",
+      "reason": "expected rejection"
+    },
+    {
+      "code": "MS404",
+      "reason": "expected rejection"
+    },
+    {
+      "code": "MS404",
+      "reason": "expected rejection"
+    },
+    {
+      "code": "MS409",
+      "reason": "IDEMPOTENCY_CONFLICT"
+    },
+    {
+      "code": "P0001",
+      "reason": "expected rejection"
+    },
+    {
+      "code": "MS409",
+      "reason": "INVALID_BOOKING_STATE"
+    },
+    {
+      "code": "MS409",
+      "reason": "POLICY_CONFLICT"
+    },
+    {
+      "code": "MS422",
+      "reason": "IMMUTABLE_SNAPSHOT"
+    },
+    {
+      "code": "MS422",
+      "reason": "IMMUTABLE_SNAPSHOT"
+    },
+    {
+      "code": "42501",
+      "reason": "expected rejection"
+    },
+    {
+      "code": "42501",
+      "reason": "expected rejection"
+    },
+    {
+      "code": "MS409",
+      "reason": "QUOTE_STALE"
+    },
+    {
+      "code": "MS404",
+      "reason": "expected rejection"
+    },
+    {
+      "code": "MS404",
+      "reason": "expected rejection"
+    },
+    {
+      "code": "22012",
+      "reason": "expected rejection"
+    }
+  ],
+  "races": [
+    {
+      "scenario": "two customers / different staff / shared chair + multi-service room/device",
+      "separatePooledSessions": true,
+      "winners": 1,
+      "losers": 1,
+      "loser": "MS409"
+    },
+    {
+      "scenario": "native exclusion independent sessions, advisory lock deliberately bypassed by trusted test",
+      "blockedSessionsObserved": 1,
+      "winners": 1,
+      "sqlstate": "23P01"
+    },
+    {
+      "scenario": "natural TTL / expiry sweep / confirm / cancel",
+      "ttlSeconds": 30,
+      "verifiedAt": "2026-10-30T10:46:36.099Z",
+      "expiresAt": "2026-10-30T10:46:35.732Z",
+      "finalStatus": "EXPIRED",
+      "results": [
+        "fulfilled",
+        "rejected",
+        "rejected"
+      ]
+    }
+  ],
+  "boundaries": [
+    "Synthetic verified identities/configuration only; no approved production customer login",
+    "No payments, settlement, SMS or salon facts seeded",
+    "Actual PostgreSQL transactions, not parser-only evidence"
+  ],
+  "migration": {
+    "applied": [
+      "0012_b4_booking_ledger",
+      "0013_b4_verified_planner",
+      "0014_b4_booking_commands"
+    ],
+    "currentVersion": "0014_b4_booking_commands",
+    "catalog": {
+      "sha256": "51cc54f8b2be350237645d2f3dbbcfa2d9cc32931a97ef0feecfbee712bc1cda",
+      "tables": 50,
+      "indexes": 158,
+      "functions": 50,
+      "foreignKeys": 143,
+      "checks": 160
+    }
+  },
+  "availability": {
+    "count": 6,
+    "first": {
+      "id": "176acd47-0884-41ae-bc7e-8f188d069e45",
+      "endsAt": "2026-10-31T07:50:00.000Z",
+      "staffId": "315954ab-dd58-437f-82f2-74700574c73d",
+      "startsAt": "2026-10-31T06:30:00.000Z",
+      "timeZone": "Asia/Tehran",
+      "expiresAt": "2026-10-30T10:45:12.508Z"
+    },
+    "requestKey": "a0d31d6ce8d12543170392c7cd4734dd325c6059a9981aec950f7e0a531764d0"
+  },
+  "finalQuote": {
+    "content": {
+      "items": [
+        {
+          "position": "1",
+          "quantity": "1",
+          "packageId": null,
+          "serviceId": "7010e11c-3367-4af4-9829-61373aaa622b",
+          "offeringId": "8f347a57-cd93-4c47-8ac1-403f4d53b372",
+          "displayName": "هیرکات مو · آزمایشی",
+          "unitPriceRial": "100000",
+          "durationMinutes": "30",
+          "offeringVersion": "2",
+          "bufferAfterMinutes": "5",
+          "bufferBeforeMinutes": "5"
+        },
+        {
+          "position": "2",
+          "quantity": "1",
+          "packageId": null,
+          "serviceId": "b778243b-1076-4254-bd4a-2ee517a8399b",
+          "offeringId": "6d308a33-c1f4-45cf-975c-afa9f23bfa27",
+          "displayName": "فیشیال صورت · آزمایشی",
+          "unitPriceRial": "200000",
+          "durationMinutes": "30",
+          "offeringVersion": "2",
+          "bufferAfterMinutes": "5",
+          "bufferBeforeMinutes": "5"
+        }
+      ],
+      "endsAt": "2026-10-31T07:50:00.000Z",
+      "policy": {
+        "versionId": "37c08b41-9795-4b63-93db-c5a952e45d4e",
+        "contentHash": "0630ab642f83588bfd6ff66c6d6de55446ddf5dde20b240f9b01c6b8d2d4b24b",
+        "snapshotHash": "b7237d2470601633f1666cd6b0c2de3eb6fa9dca53080a612165df6b93a947aa",
+        "versionNumber": "1",
+        "resolverVersion": "B4_VERIFIED_B3_V1",
+        "sourceAssignments": [
+          {
+            "assignmentId": "01135a46-b848-4b60-b7e3-239d01284da9",
+            "quoteItemPosition": "1"
+          },
+          {
+            "assignmentId": "01135a46-b848-4b60-b7e3-239d01284da9",
+            "quoteItemPosition": "2"
+          }
+        ]
+      },
+      "schema": "MS_QUOTE_CONTENT_V2",
+      "source": "SERVER",
+      "branchId": "80a81ca5-b04b-4192-8159-49abe1132999",
+      "currency": "IRR",
+      "segments": [
+        {
+          "endsAt": "2026-10-31T07:05:00.000Z",
+          "staffId": "315954ab-dd58-437f-82f2-74700574c73d",
+          "sequence": "1",
+          "startsAt": "2026-10-31T06:35:00.000Z",
+          "resources": [
+            {
+              "kind": "CHAIR",
+              "resourceId": "c75060b6-c55f-4c81-bc10-775a7f197d2b"
+            },
+            {
+              "kind": "STAFF",
+              "resourceId": "e8938398-1791-42f8-b894-009eda3c4bd5"
+            }
+          ],
+          "offeringId": "8f347a57-cd93-4c47-8ac1-403f4d53b372",
+          "durationMinutes": "30",
+          "quoteItemPosition": "1",
+          "bufferAfterMinutes": "5",
+          "dependsOnSequences": [],
+          "bufferBeforeMinutes": "5"
+        },
+        {
+          "endsAt": "2026-10-31T07:45:00.000Z",
+          "staffId": "315954ab-dd58-437f-82f2-74700574c73d",
+          "sequence": "2",
+          "startsAt": "2026-10-31T07:15:00.000Z",
+          "resources": [
+            {
+              "kind": "DEVICE",
+              "resourceId": "179ae99b-6a44-4857-a293-0551e8d2eb97"
+            },
+            {
+              "kind": "ROOM",
+              "resourceId": "56513249-f3ea-4ee5-a172-7eea9a237045"
+            },
+            {
+              "kind": "CHAIR",
+              "resourceId": "c75060b6-c55f-4c81-bc10-775a7f197d2b"
+            },
+            {
+              "kind": "STAFF",
+              "resourceId": "e8938398-1791-42f8-b894-009eda3c4bd5"
+            }
+          ],
+          "offeringId": "6d308a33-c1f4-45cf-975c-afa9f23bfa27",
+          "durationMinutes": "30",
+          "quoteItemPosition": "2",
+          "bufferAfterMinutes": "5",
+          "dependsOnSequences": [
+            "1"
+          ],
+          "bufferBeforeMinutes": "5"
+        }
+      ],
+      "startsAt": "2026-10-31T06:30:00.000Z",
+      "timeZone": "Asia/Tehran",
+      "totalRial": "300000",
+      "businessId": "1383a525-bfd3-4547-85b2-74ccc70ad56a",
+      "depositRial": "0",
+      "unitVersion": "IRR_RIAL_V1",
+      "remainingRial": "300000",
+      "optionalDepositChosen": false,
+      "configurationFingerprint": "45e3d5346a590cde6d5b9acfed08b1ebec075b4688b018960159a47d67afacf2"
+    },
+    "terms": {
+      "terms": {
+        "fixedRial": null,
+        "termsText": "B4 SYNTHETIC — شرایط صرفاً آزمایشی؛ تعرفه و سیاست واقعی سالن نیست.",
+        "amountKind": null,
+        "refundBase": "DEPOSIT_PAID",
+        "basisPoints": null,
+        "effectiveTo": null,
+        "maximumRial": null,
+        "minimumRial": null,
+        "termsLocale": "fa",
+        "effectiveFrom": "2026-01-01T00:00:00.000Z",
+        "refundWindows": [],
+        "refundability": "FULL",
+        "outsideRefundBps": "10000",
+        "depositRequirement": "NONE",
+        "cancellationDeadlineMinutes": "0"
+      },
+      "resolution": [
+        {
+          "versionId": "37c08b41-9795-4b63-93db-c5a952e45d4e",
+          "assignmentId": "01135a46-b848-4b60-b7e3-239d01284da9",
+          "quoteItemPosition": "1"
+        },
+        {
+          "versionId": "37c08b41-9795-4b63-93db-c5a952e45d4e",
+          "assignmentId": "01135a46-b848-4b60-b7e3-239d01284da9",
+          "quoteItemPosition": "2"
+        }
+      ]
+    },
+    "contentHash": "60c849ffd63ee084f57b8838a87e8d3df54af502db7be8ea1419267743849fd2"
+  },
+  "catalog": {
+    "sha256": "51cc54f8b2be350237645d2f3dbbcfa2d9cc32931a97ef0feecfbee712bc1cda",
+    "tables": 50,
+    "indexes": 158,
+    "functions": 50,
+    "foreignKeys": 143,
+    "checks": 160
+  },
+  "restore": {
+    "bytes": 502698,
+    "sha256": "82350423f3efc0ded54bf5c0322db0b8c44ee83a536abdb44d6b1722166ae873",
+    "rowsAndCatalogEqual": true,
+    "tables": 50
+  },
+  "summary": {
+    "passed": 44,
+    "failed": 0,
+    "expectedDenials": 35
+  }
+}

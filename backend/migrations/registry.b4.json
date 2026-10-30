@@ -1,0 +1,76 @@
+{
+  "hashNormalization": "UTF-8 with LF line endings; all other bytes integrity-relevant",
+  "approvedB1DraftSha256": "ef9ebdb2324b678c46f3a6d4c2858aa1292d3650dc5fa5b54af76264799436e3",
+  "migrations": [
+    {
+      "id": "0001_b1_foundation",
+      "file": "0001_b1_foundation.sql",
+      "sha256": "db79869b7da75dc0d84961824e0cce8c540f4451d113457123053d92c9e15a0d"
+    },
+    {
+      "id": "0002_b1a_runtime_boundary",
+      "file": "0002_b1a_runtime_boundary.sql",
+      "sha256": "aa08a3047c4c150ea1a45e24d2844c3b40e45da19dde555ac06b66901df046d9"
+    },
+    {
+      "id": "0003_b1b_admin_boundary",
+      "file": "0003_b1b_admin_boundary.sql",
+      "sha256": "e02e6b9aaafb3e9466dea1c884a4e0279b833ae80df78f74a91f0a9432c2ab44"
+    },
+    {
+      "id": "0004_b2a_workforce_foundation",
+      "file": "0004_b2a_workforce_foundation.sql",
+      "sha256": "48b4c9e9913b523126794769272ccd172fe04df3d214fde297cbc94ab38c9904"
+    },
+    {
+      "id": "0005_b2a_history_guards",
+      "file": "0005_b2a_history_guards.sql",
+      "sha256": "8db9eadff44b44abcd380ffb4453d080ae926667e0325c327287a2b1c593d9de"
+    },
+    {
+      "id": "0006_b2b_scheduling_boundary",
+      "file": "0006_b2b_scheduling_boundary.sql",
+      "sha256": "fc0524bcf7f5c7b5467a29bdfd9fe9c5ac3357bf77d1553ea35227d9cd60d23f"
+    },
+    {
+      "id": "0007_b2b_scheduling_commands",
+      "file": "0007_b2b_scheduling_commands.sql",
+      "sha256": "a721c4c2c1e48786fd8897198af9cd647202d4efffa1d3f9b24834878d968933"
+    },
+    {
+      "id": "0008_b2b_scheduling_reads",
+      "file": "0008_b2b_scheduling_reads.sql",
+      "sha256": "bd3610755f88501e45dd8b1e728ce6a9e84ca4625647f6455f9ed2cc26de437e"
+    },
+    {
+      "id": "0009_b2b_read_scope_hardening",
+      "file": "0009_b2b_read_scope_hardening.sql",
+      "sha256": "a3b4632370f50fc8bf7f48134b72524ba3fafa9b4d895c50c77ad7380763678c"
+    },
+    {
+      "id": "0010_b3_commercial_foundation",
+      "file": "0010_b3_commercial_foundation.sql",
+      "sha256": "42d2f24305a66b7f1642e17e679d6f788015cd56c3c425e95b835b30dbdf8f72"
+    },
+    {
+      "id": "0011_b3_pricing_policy_boundary",
+      "file": "0011_b3_pricing_policy_boundary.sql",
+      "sha256": "31661d6d9e85b49f65f57a0bbe11c37769d3cd5ce453f6056a270dc44760e45c"
+    },
+    {
+      "id": "0012_b4_booking_ledger",
+      "file": "0012_b4_booking_ledger.sql",
+      "sha256": "1eb8986abaf366f36acda36a54a9ff1c099eb20c178dd480bf079dd79c395eae"
+    },
+    {
+      "id": "0013_b4_verified_planner",
+      "file": "0013_b4_verified_planner.sql",
+      "sha256": "06d2bb7d454902a82659bd29cb961b4b1404d82a197ee478897f206fdd04b7eb"
+    },
+    {
+      "id": "0014_b4_booking_commands",
+      "file": "0014_b4_booking_commands.sql",
+      "sha256": "dcff426b45ba52b2830fd2c828dd2876b99c69c8833ff15780d114ca7d559e13"
+    }
+  ]
+}

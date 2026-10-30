@@ -73,7 +73,19 @@
     "b3:backup": "node scripts/b3/backup.mjs backup",
     "b3:restore": "node scripts/b3/backup.mjs restore",
     "test:b3": "node scripts/b3/test.mjs",
-    "b3:start": "node dist/pricing/main.js"
+    "b3:start": "node dist/pricing/main.js",
+    "b4:env": "node scripts/b4/infra.mjs env",
+    "b4:up": "node scripts/b4/infra.mjs up",
+    "b4:stop": "node scripts/b4/infra.mjs stop",
+    "b4:migrate": "node scripts/b4/migrate.mjs",
+    "b4:verify": "node scripts/b4/verify.mjs",
+    "b4:backup": "node scripts/b4/backup.mjs backup",
+    "b4:restore": "node scripts/b4/backup.mjs restore",
+    "b4:start": "node dist/booking/main.js",
+    "test:b4": "node scripts/b4/test.mjs && node scripts/b4/extra.mjs",
+    "test:b3:isolated": "node scripts/b4/b3-regression.mjs",
+    "b4:ui-fixture": "node scripts/b4/ui-fixture.mjs",
+    "b4:reap": "node scripts/b4/reap.mjs"
   },
   "dependencies": {
     "@nestjs/common": "12.3.2",
