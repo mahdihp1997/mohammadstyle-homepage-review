@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import BrandMark from "@/components/BrandMark";
 
 /** Owner-supplied films remain behind the existing private review asset gate. */
-export default function CinematicMedia({ publicAssets, videoSrc, posterSrc, chapter = false }: {
-  publicAssets: boolean; videoSrc?: string; posterSrc?: string; chapter?: boolean;
+export default function CinematicMedia({ publicAssets, videoSrc, posterSrc, chapter = false, controls = true }: {
+  publicAssets: boolean; videoSrc?: string; posterSrc?: string; chapter?: boolean; controls?: boolean;
 }) {
   // Public code review omits owner films; existing abstract photo placeholders remain.
   videoSrc = undefined;
@@ -45,14 +45,14 @@ export default function CinematicMedia({ publicAssets, videoSrc, posterSrc, chap
     <img className="hero-main-image" src={selected < 0 ? (posterSrc || photos[0].src) : photos[selected].src} alt={selected < 0 ? "نمای سالن محمد استایل" : photos[selected].alt} fetchPriority={chapter ? "auto" : "high"} loading={chapter ? "lazy" : "eager"}/>
     {videoSrc && selected === -1 && <>
       <video ref={video} className="hero-background-video" poster={posterSrc || photos[0].src} muted loop playsInline preload="none" aria-hidden="true" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onError={() => setPlaying(false)}/>
-      <button className="hero-video-toggle" type="button" aria-label={playing ? "توقف ویدئوی پس‌زمینه" : "پخش ویدئوی پس‌زمینه"} onClick={() => {
+      {controls && <button className="hero-video-toggle" type="button" aria-label={playing ? "توقف ویدئوی پس‌زمینه" : "پخش ویدئوی پس‌زمینه"} onClick={() => {
         const node = video.current; if (!node) return;
         if (node.paused) {
           userPaused.current = false; userRequested.current = true;
           if (!node.getAttribute("src") || node.error) { node.src = videoSrc; node.load(); }
           node.play().catch(() => setPlaying(false));
         } else { userPaused.current = true; node.pause(); }
-      }}>{playing ? "Ⅱ توقف ویدئو" : "▷ پخش ویدئو"}</button>
+      }}>{playing ? "Ⅱ توقف ویدئو" : "▷ پخش ویدئو"}</button>}
     </>}
     {!chapter && <div className="hero-photo-picker" role="group" aria-label="قاب‌های محمد استایل">
       {videoSrc && <button type="button" aria-pressed={selected === -1} aria-label="فیلم سالن" onClick={() => setSelected(-1)}><img src={posterSrc || photos[0].src} alt="" loading="lazy"/><span>▷ فیلم سالن</span></button>}

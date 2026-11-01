@@ -1,0 +1,4 @@
+// Synthetic seed helpers must never operate on the persistent owner review realm.
+import assert from'node:assert/strict';import{identities,commercialFixture}from'./fixtures.mjs';
+const previous={APP_ENV:process.env.APP_ENV,NODE_ENV:process.env.NODE_ENV};Object.assign(process.env,{APP_ENV:'product-test',NODE_ENV:'development'});
+try{for(const name of ['ms_product_owner_review','ms_product_owner_curated','production']){const cfg={environment:'test',database:{database:name}};await assert.rejects(()=>identities(null,cfg,null),/SYNTHETIC_FIXTURE_FORBIDDEN/);await assert.rejects(()=>commercialFixture(null,cfg,null,null),/SYNTHETIC_FIXTURE_FORBIDDEN/);}console.log('PASS Synthetic identity and commercial seeds reject all owner/non-disposable database names before SQL (6 cases)');}finally{for(const[k,v]of Object.entries(previous))if(v===undefined)delete process.env[k];else process.env[k]=v;}

@@ -1,6 +1,6 @@
 # Sanitized manual payment / content / store review
 
-Private implementation: c6724a351af992790083fd7db4e53676a8b7f8e6. Public branch review/manual-card-transfer starts exclusively from the existing public review/product-finalization (35bbdf88860fd2363e107e0156dc74cf22a36c85); no private Git objects or history were transferred. Prior PR1–11 remain unchanged and unmerged.
+Private implementation: f810bc70a0a70852da8ff3892b81f0e800206480. Public branch review/manual-card-transfer starts exclusively from the existing public review/product-finalization (35bbdf88860fd2363e107e0156dc74cf22a36c85); no private Git objects or history were transferred. Prior PR1–11 remain unchanged and unmerged.
 
 Actual Booking/server/auth/payment/stock/CMS/SQL logic and tests are copied from the private implementation. Explicit review-only differences: layout disclosure/system fonts/noindex; private-font route404; omitted owner films (CinematicMedia disables video sources, data/salon.ts has no private gallery films); new portrait/interior image paths use copies of an existing abstract public placeholder. All pre-existing public placeholders retain exact hashes. Homepage font assertions use Tahoma and the source audit uses the public baseline. No Booking behavior is changed to accommodate sanitization.
 
@@ -9,3 +9,5 @@ Omitted: client photos, private fonts, private reference boards, uploaded origin
 See MANUAL_CARD_TRANSFER.md, SHOP_CONTRACT.md and VISUAL_REVIEW.md for the implementation, exact functional test results and remaining production configuration. Store defaults OFF; no real products/prices/policy/cards or live provider credentials are seeded. Confirmed salon menu facts are informational; provider-specific operational quote pricing remains an explicit decision before real branch activation. CI status is reported from actual GitHub checks, separately from local QA. No live payment/SMS or production deployment, merge, or next phase.
 
 The existing public No-JavaScript test's baseURL transport adaptation is retained exactly from the public baseline. Its assertions and the private Booking behavior are unchanged; this avoids importing a private test's fixed localhost URL over the approved public harness.
+
+Owner follow-up: automatic photographic hero, craft-chapter film (still omitted publicly), generated tool decoration, confirmed Fereshteh branch and clean owner-dataset boundaries. Synthetic fixtures now reject owner/non-disposable DBs before SQL. The SERVER Playwright transport harness respects its explicit mvp-local profile; original assertion bodies remain unchanged. No private operator scripts, backups, credentials, server key or client media are exported.

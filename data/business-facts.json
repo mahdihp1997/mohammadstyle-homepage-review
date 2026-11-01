@@ -55,12 +55,13 @@
         "IMG_2805.png": "mohammad",
         "IMG_2806.png": "mohammad"
       }
-    }
+    },
+    "branch_2_name": "فرشته"
   },
   "requires_verification": [
     "legal_business_name",
     "brand_final_name",
-    "branch_2_name_and_address",
+    "branch_2_address",
     "branch_specific_images",
     "services_by_branch",
     "deposit_and_cancellation_policies",

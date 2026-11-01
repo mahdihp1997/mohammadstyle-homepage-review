@@ -1003,10 +1003,10 @@ export default function AdminDashboard({
           ))}
         </nav>
         <div className="admin-sidebar-footer">
-          <a href="/portfolio">مشاهدهٔ گالری عمومی ↗</a>
-          <a href="/booking?mode=server">مسیر رزرو SERVER ↗</a>
-          <a href={product ? '/booking?mode=demo' : '/booking'}>مسیر رزرو DEMO ↗</a>
-          {product && <a href="/account/security">امنیت حساب و نشست‌ها ↗</a>}
+          <a href="/portfolio">مشاهدهٔ گالری عمومی</a>
+          <a href="/booking?mode=server">مسیر رزرو SERVER</a>
+          <a href={product ? '/booking?mode=demo' : '/booking'}>مسیر رزرو DEMO</a>
+          {product && <a href="/account/security">امنیت حساب و نشست‌ها</a>}
           <a href="/">بازگشت به خانه</a>
           {actor && (
             <button

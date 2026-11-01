@@ -44,10 +44,5 @@ export default function BeforeAfterComparison() {
         onLostPointerCapture={() => { gesture.current = null; }}/>
     </div>
     <div className="compare-bottom"><span>BEFORE / AFTER</span><strong>استایل مو</strong><span>DRAG TO EXPLORE</span></div>
-    <div className="compare-actions" role="group" aria-label="نمایش کامل تصاویر قبل و بعد">
-      <button type="button" onClick={() => setPercent(100)} aria-pressed={percent===100}>قبل</button>
-      <button type="button" onClick={() => setPercent(50)} aria-pressed={percent===50}>مقایسه</button>
-      <button type="button" onClick={() => setPercent(0)} aria-pressed={percent===0}>بعد</button>
-    </div>
   </div>;
 }

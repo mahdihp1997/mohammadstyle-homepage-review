@@ -60,6 +60,7 @@ jobs:
         working-directory: backend
         run: |
           node scripts/product/owner-clone-guard-test.mjs
+          node scripts/product/owner-fixture-boundary-test.mjs
           node scripts/product/auth-test.mjs
           node scripts/product/auth-policy-test.mjs
           node scripts/product/review-otp-test.mjs

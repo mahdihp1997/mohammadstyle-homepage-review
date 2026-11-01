@@ -7,6 +7,7 @@ import BeforeAfterComparison from "@/components/BeforeAfter";
 import ServiceMenu from '@/components/ServiceMenu';
 import {listedServicePrice} from '@/data/salon';
 import CinematicMedia from "@/components/CinematicMedia";
+import HeroSlideshow from "@/components/HeroSlideshow";
 import CraftTools from "@/components/CraftTools";
 import HomeGallery from '@/components/product/HomeGallery';
 import Icon from "@/components/Icon";
@@ -26,7 +27,7 @@ function Header({ openBooking }: { openBooking: (id?: ServiceId) => void }) {
   const {product}=useContext(ProductContext);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLButtonElement>(null);
-  const links = [ ["خانه","#home"], ["خدمات","#services"], ["نمونه‌کارها","#portfolio"], ["شعبه‌ها","#branches"], ["درباره ما","#about"] ];
+  const links = [ ["خانه","#home"], ["خدمات","#services"], ["گالری تصاویر","#portfolio"], ["شعبه‌ها","#branches"], ["درباره ما","#about"] ];
   return <header className="site-header" onKeyDown={e=>{
     if(e.key==="Escape"&&menuOpen){e.preventDefault();setMenuOpen(false);menuRef.current?.focus();}
   }} onBlur={e=>{if(!e.currentTarget.contains(e.relatedTarget))setMenuOpen(false);}}>
@@ -51,13 +52,12 @@ function Hero({ openBooking }: { openBooking: (id?: ServiceId) => void }) {
     <div className="hero-grain" aria-hidden="true" />
     <div className="hero-grid shell">
       <div className="hero-photo" aria-label={publicAssets?'نشان محمد استایل':'نمونه واقعی از آماده‌سازی استایل دامادی'}>
-        <CinematicMedia publicAssets={publicAssets} videoSrc="/images/owner-media/hero-at-work.mp4" posterSrc="/images/owner-media/salon-at-work-poster.webp"/>
+        {publicAssets?<PublicArt/>:<HeroSlideshow/>}
         <div className="hero-photo-overlay" />
         <div className="hero-photo-corner" aria-hidden="true">THE ART OF GROOMING <span>MOHAMMAD STYLE</span></div>
       </div>
       <div className="hero-copy">
         <div className="eyebrow"><span className="eyebrow-line"/> MOHAMMAD STYLE — PREMIUM MEN'S GROOMING</div>
-        <div className="hero-subline">سالن ممتاز پونک</div>
         <h1 id="hero-heading"><span className="hero-heading-line">فراتر از یک آرایشگاه،</span><br/>یک <span>سبک زندگی.</span></h1>
         <p className="hero-lead">از هیرکات دقیق تا استایل اختصاصی داماد؛ تجربه‌ای حرفه‌ای که در جزئیات آن تفاوت را احساس می‌کنید.</p>
         <div className="hero-ctas">
@@ -91,7 +91,7 @@ function Services({ openBooking }: { openBooking: (id?: ServiceId) => void }) {
         {services.map((s,i)=><button type="button" key={s.id} className={`service-card ${s.image && !publicAssets ? "photographic" : "illustrative"} service-${s.id}`} onClick={()=>openBooking(s.id)} aria-label={`اطلاعات و رزرو ${s.name}`}>
           {s.image&&!publicAssets?<img src={s.image} loading="lazy" alt={s.evidence || s.name}/>:<div className="service-art" aria-hidden="true"><span className="art-circle"/><Icon name={s.icon} size={76}/></div>}
           <span className="service-number">0{i+1}</span>
-          <span className="service-card-content"><span className="service-icon"><Icon name={s.icon} size={25}/></span><strong>{s.name}</strong><small>{s.subtitle}</small><span className="service-menu-price">{listedServicePrice(s.id)}</span><span className="service-arrow"><Icon name="arrow" size={17}/></span></span>
+          <span className="service-card-content"><span className="service-icon"><Icon name={s.icon} size={25}/></span><strong>{s.name}</strong><small>{s.subtitle}</small><span className="service-menu-price">{listedServicePrice(s.id)}</span></span>
         </button>)}
       </div>
       <ServiceMenu/>
@@ -122,7 +122,7 @@ function Portfolio() {
   const displayed=filter==="all"?gallery:gallery.filter(g=>g.category===filter);
   return <section className="portfolio-section section-space" id="portfolio" aria-labelledby="portfolio-heading">
     <div className="shell">
-      <SectionIntro small="SELECTED WORK / 03" title="نمونه‌کارها" headingId="portfolio-heading" description="از ظرافت هیرکات تا استایل روز مراسم؛ کار ما را از نزدیک ببینید." />
+      <SectionIntro small="SELECTED WORK / 03" title="گالری تصاویر" headingId="portfolio-heading" description="از ظرافت هیرکات تا استایل روز مراسم؛ کار ما را از نزدیک ببینید." />
       <div className="gallery-toolbar" role="group" aria-label="فیلتر نمونه‌کارها">
         {filters.map(f=><button key={f.id} type="button" className={f.id===filter?"active":""} aria-controls="portfolio-gallery" aria-pressed={f.id===filter} onClick={()=>setFilter(f.id)}>{f.name}</button>)}
       </div>
@@ -133,15 +133,16 @@ function Portfolio() {
         </figure>)}
       </div>
       <p className="sr-only" role="status">{displayed.length} نمونه‌کار؛ {filters.find(f=>f.id===filter)?.name}</p>
-      <div className="gallery-footer"><Link className="btn btn-ghost" href="/portfolio">همهٔ عکس‌ها و ویدئوها <Icon name="arrow" size={18}/></Link><a className="instagram-cta" href={business.instagram} target="_blank" rel="noopener noreferrer"><Icon name="instagram" size={26}/><span>نمونه‌های بیشتر در اینستاگرام<small dir="ltr">@mohammadstyle1</small></span><Icon name="arrowUp" size={20}/></a></div>
+      <div className="gallery-footer"><Link className="btn btn-ghost" href="/portfolio">همهٔ عکس‌ها و ویدئوها <Icon name="arrow" size={18}/></Link><a className="instagram-cta" href={business.instagram} target="_blank" rel="noopener noreferrer"><Icon name="instagram" size={26}/><span>نمونه‌های بیشتر در اینستاگرام<small dir="ltr">@mohammadstyle1</small></span></a></div>
     </div>
   </section>;
 }
 
 function Story() {
   const {publicAssets}=useContext(ProductContext);
-  return <section className="story-section" id="about" aria-labelledby="story-heading">
-    <div className={`story-photo ${publicAssets?'':'story-photo-pair'}`}>{publicAssets?<PublicArt/>:<><img src="/images/barber-process.webp" alt="دقت آرایشگر در آماده‌سازی مو" loading="lazy"/><img src="/images/salon-light.webp" alt="آینه‌ها و فضای سالن محمد استایل" loading="lazy"/></>}</div>
+  return <section className="story-section story-cinema" id="about" aria-labelledby="story-heading">
+      <div className="story-film"><CinematicMedia chapter controls={false} publicAssets={publicAssets} videoSrc="/images/owner-media/hero-at-work.mp4" posterSrc="/images/owner-media/salon-at-work-poster.webp"/></div>
+    <div className="story-film-shade" aria-hidden="true"/>
     <div className="story-copy">
       <span className="section-eyebrow"><span className="gold-dot"/> INSIDE THE STUDIO</span>
       <h2 id="story-heading">هنر ما در<br/><em>جزئیات است.</em></h2>
@@ -157,14 +158,14 @@ function Branches({ openBooking }: { openBooking: (id?:ServiceId)=>void }) {
   const {publicAssets}=useContext(ProductContext);
   return <section className="branches-section section-space" id="branches" aria-labelledby="branches-heading">
     <div className="shell">
-      <SectionIntro small="OUR LOCATIONS / 04" title="شعبه‌های محمد استایل" headingId="branches-heading" description="مجموعه دارای دو شعبه فعال است. اطلاعات شعبه دوم پس از تأیید به سایت اضافه می‌شود." />
+      <SectionIntro small="OUR LOCATIONS / 04" title="شعبه‌های محمد استایل" headingId="branches-heading" description="پونک و فرشته؛ دو شعبه با امضای محمد استایل." />
       <div className="branches-grid">
         <article className="branch-tile branch-known">
           {publicAssets?<PublicArt/>:<img src="/images/salon-light.webp" alt="فضای سالن محمد استایل" loading="lazy" />}
           <div className="branch-overlay"/>
           <div className="branch-detail"><span className="branch-marker">01 / POUNAK</span><h3>شعبه پونک</h3><p><Icon name="location" size={18}/>{business.location}</p><button type="button" className="btn btn-gold" onClick={()=>openBooking()}>رزرو نوبت این شعبه <Icon name="arrow" size={17}/></button></div>
         </article>
-        <article className="branch-tile branch-pending"><div className="branch-pattern" aria-hidden="true"/><div className="branch-detail"><span className="branch-marker">02 / در انتظار اطلاعات</span><h3>شعبه دوم</h3><p>نشانی، تصویر و خدمات شعبه دوم هنوز تأیید نشده‌اند.</p><span className="branch-disabled"><Icon name="clock" size={16}/> اطلاعات به‌زودی تکمیل می‌شود</span></div></article>
+        <article className="branch-tile branch-pending"><div className="branch-pattern" aria-hidden="true"/><div className="branch-detail"><span className="branch-marker">02 / FERESHTEH</span><h3>شعبه فرشته</h3><p>برای اطلاع از نشانی و هماهنگی مراجعه با مجموعه در ارتباط باشید.</p><Link className="btn btn-ghost" href="/contact">ارتباط با مجموعه</Link></div></article>
       </div>
     </div>
   </section>;
@@ -176,7 +177,7 @@ function Closing({ openBooking }: { openBooking: (id?:ServiceId)=>void }) {
 
 function Footer() {
   const {product}=useContext(ProductContext);
-  return <footer className="footer"><div className="shell footer-main"><div><Brand compact/><p>سالن ممتاز پونک؛ معرفی خدمات و نمونه‌کارهای آرایش و استایل مردانه.</p></div><div className="footer-links"><span>دسترسی سریع</span><a href="#services">خدمات</a><a href="#portfolio">نمونه‌کارها</a><a href="#branches">شعبه‌ها</a><Link href="/about">درباره ما</Link><Link href="/barbers">آرایشگران مجموعه</Link><Link href="/contact">تماس با ما</Link><Link href="/blog">مجلهٔ آراستگی</Link>{product&&<ShopLink/>}</div><div className="footer-contact"><span>نشانی سالن</span><p><Icon name="location" size={18}/>{business.location}</p><a href={business.instagram} target="_blank" rel="noopener noreferrer"><Icon name="instagram" size={19}/> @mohammadstyle1</a></div></div><div className="shell footer-bottom"><span>© محمد استایل</span><span>{product ? <a href="/account">حساب و نوبت‌های من</a> : 'پیش‌نمایش داخلی — رزرو و پرداخت هنوز فعال نیستند'}</span><a href="#home">بازگشت به بالا ↑</a></div></footer>;
+  return <footer className="footer"><div className="shell footer-main"><div><Brand compact/><p>سالن ممتاز پونک؛ معرفی خدمات و نمونه‌کارهای آرایش و استایل مردانه.</p></div><div className="footer-links"><span>دسترسی سریع</span><a href="#services">خدمات</a><a href="#portfolio">گالری تصاویر</a><a href="#branches">شعبه‌ها</a><Link href="/about">درباره ما</Link><Link href="/barbers">آرایشگران مجموعه</Link><Link href="/contact">تماس با ما</Link><Link href="/blog">مجلهٔ آراستگی</Link>{product&&<ShopLink/>}</div><div className="footer-contact"><span>نشانی سالن</span><p><Icon name="location" size={18}/>{business.location}</p><a href={business.instagram} target="_blank" rel="noopener noreferrer"><Icon name="instagram" size={19}/> @mohammadstyle1</a></div></div><div className="shell footer-bottom"><span>© محمد استایل</span><span>{product ? <a href="/account">حساب و نوبت‌های من</a> : 'پیش‌نمایش داخلی — رزرو و پرداخت هنوز فعال نیستند'}</span><a href="#home">بازگشت به بالا ↑</a></div></footer>;
 }
 
 function BookingDrawer({ open, selectedService, setSelectedService, close, returnFocusRef }: { open:boolean; selectedService:ServiceId|null; setSelectedService:(s:ServiceId)=>void; close:()=>void; returnFocusRef:{current:HTMLElement|null} }) {
@@ -207,7 +208,7 @@ function BookingDrawer({ open, selectedService, setSelectedService, close, retur
     <a className="btn btn-gold drawer-booking-entry" href={selectedService ? `/booking?service=${selectedService}` : "/booking"}>{product ? 'شروع رزرو نوبت' : 'شروع رزرو مرحله‌ای نمایشی'} <Icon name="arrow" size={18}/></a>
     <div className="drawer-step"><span>01</span><strong>انتخاب شعبه</strong></div>
     <div className="drawer-branch selected"><Icon name="check" size={17}/><div><strong>شعبه پونک</strong><small>{business.location}</small></div></div>
-    <div className="drawer-branch disabled"><Icon name="clock" size={17}/><div><strong>شعبه دوم</strong><small>اطلاعات و زمان‌بندی در انتظار تأیید</small></div></div>
+    <div className="drawer-branch disabled"><Icon name="clock" size={17}/><div><strong>شعبه فرشته</strong><small>برای هماهنگی مراجعه با مجموعه تماس بگیرید.</small></div></div>
     <div className="drawer-step"><span>02</span><strong>انتخاب خدمت</strong></div>
     <div className="drawer-services">{services.map(s=><button key={s.id} className={selectedService===s.id?"active":undefined} aria-pressed={selectedService===s.id} onClick={()=>setSelectedService(s.id)} type="button"><Icon name={s.icon} size={20}/>{s.name}</button>)}</div>
     <div className="drawer-next"><div><span>ثبت واقعی نوبت</span><p>{product ? 'برای مشاهدهٔ زمان‌های موجود و شرایط تأییدشده، مسیر رزرو را ادامه دهید.' : 'برای آزمایش انتخاب آرایشگر و زمان از مسیر نمایشی بالا استفاده کنید. ثبت واقعی و پرداخت همچنان فعال نیستند.'}</p></div>{product ? <a className="btn btn-gold" href="/booking">ادامهٔ رزرو</a> : <button className="btn btn-gold" type="button" disabled>ادامه رزرو (غیرفعال)</button>}</div>

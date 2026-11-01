@@ -2,7 +2,7 @@
 import {randomUUID,randomInt} from 'node:crypto';import {bootstrap} from './bootstrap.mjs';
 import {token,digest,keyed,normalizeMobile,unseal,totp} from '../../dist/product/crypto.js';import {terms} from '../b4/fixtures.mjs';
 export async function identities(db,cfg,auth){
- if(cfg.environment!=='test'||process.env.APP_ENV!=='product-test'||process.env.NODE_ENV==='production')throw Error('SYNTHETIC_FIXTURE_FORBIDDEN');
+ if(cfg.environment!=='test'||process.env.APP_ENV!=='product-test'||process.env.NODE_ENV==='production'||!['ms_product_test','ms_product_restore','ms_product_failure'].includes(cfg.database.database))throw Error('SYNTHETIC_FIXTURE_FORBIDDEN');
  let serial=randomInt(10000000,80000000);const phone=()=> '090'+String(++serial).padStart(8,'0');
  const context=()=>({binding:digest(token()),peer:keyed(cfg.identityKey,'peer',token()),device:'SYNTHETIC product fixture'});
  async function request(mobile,ctx,kind='MOBILE_LOGIN',extra={}){const r=await auth.request(kind,{mobile,...extra},ctx);const row=(await db.query('SELECT secret_ciphertext FROM ms_b1_design.product_auth_challenge WHERE id=$1',[r.challengeId])).rows[0];return {...r,...unseal(cfg.encryptionKey,row.secret_ciphertext,'otp:'+r.challengeId)};}
@@ -14,7 +14,7 @@ export async function identities(db,cfg,auth){
  return{phone,context,request,customer,administrator};
 }
 export async function commercialFixture(db,cfg,repo,owner,{deposit='20000'}={}){
- if(cfg.environment!=='test'||process.env.APP_ENV!=='product-test'||process.env.NODE_ENV==='production')throw Error('SYNTHETIC_FIXTURE_FORBIDDEN');
+ if(cfg.environment!=='test'||process.env.APP_ENV!=='product-test'||process.env.NODE_ENV==='production'||!['ms_product_test','ms_product_restore','ms_product_failure'].includes(cfg.database.database))throw Error('SYNTHETIC_FIXTURE_FORBIDDEN');
  const bid=cfg.businessId;const h=digest(owner.result.session.token),csrf=digest(owner.result.session.csrf);
  async function insert(table,d){const keys=Object.keys(d);return(await db.query(`INSERT INTO ms_b1_design.${table}(${keys.join(',')}) VALUES(${keys.map((_,i)=>'$'+(i+1)).join(',')}) RETURNING *`,Object.values(d))).rows[0];}
  const branch=await insert('branch',{business_id:bid,code:'SYNTHETIC_'+randomUUID().slice(0,8),display_name:'شعبهٔ صرفاً آزمایشی — اطلاعات واقعی سالن نیست',time_zone:'Asia/Tehran',active:true});

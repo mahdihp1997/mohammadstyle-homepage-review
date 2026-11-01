@@ -227,7 +227,7 @@ export default function MediaPanel({
         <div className="admin-section-head">
           <h2>بارگذاری خصوصی رسانه</h2>
           <a className="admin-button" href="/portfolio">
-            گالری عمومی ↗
+            گالری عمومی
           </a>
         </div>
         <p>

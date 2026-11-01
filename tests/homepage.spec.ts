@@ -47,7 +47,11 @@ test("real Next.js render, factual content, assets, RTL and review screenshots",
     await expect(page.locator(`.service-${id} img`)).toHaveAttribute("alt", /تصویر مفهومی/);
   }
   await expect(page.locator(".branch-known")).toContainText(facts.verified_or_user_provided.branch_1_location);
-  await expect(page.locator(".branch-pending button, .branch-pending a, .branch-pending img")).toHaveCount(0);
+  await expect(page.locator(".branch-pending")).toContainText("شعبه فرشته");
+  await expect(page.locator(".branch-pending button, .branch-pending img")).toHaveCount(0);
+  await expect(page.locator(".branch-pending a")).toHaveAttribute("href", "/contact");
+  await expect(page.locator("#portfolio-heading")).toHaveText("گالری تصاویر");
+  await expect(page.locator(".hero video, .hero-photo-picker, .compare-actions")).toHaveCount(0);
 
   const links = await page.locator("a[href]").evaluateAll(items => items.map(item => item.getAttribute("href")!));
   for (const href of links) {

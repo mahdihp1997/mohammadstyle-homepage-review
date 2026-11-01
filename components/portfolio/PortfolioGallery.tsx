@@ -100,7 +100,7 @@ export default function PortfolioGallery({ enabled, privateAssets=false }: { ena
       <main className="portfolio-main">
         <section className="portfolio-intro">
           <span className="portfolio-eyebrow">THE GALLERY</span>
-          <h1>نمونه‌کارهای محمد استایل</h1>
+          <h1>گالری تصاویر محمد استایل</h1>
           <p>
             عکس و ویدئو، با جزئیات و زاویهٔ کامل.
             <br />
@@ -201,7 +201,7 @@ export default function PortfolioGallery({ enabled, privateAssets=false }: { ena
                           width={v?.width ?? 1000}
                           height={v?.height ?? 1000}
                         />
-                        <span>نمایش کامل ↗</span>
+                        <span>نمایش کامل</span>
                       </button>
                     )}
                   </figure>
@@ -234,12 +234,12 @@ export default function PortfolioGallery({ enabled, privateAssets=false }: { ena
             </button>
           )}
         </section>
-        <div className="portfolio-instagram"><a className="instagram-cta" href={business.instagram} target="_blank" rel="noopener noreferrer"><Icon name="instagram" size={26}/><span>نمونه‌های بیشتر در اینستاگرام<small dir="ltr">@mohammadstyle1</small></span><Icon name="arrowUp" size={20}/></a></div>
+        <div className="portfolio-instagram"><a className="instagram-cta" href={business.instagram} target="_blank" rel="noopener noreferrer"><Icon name="instagram" size={26}/><span>نمونه‌های بیشتر در اینستاگرام<small dir="ltr">@mohammadstyle1</small></span></a></div>
       </main>
       <footer className="portfolio-footer">
         <span>محمد استایل · سالن ممتاز پونک</span>
         <a href={enabled ? "/booking?mode=server" : "/booking"}>
-          انتخاب زمان و خدمت ↗
+          انتخاب زمان و خدمت
         </a>
       </footer>
       {selected && (
