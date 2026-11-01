@@ -1,0 +1,1 @@
+import AccountPanel from '@/components/product/AccountPanel';import '../product.css';export const dynamic='force-dynamic';export const metadata={title:'حساب و نوبت‌های من | محمد استایل',robots:{index:false,follow:false}};export default function Page(){return <AccountPanel/>;}

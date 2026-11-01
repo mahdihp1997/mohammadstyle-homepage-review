@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "checks": [
+    "Bound LAN address requires private-review authentication, rejects unrelated origins and hides provider control APIs",
+    "Approved Homepage photos, private fonts and before/after render through LAN ingress",
+    "Actual customer OTP request, real worker/mock delivery and verification through LAN",
+    "Server quote/consent/hold, LAN-hosted mock gateway, LAN callback redirect and independent verified confirmation",
+    "Separate real administrator password/MFA login sees the same booking and verified payment over LAN"
+  ],
+  "realMoneyOrSms": false,
+  "secondPhysicalComputerTested": false,
+  "syntheticBookingId": "fa91e889-d405-4cc9-a94c-e0f0792ec947"
+}

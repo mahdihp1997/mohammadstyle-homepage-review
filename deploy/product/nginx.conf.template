@@ -1,0 +1,83 @@
+log_format safe_json escape=json '{"time":"$time_iso8601","request":"$request_id","method":"$request_method","path":"$uri","status":$status,"duration":$request_time}';
+access_log /dev/stdout safe_json;
+error_log /dev/stderr crit;
+server_tokens off;
+limit_req_zone $binary_remote_addr zone=login:10m rate=10r/m;
+limit_req_status 429;
+limit_conn_zone $binary_remote_addr zone=upload_peer:10m;
+limit_conn_zone $server_name zone=upload_global:1m;
+limit_conn_status 429;
+server {
+  listen 80 default_server;
+  server_name ${PUBLIC_HOST};
+  return 308 ${PUBLIC_ORIGIN}$request_uri;
+}
+server {
+  listen 443 ssl default_server;
+  server_name _;
+  ssl_certificate /run/secrets/https_cert;
+  ssl_certificate_key /run/secrets/https_key;
+  ssl_protocols TLSv1.2 TLSv1.3;
+  return 444;
+}
+server {
+  listen 443 ssl;
+  http2 on;
+  server_name ${PUBLIC_HOST};
+  ssl_certificate /run/secrets/https_cert;
+  ssl_certificate_key /run/secrets/https_key;
+  ssl_protocols TLSv1.2 TLSv1.3;
+  ssl_session_tickets off;
+  ssl_session_cache shared:SSL:10m;
+  add_header Strict-Transport-Security "max-age=31536000" always;
+  client_max_body_size 64k;
+  # Current route paths are ASCII/static/UUID. Query strings may be encoded.
+  # Reject encoded path aliases before any large upload is buffered/routed.
+  if ($request_uri ~* "^/[^?]*%[0-9a-f]{2}") { return 400; }
+  location = /api/mvp/admin/media/upload {
+    client_max_body_size 45m;
+    limit_conn upload_peer 2;
+    limit_conn upload_global 4;
+    proxy_request_buffering off;
+    proxy_pass http://web:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto https;
+    proxy_set_header X-Product-Bridge "";
+    proxy_set_header X-Product-Peer "";
+    proxy_set_header X-Product-Binding "";
+    proxy_set_header X-Nonce "";
+    proxy_read_timeout 190s;
+  }
+  location / {
+    proxy_pass http://web:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto https;
+    proxy_set_header X-Forwarded-Host $http_host;
+    proxy_set_header X-Product-Bridge "";
+    proxy_set_header X-Product-Peer "";
+    proxy_set_header X-Product-Binding "";
+    proxy_set_header X-Nonce "";
+    proxy_hide_header X-Powered-By;
+    proxy_read_timeout 190s;
+    proxy_request_buffering on;
+  }
+  location ~ ^/api/product/auth/(request|admin-login|activation-request|recovery-request)$ {
+    limit_req zone=login burst=8 nodelay;
+    proxy_pass http://web:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto https;
+    proxy_set_header X-Product-Bridge "";
+    proxy_set_header X-Product-Peer "";
+    proxy_set_header X-Product-Binding "";
+    proxy_read_timeout 40s;
+  }
+}

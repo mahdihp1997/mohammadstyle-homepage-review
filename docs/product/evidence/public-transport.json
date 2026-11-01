@@ -1,0 +1,22 @@
+{
+  "kind": "ACTUAL_INCOMPLETE_HTTP_AND_AUTHORIZED_CMS_UPLOAD",
+  "passed": 4,
+  "tests": [
+    {
+      "name": "Unauthenticated upload is rejected before the declared one-megabyte body is sent",
+      "passed": true
+    },
+    {
+      "name": "Forged session and matching forged CSRF cannot buy a large body allocation",
+      "passed": true
+    },
+    {
+      "name": "A genuinely verified customer without media.manage is rejected before body consumption",
+      "passed": true
+    },
+    {
+      "name": "A genuinely verified MFA owner can still upload a real private geometric image through Next/Nest",
+      "passed": true
+    }
+  ]
+}

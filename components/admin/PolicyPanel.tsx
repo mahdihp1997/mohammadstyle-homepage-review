@@ -1,4 +1,5 @@
 "use client";
+import {requestUuid} from '@/lib/request-uuid';
 import { useRef, useState, type FormEvent } from "react";
 import type { Editor } from "./types";
 import {
@@ -607,7 +608,7 @@ function PolicyEditor({
     setError("");
     const signature = JSON.stringify({ v, windows });
     if (intent.current.signature !== signature)
-      intent.current = { signature, key: crypto.randomUUID() };
+      intent.current = { signature, key: requestUuid() };
     try {
       const none = v.depositRequirement === "NONE",
         terms = {

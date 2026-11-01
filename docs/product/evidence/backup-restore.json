@@ -1,0 +1,26 @@
+{
+  "kind": "ACTUAL_POSTGRES18_DUMP_RESTORE_AND_MEDIA",
+  "passed": 5,
+  "tests": [
+    {
+      "name": "Backup fixture uses authorized private CMS upload of a geometric image",
+      "passed": true
+    },
+    {
+      "name": "Actual PostgreSQL18 exported-snapshot dump and immutable local media are encrypted",
+      "passed": true
+    },
+    {
+      "name": "Wrong-key restore fails before any schema or media is written",
+      "passed": true
+    },
+    {
+      "name": "Actual restore matches all table counts, migration checksums and every original/derived media SHA256",
+      "passed": true
+    },
+    {
+      "name": "Restore refuses a nonempty database rather than deleting existing data",
+      "passed": true
+    }
+  ]
+}

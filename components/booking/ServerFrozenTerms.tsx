@@ -3,7 +3,7 @@ import {faNumber} from '@/lib/booking/date-utils';
 import {rialLabel} from '@/lib/booking/server-adapter';
 
 /** Readable projection of every financial/cancellation field in the accepted artifact. */
-export default function ServerFrozenTerms({quote}:{quote:FinalQuote}) {
+export default function ServerFrozenTerms({quote,product=false}:{quote:FinalQuote;product?:boolean}) {
   const t=quote.terms.terms;
   const percent=(bps:string)=>new Intl.NumberFormat('fa-IR',{maximumFractionDigits:2}).format(Number(bps)/100)+'٪';
   const instant=(value:string)=>new Intl.DateTimeFormat('fa-IR',{timeZone:quote.content.timeZone,dateStyle:'medium',timeStyle:'short'}).format(new Date(value));
@@ -23,7 +23,7 @@ export default function ServerFrozenTerms({quote}:{quote:FinalQuote}) {
     </dl>
     {!!t.refundWindows.length&&<ul>{t.refundWindows.map(w=><li key={w.thresholdMinutes}>از {faNumber(Number(w.thresholdMinutes))} دقیقه پیش از شروع: {percent(w.refundBps)} از مبنای پرداخت‌شده.</li>)}</ul>}
     <p>شروع اعتبار شرایط: {instant(t.effectiveFrom)}{t.effectiveTo?`؛ پایان اعتبار: ${instant(t.effectiveTo)}`:'؛ پایان اعتبار تعیین نشده است.'}</p>
-    <p>وجهی در این محیط دریافت نشده است؛ هیچ بازپرداخت اجرایی انجام نمی‌شود.</p>
+    <p>{product?'وضعیت پرداخت و درخواست بازپرداخت فقط پس از تأیید مستقل ارائه‌دهنده در حساب شما ثبت می‌شود.':'وجهی در این محیط دریافت نشده است؛ هیچ بازپرداخت اجرایی انجام نمی‌شود.'}</p>
     <details><summary>شناسه‌های سند پذیرفته‌شده</summary><p><bdi className="server-hash">{quote.contentHash}</bdi></p><p><bdi className="server-hash">{quote.content.policy.snapshotHash}</bdi></p></details>
   </div>;
 }

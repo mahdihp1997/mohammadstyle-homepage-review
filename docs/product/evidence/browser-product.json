@@ -1,0 +1,38 @@
+{
+  "kind": "ACTUAL_CHROME_NEXT_NEST_POSTGRES_HTTP_MOCK",
+  "passed": 6,
+  "failed": 0,
+  "tests": [
+    {
+      "name": "Verified desktop customer: OTP, multi-service server quote, hold, hosted payment, callback verification, history and paid cancellation",
+      "passed": true,
+      "milliseconds": 29570
+    },
+    {
+      "name": "Verified mobile customer: OTP, multi-service server quote, hold, hosted payment, callback verification, history and paid cancellation",
+      "passed": true,
+      "milliseconds": 29902
+    },
+    {
+      "name": "Separate browser login resolves the same customer and revoking other sessions removes its access",
+      "passed": true,
+      "milliseconds": 15815
+    },
+    {
+      "name": "Administrator activation uses SMS, a new password and TOTP; no development login bridge is registered",
+      "passed": true,
+      "milliseconds": 13121
+    },
+    {
+      "name": "Actual authorized admin buttons record arrival, service in progress and completion with history",
+      "passed": true,
+      "milliseconds": 10586
+    },
+    {
+      "name": "Actual customer and administrator pages render at all four viewports without JS errors, broken images or horizontal scroll",
+      "passed": true,
+      "milliseconds": 113359
+    }
+  ],
+  "errors": []
+}

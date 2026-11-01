@@ -1,0 +1,72 @@
+{
+  "kind": "ACTUAL_POSTGRES_AND_HTTP_LIFECYCLE",
+  "passed": 13,
+  "failed": 0,
+  "tests": [
+    {
+      "name": "Optimized timezone resolution preserves original DST gap/fold and invalid-zone outcomes",
+      "passed": true,
+      "milliseconds": 216
+    },
+    {
+      "name": "Capacity admission race preserves one winner for the same chair/time",
+      "passed": true,
+      "milliseconds": 1138
+    },
+    {
+      "name": "Payment keeps the original short capacity deadline while provider confirmation remains pending",
+      "passed": true,
+      "milliseconds": 1157
+    },
+    {
+      "name": "Scheduling guard rejects an affected branch while preserving unrelated branch operations",
+      "passed": true,
+      "milliseconds": 10
+    },
+    {
+      "name": "The supported zero-deposit reschedule preserves confirmation and immutable revision history",
+      "passed": true,
+      "milliseconds": 1526
+    },
+    {
+      "name": "Operational transitions require authorization and order; completion does not release capacity early",
+      "passed": true,
+      "milliseconds": 248
+    },
+    {
+      "name": "Sensitive customer contact is scoped, explicitly requested and audited without plaintext in evidence",
+      "passed": true,
+      "milliseconds": 39
+    },
+    {
+      "name": "A late independently verified payment records money but never restores expired capacity",
+      "passed": true,
+      "milliseconds": 28299
+    },
+    {
+      "name": "A real hosted payment cancellation is independently declined, never produces a receipt, and can be cancelled safely",
+      "passed": true,
+      "milliseconds": 1261
+    },
+    {
+      "name": "A transient independent verification failure stays unconfirmed, then reconciles exactly once",
+      "passed": true,
+      "milliseconds": 1242
+    },
+    {
+      "name": "A corrupted provider proof cannot settle a different amount or confirm capacity",
+      "passed": true,
+      "milliseconds": 969
+    },
+    {
+      "name": "Reminder schedule is disabled until configured and a retry freezes template version/variables",
+      "passed": true,
+      "milliseconds": 1000
+    },
+    {
+      "name": "Worker SQL privilege boundary denies API claims, fabricated receipts and direct financial updates",
+      "passed": true,
+      "milliseconds": 48
+    }
+  ]
+}

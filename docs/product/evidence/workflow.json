@@ -1,0 +1,47 @@
+{
+  "kind": "ACTUAL_POSTGRES_SERVICE_AND_LOOPBACK_HTTP_PROVIDER",
+  "passed": 10,
+  "failed": 0,
+  "tests": [
+    {
+      "name": "Public discovery reads configured catalog without supplying an identity",
+      "passed": true
+    },
+    {
+      "name": "OTP outbox dispatch uses the actual loopback HTTP adapter and stores no plaintext code",
+      "passed": true
+    },
+    {
+      "name": "Concurrent payment requests share one merchant intent and exact accepted integer Rial",
+      "passed": true
+    },
+    {
+      "name": "Forged callback authority/state and unrelated customer cannot settle or inspect payment",
+      "passed": true
+    },
+    {
+      "name": "Independent provider verification atomically confirms capacity and duplicate callbacks admit one receipt",
+      "passed": true
+    },
+    {
+      "name": "Paid cancellation uses frozen B3 terms and refund requires authorized independent provider result",
+      "passed": true
+    },
+    {
+      "name": "Ambiguous request retry is idempotent across a lost response after durable provider creation",
+      "passed": true
+    },
+    {
+      "name": "SMS lost acknowledgement retries the same durable dedupe key with one actual delivery",
+      "passed": true
+    },
+    {
+      "name": "Admin branch scope filters customer histories and denies operations on unrelated branch",
+      "passed": true
+    },
+    {
+      "name": "Kavenegar request builder follows official OTP/send contracts without any live test sends",
+      "passed": true
+    }
+  ]
+}

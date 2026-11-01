@@ -1,0 +1,31 @@
+{
+  "kind": "ACTUAL_DOCKER_PRODUCTION_NODE_LOCAL_HTTPS_AND_VERIFIED_POSTGRES_TLS",
+  "passed": 6,
+  "tests": [
+    {
+      "name": "HTTPS requires a trusted certificate; exact private CA succeeds and untrusted CA is rejected",
+      "passed": true
+    },
+    {
+      "name": "Production Node rejects mock providers and local-development authentication; PostgreSQL TLS rejects an untrusted certificate and plaintext",
+      "passed": true
+    },
+    {
+      "name": "Actual production web image excludes every original private image/font/reference hash and exposes no database credentials",
+      "passed": true
+    },
+    {
+      "name": "Actual HTTPS routes enforce noindex, private asset blocking, secure preauth cookies, origin/CSRF and DEMO isolation",
+      "passed": true
+    },
+    {
+      "name": "HTTPS edge rejects incomplete forged uploads, oversized ordinary bodies and encoded upload aliases before buffering",
+      "passed": true
+    },
+    {
+      "name": "Actual production-mode Chrome renders HTTPS pages with nonce CSP, system fonts, no hydration errors or overflow",
+      "passed": true
+    }
+  ],
+  "publicDeployment": false
+}

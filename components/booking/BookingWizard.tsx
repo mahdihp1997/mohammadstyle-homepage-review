@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useReducer, useRef, useState } from "react";
 import Icon from "@/components/Icon";
+import BrandMark from "@/components/BrandMark";
 import { business, type ServiceId } from "@/data/site";
 import { bookingCatalog, createDemoAvailability } from "@/data/booking-demo";
 import { addDays, faNumber } from "@/lib/booking/date-utils";
@@ -53,7 +54,7 @@ export default function BookingWizard({ today, initialService }: { today: LocalD
   useEffect(() => { if (state.error) errorRef.current?.focus(); else if (state.previewViewed) resultRef.current?.focus(); }, [state]);
 
   return <div className="booking-page"><a className="skip-link" href="#booking-main">رفتن به مراحل رزرو</a>
-    <header className="booking-header"><div className="booking-shell"><a href="/" className="brand" aria-label="محمد استایل؛ صفحه اصلی"><span className="brand-crown"><Icon name="crown" size={26} /></span><span className="brand-name">{business.brand}<span>MOHAMMAD STYLE</span></span></a><a className="booking-home-link" href="/">بازگشت به خانه<Icon name="chevron" size={17} /></a></div></header>
+    <header className="booking-header"><div className="booking-shell"><a href="/" className="brand" aria-label="محمد استایل؛ صفحه اصلی"><BrandMark /><span className="brand-name">{business.brand}<span>MOHAMMAD STYLE</span></span></a><a className="booking-home-link" href="/">بازگشت به خانه<Icon name="chevron" size={17} /></a></div></header>
     <main id="booking-main" tabIndex={-1} className="booking-shell booking-main">
       <div className="booking-title-row"><div><span className="section-eyebrow"><span className="gold-dot" />THE NEXT CHAPTER</span><h1>زمانی برای <em>استایل شما.</em></h1><p>پیش‌نمایش مسیر رزرو، با همان توجه به جزئیات.</p></div><span className="booking-edition">BOOKING / PREVIEW<br /><b>PHASE 02</b></span></div>
       <div className="booking-demo-notice"><Icon name="sparkle" size={20} /><p><strong>نسخه نمایشی؛ هیچ نوبتی ثبت نمی‌شود.</strong> آرایشگران، تخصیص خدمات و ساعت‌ها داده آزمایشی‌اند. قیمت، مدت و سیاست واقعی هنوز تأیید نشده‌اند.</p></div>
@@ -73,7 +74,7 @@ export default function BookingWizard({ today, initialService }: { today: LocalD
         <BookingNavigation step={step} onBack={() => dispatch({ type: "back" })} />
         </fieldset><noscript><p>برای استفاده از پیش‌نمایش تعاملی، جاوااسکریپت مرورگر را فعال کنید. هیچ نوبتی ثبت نمی‌شود.</p></noscript>
       </form>
-      <aside className="booking-aside" aria-label="خلاصه انتخاب‌های فعلی"><div className="booking-aside-photo"><img src="/images/barber-working.webp" alt="جای‌نگهدار نسخه عمومی برای تصویر آرایشگر؛ عکس خصوصی حذف شده است" /><span>THE ART IS IN THE DETAILS</span></div><details open className="booking-aside-details"><summary>انتخاب‌های شما<span>فقط پیش‌نمایش</span></summary><BookingOverview draft={draft} catalog={catalog} compact /></details><p className="booking-aside-note"><Icon name="clock" size={16} />زمان پایان، ظرفیت واقعی و تعرفه‌ها پس از تأیید و اتصال سامانه مشخص می‌شوند.</p></aside>
+      <aside className="booking-aside" aria-label="خلاصه انتخاب‌های فعلی"><div className="booking-aside-photo"><img src="/images/barber-working.webp" alt="آرایشگر در حال کار؛ تصویر ارسالی مجموعه برای بازبینی داخلی" /><span>THE ART IS IN THE DETAILS</span></div><details open className="booking-aside-details"><summary>انتخاب‌های شما<span>فقط پیش‌نمایش</span></summary><BookingOverview draft={draft} catalog={catalog} compact /></details><p className="booking-aside-note"><Icon name="clock" size={16} />زمان پایان، ظرفیت واقعی و تعرفه‌ها پس از تأیید و اتصال سامانه مشخص می‌شوند.</p></aside>
       </div><footer className="booking-footer"><span>محمد استایل · سالن ممتاز پونک</span><span>رزرو واقعی و پرداخت در این نسخه فعال نیستند.</span></footer>
     </main>
   </div>;

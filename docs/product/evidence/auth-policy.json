@@ -1,0 +1,31 @@
+{
+  "kind": "ACTUAL_POSTGRES_AUTH_POLICY",
+  "passed": 6,
+  "failed": 0,
+  "tests": [
+    {
+      "name": "A returning verified customer in a separate browser receives the same canonical identity",
+      "passed": true
+    },
+    {
+      "name": "Optional MFA requires an explicit audited non-owner role decision and preserves branch scope",
+      "passed": true
+    },
+    {
+      "name": "Optional recovery codes are issued once; opting into MFA revokes password sessions and old recovery codes",
+      "passed": true
+    },
+    {
+      "name": "Owner MFA cannot be deferred and customer SMS cannot replace the admin password",
+      "passed": true
+    },
+    {
+      "name": "Test identity provenance cannot be cleared by updates or washed by an import to another realm",
+      "passed": true
+    },
+    {
+      "name": "Legacy auth grant is no longer executable by the authentication role",
+      "passed": true
+    }
+  ]
+}

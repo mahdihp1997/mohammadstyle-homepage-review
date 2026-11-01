@@ -1,6 +1,7 @@
 import { Pool, type PoolClient } from 'pg';
 import type { SessionView } from '../admin/contracts.js';
 import { finalQuoteContentHash } from '../pricing/final-quote-contract.js';
+import { isProductDatabase, productPoolOptions, type ProductDatabaseOptions } from '../product/config.js';
 export interface BookingOptions {
     host: '127.0.0.1';
     port: 55446 | 55450;
@@ -12,7 +13,15 @@ export interface BookingOptions {
 export class BookingRepository {
     protected readonly pool: Pool;
     private readonly marker: string;
-    constructor(o: BookingOptions) {
+    private readonly productRuntime: boolean;
+    constructor(o: BookingOptions | ProductDatabaseOptions) {
+        this.productRuntime = isProductDatabase(o);
+        if (isProductDatabase(o)) {
+            this.marker = o.marker;
+            this.pool = new Pool(productPoolOptions(o));
+            this.pool.on('error', () => { });
+            return;
+        }
         const original = o.port === 55446 && ['ms_b4_dev','ms_b4_restore'].includes(o.database) && o.origin === 'http://127.0.0.1:3110';
         const integration = process.env.APP_ENV === 'mvp-local' && o.port === 55450 && ['ms_mvp_dev','ms_mvp_restore'].includes(o.database) && o.origin === 'http://127.0.0.1:3112';
         this.marker = integration ? 'mohammadstyle-mvp-disposable-v1' : 'mohammadstyle-b4-disposable-v1';
@@ -38,7 +47,7 @@ export class BookingRepository {
             }
             catch (e) {
                 await c.query('ROLLBACK').catch(() => { });
-                if (attempt >= 2 || !['40001', '40P01'].includes((e as {
+                if (attempt >= (this.productRuntime ? 5 : 2) || !['40001', '40P01'].includes((e as {
                     code?: string;
                 }).code ?? ''))
                     throw e;
@@ -46,7 +55,13 @@ export class BookingRepository {
             finally {
                 c.release();
             }
-            await new Promise(resolve => setTimeout(resolve, 20 * (attempt + 1)));
+            // Real account pages have concurrent authenticated reads, each of
+            // which revalidates/touches the same session. Retry the complete
+            // SERIALIZABLE transaction with bounded jitter; never replay a
+            // partial transaction or relax the PostgreSQL allocation boundary.
+            await new Promise(resolve => setTimeout(resolve, this.productRuntime
+                ? Math.min(400, 30 * 2 ** attempt) + Math.floor(Math.random() * 40)
+                : 20 * (attempt + 1)));
         }
     }
     async sweep(h: Buffer, csrf: Buffer) { return this.transaction(async (c) => (await c.query('SELECT ms_b1_design.b4_sweep($1,$2) result', [h, csrf])).rows[0].result as number); }

@@ -1,9 +1,11 @@
+import {requestUuid} from '@/lib/request-uuid';
 import type { AvailabilityResult, FinalQuote, ServerCatalog, ServerBooking, CancellationPreview } from '@/types/booking-server';
+import { csrfToken } from '@/lib/product/client';
 export class BookingApiError extends Error {
     constructor(readonly code: string, readonly status: number) { super(code); }
 }
 async function request<T>(path: string, data: unknown, key?: string, signal?: AbortSignal): Promise<T> {
-    const csrf = document.cookie.split(';').map(x => x.trim()).find(x => x.startsWith('ms_csrf='))?.slice(8) ?? '';
+    const csrf = csrfToken();
     const r = await fetch('/api/booking-server/' + path, { method: 'POST', credentials: 'same-origin', cache: 'no-store', signal, headers: { 'content-type': 'application/json', 'x-csrf-token': csrf, ...(key ? { 'idempotency-key': key } : {}) }, body: JSON.stringify(data) });
     const result = await r.json() as T & {
         code?: string;
@@ -14,8 +16,8 @@ async function request<T>(path: string, data: unknown, key?: string, signal?: Ab
 }
 export const serverBooking = {
     catalog: (signal?: AbortSignal) => request<ServerCatalog>('read/catalog', { entityId: null, pageOffset: 0 }, undefined, signal),
-    availability: (data: unknown, signal?: AbortSignal) => request<AvailabilityResult>('commands/availability', data, crypto.randomUUID(), signal),
-    quote: (id: string, signal?: AbortSignal) => request<FinalQuote>('commands/quote', { planId: id }, crypto.randomUUID(), signal),
+    availability: (data: unknown, signal?: AbortSignal) => request<AvailabilityResult>('commands/availability', data, requestUuid(), signal),
+    quote: (id: string, signal?: AbortSignal) => request<FinalQuote>('commands/quote', { planId: id }, requestUuid(), signal),
     command: (op: string, data: unknown, key: string) => request<ServerBooking>('commands/' + op, data, key),
     history: () => request<{
         items: ServerBooking[];

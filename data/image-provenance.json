@@ -1,5 +1,5 @@
 {
-  "usage_status": "Public code-review export: all fourteen supplied client-image paths contain neutral labeled placeholders. The assets mapping records the PRIVATE internal source counterparts, not current public image content. Four separately generated service concepts remain visibly labeled. No original client photo is published.",
+  "usage_status": "Internal client mockup review only. Confirm image release/consent before deployment.",
   "assets": {
     "hero-groom.webp": "IMG_2777.jpeg",
     "barber-working.webp": "IMG_2776.jpeg",

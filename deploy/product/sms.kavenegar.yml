@@ -1,0 +1,8 @@
+# Add only after provider approval; no test/mock deployment can select this adapter.
+services:
+  worker:
+    environment:
+      SMS_API_KEY_FILE: /run/secrets/sms_key
+    secrets: [sms_key]
+secrets:
+  sms_key: {file: '${SECRETS_DIR}/sms_key'}

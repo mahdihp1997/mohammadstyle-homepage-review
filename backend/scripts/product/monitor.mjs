@@ -1,0 +1,3 @@
+// Run from a separate monitoring host; a nonzero exit is suitable for any alert scheduler.
+const origin=process.env.MONITOR_ORIGIN??'';const url=new URL(origin);if(url.origin!==origin||url.protocol!=='https:'||url.username||url.password)throw Error('HTTPS_MONITOR_ORIGIN_REQUIRED');
+try{const r=await fetch(origin+'/api/health',{redirect:'error',signal:AbortSignal.timeout(10000)});if(!r.ok||(await r.json()).status!=='ready')throw Error();console.log(JSON.stringify({event:'product.ready',at:new Date().toISOString()}));}catch{console.error(JSON.stringify({event:'product.unavailable',at:new Date().toISOString()}));process.exitCode=1;}

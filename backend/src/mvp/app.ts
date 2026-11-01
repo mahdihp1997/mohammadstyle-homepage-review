@@ -51,9 +51,10 @@ import {
 import { uniqueJson } from "../pricing/canonical.js";
 import { requestDiagnostics } from "../observability.js";
 import { MvpRepository } from "./repository.js";
+import { LOCAL_LOGIN_OPTIONS, LocalLoginController, LocalLoginService, type LocalLoginOptions } from "./local-login.js";
 import { MediaService } from "./media.js";
 import { byteRange, type MediaStorage } from "./storage.js";
-const publicBusiness = Symbol("public business");
+export const publicBusiness = Symbol("public business");
 function object(v: unknown, keys: string[]): Record<string, unknown> {
   if (
     !v ||
@@ -72,7 +73,7 @@ function idem(req: Request) {
   return key;
 }
 @Catch()
-class MvpFilter extends BookingFilter {
+export class MvpFilter extends BookingFilter {
   override catch(error: unknown, host: ArgumentsHost) {
     if (error instanceof HttpException) {
       const body = error.getResponse();
@@ -139,7 +140,7 @@ async function deliver(
   if (req.method === "HEAD") return;
   return new StreamableFile(await storage.read(descriptor.key, range));
 }
-class StorageProvider {
+export class StorageProvider {
   constructor(readonly value: MediaStorage) {}
   onModuleDestroy() {
     this.value.close?.();
@@ -147,7 +148,7 @@ class StorageProvider {
 }
 @Controller("api/v1/admin")
 @UseGuards(SessionGuard)
-class PortalController {
+export class PortalController {
   constructor(
     private readonly repo: MvpRepository,
     private readonly media: MediaService,
@@ -265,7 +266,7 @@ class PortalController {
   }
 }
 @Controller("api/v1/portfolio")
-class PublicGalleryController {
+export class PublicGalleryController {
   constructor(
     private readonly repo: MvpRepository,
     private readonly storage: StorageProvider,
@@ -307,6 +308,7 @@ export async function createMvpApp(
   options: BookingOptions,
   storage: MediaStorage,
   businessId: string | null = null,
+  localLogin: LocalLoginOptions | null = null,
 ) {
   if (
     process.env.APP_ENV !== "mvp-local" ||
@@ -323,6 +325,7 @@ export async function createMvpApp(
       PricingController,
       PortalController,
       PublicGalleryController,
+      LocalLoginController,
     ],
     providers: [
       { provide: ADMIN_OPTIONS, useValue: options },
@@ -364,6 +367,8 @@ export async function createMvpApp(
         inject: [WorkforceRepository],
       },
       SessionGuard,
+      LocalLoginService,
+      { provide: LOCAL_LOGIN_OPTIONS, useValue: localLogin },
       { provide: StorageProvider, useValue: new StorageProvider(storage) },
       {
         provide: MediaService,

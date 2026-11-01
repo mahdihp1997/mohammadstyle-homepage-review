@@ -1,0 +1,5 @@
+{
+  "kind": "ACTUAL_POSTGRES_ORIGINAL_B3_VERSUS_MATERIALIZED_JOIN",
+  "cases": 1,
+  "fullArtifactsEqual": true
+}

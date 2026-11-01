@@ -1,0 +1,206 @@
+{
+  "hashNormalization": "UTF-8 with LF line endings; all other bytes integrity-relevant",
+  "approvedB1DraftSha256": "ef9ebdb2324b678c46f3a6d4c2858aa1292d3650dc5fa5b54af76264799436e3",
+  "migrations": [
+    {
+      "id": "0001_b1_foundation",
+      "file": "0001_b1_foundation.sql",
+      "sha256": "db79869b7da75dc0d84961824e0cce8c540f4451d113457123053d92c9e15a0d"
+    },
+    {
+      "id": "0002_b1a_runtime_boundary",
+      "file": "0002_b1a_runtime_boundary.sql",
+      "sha256": "aa08a3047c4c150ea1a45e24d2844c3b40e45da19dde555ac06b66901df046d9"
+    },
+    {
+      "id": "0003_b1b_admin_boundary",
+      "file": "0003_b1b_admin_boundary.sql",
+      "sha256": "e02e6b9aaafb3e9466dea1c884a4e0279b833ae80df78f74a91f0a9432c2ab44"
+    },
+    {
+      "id": "0004_b2a_workforce_foundation",
+      "file": "0004_b2a_workforce_foundation.sql",
+      "sha256": "48b4c9e9913b523126794769272ccd172fe04df3d214fde297cbc94ab38c9904"
+    },
+    {
+      "id": "0005_b2a_history_guards",
+      "file": "0005_b2a_history_guards.sql",
+      "sha256": "8db9eadff44b44abcd380ffb4453d080ae926667e0325c327287a2b1c593d9de"
+    },
+    {
+      "id": "0006_b2b_scheduling_boundary",
+      "file": "0006_b2b_scheduling_boundary.sql",
+      "sha256": "fc0524bcf7f5c7b5467a29bdfd9fe9c5ac3357bf77d1553ea35227d9cd60d23f"
+    },
+    {
+      "id": "0007_b2b_scheduling_commands",
+      "file": "0007_b2b_scheduling_commands.sql",
+      "sha256": "a721c4c2c1e48786fd8897198af9cd647202d4efffa1d3f9b24834878d968933"
+    },
+    {
+      "id": "0008_b2b_scheduling_reads",
+      "file": "0008_b2b_scheduling_reads.sql",
+      "sha256": "bd3610755f88501e45dd8b1e728ce6a9e84ca4625647f6455f9ed2cc26de437e"
+    },
+    {
+      "id": "0009_b2b_read_scope_hardening",
+      "file": "0009_b2b_read_scope_hardening.sql",
+      "sha256": "a3b4632370f50fc8bf7f48134b72524ba3fafa9b4d895c50c77ad7380763678c"
+    },
+    {
+      "id": "0010_b3_commercial_foundation",
+      "file": "0010_b3_commercial_foundation.sql",
+      "sha256": "42d2f24305a66b7f1642e17e679d6f788015cd56c3c425e95b835b30dbdf8f72"
+    },
+    {
+      "id": "0011_b3_pricing_policy_boundary",
+      "file": "0011_b3_pricing_policy_boundary.sql",
+      "sha256": "31661d6d9e85b49f65f57a0bbe11c37769d3cd5ce453f6056a270dc44760e45c"
+    },
+    {
+      "id": "0012_b4_booking_ledger",
+      "file": "0012_b4_booking_ledger.sql",
+      "sha256": "1eb8986abaf366f36acda36a54a9ff1c099eb20c178dd480bf079dd79c395eae"
+    },
+    {
+      "id": "0013_b4_verified_planner",
+      "file": "0013_b4_verified_planner.sql",
+      "sha256": "06d2bb7d454902a82659bd29cb961b4b1404d82a197ee478897f206fdd04b7eb"
+    },
+    {
+      "id": "0014_b4_booking_commands",
+      "file": "0014_b4_booking_commands.sql",
+      "sha256": "dcff426b45ba52b2830fd2c828dd2876b99c69c8833ff15780d114ca7d559e13"
+    },
+    {
+      "id": "0015_mvp_admin_media",
+      "file": "0015_mvp_admin_media.sql",
+      "sha256": "bd4b6b93e617c980a8765df8a4b58052d295dff8d3c17991791a2a4c4dcdddbd"
+    },
+    {
+      "id": "0016_product_identity",
+      "file": "0016_product_identity.sql",
+      "sha256": "b8c535e1712179ecc7af130e27e92cb7a1fa40af77439206130657a99dfc9136"
+    },
+    {
+      "id": "0017_product_auth_commands",
+      "file": "0017_product_auth_commands.sql",
+      "sha256": "af4b286ed437875994b0eebee3d6dccfc5cfa0fcb5416415c9d4a1fa5ae16ffe"
+    },
+    {
+      "id": "0018_product_session_security",
+      "file": "0018_product_session_security.sql",
+      "sha256": "c8526e3dc7bcebd05950aad379692f777d34073f06aced0135a86dc923064794"
+    },
+    {
+      "id": "0019_product_account_security",
+      "file": "0019_product_account_security.sql",
+      "sha256": "64715c789977b2af8403e18114e22d186c9389371ff921e9e9a6bba54b832baf"
+    },
+    {
+      "id": "0020_product_identity_provenance",
+      "file": "0020_product_identity_provenance.sql",
+      "sha256": "120c330b67a6de65421ea1b70b90da9b937dde6712659183bf6946d5798048d0"
+    },
+    {
+      "id": "0021_product_financial_ledger",
+      "file": "0021_product_financial_ledger.sql",
+      "sha256": "3152c3e7c04b40f2bcf122d56538e443181cd3bf6de2998ac0b69539e4736a05"
+    },
+    {
+      "id": "0022_product_durable_delivery",
+      "file": "0022_product_durable_delivery.sql",
+      "sha256": "12dd3dba02ac480229a7feba803ef18d121197fd88e7d43ebd9eaae9f05ca149"
+    },
+    {
+      "id": "0023_product_payment_workflow",
+      "file": "0023_product_payment_workflow.sql",
+      "sha256": "bc92f3b950e9e8cb73db150f94fdf0597a40112b794058d605ba8dc308f3036b"
+    },
+    {
+      "id": "0024_product_operations",
+      "file": "0024_product_operations.sql",
+      "sha256": "1019c053586169e6b3836ac057b7f9736d6cb52d3588a2de6dc5512736ace215"
+    },
+    {
+      "id": "0025_product_worker_health",
+      "file": "0025_product_worker_health.sql",
+      "sha256": "14962a93f0f026d5e8a00570d3ed939837a29230cdde57024474d10e5dff9882"
+    },
+    {
+      "id": "0026_product_delivery_snapshot",
+      "file": "0026_product_delivery_snapshot.sql",
+      "sha256": "129a98967df995de1aa781948cbb790ceea76513f8d28f8f35706e8b70b5ac4d"
+    },
+    {
+      "id": "0027_product_queue_boundary",
+      "file": "0027_product_queue_boundary.sql",
+      "sha256": "905223f302c7dc875034bdf60609cc23535a1f01324429d017e4a276719ac69b"
+    },
+    {
+      "id": "0028_product_admin_boundary",
+      "file": "0028_product_admin_boundary.sql",
+      "sha256": "072eca64d192d96687fd792e013e7ffc18f00f5ea44cc04fcfa445c640bc03a4"
+    },
+    {
+      "id": "0029_product_planner_candidates",
+      "file": "0029_product_planner_candidates.sql",
+      "sha256": "1a58456dd8bdde51c39f4aa02f9ac7e5563d01a3bc47446527b62c75e399be3b"
+    },
+    {
+      "id": "0030_product_runtime_hardening",
+      "file": "0030_product_runtime_hardening.sql",
+      "sha256": "220a1b87b273448919dcc9e83e76a21f36584be0f6bb98f8037f7a45a1c07daf"
+    },
+    {
+      "id": "0031_product_operation_notifications",
+      "file": "0031_product_operation_notifications.sql",
+      "sha256": "1b0e909c56d588e96648fbf0522558977213a80fab4bd683390e3df3a756abcd"
+    },
+    {
+      "id": "0032_product_pricing_membership_plan",
+      "file": "0032_product_pricing_membership_plan.sql",
+      "sha256": "f5d29ebd139c841fa959dfca56258a1ce35e7621aed0d635030b26c7b5363fef"
+    },
+    {
+      "id": "0033_product_null_boundaries",
+      "file": "0033_product_null_boundaries.sql",
+      "sha256": "dc8501bfbd9c89e5d3a06998c71502cb163299b353b2afe97599fca60e0b0e4a"
+    },
+    {
+      "id": "0034_product_notification_date",
+      "file": "0034_product_notification_date.sql",
+      "sha256": "9d83309b0c9125f8f2c111f4e632d4ca310058470dc1df509fe729925643ff1b"
+    },
+    {
+      "id": "0035_product_provenance_import_guard",
+      "file": "0035_product_provenance_import_guard.sql",
+      "sha256": "8c767d38c12943fe0141dac28c120fb7ff737509649e0e3b3b35bb807247c633"
+    },
+    {
+      "id": "0036_product_admin_password_gate",
+      "file": "0036_product_admin_password_gate.sql",
+      "sha256": "a486bff85e02a388192354e66aec3ed0325e78fab3dcd99c8d7ac1c8d46a1508"
+    },
+    {
+      "id": "0037_product_optional_mfa",
+      "file": "0037_product_optional_mfa.sql",
+      "sha256": "7961a00e8c003ac6c6da3f8ae6201b4708b160a123a033e9f4bf7fa5e4618aa5"
+    },
+    {
+      "id": "0038_product_activation_scope",
+      "file": "0038_product_activation_scope.sql",
+      "sha256": "0aa918e81cc6da62faec0b10aa35d539113ccb7095a65203671de64936c9e8b3"
+    },
+    {
+      "id": "0039_product_returning_identity",
+      "file": "0039_product_returning_identity.sql",
+      "sha256": "2841f2838022a1db0c4c68dddde9c7e54a14293da4ffffb0c50df79c61d05b38"
+    },
+    {
+      "id": "0040_product_scheduling_scope",
+      "file": "0040_product_scheduling_scope.sql",
+      "sha256": "18c93e650a47827bd49ddd005b8cff21882bd81cb5ac0d495fed62dbc310438c"
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 "use client";
+import {requestUuid} from '@/lib/request-uuid';
 import { useEffect, useRef, useState, type FormEvent } from "react";
 export type Values = Record<string, string | boolean | string[]>;
 export type Option = { value: string; label: string };
@@ -67,7 +68,7 @@ export function AdminForm({
     setError("");
     const data = JSON.stringify(values);
     if (intent.current?.data !== data)
-      intent.current = { data, key: crypto.randomUUID() };
+      intent.current = { data, key: requestUuid() };
     try {
       await save(values, intent.current!.key);
       cancel();

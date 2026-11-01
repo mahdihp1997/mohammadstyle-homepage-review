@@ -1,0 +1,45 @@
+{
+  "source": "actual isolated unchanged regression bodies; see VALIDATION.md and owner logs",
+  "backend": {
+    "b0Node": 14,
+    "b0Sql": 35,
+    "b1a": 47,
+    "b1b": 83,
+    "b2a": 69,
+    "b2b": 71,
+    "b2ReadHardening": 42,
+    "b3": 78,
+    "b4": 44,
+    "b4Extra": 14,
+    "mvpIntegration": 41,
+    "mvpStorage": 7,
+    "mvpSchema": 5,
+    "mvpLogin": 12
+  },
+  "browser": {
+    "homepageDemo": {
+      "passed": 92
+    },
+    "adminCms": {
+      "passed": 23,
+      "skipped": 9
+    },
+    "manualLogin": {
+      "passed": 11,
+      "skipped": 9
+    },
+    "serverBooking": {
+      "passed": 12
+    }
+  },
+  "deploymentRestore": {
+    "tablesVerified": 74,
+    "verifiedTls": true,
+    "separateEmptyTarget": true
+  },
+  "notes": [
+    "No original DB reset",
+    "No original test body modified",
+    "No public production, live payment/SMS or owner acceptance claimed"
+  ]
+}

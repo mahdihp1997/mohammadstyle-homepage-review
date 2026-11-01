@@ -9,12 +9,18 @@
     "typecheck": "tsc --noEmit",
     "test:ui": "playwright test",
     "test:ui:server": "playwright test -c playwright.server.config.ts",
-    "test:ui:mvp": "playwright test -c playwright.mvp.config.ts"
+    "test:ui:mvp": "playwright test -c playwright.mvp.config.ts",
+    "test:ui:login": "playwright test -c playwright.login.config.ts",
+    "test:ui:product": "node backend/scripts/product/browser-product.mjs",
+    "brand:icons": "node backend/scripts/product/brand-icons.mjs"
   },
   "dependencies": {
     "next": "^15.5.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
+  },
+  "overrides": {
+    "postcss": "8.5.23"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",

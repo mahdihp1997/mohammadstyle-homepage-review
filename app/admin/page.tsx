@@ -1,6 +1,8 @@
 import AdminDashboard from "@/components/admin/AdminDashboard";
 import { mvpEnabled } from "@/lib/mvp/proxy";
 import "./admin.css";
+import '../product.css';
+import {productEnabled} from '@/lib/product/config';
 export const dynamic = "force-dynamic";
 export default async function AdminPage({
   searchParams,
@@ -9,7 +11,7 @@ export default async function AdminPage({
 }) {
   const view = (await searchParams).view;
   return mvpEnabled() ? (
-    <AdminDashboard initialView={view} />
+    <AdminDashboard initialView={view} product={productEnabled()} />
   ) : (
     <main className="admin-unavailable">
       <h1>پنل مدیریت</h1>

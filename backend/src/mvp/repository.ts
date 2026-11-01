@@ -3,9 +3,10 @@ import {
   type BookingOptions,
 } from "../booking/repository.js";
 import type { PageQuery, ResourceKind, WriteDto } from "../admin/contracts.js";
+import { isProductDatabase, type ProductDatabaseOptions } from "../product/config.js";
 export class MvpRepository extends BookingRepository {
-  constructor(o: BookingOptions) {
-    if (process.env.APP_ENV !== "mvp-local" || o.port !== 55450)
+  constructor(o: BookingOptions | ProductDatabaseOptions) {
+    if (!isProductDatabase(o) && (process.env.APP_ENV !== "mvp-local" || o.port !== 55450))
       throw Error("Explicit MVP isolation required");
     super(o);
   }

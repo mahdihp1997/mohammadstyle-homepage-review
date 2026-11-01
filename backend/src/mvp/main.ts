@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createMvpApp } from "./app.js";
+import type { LocalLoginOptions } from "./local-login.js";
 import { LocalMediaStorage, S3MediaStorage } from "./storage.js";
 if (
   process.env.APP_ENV !== "mvp-local" ||
@@ -45,5 +46,8 @@ const app = await createMvpApp(
   },
   storage,
   process.env.MVP_PUBLIC_BUSINESS_ID ?? null,
+  fs.existsSync(path.join(root, ".local/mvp/manual-login.json"))
+    ? JSON.parse(fs.readFileSync(path.join(root, ".local/mvp/manual-login.json"), "utf8")) as LocalLoginOptions
+    : null,
 );
 await app.listen(3112, "127.0.0.1");

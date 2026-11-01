@@ -4,7 +4,7 @@ import type { AvailabilityProvider, BookingBarber, BookingBranch, BookingCatalog
 
 export const bookingBranches: BookingBranch[] = [
   { id: "poonak", name: "شعبه پونک", location: business.location, timeZone: "Asia/Tehran", demoConfigured: true,
-    image: { src: "/images/salon-interior.webp", alt: "جای‌نگهدار نسخه عمومی برای تصویر فضای مجموعه", attribution: "جای‌نگهدار بررسی کد؛ عکس خصوصی و انتساب آن نمایش داده نمی‌شود." } },
+    image: { src: "/images/salon-interior.webp", alt: "تصویر فضای مجموعه ارسالی کارفرما", attribution: "تصویر مجموعه؛ انتساب اختصاصی به این شعبه تأیید نشده است." } },
   { id: "pending", name: "شعبه دوم", location: null, timeZone: "Asia/Tehran", demoConfigured: false, image: null },
 ];
 /** All identities, capabilities, branch assignments and values below are fictional fixtures. */

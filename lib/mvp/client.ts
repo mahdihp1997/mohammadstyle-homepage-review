@@ -1,4 +1,5 @@
 "use client";
+import { csrfToken } from '@/lib/product/client';
 export type Row = { id: string; [key: string]: unknown };
 export type Page = {
   items: Row[];
@@ -86,7 +87,7 @@ export const toMinute = (s: unknown) => {
 };
 const messages: Record<string, string> = {
   UNAUTHENTICATED:
-    "نشست معتبر لازم است. نشست آزمایشی را با ابزار محلی باز کنید.",
+    "نشست معتبر لازم است. از صفحهٔ ورود مدیریت وارد حساب محلی شوید.",
   FORBIDDEN: "مجوز این کار را در این شعبه ندارید.",
   STALE_VERSION: "داده تغییر کرده است؛ تازه‌سازی کنید و دوباره بررسی کنید.",
   STALE_CONFIGURATION: "پیکربندی تغییر کرده است؛ دادهٔ تازه را بررسی کنید.",
@@ -153,12 +154,7 @@ export async function api<T = Record<string, unknown>>(
   } = {},
 ): Promise<T> {
   const method = options.method ?? "GET",
-    csrf =
-      document.cookie
-        .split(";")
-        .map((x) => x.trim())
-        .find((x) => x.startsWith("ms_csrf="))
-        ?.slice(8) ?? "";
+    csrf = csrfToken();
   let r: Response;
   try {
     r = await fetch("/api/mvp/" + path, {
