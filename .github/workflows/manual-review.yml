@@ -151,6 +151,10 @@ jobs:
           npm --prefix backend ci --ignore-scripts --no-audit --no-fund
           npm --prefix backend run build
           npx playwright install --with-deps chrome
+      - name: Media tools required by the unchanged MVP video regressions
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y ffmpeg python3
       - name: Original B0 through B4 native assertions in disposable PostgreSQL
         working-directory: backend
         run: node scripts/mvp/b4-regression.mjs
