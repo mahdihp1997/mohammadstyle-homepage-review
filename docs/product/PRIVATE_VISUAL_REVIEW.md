@@ -1,0 +1,9 @@
+# Private visual review restored — 2026-11-01
+
+Owner reported that the newly linked local product looked unlike the approved photographic Homepage. The release privacy gate had incorrectly coupled private media visibility to product mode being disabled. No original photograph, font, component or before/after source had been deleted.
+
+The local product review now explicitly opts into MS_PRIVATE_REVIEW_ASSETS=1 while retaining MS_PRODUCT_ENABLED=1. The shared privateReviewAssets guard permits that combination only in development, PRODUCT_ENV=test, PUBLIC_ORIGIN=http://127.0.0.1:3006 and PRODUCT_API_ORIGIN=http://127.0.0.1:3116. Middleware, root typography and the font route share the same guard. Production/staging and default public packages remain unable to opt in. Homepage composition, uploaded images, crops, six services, portfolio categories, slider and private font binaries are unchanged. Booking/auth/admin behavior is unchanged.
+
+Actual verification: private-review-test.mjs10 boundary cases PASS; actual Chromium at1440x900,1024x768,390x844,375x812 restores original hero/service/story/branch photos, six gallery entries, both before/after layers, IRANSans/Kahroba; slider keyboard endpoints, gallery filters, mobile navigation, drawer Escape/focus and product Booking entry pass. Zero page/console errors, all images decode, no horizontal overflow. Typecheck and production build are run separately from the live dev output.
+
+Actual screenshots: owner's local outputs/product-final-review/restored-private-homepage (full and fold for all4 sizes). These contain internal client photos: do not commit, export, attach to public PRs or place in the sanitized review ZIP. The public code export may receive only this source/guard correction, not private assets/screenshots/env files. Original approved MVP checkout remains intact.

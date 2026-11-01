@@ -1,6 +1,7 @@
 import {NextRequest,NextResponse}from'next/server';
+import {privateReviewAssets}from'./lib/product/assets';
 export function middleware(req:NextRequest){
- const privateAllowed=process.env.MS_PRIVATE_REVIEW_ASSETS==='1'&&process.env.NODE_ENV!=='production'&&process.env.MS_PRODUCT_ENABLED!=='1';
+ const privateAllowed=privateReviewAssets();
  const p=req.nextUrl.pathname;let imageUrl=req.nextUrl.searchParams.get('url')??'';
  try{imageUrl=decodeURIComponent(imageUrl);}catch{return new NextResponse(null,{status:400});}
  if(!privateAllowed&&(p.startsWith('/images/')||(p==='/_next/image'&&imageUrl.startsWith('/images/'))))return new NextResponse(null,{status:404,headers:{'Cache-Control':'no-store'}});
