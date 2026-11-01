@@ -1,6 +1,6 @@
 # Sanitized manual payment / content / store review
 
-Private implementation: f810bc70a0a70852da8ff3892b81f0e800206480. Public branch review/manual-card-transfer starts exclusively from the existing public review/product-finalization (35bbdf88860fd2363e107e0156dc74cf22a36c85); no private Git objects or history were transferred. Prior PR1–11 remain unchanged and unmerged.
+Private implementation: a9c1845cca34fd8769933543621eac127bab1f8e. Public branch review/manual-card-transfer starts exclusively from the existing public review/product-finalization (35bbdf88860fd2363e107e0156dc74cf22a36c85); no private Git objects or history were transferred. Prior PR1–11 remain unchanged and unmerged.
 
 Actual Booking/server/auth/payment/stock/CMS/SQL logic and tests are copied from the private implementation. Explicit review-only differences: layout disclosure/system fonts/noindex; private-font route404; omitted owner films (CinematicMedia disables video sources, data/salon.ts has no private gallery films); new portrait/interior image paths use copies of an existing abstract public placeholder. All pre-existing public placeholders retain exact hashes. Homepage font assertions use Tahoma and the source audit uses the public baseline. No Booking behavior is changed to accommodate sanitization.
 
