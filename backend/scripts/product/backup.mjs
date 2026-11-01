@@ -11,7 +11,9 @@ export async function backupOperation({operation,directory,cfg,password,key,stor
   if(operation==='backup'){
    if(fs.existsSync(path.join(folder,'manifest.aes')))throw Error('BACKUP_ALREADY_EXISTS');
    await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');const snapshot=(await db.query('SELECT pg_export_snapshot() id')).rows[0].id;
-   const objects=(await db.query("SELECT original_key key,source_hash sha256,source_bytes::text bytes FROM ms_b1_design.media_asset UNION ALL SELECT storage_key,sha256,bytes::text FROM ms_b1_design.media_variant ORDER BY key")).rows;
+   const hasReceipts=(await db.query("SELECT to_regclass('ms_b1_design.product_manual_receipt') IS NOT NULL yes")).rows[0].yes;
+   const receiptObjects=hasReceipts?" UNION ALL SELECT original_key,original_object_sha256,original_object_bytes::text FROM ms_b1_design.product_manual_receipt r WHERE NOT EXISTS(SELECT 1 FROM ms_b1_design.product_receipt_retention t WHERE t.receipt_id=r.id) UNION ALL SELECT display_key,display_object_sha256,display_object_bytes::text FROM ms_b1_design.product_manual_receipt r WHERE NOT EXISTS(SELECT 1 FROM ms_b1_design.product_receipt_retention t WHERE t.receipt_id=r.id)":"";
+   const objects=(await db.query("SELECT original_key key,source_hash sha256,source_bytes::text bytes FROM ms_b1_design.media_asset UNION ALL SELECT storage_key,sha256,bytes::text FROM ms_b1_design.media_variant"+receiptObjects+" ORDER BY key")).rows;
    const count=await counts(db),schema=(await db.query('SELECT id,checksum FROM ms_b1_meta.schema_migration ORDER BY id')).rows;
    const child=tool('pg_dump',['--format=custom','--no-owner','--snapshot='+snapshot]),done=completion(child);const database=await encryptTo(child.stdout,path.join(folder,'database.aes'),key,'database');await done;
    const media=[];for(const item of objects){validKey(item.key);const name='object-'+String(media.length).padStart(8,'0')+'.aes',actual=await encryptTo(await storage.read(item.key),path.join(folder,name),key,item.key);if(actual.sha256!==item.sha256||actual.bytes!==item.bytes)throw Error('SOURCE_MEDIA_HASH_MISMATCH');media.push({...item,file:name});}

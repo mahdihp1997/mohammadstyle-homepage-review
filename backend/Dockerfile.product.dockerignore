@@ -23,6 +23,7 @@ backend/scripts/product/**
 !backend/scripts/product/deploy-migrate.mjs
 !backend/scripts/product/health.mjs
 !backend/scripts/product/backup.mjs
+!backend/scripts/product/receipt-retention.mjs
 !backend/scripts/product/monitor.mjs
 !backend/scripts/product/backup-crypto.mjs
 !data/

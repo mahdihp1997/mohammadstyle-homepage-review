@@ -1,6 +1,7 @@
 import { test as base, expect, type Page } from "@playwright/test";
 import { mkdir } from "node:fs/promises";
 import facts from "../data/business-facts.json";
+import { team } from "../data/salon";
 import { services, gallery } from "../data/site";
 
 // Every test navigates to the real Next.js server; no HTML parity preview is used.
@@ -40,10 +41,10 @@ test("real Next.js render, factual content, assets, RTL and review screenshots",
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
   expect(await page.title()).toBe("محمد استایل | سالن ممتاز پونک");
   expect(await page.locator(".service-card strong").allTextContents()).toEqual(facts.verified_or_user_provided.services);
-  await expect(page.locator(".service-concept-label")).toHaveCount(4);
+  // Owner requested a finished presentation without prototype badges.
+  await expect(page.locator(".service-concept-label")).toHaveCount(0);
   for (const id of ["facial", "massage", "manicure", "pedicure"]) {
     await expect(page.locator(`.service-${id} img`)).toHaveAttribute("alt", /تصویر مفهومی/);
-    await expect(page.locator(`.service-${id} .service-concept-label`)).toHaveText("تصویر مفهومی");
   }
   await expect(page.locator(".branch-known")).toContainText(facts.verified_or_user_provided.branch_1_location);
   await expect(page.locator(".branch-pending button, .branch-pending a, .branch-pending img")).toHaveCount(0);
@@ -51,7 +52,7 @@ test("real Next.js render, factual content, assets, RTL and review screenshots",
   const links = await page.locator("a[href]").evaluateAll(items => items.map(item => item.getAttribute("href")!));
   for (const href of links) {
     if (href.startsWith("#")) await expect(page.locator(href)).toHaveCount(1);
-    else expect(href).toBe("https://www.instagram.com/mohammadstyle1/");
+    else expect(["/","/about","/barbers","/contact","/portfolio","/blog","/account","https://www.instagram.com/mohammadstyle1/",...team.map(person=>person.phoneHref).filter(Boolean)]).toContain(href);
   }
   // Scroll every lazy image into view, then await its real browser decode.
   for (const img of await page.locator("img").all()) {
@@ -66,8 +67,7 @@ test("real Next.js render, factual content, assets, RTL and review screenshots",
   }));
   expect(fonts.heading.toLowerCase()).toContain("tahoma");
   expect(fonts.body.toLowerCase()).toContain("tahoma");
-  await expect(page.locator("html")).toHaveAttribute("data-public-review", "true");
-  await expect(page.locator(".public-review-notice")).toBeVisible();
+  expect(fonts.loaded).toBe(true);
   await page.evaluate(() => scrollTo(0, 0));
   await noOverflow(page);
   await mkdir("artifacts/screenshots/codex", { recursive: true });

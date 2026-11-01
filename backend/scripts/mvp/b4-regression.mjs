@@ -5,7 +5,7 @@ import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { root, docker, save } from "./local.mjs";
 const dest = path.join(root, ".local/mvp/flat/b4"),
-  project = "mohammadstyle-mvp-b4-baseline",
+  project = "mohammadstyle-manual-b4-baseline",
   hash = (b) => createHash("sha256").update(b).digest("hex");
 if (!path.resolve(dest).startsWith(path.resolve(root, ".local/mvp") + path.sep))
   throw Error("Unsafe scratch");
@@ -49,7 +49,7 @@ for (const name of ["local", "infra", "backup"]) {
     f,
     fs
       .readFileSync(f, "utf8")
-      .replaceAll("55446", "55452")
+      .replaceAll("55446", "55453")
       .replaceAll("mohammadstyle-b4", project),
   );
 }
@@ -58,12 +58,13 @@ fs.writeFileSync(
   repository,
   fs
     .readFileSync(repository, "utf8")
-    .replaceAll("55446", "55452")
+    .replaceAll("55446", "55453")
+    .replaceAll("3110", "3170")
     .replaceAll("mohammadstyle-b4-disposable-v1", project + "-disposable-v1"),
 );
 let yaml = fs
   .readFileSync(path.join(root, "compose.b4.yaml"), "utf8")
-  .replaceAll("55446", "55452")
+  .replaceAll("55446", "55453")
   .replaceAll("mohammadstyle-b4", project)
   .replace(
     '    volumes: ["b4_pgdata:/var/lib/postgresql"]',
@@ -73,6 +74,12 @@ yaml = yaml.slice(0, yaml.indexOf("\nvolumes:")) + "\n";
 if (!yaml.includes("tmpfs:") || yaml.includes("55446"))
   throw Error("Unsafe Compose");
 fs.writeFileSync(path.join(dest, "compose.b4.yaml"), yaml);
+// Keep the pre-existing B4 review server on 3110 running. Only the copied
+// test transport address changes; every assertion and SQL command is preserved.
+for (const testFile of ["test", "extra"]) {
+  const file=path.join(dest,"scripts/b4",testFile+".mjs");
+  fs.writeFileSync(file,fs.readFileSync(file,"utf8").replaceAll("3110","3170"));
+}
 function run(args, cwd = dest) {
   const r = spawnSync(process.execPath, args, {
     cwd,
@@ -101,7 +108,7 @@ try {
     );
     if (
       hash(source) !==
-      hash(fs.readFileSync(path.join(dest, "scripts/b4", file + ".mjs")))
+      hash(Buffer.from(fs.readFileSync(path.join(dest, "scripts/b4", file + ".mjs"), "utf8").replaceAll("3170","3110")))
     )
       throw Error("Changed original test body");
     const r = JSON.parse(

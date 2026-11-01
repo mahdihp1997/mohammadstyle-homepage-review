@@ -356,3 +356,5 @@
     transition: none !important;
   }
 }
+
+.portfolio-instagram{display:flex;justify-content:center;margin-top:40px}

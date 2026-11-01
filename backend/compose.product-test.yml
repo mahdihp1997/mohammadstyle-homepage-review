@@ -7,7 +7,7 @@ services:
       POSTGRES_DB: ms_product_control
       POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256 --auth-local=scram-sha-256
     ports:
-      - "127.0.0.1:55460:5432"
+      - "127.0.0.1:${PGPORT:-55460}:5432"
     volumes:
       - product_test_pg:/var/lib/postgresql
     command: ["postgres", "-c", "max_connections=150", "-c", "log_statement=none", "-c", "log_min_error_statement=panic"]

@@ -1,5 +1,6 @@
 @charset "UTF-8";
 :root {
+  --ease-in-out:cubic-bezier(0.77,0,0.175,1);
   --ink-950:#08090a;
   --ink-925:#0c0d0e;
   --ink-900:#111214;
@@ -304,3 +305,93 @@ span.brand-mark{aspect-ratio:1;background:url('/brand/mohammadstyle-mark.svg') c
 @media (max-width:390px){.shell{width:calc(100% - 30px)}.hero h1{font-size:37px}.hero-photo{height:300px}.hero-ctas .btn{font-size:10px;padding-inline:12px}.header-book{font-size:9px;padding-inline:8px}.brand-name{font-size:13px}.service-card{min-height:244px}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
 .drawer-layer[hidden], .gallery-item[hidden] { display:none !important; }
+
+/* Owner-requested product refinements. Private photographs remain development-only. */
+.hero h1{font-size:clamp(34px,3.4vw,54px);line-height:1.4}
+.hero h1 .hero-heading-line{white-space:nowrap;color:var(--ivory);font-size:.93em}
+.hero-photo-picker{position:absolute;z-index:4;bottom:80px;right:28px;display:flex;gap:9px;direction:rtl}
+.hero-photo-picker button{width:67px;height:83px;padding:3px;border:1px solid #dfbd7955;background:#0c0d0ee8;border-radius:5px;color:#fff;overflow:hidden;position:relative}
+.hero-photo-picker button img{position:static;width:100%;height:100%;object-fit:cover;filter:brightness(.8);object-position:center}
+.hero-photo-picker button[aria-pressed=true]{border-color:var(--champagne-300);box-shadow:0 0 0 2px #d8ad6a22}
+.hero-photo-picker button span{position:absolute;inset:auto 0 0;padding:4px 1px;background:#08090add;font-size:8px;line-height:1.8}
+.hero-background-video{position:absolute;inset:-10px;width:calc(100% + 20px);height:calc(100% + 20px);object-fit:cover;filter:blur(3px) brightness(.6)}
+.hero-video-toggle{position:absolute;z-index:5;bottom:80px;right:28px;min-height:44px;padding:8px 16px;border:1px solid var(--border-subtle);border-radius:5px;background:#111c;color:#f6ddb0}
+.compare-slider{touch-action:pan-y pinch-zoom;-webkit-appearance:none;appearance:none;cursor:ew-resize}
+.compare-label-region{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:3}
+.compare-before-label-region{clip-path:inset(0 calc(100% - var(--split)) 0 0)}
+.compare-after-label-region{clip-path:inset(0 0 0 var(--split))}
+.compare-label[hidden]{display:none}
+.compare-actions{display:flex;align-items:center;justify-content:center;gap:8px;padding-top:10px}
+.compare-actions button{min-height:44px;min-width:65px;padding:8px 14px;background:#101112;border:1px solid #d8ad6a33;border-radius:4px;color:#d5c7b1;font-size:12px}
+.compare-actions button[aria-pressed=true]{background:#e9c890;color:#17110a;border-color:#e9c890}
+.gallery-footer .instagram-cta,.instagram-cta{display:inline-flex;align-items:center;justify-content:center;gap:15px;min-height:66px;padding:14px 25px;border:1px solid #ffffff30;border-radius:12px;background:linear-gradient(115deg,#6142ce 0%,#a92cb8 30%,#c92b7b 62%,#bd3825 100%);color:white;font-weight:700;font-size:14px;box-shadow:0 7px 22px #bf28671a;white-space:normal;text-align:center}
+.instagram-cta small{display:block;font:11px/1.8 Arial;letter-spacing:.7px;margin-top:3px;color:#fff}
+.instagram-cta:active{transform:scale(.98)}
+.story-photo-pair{display:grid;grid-template-columns:1.1fr .9fr;gap:8px;padding:18px}
+.story-photo-pair img{position:relative;inset:auto;width:100%;height:100%;min-height:0;object-fit:cover;border-radius:3px}
+.story-photo-pair img:first-child{object-position:center 35%}
+.story-photo-pair img:last-child{object-position:65% center;margin-top:32px;height:calc(100% - 52px)}
+.story-accent>.brand-mark{width:125px;height:125px;opacity:.4}
+.craft-tools{display:flex;align-items:center;gap:18px;color:var(--champagne-400);max-width:280px;width:100%;margin-block:22px;opacity:.75}
+.craft-rule{height:1px;flex:1;background:linear-gradient(90deg,transparent,#d8ad6a)}
+.craft-rule:last-child{transform:rotate(180deg)}
+.salon-page{background:#0c0e0f;min-height:100dvh;line-height:2}
+.salon-header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:22px;border-bottom:1px solid var(--border-subtle)}
+.salon-nav{display:flex;flex-wrap:wrap;gap:8px 25px;padding-block:10px;color:#cfc2af;font-size:13px}
+.salon-nav a{padding:7px 0;min-height:44px}
+.salon-main{padding-block:45px 80px}
+.salon-page-intro h1{font-size:clamp(30px,4.4vw,60px);line-height:1.5;margin:15px 0 40px;color:var(--champagne-300)}
+.salon-editorial{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--border-subtle);background:#151719;border-radius:8px;overflow:hidden}
+.salon-editorial-photo{min-height:520px;position:relative;background:#0e1011;display:grid;place-items:center}
+.salon-editorial-photo>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:brightness(.8) saturate(.8)}
+.salon-editorial-photo>.brand-mark{width:180px;height:180px}
+.salon-barber .salon-editorial-photo>img{object-position:center 25%}
+.salon-editorial-copy{padding:50px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;min-width:0}
+.salon-editorial-copy h2{font-size:clamp(30px,3vw,44px);line-height:1.5;margin:20px 0}
+.salon-editorial-copy em{font-style:normal;color:var(--champagne-400)}
+.salon-editorial-copy p{color:#c1b8ad}
+.salon-editorial-copy .subtle-link{margin-top:25px}
+.salon-services{margin-top:55px}.salon-services h2{font-size:30px}
+.salon-services>div{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.salon-services a{display:flex;justify-content:space-between;padding:20px;border:1px solid var(--border-subtle);background:#141617;border-radius:6px;color:var(--champagne-300);font-size:17px}
+.salon-contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.salon-contact-card{padding:40px;border:1px solid var(--border-subtle);border-radius:8px;background:#141719}
+.salon-contact-card>svg{color:var(--champagne-400)}
+.salon-contact-card h2{font-size:30px}.salon-contact-card p{color:#c2b9ad;margin-bottom:30px}
+.salon-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;padding-block:30px;border-top:1px solid var(--border-subtle);color:#bbad99;font-size:12px}
+.salon-footer>a:last-child{display:flex;align-items:center;gap:10px;min-height:44px}
+.page-loading{min-height:65svh;display:grid;place-items:center;background:var(--ink-950)}
+.brand-loader{display:inline-flex;align-items:center;flex-direction:column;gap:24px;color:var(--champagne-400);font:13px/2 var(--font-body)}
+.brand-loader-glyph{position:relative;display:block;width:96px;height:96px;background:#7b6b534d;mask:url('/brand/mohammadstyle-mark.svg') center/contain no-repeat;overflow:hidden}
+.brand-loader-glyph>span{display:block;width:100%;height:100%;background:linear-gradient(135deg,#ae7c38,#f6ddb0 50%,#bd9159);animation:brand-fill 1.4s var(--ease-in-out) infinite alternate}
+.brand-loader-compact{flex-direction:row;gap:10px;font:inherit;color:inherit}
+.brand-loader-compact .brand-loader-glyph{width:24px;height:24px}
+@keyframes brand-fill{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.brand-loader-glyph>span{animation:none;transform:none;opacity:.8}}
+@media(hover:hover) and (pointer:fine){.instagram-cta:hover{filter:brightness(1.1)}.hero-photo-picker button:hover{border-color:#f6ddb0}.salon-nav a:hover{color:var(--champagne-400)}}
+@media(max-width:980px){.hero h1{font-size:clamp(29px,3.65vw,38px)}.salon-editorial-copy{padding:32px}.salon-editorial-photo{min-height:440px}}
+@media(max-width:700px){.hero h1{font-size:clamp(30px,8.3vw,42px);letter-spacing:-.6px}.hero-photo-picker{bottom:60px;right:22px}.hero-photo-picker button{width:52px;height:62px}.gallery-footer{gap:16px;align-items:stretch}.gallery-footer .instagram-cta{width:100%;padding-inline:15px;font-size:13px}.gallery-footer>.btn{align-self:flex-start}.story-photo-pair{min-height:350px}.salon-main{padding-block:28px 55px}.salon-editorial,.salon-contact-grid{grid-template-columns:1fr}.salon-editorial-photo{min-height:360px}.salon-editorial-copy{padding:30px 24px}.salon-contact-card{padding:28px 24px}.salon-nav{gap:5px 20px}.salon-services>div{grid-template-columns:repeat(2,minmax(0,1fr))}.salon-services a{padding:14px;font-size:14px}.salon-footer{flex-direction:column;align-items:flex-start}.salon-header .btn{padding-inline:14px}.salon-page-intro h1{font-size:32px;margin-bottom:25px}}
+
+.page-navigation-feedback{position:fixed;inset-inline-start:24px;bottom:24px;z-index:9999;pointer-events:none;padding:14px 20px;border:1px solid var(--border-subtle);border-radius:10px;background:var(--ink-900);color:var(--ivory);box-shadow:0 8px 36px #0005;max-width:calc(100vw - 32px)}
+@media(max-width:600px){.page-navigation-feedback{inset-inline-start:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px))}}
+/* Confirmed owner menu and portraits — same charcoal/champagne system. */
+.service-menu-price{font-size:12px;line-height:1.8;color:#f2d4a3;text-shadow:0 1px 10px #000}
+.salon-price-menu{margin-top:35px;padding:32px;border:1px solid var(--border-subtle);border-radius:8px;background:linear-gradient(125deg,#1a1a19,#111315 65%)}
+.salon-price-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;padding-bottom:22px;border-bottom:1px solid var(--border-subtle)}
+.salon-price-heading h3{font-size:30px;font-weight:500;margin:10px 0 0}.salon-price-heading>span{color:#b8aea0;font-size:12px;white-space:nowrap}
+.salon-price-columns{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:32px;padding-top:25px}.salon-price-columns>div{min-width:0}.salon-price-columns>div+div{border-inline-start:1px solid var(--border-subtle);padding-inline-start:30px}
+.salon-price-columns h4{font-size:18px;color:var(--champagne-300);font-weight:500;margin:0 0 18px}.salon-price-columns dl{margin:0}.salon-price-columns dl>div{display:flex;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px solid #f0d0a011;font-size:13px;line-height:1.9}.salon-price-columns dd{margin:0;color:#e1ceae;white-space:nowrap;font-variant-numeric:tabular-nums}.salon-price-columns .subtle-link{display:inline-flex;align-items:center;min-height:44px;font-size:12px;margin-top:10px}
+.salon-groom-consultation>.brand-mark{width:42px;height:42px;margin-bottom:12px}.salon-groom-consultation p{font-size:13px;color:#c8bdae;line-height:2}.salon-groom-consultation .btn{display:flex;margin-top:18px}
+.hero-video-toggle{inset:24px auto auto 24px;font-size:11px;backdrop-filter:blur(8px)}
+.studio-film{position:relative;margin-top:45px;min-height:520px;overflow:hidden;border-radius:8px;border:1px solid var(--border-subtle);background:#171819}
+.studio-film>.hero-main-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 50%;filter:brightness(.6);opacity:.7}
+.studio-film>.hero-background-video{object-position:center 55%;filter:blur(2px) brightness(.55)}
+.studio-film>.public-brand-art{position:absolute;inset:0}.studio-film-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(270deg,#080a0be8,transparent 95%),linear-gradient(0deg,#080a0bb0,transparent)}
+.studio-film-copy{position:relative;max-width:630px;padding:75px 55px;pointer-events:none}.studio-film-copy a{pointer-events:auto}.studio-film-copy h2{font-weight:500;font-size:clamp(30px,4vw,52px);line-height:1.65;margin:18px 0}.studio-film-copy p{color:#d0c3b0;margin-bottom:25px}
+.barber-intro{color:#c6bcad;margin-bottom:35px}.barber-team{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}.barber-card{min-width:0;border:1px solid var(--border-subtle);border-radius:8px;background:#141618;overflow:hidden}
+.barber-portrait,.barber-brand-portrait{position:relative;aspect-ratio:4/5;overflow:hidden;background:#101213}.barber-portrait>img{width:100%;height:100%;object-fit:cover;object-position:center 40%}.barber-portrait>button{position:absolute;bottom:18px;inset-inline-start:18px;min-height:44px;padding:8px 18px;background:#0d0e0fdb;border:1px solid #e6c08370;color:#f8deb2;border-radius:4px;backdrop-filter:blur(10px);font-size:12px}.barber-portrait>button span{margin-inline-start:14px}
+.barber-brand-portrait{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:28px;background:radial-gradient(ellipse at center,#28251d,#111315 70%)}.barber-brand-portrait>.brand-mark{width:115px;height:115px;opacity:.8}.barber-brand-portrait>span{font:10px Georgia;letter-spacing:4px;color:#b1a184}
+.barber-card-copy{padding:27px}.barber-card-copy h2{font-size:35px;font-weight:500;margin:10px 0 20px}.barber-price{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px;line-height:1.9;padding-bottom:22px;border-bottom:1px solid var(--border-subtle)}.barber-price strong{font-weight:500;color:var(--champagne-300);white-space:nowrap}.barber-card-copy>.btn{width:100%;margin-top:12px;font-size:12px;flex-wrap:wrap;gap:10px;min-height:48px;height:auto}.barber-card-copy>.btn>span{font-family:Arial;font-size:13px}
+.barber-outro{display:flex;align-items:center;gap:30px;flex-wrap:wrap;margin-top:35px}.contact-phone{display:block;width:fit-content;font:clamp(28px,4vw,42px)/2 Georgia,serif;letter-spacing:1px;color:var(--champagne-300);margin-bottom:20px}.salon-person-contact .subtle-link{display:inline-flex;align-items:center;min-height:44px;font-size:13px}
+@media(max-width:1050px){.salon-price-columns{gap:22px;grid-template-columns:1fr 1.25fr}.salon-price-columns>div+div{padding-inline-start:22px}.salon-price-columns>.salon-groom-consultation{grid-column:1/-1;border-inline-start:0;border-top:1px solid var(--border-subtle);padding:25px 0 0;display:grid;grid-template-columns:auto 1fr auto;gap:0 20px;align-items:center}.salon-groom-consultation>.brand-mark{grid-row:1/3;margin:0}.salon-groom-consultation h4{margin:0}.salon-groom-consultation p{grid-column:2;margin:0}.salon-groom-consultation .btn{grid-column:3;grid-row:1/3;margin:0}.salon-groom-consultation .subtle-link{grid-column:2/4}.barber-team{gap:14px}.barber-card-copy{padding:20px}.barber-price{flex-direction:column;align-items:flex-start}}
+@media(max-width:700px){.service-menu-price{font-size:10px}.salon-price-menu{padding:24px 18px}.salon-price-heading{gap:12px;align-items:flex-start}.salon-price-heading h3{font-size:25px}.salon-price-heading .section-eyebrow{font-size:9px}.salon-price-heading>span{font-size:10px;padding-top:5px}.salon-price-columns{grid-template-columns:1fr;gap:26px}.salon-price-columns>div+div{border-inline-start:0;border-top:1px solid var(--border-subtle);padding:24px 0 0}.salon-price-columns h4{font-size:19px}.salon-price-columns dl>div{font-size:13px}.salon-price-columns>.salon-groom-consultation{display:block}.salon-groom-consultation>.brand-mark{margin-bottom:16px}.salon-groom-consultation p{margin:12px 0}.salon-groom-consultation .btn{margin-top:20px}.hero-video-toggle{inset:20px auto auto 20px;padding:6px 12px;font-size:10px}.studio-film{margin-top:30px;min-height:460px}.studio-film-copy{padding:85px 25px 45px}.studio-film-copy h2{font-size:32px}.barber-team{grid-template-columns:1fr;gap:26px}.barber-portrait,.barber-brand-portrait{aspect-ratio:4/4.4}.barber-card-copy{padding:24px}.barber-price{flex-direction:row;align-items:center}.barber-card-copy>.btn{justify-content:space-between}.barber-brand-portrait{max-height:300px}.barber-outro{gap:20px}}

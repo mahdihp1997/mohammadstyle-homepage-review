@@ -1,6 +1,13 @@
 "use client";
+import Link from "next/link";
 
-import { createContext, useContext, useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { createContext, useContext, useCallback, useEffect, useRef, useState } from "react";
+import ShopLink from '@/components/shop/ShopLink';
+import BeforeAfterComparison from "@/components/BeforeAfter";
+import ServiceMenu from '@/components/ServiceMenu';
+import {listedServicePrice} from '@/data/salon';
+import CinematicMedia from "@/components/CinematicMedia";
+import CraftTools from "@/components/CraftTools";
 import HomeGallery from '@/components/product/HomeGallery';
 import Icon from "@/components/Icon";
 import BrandMark from "@/components/BrandMark";
@@ -16,6 +23,7 @@ function Brand({ compact = false }: { compact?: boolean }) {
 }
 
 function Header({ openBooking }: { openBooking: (id?: ServiceId) => void }) {
+  const {product}=useContext(ProductContext);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLButtonElement>(null);
   const links = [ ["خانه","#home"], ["خدمات","#services"], ["نمونه‌کارها","#portfolio"], ["شعبه‌ها","#branches"], ["درباره ما","#about"] ];
@@ -26,6 +34,7 @@ function Header({ openBooking }: { openBooking: (id?: ServiceId) => void }) {
       <Brand />
       <nav id="primary-nav" className={`main-nav ${menuOpen ? "nav-open" : ""}`} aria-label="منوی اصلی">
         {links.map(([label,href],i)=><a key={href} className={i===0?"current":undefined} href={href} onClick={()=>setMenuOpen(false)}>{label}</a>)}
+        <Link href="/blog" onClick={()=>setMenuOpen(false)}>مجله</Link>{product&&<ShopLink onClick={()=>setMenuOpen(false)}/>}
       </nav>
       <div className="header-right">
         <a className="header-insta" href={business.instagram} target="_blank" rel="noopener noreferrer" aria-label="اینستاگرام محمد استایل"><Icon name="instagram" size={20}/></a>
@@ -42,14 +51,14 @@ function Hero({ openBooking }: { openBooking: (id?: ServiceId) => void }) {
     <div className="hero-grain" aria-hidden="true" />
     <div className="hero-grid shell">
       <div className="hero-photo" aria-label={publicAssets?'نشان محمد استایل':'نمونه واقعی از آماده‌سازی استایل دامادی'}>
-        {publicAssets?<PublicArt/>:<img src="/images/hero-groom.webp" alt="آرایشگر محمد استایل در حال آماده‌سازی موی مشتری با لباس رسمی" fetchPriority="high" />}
+        <CinematicMedia publicAssets={publicAssets} videoSrc="/images/owner-media/hero-at-work.mp4" posterSrc="/images/owner-media/salon-at-work-poster.webp"/>
         <div className="hero-photo-overlay" />
         <div className="hero-photo-corner" aria-hidden="true">THE ART OF GROOMING <span>MOHAMMAD STYLE</span></div>
       </div>
       <div className="hero-copy">
         <div className="eyebrow"><span className="eyebrow-line"/> MOHAMMAD STYLE — PREMIUM MEN'S GROOMING</div>
         <div className="hero-subline">سالن ممتاز پونک</div>
-        <h1 id="hero-heading">فراتر از یک<br/><em>آرایشگاه،</em><br/>یک <span>سبک زندگی.</span></h1>
+        <h1 id="hero-heading"><span className="hero-heading-line">فراتر از یک آرایشگاه،</span><br/>یک <span>سبک زندگی.</span></h1>
         <p className="hero-lead">از هیرکات دقیق تا استایل اختصاصی داماد؛ تجربه‌ای حرفه‌ای که در جزئیات آن تفاوت را احساس می‌کنید.</p>
         <div className="hero-ctas">
           <button className="btn btn-gold btn-large" type="button" onClick={()=>openBooking()}><Icon name="calendar" size={19}/> رزرو نوبت <Icon name="arrow" size={17}/></button>
@@ -79,22 +88,20 @@ function Services({ openBooking }: { openBooking: (id?: ServiceId) => void }) {
     <div className="shell">
       <SectionIntro small="OUR SERVICES / 01" title="خدمات ما" headingId="services-heading" description="خدماتی برای آراستگی و استایل شخصی؛ از اصلاح روزمره تا آماده‌سازی برای لحظه‌های خاص." />
       <div className="service-grid">
-        {services.map((s,i)=><button type="button" key={s.id} className={`service-card ${s.image && !publicAssets ? "photographic" : "illustrative"} service-${s.id}`} onClick={()=>openBooking(s.id)} aria-label={`اطلاعات و پیش‌نمایش رزرو ${s.name}`}>
+        {services.map((s,i)=><button type="button" key={s.id} className={`service-card ${s.image && !publicAssets ? "photographic" : "illustrative"} service-${s.id}`} onClick={()=>openBooking(s.id)} aria-label={`اطلاعات و رزرو ${s.name}`}>
           {s.image&&!publicAssets?<img src={s.image} loading="lazy" alt={s.evidence || s.name}/>:<div className="service-art" aria-hidden="true"><span className="art-circle"/><Icon name={s.icon} size={76}/></div>}
           <span className="service-number">0{i+1}</span>
-          {s.conceptual && !publicAssets && <span className="service-concept-label">تصویر مفهومی</span>}
-          <span className="service-card-content"><span className="service-icon"><Icon name={s.icon} size={25}/></span><strong>{s.name}</strong><small>{s.subtitle}</small><span className="service-arrow"><Icon name="arrow" size={17}/></span></span>
+          <span className="service-card-content"><span className="service-icon"><Icon name={s.icon} size={25}/></span><strong>{s.name}</strong><small>{s.subtitle}</small><span className="service-menu-price">{listedServicePrice(s.id)}</span><span className="service-arrow"><Icon name="arrow" size={17}/></span></span>
         </button>)}
       </div>
-      <p className="data-note"><Icon name="check" size={15}/> {publicAssets ? 'تصاویر و نمونه‌کارهای هر خدمت پس از تأیید اجازهٔ انتشار نمایش داده می‌شوند.' : 'تصاویر فیشیال، ماساژ، مانیکور و پدیکور با هوش مصنوعی تولید شده‌اند و نمونه‌کار واقعی سالن نیستند.'}</p>
+      <ServiceMenu/>
     </div>
   </section>;
 }
 
 function BeforeAfter() {
   const {publicAssets}=useContext(ProductContext);
-  const [percent,setPercent] = useState(50);
-  if(publicAssets)return <section className="signature-section section-space" aria-labelledby="transformation-heading"><div className="shell signature-layout"><div className="signature-copy"><span className="section-eyebrow">THE TRANSFORMATION / 02</span><h2 id="transformation-heading">تغییر را<br/><em>احساس کنید.</em></h2><p>تصاویر قبل و بعد، پس از تأیید اجازهٔ انتشار در گالری مجموعه قرار می‌گیرند.</p><a className="btn btn-ghost" href="/portfolio">مشاهدهٔ گالری</a></div><div className="compare-frame public-media-empty"><PublicArt/><p>در انتظار تصاویر تأییدشدهٔ قبل و بعد</p></div></div></section>;
+  if(publicAssets)return <section className="signature-section section-space" aria-labelledby="transformation-heading"><div className="shell signature-layout"><div className="signature-copy"><span className="section-eyebrow">THE TRANSFORMATION / 02</span><h2 id="transformation-heading">تغییر را<br/><em>احساس کنید.</em></h2><p>تصاویر قبل و بعد، پس از تأیید اجازهٔ انتشار در گالری مجموعه قرار می‌گیرند.</p><Link className="btn btn-ghost" href="/portfolio">مشاهدهٔ گالری</Link></div><div className="compare-frame public-media-empty"><PublicArt/><p>در انتظار تصاویر تأییدشدهٔ قبل و بعد</p></div></div></section>;
   return <section className="signature-section section-space" aria-labelledby="transformation-heading">
     <div className="shell signature-layout">
       <div className="signature-copy">
@@ -103,18 +110,8 @@ function BeforeAfter() {
         <h2 id="transformation-heading">تغییر را<br/><em>احساس کنید.</em></h2>
         <p>نمونه‌ای از تغییر استایل در مجموعه؛ تصویر را جابه‌جا کنید و نتیجه قبل و بعد را ببینید.</p>
         <div className="signature-line" />
-        <span className="photo-disclaimer">تصاویر: ارسالی کارفرما | انتشار عمومی پس از تأیید حقوق استفاده</span>
       </div>
-      <div className="compare-frame" style={{"--split": `${percent}%`} as CSSProperties}>
-        <div className="compare-images" dir="ltr">
-          <img className="compare-after" src="/images/hair-after.webp" alt="نتیجه بعد از استایل و آراستگی مو" loading="lazy" />
-          <div className="compare-before"><img src="/images/hair-before.webp" alt="نمای پیش از استایل مو" loading="lazy" /></div>
-          <div className="compare-divider" aria-hidden="true"><span>↔</span></div>
-          <span className="compare-label compare-label-before">BEFORE</span><span className="compare-label compare-label-after">AFTER</span>
-          <input aria-label="مقایسه قبل و بعد؛ درصد نمایش تصویر قبل" aria-valuetext={`${percent}٪ قبل، ${100-percent}٪ بعد`} dir="ltr" className="compare-slider" type="range" min={0} max={100} value={percent} onChange={e=>setPercent(Number(e.currentTarget.value))} />
-        </div>
-        <div className="compare-bottom"><span>BEFORE / AFTER</span><strong>استایل مو</strong><span>DRAG TO EXPLORE</span></div>
-      </div>
+      <BeforeAfterComparison/>
     </div>
   </section>;
 }
@@ -125,7 +122,7 @@ function Portfolio() {
   const displayed=filter==="all"?gallery:gallery.filter(g=>g.category===filter);
   return <section className="portfolio-section section-space" id="portfolio" aria-labelledby="portfolio-heading">
     <div className="shell">
-      <SectionIntro small="SELECTED WORK / 03" title="نمونه‌کارها" headingId="portfolio-heading" description="چند قاب واقعی از فعالیت مجموعه، بدون استفاده از تصاویر چهره ساختگی." />
+      <SectionIntro small="SELECTED WORK / 03" title="نمونه‌کارها" headingId="portfolio-heading" description="از ظرافت هیرکات تا استایل روز مراسم؛ کار ما را از نزدیک ببینید." />
       <div className="gallery-toolbar" role="group" aria-label="فیلتر نمونه‌کارها">
         {filters.map(f=><button key={f.id} type="button" className={f.id===filter?"active":""} aria-controls="portfolio-gallery" aria-pressed={f.id===filter} onClick={()=>setFilter(f.id)}>{f.name}</button>)}
       </div>
@@ -136,7 +133,7 @@ function Portfolio() {
         </figure>)}
       </div>
       <p className="sr-only" role="status">{displayed.length} نمونه‌کار؛ {filters.find(f=>f.id===filter)?.name}</p>
-      <div className="gallery-footer"><p>این تصاویر برای بررسی داخلی طراحی استفاده شده‌اند و انتشار عمومی نیازمند تأیید صاحب تصاویر است.</p><a href={business.instagram} target="_blank" rel="noopener noreferrer">نمونه‌های بیشتر در اینستاگرام <Icon name="arrowUp" size={19}/></a></div>
+      <div className="gallery-footer"><Link className="btn btn-ghost" href="/portfolio">همهٔ عکس‌ها و ویدئوها <Icon name="arrow" size={18}/></Link><a className="instagram-cta" href={business.instagram} target="_blank" rel="noopener noreferrer"><Icon name="instagram" size={26}/><span>نمونه‌های بیشتر در اینستاگرام<small dir="ltr">@mohammadstyle1</small></span><Icon name="arrowUp" size={20}/></a></div>
     </div>
   </section>;
 }
@@ -144,13 +141,14 @@ function Portfolio() {
 function Story() {
   const {publicAssets}=useContext(ProductContext);
   return <section className="story-section" id="about" aria-labelledby="story-heading">
-    <div className="story-photo">{publicAssets?<PublicArt/>:<img src="/images/barber-working.webp" alt="نمای واقعی اصلاح مو در سالن در کنار پنجره" loading="lazy" />}</div>
+    <div className={`story-photo ${publicAssets?'':'story-photo-pair'}`}>{publicAssets?<PublicArt/>:<><img src="/images/barber-process.webp" alt="دقت آرایشگر در آماده‌سازی مو" loading="lazy"/><img src="/images/salon-light.webp" alt="آینه‌ها و فضای سالن محمد استایل" loading="lazy"/></>}</div>
     <div className="story-copy">
       <span className="section-eyebrow"><span className="gold-dot"/> INSIDE THE STUDIO</span>
       <h2 id="story-heading">هنر ما در<br/><em>جزئیات است.</em></h2>
-      <p>{publicAssets ? 'از فضای سالن تا ظرافت اصلاح؛ اینجا دربارهٔ خدمات و سبک کار مجموعه بیشتر بدانید.' : 'از فضای سالن تا ظرافت اصلاح؛ اینجا بخشی از تصاویر واقعی کار و محیط مجموعه را می‌بینید.'}</p>
-      <a className="subtle-link" href="#branches">آشنایی با شعبه‌ها <Icon name="arrow" size={20}/></a>
-      <span className="story-accent" aria-hidden="true">MS.</span>
+      <p>از انتخاب مدل مو تا آخرین جزئیات آراستگی؛ هر استایل با توجه به چهره و سلیقهٔ شما شکل می‌گیرد.</p>
+      <CraftTools/>
+      <Link className="subtle-link" href="/about">دربارهٔ محمد استایل <Icon name="arrow" size={20}/></Link>
+      <span className="story-accent" aria-hidden="true"><BrandMark/></span>
     </div>
   </section>;
 }
@@ -162,9 +160,9 @@ function Branches({ openBooking }: { openBooking: (id?:ServiceId)=>void }) {
       <SectionIntro small="OUR LOCATIONS / 04" title="شعبه‌های محمد استایل" headingId="branches-heading" description="مجموعه دارای دو شعبه فعال است. اطلاعات شعبه دوم پس از تأیید به سایت اضافه می‌شود." />
       <div className="branches-grid">
         <article className="branch-tile branch-known">
-          {publicAssets?<PublicArt/>:<img src="/images/salon-interior.webp" alt="فضای واقعی سالن ارسالی کارفرما" loading="lazy" />}
+          {publicAssets?<PublicArt/>:<img src="/images/salon-light.webp" alt="فضای سالن محمد استایل" loading="lazy" />}
           <div className="branch-overlay"/>
-          <div className="branch-detail"><span className="branch-marker">01 / تأیید‌شده</span><h3>شعبه پونک</h3><p><Icon name="location" size={18}/>{business.location}</p><button type="button" className="btn btn-gold" onClick={()=>openBooking()}>پیش‌نمایش رزرو این شعبه <Icon name="arrow" size={17}/></button></div>
+          <div className="branch-detail"><span className="branch-marker">01 / POUNAK</span><h3>شعبه پونک</h3><p><Icon name="location" size={18}/>{business.location}</p><button type="button" className="btn btn-gold" onClick={()=>openBooking()}>رزرو نوبت این شعبه <Icon name="arrow" size={17}/></button></div>
         </article>
         <article className="branch-tile branch-pending"><div className="branch-pattern" aria-hidden="true"/><div className="branch-detail"><span className="branch-marker">02 / در انتظار اطلاعات</span><h3>شعبه دوم</h3><p>نشانی، تصویر و خدمات شعبه دوم هنوز تأیید نشده‌اند.</p><span className="branch-disabled"><Icon name="clock" size={16}/> اطلاعات به‌زودی تکمیل می‌شود</span></div></article>
       </div>
@@ -173,12 +171,12 @@ function Branches({ openBooking }: { openBooking: (id?:ServiceId)=>void }) {
 }
 
 function Closing({ openBooking }: { openBooking: (id?:ServiceId)=>void }) {
-  return <section className="closing-section"><div className="shell closing-inner"><div><span>MOHAMMAD STYLE</span><h2>استایل بعدی تو،<br/><em>از همین‌جا شروع می‌شود.</em></h2></div><button className="btn btn-gold btn-large" type="button" onClick={()=>openBooking()}><Icon name="calendar" size={18}/> پیش‌نمایش رزرو نوبت <Icon name="arrow" size={18}/></button></div></section>;
+  return <section className="closing-section"><div className="shell closing-inner"><div><span>MOHAMMAD STYLE</span><h2>استایل بعدی تو،<br/><em>از همین‌جا شروع می‌شود.</em></h2></div><button className="btn btn-gold btn-large" type="button" onClick={()=>openBooking()}><Icon name="calendar" size={18}/> رزرو نوبت <Icon name="arrow" size={18}/></button></div></section>;
 }
 
 function Footer() {
   const {product}=useContext(ProductContext);
-  return <footer className="footer"><div className="shell footer-main"><div><Brand compact/><p>سالن ممتاز پونک؛ معرفی خدمات و نمونه‌کارهای آرایش و استایل مردانه.</p></div><div className="footer-links"><span>دسترسی سریع</span><a href="#services">خدمات</a><a href="#portfolio">نمونه‌کارها</a><a href="#branches">شعبه‌ها</a></div><div className="footer-contact"><span>آدرس تأییدشده</span><p><Icon name="location" size={18}/>{business.location}</p><a href={business.instagram} target="_blank" rel="noopener noreferrer"><Icon name="instagram" size={19}/> @mohammadstyle1</a></div></div><div className="shell footer-bottom"><span>© محمد استایل</span><span>{product ? <a href="/account">حساب و نوبت‌های من</a> : 'پیش‌نمایش داخلی — رزرو و پرداخت هنوز فعال نیستند'}</span><a href="#home">بازگشت به بالا ↑</a></div></footer>;
+  return <footer className="footer"><div className="shell footer-main"><div><Brand compact/><p>سالن ممتاز پونک؛ معرفی خدمات و نمونه‌کارهای آرایش و استایل مردانه.</p></div><div className="footer-links"><span>دسترسی سریع</span><a href="#services">خدمات</a><a href="#portfolio">نمونه‌کارها</a><a href="#branches">شعبه‌ها</a><Link href="/about">درباره ما</Link><Link href="/barbers">آرایشگران مجموعه</Link><Link href="/contact">تماس با ما</Link><Link href="/blog">مجلهٔ آراستگی</Link>{product&&<ShopLink/>}</div><div className="footer-contact"><span>نشانی سالن</span><p><Icon name="location" size={18}/>{business.location}</p><a href={business.instagram} target="_blank" rel="noopener noreferrer"><Icon name="instagram" size={19}/> @mohammadstyle1</a></div></div><div className="shell footer-bottom"><span>© محمد استایل</span><span>{product ? <a href="/account">حساب و نوبت‌های من</a> : 'پیش‌نمایش داخلی — رزرو و پرداخت هنوز فعال نیستند'}</span><a href="#home">بازگشت به بالا ↑</a></div></footer>;
 }
 
 function BookingDrawer({ open, selectedService, setSelectedService, close, returnFocusRef }: { open:boolean; selectedService:ServiceId|null; setSelectedService:(s:ServiceId)=>void; close:()=>void; returnFocusRef:{current:HTMLElement|null} }) {

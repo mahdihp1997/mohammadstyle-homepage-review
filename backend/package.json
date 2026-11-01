@@ -114,7 +114,12 @@
     "product:test:lifecycle": "node scripts/product/lifecycle-test.mjs",
     "product:test:migrations": "node scripts/product/migration-test.mjs",
     "product:test:backup": "node scripts/product/backup-test.mjs",
-    "product:audit": "node scripts/product/audit-source.mjs"
+    "product:audit": "node scripts/product/audit-source.mjs",
+    "product:test:manual": "node scripts/product/manual-test.mjs",
+    "product:test:shop": "node scripts/product/shop-test.mjs",
+    "product:test:editorial": "node scripts/product/editorial-test.mjs",
+    "product:test:review-otp": "node scripts/product/review-otp-test.mjs",
+    "product:test:retention": "node scripts/product/retention-test.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.1160.0",

@@ -33,7 +33,7 @@ export class ProductWorker {
       let mobile:string,code:string|undefined,text:string|undefined;
       if(c.kind==='OTP'){const p=unseal<{mobile:string;code:string}>(this.cfg.encryptionKey,String(c.ciphertext),'otp:'+String(c.challengeId));mobile=p.mobile;code=p.code;}
       else{mobile=unseal<{mobile:string}>(this.cfg.encryptionKey,String(c.mobileCiphertext),'mobile:'+String(c.mobileLookup)).mobile;
-        const variables=c.variables as Record<string,string>;text=String(c.body).replace(/\{(booking|status|date)\}/g,(_,key:string)=>variables[key]??'');}
+        const variables=c.variables as Record<string,string>;text=String(c.body).replace(/\{(booking|order|status|date|reason)\}/g,(_,key:string)=>variables[key]??'');}
       if(!await this.state(j,'DISPATCHED','DISPATCH_START'))return;
       const r=await this.sms.send({dedupeKey:j.id,mobile,kind:String(c.kind),...(code?{code}:{}),...(text?{text}:{})});
       await this.state(j,r.state==='accepted'?'DELIVERED':r.state==='retry'?'READY':r.state==='blocked'?'BLOCKED':'UNKNOWN',r.code,r.receipt??null);return;
@@ -49,7 +49,7 @@ export class ProductWorker {
     if(!await this.state(j,'DISPATCHED','DISPATCH_START'))return;
     if(j.kind==='PAYMENT_REQUEST'){
       if(Date.parse(String(c.expiresAt))<=Date.now()){await this.call('product_payment_result',[j.id,j.token,{status:'closed'}]);return;}
-      const state=unseal<string>(this.cfg.encryptionKey,String(c.callbackCiphertext),'payment-callback:'+String(c.bookingId));
+      const state=unseal<string>(this.cfg.encryptionKey,String(c.callbackCiphertext),'payment-callback:'+String(c.paymentTargetId??c.bookingId));
       const callbackUrl=String(c.origin)+'/api/product/payment/callback/'+String(c.id)+'?state='+encodeURIComponent(state);
       const r=await this.payment.request({id:String(c.id),amountRial:String(c.amountRial),currency:'IRR',callbackUrl,expiresAt:String(c.expiresAt)});
       await this.call('product_payment_result',[j.id,j.token,r]);

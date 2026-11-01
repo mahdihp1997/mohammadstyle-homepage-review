@@ -168,11 +168,11 @@ test("changing branch clears a chosen policy and optional deposit before the nex
   await health(page);
 });
 
-test("server-rendered form cannot submit before hydration or without JavaScript", async ({ browser, baseURL }) => {
-  const context = await browser.newContext({ javaScriptEnabled: false, baseURL });
+test("server-rendered form cannot submit before hydration or without JavaScript", async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
   try {
     const page = await context.newPage();
-    const response = await page.goto("/booking?service=hair");
+    const response = await page.goto("http://127.0.0.1:3000/booking?service=hair");
     expect(response?.status()).toBe(200);
     await expect(next(page)).toBeDisabled();
     await expect(page.getByRole("radio", { name: /شعبه پونک/ })).toBeDisabled();

@@ -50,7 +50,7 @@ export class MockPayment implements PaymentProvider {
     }catch{return {status:'unknown' as const};}
   }
 }
-export function assertMock(c: ProductConfig) { if(c.environment!=='test'||process.env.APP_ENV!=='product-test'||process.env.NODE_ENV==='production'||c.database.host!=='127.0.0.1'||c.database.port!==55460||!c.database.marker.includes('-test-'))throw Error('ISOLATED_MOCK_ONLY'); }
+export function assertMock(c: ProductConfig) { if(c.environment!=='test'||process.env.APP_ENV!=='product-test'||process.env.NODE_ENV==='production'||c.database.host!=='127.0.0.1'||![55460,55461].includes(c.database.port)||!c.database.marker.includes('-test-'))throw Error('ISOLATED_MOCK_ONLY'); }
 export interface SmsMessage { dedupeKey: string; mobile: string; kind: string; code?: string; text?: string }
 export interface SmsProvider { readonly replaySafe: boolean; send(message: SmsMessage): Promise<{state:'accepted'|'retry'|'unknown'|'blocked';receipt?:string;code:string}> }
 export class UnconfiguredSms implements SmsProvider { readonly replaySafe=false;async send(){return {state:'blocked' as const,code:'SMS_UNCONFIGURED'};} }

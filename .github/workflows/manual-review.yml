@@ -1,0 +1,185 @@
+name: Sanitized manual payment and commerce review
+on:
+  push:
+    branches: [review/manual-card-transfer]
+  pull_request:
+    branches: [review/product-finalization]
+permissions:
+  contents: read
+concurrency:
+  group: manual-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  product:
+    if: github.repository == 'mahdihp1997/mohammadstyle-homepage-review'
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Require sanitized checkout before execution
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from'node:fs';import assert from'node:assert/strict';import{execFileSync}from'node:child_process';
+          assert.match(fs.readFileSync('app/layout.tsx','utf8'),/data-public-review/);
+          const files=execFileSync('git',['ls-files'],{encoding:'utf8'}).split('\n');
+          assert.ok(!files.some(f=>/^(?:app\/fonts\/|references\/|artifacts\/|client-images\/)|\.env\..*local$|\.(?:dump|pem|key|ttf|otf|woff2?)$/.test(f)));
+          NODE
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24.16.0
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            backend/package-lock.json
+      - name: Install and compile
+        run: |
+          npm ci --no-audit --no-fund
+          npm --prefix backend ci --ignore-scripts --no-audit --no-fund
+          npm run typecheck
+          npm run build
+          npm --prefix backend run typecheck
+          npm --prefix backend run build
+          node backend/scripts/product/private-review-test.mjs
+          node backend/scripts/product/request-uuid-test.mjs
+          node backend/scripts/product/review-origin-test.mjs
+          npm --prefix backend run product:audit
+      - name: Prepare isolated PostgreSQL and HTTP provider
+        working-directory: backend
+        run: |
+          node scripts/product/infra.mjs env
+          node scripts/product/infra.mjs up
+          node scripts/product/infra.mjs db
+          node scripts/product/migrate.mjs --test
+          node scripts/product/bootstrap.mjs --test
+          node scripts/product/mock-gateway.mjs > .local/product/mock.log 2>&1 &
+          for i in $(seq 1 30); do if curl -s -o /dev/null http://127.0.0.1:3117/; then break; fi; sleep 1; done
+      - name: Actual auth, transaction, financial, notification and recovery checks
+        working-directory: backend
+        run: |
+          node scripts/product/owner-clone-guard-test.mjs
+          node scripts/product/auth-test.mjs
+          node scripts/product/auth-policy-test.mjs
+          node scripts/product/review-otp-test.mjs
+          node scripts/product/manual-test.mjs
+          node scripts/product/shop-test.mjs
+          node scripts/product/editorial-test.mjs
+          node scripts/product/migration-test.mjs
+          node scripts/product/workflow-test.mjs
+          node scripts/product/lifecycle-test.mjs
+          node scripts/product/backup-test.mjs
+          node scripts/product/retention-test.mjs
+      - name: Start isolated product API, worker and actual Next
+        run: |
+          (cd backend && node --env-file=.env.product-test.local dist/product/main.js > .local/product/api.log 2>&1 &)
+          node --input-type=module <<'NODE'
+          import fs from'node:fs';const data=Object.fromEntries(fs.readFileSync('backend/.env.product-test.local','utf8').split('\n').filter(Boolean).map(s=>{const i=s.indexOf('=');return[s.slice(0,i),s.slice(i+1)];}));
+          fs.writeFileSync('.env.product-test.local','MS_PRODUCT_ENABLED=1\nPRODUCT_ENV=test\nPUBLIC_ORIGIN=http://127.0.0.1:3006\nPRODUCT_API_ORIGIN=http://127.0.0.1:3116\nPRODUCT_BRIDGE_KEY='+data.PRODUCT_BRIDGE_KEY+'\n',{mode:0o600});
+          NODE
+          node --env-file=.env.product-test.local node_modules/next/dist/bin/next dev -p 3006 -H 127.0.0.1 > backend/.local/product/next.log 2>&1 &
+          for i in $(seq 1 60); do if curl --fail -s http://127.0.0.1:3006/api/health > /dev/null; then break; fi; sleep 1; done
+      - name: Actual Chrome customer/admin journeys at four viewport sizes
+        run: |
+          npx playwright install --with-deps chrome
+          node backend/scripts/product/transport-test.mjs
+          node backend/scripts/product/receipt-transport-test.mjs
+          (cd backend && node --env-file=.env.product-test.local dist/product/worker-main.js > .local/product/worker.log 2>&1 &)
+          npm run test:ui:product
+          npm run test:ui:manual
+      - name: Allowlisted synthetic results only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: manual-review-validation
+          path: |
+            backend/.local/product/results/manual.json
+            backend/.local/product/results/shop.json
+            backend/.local/product/results/editorial.json
+            backend/.local/product/results/review-otp.json
+            backend/.local/product/results/receipt-transport.json
+            backend/.local/product/results/receipt-retention.json
+            backend/.local/product/results/browser-manual-shop.json
+            backend/.local/product/results/auth.json
+            backend/.local/product/results/auth-policy.json
+            backend/.local/product/results/migration-safety.json
+            backend/.local/product/results/workflow.json
+            backend/.local/product/results/lifecycle.json
+            backend/.local/product/results/backup-restore.json
+            backend/.local/product/results/browser-product.json
+            backend/.local/product/results/transport.json
+            backend/.local/product/results/release-source-audit.json
+          include-hidden-files: true
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Stop this job's isolated test cluster
+        if: always()
+        working-directory: backend
+        run: |
+          if [ -f .env.product-test.local ]; then node scripts/product/infra.mjs stop; fi
+  legacy:
+    if: github.repository == 'mahdihp1997/mohammadstyle-homepage-review'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      PLAYWRIGHT_CHANNEL: chrome
+      MS_MVP_ENABLED: '1'
+      MS_BOOKING_SERVER_PROFILE: mvp-local
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Require sanitized source
+        run: |
+          test ! -d app/fonts
+          test ! -d client-images
+          test ! -d references
+          test ! -d artifacts
+          node -e "require('node:assert').match(require('node:fs').readFileSync('app/layout.tsx','utf8'),/data-public-review/)"
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24.16.0
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            backend/package-lock.json
+      - name: Install and build original contracts
+        run: |
+          npm ci --no-audit --no-fund
+          npm --prefix backend ci --ignore-scripts --no-audit --no-fund
+          npm --prefix backend run build
+          npx playwright install --with-deps chrome
+      - name: Original B0 through B4 native assertions in disposable PostgreSQL
+        working-directory: backend
+        run: node scripts/mvp/b4-regression.mjs
+      - name: Original MVP, storage, schema and login assertions with independent UI fixtures
+        working-directory: backend
+        run: |
+          node scripts/product/legacy-mvp-regression.mjs --keep-for-ui
+          node --input-type=module <<'NODE'
+          import fs from'node:fs';import{spawn}from'node:child_process';
+          const {dest}=JSON.parse(fs.readFileSync('.local/product/legacy-mvp-source.json','utf8'));
+          const child=spawn(process.execPath,['scripts/mvp/start.mjs'],{cwd:dest,env:{...process.env,APP_ENV:'mvp-local'},detached:true,stdio:['ignore',fs.openSync('.local/product/legacy-api.log','a'),fs.openSync('.local/product/legacy-api-error.log','a')]});child.unref();
+          NODE
+          for i in $(seq 1 40); do if curl -s -o /dev/null http://127.0.0.1:3112/; then break; fi; sleep 1; done
+      - name: All original four-viewport Playwright suites
+        run: |
+          npm run test:ui
+          npm run test:ui:mvp
+          npm run test:ui:server
+          npm run test:ui:login
+      - name: Allowlisted synthetic test summaries
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: manual-legacy-validation
+          path: |
+            backend/.local/product/results/legacy-*.json
+            backend/.local/mvp/results/ui-raw.json
+            backend/.local/mvp/results/login-ui-raw.json
+            backend/.local/b4/results/ui-raw.json
+          include-hidden-files: true
+          if-no-files-found: ignore
+          retention-days: 7

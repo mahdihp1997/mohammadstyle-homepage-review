@@ -18,6 +18,8 @@ export async function commercialFixture(db,cfg,repo,owner,{deposit='20000'}={}){
  const bid=cfg.businessId;const h=digest(owner.result.session.token),csrf=digest(owner.result.session.csrf);
  async function insert(table,d){const keys=Object.keys(d);return(await db.query(`INSERT INTO ms_b1_design.${table}(${keys.join(',')}) VALUES(${keys.map((_,i)=>'$'+(i+1)).join(',')}) RETURNING *`,Object.values(d))).rows[0];}
  const branch=await insert('branch',{business_id:bid,code:'SYNTHETIC_'+randomUUID().slice(0,8),display_name:'شعبهٔ صرفاً آزمایشی — اطلاعات واقعی سالن نیست',time_zone:'Asia/Tehran',active:true});
+ // Explicit synthetic mock gateway configuration; runtime defaults remain NONE.
+ if(cfg.payment==='mock')await insert('product_payment_configuration',{business_id:bid,branch_id:branch.id,online_enabled:true,manual_enabled:false,updated_by:owner.result.userId});
  const day=new Date(Date.now()+86400000).toISOString().slice(0,10),start=new Date(day+'T06:30:00Z'),end=new Date(day+'T15:30:00Z');
  await insert('availability_configuration',{business_id:bid,branch_id:branch.id,slot_stride_minutes:30,lead_minutes:0,horizon_days:60,hold_ttl_seconds:300,quote_ttl_seconds:300});
  await insert('branch_working_hours',{business_id:bid,branch_id:branch.id,iso_weekday:new Date(day+'T12:00Z').getUTCDay()||7,start_minute:600,end_minute:1140,valid_from:day});

@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-31",
+  "authorization": "Owner supplied the identity board and explicitly requested using it as the site logo.",
+  "source": {
+    "filename": "Mohammad Style Barbershop Identity Board.png",
+    "sha256": "d2574d72d083811392babf71499a3a4c0ab20318f89a2d6973b166afaf74b34e",
+    "published": false
+  },
+  "preparation": {
+    "tool": "built-in image_gen",
+    "mode": "background-extraction",
+    "generatedSource": "exec-6ec46334-0e0e-4acd-a920-0353b9c5c8cb.png",
+    "prompt": "Use case: background-extraction. Edit target: the user supplied Mohammad Style identity board. Create a clean transparent PNG asset of ONLY the large champagne gold MS monogram with integrated man's hair and beard silhouette from the TOP LEFT of the PRIMARY LOGO in this exact board (upper-left large mark around x220-490 y140-380 in the original). Preserve that supplied monogram's exact geometry, angular MS letter forms, hair swoop, beard silhouette, proportions and warm champagne gold tonal shading. This is extraction for an existing approved brand, not a redesign: do not invent a new symbol or redraw differently. Isolate only this mark centered, filling about 88 percent of a square canvas. Remove the dark charcoal background entirely into true alpha, including every negative-space cutout. No type, no wordmark, no Persian lettering, no English lettering, no dates, no outer border, no circle, no badge, no glow, no drop shadow, no board lines, no other objects. Crisp high quality edges suitable for a website header logo and favicon, actual transparent background.",
+    "notes": "AI-assisted isolation of the supplied mark; raster preparation, not a claim of an original vector master. Proportional Sharp downsampling preserves alpha; icons use a charcoal matte and clear space."
+  },
+  "assets": [
+    {
+      "path": "public/brand/mohammadstyle-mark.webp",
+      "bytes": 25806,
+      "sha256": "4d14bea74ecbb62fb528d6de8eb08c1033f5ecac0c8c719137f5c97b6bbc65c4"
+    },
+    {
+      "path": "app/icon.png",
+      "bytes": 5788,
+      "sha256": "9ff332e19298e3921f7bd102266273131efc97ec1fcd62fc912270580ec41342"
+    },
+    {
+      "path": "app/apple-icon.png",
+      "bytes": 29515,
+      "sha256": "cb10ae97d1e59444ff94d2d41eccb607d3ced6774f13a760a1f39d8fedb95ce9"
+    }
+  ],
+  "scope": "Original private checkout only. No public repository, original photography, private fonts or reference files changed."
+}

@@ -1,0 +1,5 @@
+"use client";
+import{useState}from'react';import Link from '@/components/BrandLink';import{readCart,writeCart}from'@/lib/product/cart';import type{ShopProduct}from'@/types/shop';
+export default function AddToCart({product:p}:{product:ShopProduct}){const[notice,setNotice]=useState('');function add(){const items=readCart(),current=items.find(x=>x.id===p.id);if(current&&(current.quantity>=p.availableQuantity||current.quantity>=99)){setNotice('تعداد انتخاب‌شده به سقف موجودی رسیده است.');return;}if(!current&&items.length>=20){setNotice('حداکثر ۲۰ محصول متفاوت در سبد قابل انتخاب است.');return;}writeCart(current?items.map(x=>x.id===p.id?{...x,quantity:x.quantity+1}:x):[...items,{id:p.id,slug:p.slug,quantity:1}]);setNotice('به سبد خرید اضافه شد.');}
+ return <div className="shop-add"><button type="button" className="btn btn-gold" disabled={p.availableQuantity<1} onClick={add}>{p.availableQuantity>0?'افزودن به سبد خرید':'ناموجود'}</button>{notice&&<p role="status">{notice} <Link href="/shop/cart">مشاهدهٔ سبد ↗</Link></p>}</div>;
+}

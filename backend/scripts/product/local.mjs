@@ -14,7 +14,7 @@ export function readEnvironment() {
   }));
   for (const key of ["PRODUCT_ADMIN_PASSWORD", "PRODUCT_MIGRATOR_PASSWORD", "PRODUCT_RUNTIME_PASSWORD", "PRODUCT_API_PASSWORD", "PRODUCT_AUTH_PASSWORD", "PRODUCT_WORKER_PASSWORD"])
     if (!/^[a-f0-9]{64}$/.test(values[key] ?? "")) throw Error("Missing isolated product secret: " + key);
-  if (values.APP_ENV !== "product-test" || values.PGHOST !== "127.0.0.1" || values.PGPORT !== "55460") throw Error("Isolated product profile mismatch");
+  if (values.APP_ENV !== "product-test" || values.PGHOST !== "127.0.0.1" || values.PGPORT !== (values.PRODUCT_TEST_PROFILE === "manual" ? "55461" : "55460")) throw Error("Isolated product profile mismatch");
   return values;
 }
 export function applyEnvironment() { Object.assign(process.env, readEnvironment()); if (process.env.NODE_ENV === "production") throw Error("Test tools cannot run in production"); }
@@ -22,7 +22,7 @@ export function connection(database, role = "migrator") {
   if (!databases.includes(database) && !(database === "ms_product_control" && role === "admin")) throw Error("Product test DB allowlist");
   const names = { admin: "ms_b1a_admin", migrator: "ms_b1a_migrator", runtime: "ms_b1a_runtime", api: "ms_b1b_api", auth: "ms_product_auth", worker: "ms_product_worker" };
   if (!names[role]) throw Error("Product test role allowlist");
-  return { host: "127.0.0.1", port: 55460, database, user: names[role], password: readEnvironment()["PRODUCT_" + role.toUpperCase() + "_PASSWORD"],
+  return { host: "127.0.0.1", port: Number(readEnvironment().PGPORT), database, user: names[role], password: readEnvironment()["PRODUCT_" + role.toUpperCase() + "_PASSWORD"],
     connectionTimeoutMillis: 5000, statement_timeout: 60000, application_name: "mohammadstyle-product-validation" };
 }
 export const client = (database = "ms_product_test", role = "migrator") => new pg.Client(connection(database, role));
@@ -33,3 +33,5 @@ export async function identify(db, database, role = "migrator") {
   return r;
 }
 export function save(name, value) { fs.mkdirSync(path.join(folder, "results"), { recursive: true }); fs.writeFileSync(path.join(folder, "results", name), JSON.stringify(value, null, 2) + "\n"); }
+
+export function testProject(){return readEnvironment().PRODUCT_TEST_PROFILE==='manual'?'mohammadstyle-manual-test':'mohammadstyle-product-test';}

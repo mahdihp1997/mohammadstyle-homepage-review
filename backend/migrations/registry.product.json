@@ -201,6 +201,86 @@
       "id": "0040_product_scheduling_scope",
       "file": "0040_product_scheduling_scope.sql",
       "sha256": "18c93e650a47827bd49ddd005b8cff21882bd81cb5ac0d495fed62dbc310438c"
+    },
+    {
+      "id": "0041_product_manual_foundation",
+      "file": "0041_product_manual_foundation.sql",
+      "sha256": "1d11752c972d83e11381fb8ff665d25faa5f5e1eb52da40c10428cde6f6e1503"
+    },
+    {
+      "id": "0042_product_manual_configuration",
+      "file": "0042_product_manual_configuration.sql",
+      "sha256": "80315f05d78bf08b01551a6af49607a95b046717c1e6de656bdc6326acd51931"
+    },
+    {
+      "id": "0043_product_manual_workflow",
+      "file": "0043_product_manual_workflow.sql",
+      "sha256": "c7676cd998c883a6c9fa3ba13c558d9d6fd757fe3b99fd0f9061b1a72cbd7ba8"
+    },
+    {
+      "id": "0044_product_manual_integration",
+      "file": "0044_product_manual_integration.sql",
+      "sha256": "d12080a324d5443b4152c3d7f3826e0c78e465418efcc4f9fca317a0397777d3"
+    },
+    {
+      "id": "0045_product_manual_retention",
+      "file": "0045_product_manual_retention.sql",
+      "sha256": "8acbf4815246863d4919000f3e62c0d10ef60c34a7e4caee9c5a0a4abdc6bf1b"
+    },
+    {
+      "id": "0046_product_editorial",
+      "file": "0046_product_editorial.sql",
+      "sha256": "7014502c650cbf8b4564e4c5bc973ea09d409bccee1aff7671cf26e0d51f3f39"
+    },
+    {
+      "id": "0047_product_shop_foundation",
+      "file": "0047_product_shop_foundation.sql",
+      "sha256": "76c042831a1af4be35a60519a02e2256c4f0727a979b5c714cbb9cd9f8fef440"
+    },
+    {
+      "id": "0048_product_shop_checkout",
+      "file": "0048_product_shop_checkout.sql",
+      "sha256": "b68d7db6c7f678554bf1e7371d546f233cbd4ae9dad57433c54a87329b0762d5"
+    },
+    {
+      "id": "0049_product_shop_payments",
+      "file": "0049_product_shop_payments.sql",
+      "sha256": "6f407b6382737fee666e54c0a3d2b0be38bcbede2d1b25efd1eb760683772bb8"
+    },
+    {
+      "id": "0050_product_customer_shop_scope",
+      "file": "0050_product_customer_shop_scope.sql",
+      "sha256": "de88ac508c1793ca70304ae550bdcfada1e47f7a1ea063af83d488f146475d91"
+    },
+    {
+      "id": "0051_product_shop_identity_binding",
+      "file": "0051_product_shop_identity_binding.sql",
+      "sha256": "21652e516af251e990ced721b73645300afa35c6e4cc93fb3201e7c65b07f089"
+    },
+    {
+      "id": "0052_product_shop_checkout_continuity",
+      "file": "0052_product_shop_checkout_continuity.sql",
+      "sha256": "d2466109d4eec113527bebe07480b49d911da94b8d4a062a836840ef8362e08f"
+    },
+    {
+      "id": "0053_product_shop_delivery_areas",
+      "file": "0053_product_shop_delivery_areas.sql",
+      "sha256": "01c35ec75d1c90e40f53e170a1db55f83e6fc7374b307e8ede929bb943c3e8e9"
+    },
+    {
+      "id": "0054_product_payment_return_route",
+      "file": "0054_product_payment_return_route.sql",
+      "sha256": "732cbad792264d5038b6b39c44f93c6ff8ea1fed73cfe5ef336510c4b74f1e55"
+    },
+    {
+      "id": "0055_product_manual_list_filter",
+      "file": "0055_product_manual_list_filter.sql",
+      "sha256": "d2233ccdc91256771b95ab381f7be6262c8ebcd0d07d4bcbb558f7c74c441159"
+    },
+    {
+      "id": "0056_product_legacy_sms_parameter_binding",
+      "file": "0056_product_legacy_sms_parameter_binding.sql",
+      "sha256": "8435bf347c730aed6435acd551fa8bba187baadddfcff1daf071c53e5a1b6944"
     }
   ]
 }

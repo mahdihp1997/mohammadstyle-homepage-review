@@ -56,8 +56,13 @@ export class ProductAuthService {
     const id = randomUUID(), code = otp(), lookup = keyed(this.config.identityKey, "mobile", mobile);
     const invitation = kind === "ADMIN_ACTIVATION" ? text(body.invitation, 100) : null;
     if (invitation && !/^[A-Za-z0-9_-]{43}$/.test(invitation)) reject("INVALID_ACTIVATION");
-    return this.checked(await this.call("product_auth_request", [id, kind, lookup, seal(this.config.encryptionKey, { mobile }, "mobile:" + lookup.toString("hex")), mobile.slice(-4),
+    const reply = this.checked(await this.call("product_auth_request", [id, kind, lookup, seal(this.config.encryptionKey, { mobile }, "mobile:" + lookup.toString("hex")), mobile.slice(-4),
       keyed(this.config.otpKey, "otp", id, lookup.toString("hex"), code), seal(this.config.encryptionKey, { mobile, code }, "otp:" + id), ctx.binding, ctx.peer, invitation ? digest(invitation) : null]));
+    // Only expose the newly issued, browser-bound customer challenge in the
+    // explicit isolated review realm. Existing/rate-limited/admin challenges
+    // never acquire a code through this path. SQL verification remains required.
+    return this.config.reviewOtpAutofill && kind === "MOBILE_LOGIN" && reply.challengeId === id
+      ? { ...reply, testOtp: code } : reply;
   }
   async verify(value: unknown, ctx: AuthContext) {
     const body = fields(value, ["challengeId", "code"]), id = uuid(body.challengeId), code = normalizeCode(body.code);
