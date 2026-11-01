@@ -37,3 +37,8 @@ playwright-report/
 
 # B3 sanitized validation evidence only.
 !docs/backend/phase03b-b3/evidence/*.log
+
+# Product isolated and deployment secrets/build output
+.next-review/
+.next-production/
+deploy/product/.local/

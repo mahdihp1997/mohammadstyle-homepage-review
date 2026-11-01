@@ -1,0 +1,6 @@
+// Offline, explicit destination; never prints credentials and never overwrites them.
+import fs from'node:fs';import path from'node:path';import{randomBytes,randomUUID}from'node:crypto';
+const input=process.argv.find(x=>x.startsWith('--directory='))?.slice(12);if(!input||!path.isAbsolute(input))throw Error('PRIVATE_ABSOLUTE_DIRECTORY_REQUIRED');const directory=path.resolve(input);if(directory===path.parse(directory).root||directory.split(path.sep).includes('public'))throw Error('PRIVATE_DIRECTORY_REQUIRED');
+fs.mkdirSync(directory,{recursive:true,mode:0o700});const entries={};for(const role of['admin','migrator','runtime','api','auth','worker'])entries[role+'_password']=randomBytes(32).toString('hex');for(const key of['bridge','encryption','identity','otp'])entries[key+'_key']=randomBytes(32).toString('base64url');entries.backup_key=randomBytes(32).toString('base64url');
+for(const[name,value]of Object.entries(entries)){const file=path.join(directory,name);if(!fs.existsSync(file))fs.writeFileSync(file,value+'\n',{flag:'wx',mode:0o600});}
+const identity=path.join(directory,'business-id');if(!fs.existsSync(identity))fs.writeFileSync(identity,randomUUID()+'\n',{flag:'wx',mode:0o600});console.log('Secret files preserved/created. Read business-id privately into deployment settings. Supply trusted TLS certificates separately.');

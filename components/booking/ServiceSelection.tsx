@@ -16,7 +16,7 @@ export default function ServiceSelection({ services, selected, branchId, mode, o
         const active = selected.includes(service.id), eligible = !!service.offering?.active && service.offering.branchId === branchId;
         const { durationMinutes = null, priceToman = null } = service.offering ?? {};
         return <label className={`booking-service-card ${active ? "is-selected" : ""}`} key={service.id}>
-          <div className="booking-service-image">{service.image ? <img src={service.image} alt={service.conceptual ? `تصویر مفهومی ${service.name}` : `جای‌نگهدار نسخه عمومی برای ${service.name}`} loading="lazy" /> : <Icon name={service.icon} size={34} />}{service.conceptual && <span>تصویر مفهومی</span>}</div>
+          <div className="booking-service-image">{service.image ? <img src={service.image} alt={service.conceptual ? `تصویر مفهومی ${service.name}` : `تصویر ارسالی مجموعه برای ${service.name}`} loading="lazy" /> : <Icon name={service.icon} size={34} />}{service.conceptual && <span>تصویر مفهومی</span>}</div>
           <div className="booking-service-copy"><div className="booking-choice-title"><strong>{service.name}</strong><input type="checkbox" name="booking-services" value={service.id} checked={active} disabled={!eligible} onChange={() => onToggle(service.id)} /></div><p>{service.description}</p>
             <div className="booking-service-values"><span><Icon name="clock" size={14} />{durationMinutes === null ? "مدت تأیید نشده" : `${faNumber(durationMinutes)} دقیقه فرضی`}</span><b>{formatToman(priceToman)}{priceToman !== null && <small> · فرضی</small>}</b></div>
           </div>

@@ -1,9 +1,11 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import BrandMark from "@/components/BrandMark";
 import { AdminForm, type Field, type Option, type Values } from "./AdminForm";
 import type { Actor, Editor, Workspace } from "./types";
 import MediaPanel from "./MediaPanel";
 import PolicyPanel from "./PolicyPanel";
+import AdminOperations from '@/components/product/AdminOperations';
 import {
   api,
   query,
@@ -30,6 +32,10 @@ const tabs = [
   ["schedule", "تقویم کاری", "schedule.read"],
   ["reservations", "رزروها و سابقه", "booking.read"],
   ["media", "رسانه و نمونه‌کار", "media.manage"],
+  ["operations", "پذیرش و پرداخت", "booking.read"],
+  ["customers", "مشتریان و سابقه", "customer.read"],
+  ["notifications", "پیامک و پیگیری", "notification.read"],
+  ["settings", "تنظیمات عملیات", "booking.configure"],
 ] as const;
 const weekdays = [
   ["6", "شنبه"],
@@ -91,8 +97,10 @@ function Icon({ kind = "overview" }: { kind?: string }) {
 }
 export default function AdminDashboard({
   initialView,
+  product = false,
 }: {
   initialView?: string;
+  product?: boolean;
 }) {
   const [view, setView] = useState(
       tabs.some((t) => t[0] === initialView) ? initialView! : "overview",
@@ -137,7 +145,7 @@ export default function AdminDashboard({
     api<Workspace>(
       "admin/portal/workspace" +
         query({
-          view,
+          view: ['operations','customers','notifications','settings'].includes(view) ? 'overview' : view,
           branchId: scope ? null : branch,
           from,
           to: addDays(from, 7),
@@ -932,7 +940,7 @@ export default function AdminDashboard({
       },
     });
   }
-  const available = tabs.filter((t) =>
+  const available = tabs.filter(t => product || !['operations','customers','notifications','settings'].includes(t[0])).filter((t) =>
     t[0] === "overview"
       ? actor?.assignments.some((x) =>
           ["business.read", "media.manage", "booking.read"].includes(
@@ -956,17 +964,7 @@ export default function AdminDashboard({
         aria-label="ناوبری مدیریت"
       >
         <a className="admin-brand" href="/">
-          <svg
-            width="35"
-            height="35"
-            viewBox="0 0 32 32"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.3"
-            aria-hidden="true"
-          >
-            <path d="m5 10 6 5 5-9 5 9 6-5-3 15H8z" />
-          </svg>
+          <BrandMark />
           <span>
             <strong>محمد استایل</strong>
             <small>مدیریت سالن</small>
@@ -995,7 +993,8 @@ export default function AdminDashboard({
         <div className="admin-sidebar-footer">
           <a href="/portfolio">مشاهدهٔ گالری عمومی ↗</a>
           <a href="/booking?mode=server">مسیر رزرو SERVER ↗</a>
-          <a href="/booking">مسیر رزرو DEMO ↗</a>
+          <a href={product ? '/booking?mode=demo' : '/booking'}>مسیر رزرو DEMO ↗</a>
+          {product && <a href="/account/security">امنیت حساب و نشست‌ها ↗</a>}
           <a href="/">بازگشت به خانه</a>
           {actor && (
             <button
@@ -1007,9 +1006,10 @@ export default function AdminDashboard({
                     data: {},
                     key: crypto.randomUUID(),
                   });
+                  if (mobileMenu) closeMenu();
                   setWorkspace(undefined);
                   setError(
-                    "نشست پایان یافت. برای ورود دوباره از ابزار محلی نشست استفاده کنید.",
+                    "نشست این مرورگر پایان یافت. برای ادامه دوباره وارد شوید.",
                   );
                 } catch (e) {
                   setError((e as Error).message);
@@ -1049,10 +1049,9 @@ export default function AdminDashboard({
         </header>
         <main id="admin-content" tabIndex={-1} className="admin-content">
           <div className="admin-environment">
-            <strong>محیط آزمایشی جداگانه</strong>
+            <strong>{product ? 'مدیریت مجموعه' : 'محیط آزمایشی جداگانه'}</strong>
             <span>
-              دادهٔ تجاری تأییدنشده را وارد نکنید. پرداخت و پیامک واقعی فعال
-              نیست.
+              دادهٔ تجاری و حقوق انتشار رسانه باید توسط مسئول مجموعه تأیید شوند.
             </span>
           </div>
           {error && (
@@ -1067,9 +1066,9 @@ export default function AdminDashboard({
                 تلاش دوباره
               </button>
               <p className="admin-muted">
-                ورود آزمایشی فقط با نشست تأییدشدهٔ ابزار محلی ممکن است؛ ورود
-                تولیدی پیاده‌سازی نشده است.
+                برای ورود در مرورگر دلخواه از حساب محلی محیط توسعه استفاده کنید.
               </p>
+              <a className="admin-button" href="/admin/login">ورود به مدیریت</a>
             </div>
           )}
           {actor && (
@@ -1077,6 +1076,7 @@ export default function AdminDashboard({
               <label>
                 شعبه
                 <select
+                  aria-label="شعبه"
                   value={scope ? "all" : (branch ?? "")}
                   onChange={(e) => {
                     setScope(e.target.value === "all");
@@ -1124,6 +1124,7 @@ export default function AdminDashboard({
                   cancel={() => setEditor(undefined)}
                 />
               )}
+              {product && ["operations","customers","notifications","settings"].includes(view) && <AdminOperations view={view} branch={scope ? null : branch} actor={actor}/>}
               {view === "overview" && (
                 <>
                   <div className="admin-metrics">
@@ -2009,7 +2010,7 @@ export default function AdminDashboard({
           )}
         </main>
         <footer className="admin-footer">
-          محمد استایل · مدیریت در محیط توسعهٔ جداگانه · نسخهٔ عمومی فقط رسانهٔ
+          محمد استایل · {product ? 'مدیریت مجموعه' : 'مدیریت در محیط توسعهٔ جداگانه'} · نسخهٔ عمومی فقط رسانهٔ
           دارای مجوز را نمایش می‌دهد.
         </footer>
       </div>

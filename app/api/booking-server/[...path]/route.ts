@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { productEnabled } from '@/lib/product/config';
+import { productProxy } from '@/lib/product/proxy';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 const routes = new Set(['read/catalog', 'read/history', 'read/booking', 'read/events', 'read/cancellation-preview', 'commands/availability', 'commands/quote', 'commands/draft', 'commands/hold', 'commands/confirm', 'commands/cancel', 'commands/reschedule']);
@@ -8,6 +10,7 @@ export async function POST(req: NextRequest, { params }: {
     }>;
 }) {
     const route = (await params).path.join('/');
+    if (productEnabled()) return productProxy(req, 'booking/' + route);
     const closed = () => NextResponse.json({ code: 'SERVER_MODE_DISABLED' }, { status: 404, headers: { 'Cache-Control': 'no-store' } });
     // No configurable upstream URL, production credential path, login or forwarded identity headers.
     // Next15 normalizes nextUrl.hostname to localhost even for a 127.0.0.1 request.

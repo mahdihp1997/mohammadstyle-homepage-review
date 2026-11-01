@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import BrandMark from "@/components/BrandMark";
 type Asset = {
   id: string;
   kind: "IMAGE" | "VIDEO";
@@ -83,7 +84,8 @@ export default function PortfolioGallery({ enabled }: { enabled: boolean }) {
     <div className="portfolio-page">
       <header className="portfolio-header">
         <a href="/" className="portfolio-brand">
-          محمد استایل<small>MOHAMMAD STYLE</small>
+          <BrandMark />
+          <span>محمد استایل<small>MOHAMMAD STYLE</small></span>
         </a>
         <a className="btn btn-ghost" href="/">
           بازگشت به خانه

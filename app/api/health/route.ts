@@ -1,0 +1,3 @@
+import{productBridge}from'@/lib/product/config';
+export const runtime='nodejs';export const dynamic='force-dynamic';
+export async function GET(){try{const cfg=productBridge();if(!cfg)throw Error();const r=await fetch(cfg.api+'/api/v1/product/public/health',{headers:{'x-product-bridge':cfg.key},cache:'no-store',redirect:'error',signal:AbortSignal.timeout(5000)});if(!r.ok||(await r.json()).status!=='ready')throw Error();return Response.json({status:'ready'},{headers:{'Cache-Control':'no-store'}});}catch{return Response.json({status:'unavailable'},{status:503,headers:{'Cache-Control':'no-store'}});}}

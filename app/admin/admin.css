@@ -87,6 +87,7 @@
 }
 .admin-brand strong {
   font: 700 24px var(--font-display);
+  white-space: nowrap;
 }
 .admin-brand small {
   display: block;
@@ -754,6 +755,13 @@
 @media (max-width: 1250px) {
   .admin-app {
     grid-template-columns: 215px minmax(0, 1fr);
+  }
+  .admin-brand strong {
+    font-size: 20px;
+  }
+  .admin-brand .brand-mark {
+    width: 44px;
+    height: 44px;
   }
   .admin-header {
     padding: 28px 24px;

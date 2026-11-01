@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "files": 1115,
+  "knownPrivateSecretsChecked": 59,
+  "privateAssetHashesChecked": 24,
+  "identicalLogicFiles": 290,
+  "publicBase": "3dfdab285efcba93c464531539257468649ffa22",
+  "privateGitObjectAbsent": true,
+  "limitations": "Known values/hash/signature/path checks, not a universal secret detector"
+}

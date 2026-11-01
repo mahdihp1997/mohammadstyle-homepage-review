@@ -1,0 +1,3 @@
+import {Pool}from'pg';import{loadProductConfig,productPoolOptions}from'../../dist/product/config.js';import{verifyRuntime}from'../../dist/product/readiness.js';
+const cfg=loadProductConfig(process.env,'worker'),pool=new Pool(productPoolOptions(cfg.database,'ms_product_worker',cfg.workerDatabasePassword));
+try{const r=(await pool.query('SELECT ms_b1_design.product_worker_runtime() r')).rows[0].r;verifyRuntime(r,cfg);const age=Date.now()-Date.parse(r.workerLastSuccess??'');if(!Number.isFinite(age)||age< -5000||age>120000)throw Error('WORKER_STALE');console.log('ready');}catch{console.error('not-ready');process.exitCode=1;}finally{await pool.end();}

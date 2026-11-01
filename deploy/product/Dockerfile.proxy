@@ -1,0 +1,19 @@
+# Official nginx source, pinned after HTTPS retrieval from nginx.org. The cached
+# registry stable image reported an outdated binary; do not rely on its tag.
+FROM node:24.16.0-bookworm-slim@sha256:2c87ef9bd3c6a3bd4b472b4bec2ce9d16354b0c574f736c476489d09f560a203 AS build
+RUN apt-get update && apt-get install --no-install-recommends -y gcc make libc6-dev libssl-dev libpcre2-dev zlib1g-dev curl ca-certificates && rm -rf /var/lib/apt/lists/*
+WORKDIR /build
+RUN curl --fail --silent --show-error --location -o nginx.tar.gz https://nginx.org/download/nginx-1.30.6.tar.gz \
+ && echo '3cf46f5ed7504d460125866b7bea99fb357f31d887e2e63b35503310e9b8b6c8  nginx.tar.gz' | sha256sum -c - \
+ && tar -xzf nginx.tar.gz \
+ && cd nginx-1.30.6 \
+ && ./configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --pid-path=/tmp/nginx.pid --error-log-path=/dev/stderr --http-log-path=/dev/stdout --http-client-body-temp-path=/tmp/nginx-client --http-proxy-temp-path=/tmp/nginx-proxy --user=node --group=node --with-http_ssl_module --with-http_v2_module --without-http_fastcgi_module --without-http_uwsgi_module --without-http_scgi_module \
+ && make -j2 && make install
+FROM node:24.16.0-bookworm-slim@sha256:2c87ef9bd3c6a3bd4b472b4bec2ce9d16354b0c574f736c476489d09f560a203
+RUN apt-get update && apt-get install --no-install-recommends -y libssl3 libpcre2-8-0 zlib1g gettext-base ca-certificates && rm -rf /var/lib/apt/lists/*
+COPY --from=build /usr/sbin/nginx /usr/sbin/nginx
+COPY --from=build /build/nginx-1.30.6/LICENSE /usr/share/doc/nginx/LICENSE
+COPY deploy/product/proxy-entrypoint.sh /opt/proxy-entrypoint.sh
+RUN mkdir -p /etc/nginx/templates /etc/nginx/conf.d
+EXPOSE 80 443
+ENTRYPOINT ["/bin/sh","/opt/proxy-entrypoint.sh"]

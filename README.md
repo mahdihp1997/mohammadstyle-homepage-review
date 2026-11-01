@@ -1,3 +1,7 @@
+# Current product review
+
+See [product report](docs/product/REPORT.md), [executed validation](docs/product/VALIDATION.md), [sanitized differences](docs/product/EXPORT.md), [security](docs/product/SECURITY.md) and [deployment runbook](docs/product/RUNBOOK.md). Current branch: `review/product-finalization`, based on the existing sanitized MVP review branch. The historical phase reports below remain historical evidence; no existing Draft PR is merged.
+
 # Mohammad Style — sanitized Phase 02 code review
 
 نسخه عمومی برای بررسی کد محمد استایل، شامل صفحه اصلی و پیش‌نمایش پنج‌مرحله‌ای رزرو. **این خروجی سایت آماده انتشار یا سامانه رزرو واقعی نیست.**

@@ -1,9 +1,10 @@
 import type { AvailabilityResult, FinalQuote, ServerCatalog, ServerBooking, CancellationPreview } from '@/types/booking-server';
+import { csrfToken } from '@/lib/product/client';
 export class BookingApiError extends Error {
     constructor(readonly code: string, readonly status: number) { super(code); }
 }
 async function request<T>(path: string, data: unknown, key?: string, signal?: AbortSignal): Promise<T> {
-    const csrf = document.cookie.split(';').map(x => x.trim()).find(x => x.startsWith('ms_csrf='))?.slice(8) ?? '';
+    const csrf = csrfToken();
     const r = await fetch('/api/booking-server/' + path, { method: 'POST', credentials: 'same-origin', cache: 'no-store', signal, headers: { 'content-type': 'application/json', 'x-csrf-token': csrf, ...(key ? { 'idempotency-key': key } : {}) }, body: JSON.stringify(data) });
     const result = await r.json() as T & {
         code?: string;

@@ -45,6 +45,7 @@ export default defineConfig({
     url: "http://127.0.0.1:3000",
     reuseExistingServer: !process.env.CI,
     env: {
+      MS_PRODUCT_ENABLED: "0", MS_PRIVATE_REVIEW_ASSETS: "1", MS_NEXT_DIST_DIR: ".next-review",
       MS_MVP_ENABLED: "1",
       MS_BOOKING_SERVER_ENABLED: "1",
       MS_BOOKING_SERVER_PROFILE: "mvp-local",

@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { productEnabled } from '@/lib/product/config';
+import { productProxy } from '@/lib/product/proxy';
 const id = "[a-f0-9-]{36}",
   patterns = [
     /^session(?:\/revoke)?$/,
@@ -16,9 +18,10 @@ const id = "[a-f0-9-]{36}",
     new RegExp(`^admin/media/view/${id}/(?:THUMB|DISPLAY|VIDEO)$`),
     /^booking\/commands\/configuration.enable$/,
   ];
+export const allowedMvpRoute = (route: string) => patterns.some(p => p.test(route));
 export function mvpEnabled() {
   return (
-    process.env.MS_MVP_ENABLED === "1" && process.env.NODE_ENV !== "production"
+    productEnabled() || (process.env.MS_MVP_ENABLED === "1" && process.env.NODE_ENV !== "production")
   );
 }
 export async function mvpProxy(
@@ -26,6 +29,7 @@ export async function mvpProxy(
   route: string,
   publicRoute = false,
 ) {
+  if (productEnabled()) return productProxy(req, route, publicRoute);
   const headers = {
       "Cache-Control": "no-store",
       "X-Content-Type-Options": "nosniff",

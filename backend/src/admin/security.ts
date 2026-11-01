@@ -1,4 +1,5 @@
 import { createHash, randomUUID } from 'node:crypto';
+import { isIP } from 'node:net';
 import { Catch, HttpException, Inject, Injectable, type ArgumentsHost, type CanActivate, type ExceptionFilter, type ExecutionContext } from '@nestjs/common';
 import { AdminRepository, type AdminOptions } from './repository.js';
 import type { SessionView } from './contracts.js';
@@ -28,12 +29,16 @@ class Limiter {
 @Injectable()
 export class SessionGuard implements CanActivate {
   private readonly limiter = new Limiter();
-  constructor(private readonly repository: AdminRepository,@Inject(ADMIN_OPTIONS) private readonly options: AdminOptions) {}
+  constructor(private readonly repository: AdminRepository,@Inject(ADMIN_OPTIONS) private readonly options: AdminOptions & { trustedProductPeer?: boolean }) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest<Request>(); const res = context.switchToHttp().getResponse<Response>();
     const requestId=req.requestId ?? randomUUID();
     res.setHeader('Cache-Control','no-store');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('X-Request-Id',requestId);
-    this.limiter.take('ip:'+req.socket.remoteAddress,240);
+    // Product middleware authenticates the private bridge before this guard. Its
+    // sole HTTP client is Next behind the proxy that overwrites X-Real-IP.
+    const peer = this.options.trustedProductPeer ? req.headers['x-product-peer'] : req.socket.remoteAddress;
+    if (this.options.trustedProductPeer && (typeof peer !== 'string' || !isIP(peer))) throw new HttpException('Forbidden',403);
+    this.limiter.take('ip:'+peer,240);
     const cookie = req.headers.cookie;
     const matches = typeof cookie === 'string' ? cookie.split(';').map(s=>s.trim()).filter(s=>s.startsWith('ms_session=')) : [];
     if (matches.length!==1 || !/^ms_session=[A-Za-z0-9_-]{43}$/.test(matches[0] ?? '')) throw new HttpException('Unauthenticated',401);
@@ -60,7 +65,7 @@ export class AdminExceptionFilter implements ExceptionFilter {
     if (status<400 || status>599) status=503;
     const response = host.switchToHttp().getResponse<Response>();
     const requestId=host.switchToHttp().getRequest<Request>().requestId ?? randomUUID();
-    event('b1b.http.denied_or_failed',{requestId,status});
+    event('b1b.http.denied_or_failed',{requestId,status,...(/^[0-9A-Z]{5}$/.test(e?.code??'')?{databaseCode:e.code!}:{})});
     response.setHeader('Cache-Control','no-store');
     if (status===429) response.setHeader('Retry-After','60');
     response.status(status).json({code:({401:'UNAUTHENTICATED',403:'FORBIDDEN',404:'NOT_FOUND',409:'CONFLICT',412:'STALE_VERSION',422:'INVALID_CONFIGURATION',429:'RATE_LIMITED'} as Record<number,string>)[status] ?? (status===503?'UNAVAILABLE':'INVALID_REQUEST'),message:'Request could not be completed',requestId,retryable:status===503 || status===429});

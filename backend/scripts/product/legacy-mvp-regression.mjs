@@ -1,0 +1,23 @@
+// Original MVP test bodies, a new isolated tmpfs cluster, routing changes only in copied helpers.
+import fs from'node:fs';import path from'node:path';import{spawnSync}from'node:child_process';import{randomBytes,createHash}from'node:crypto';import{root,folder,docker,save}from'./local.mjs';
+if(process.env.NODE_ENV==='production')throw Error('REGRESSION_ONLY');
+const dest=path.join(folder,'mvp-'+randomBytes(2).toString('hex')),project='mohammadstyle-product-mvp-regression';fs.mkdirSync(dest,{recursive:true});
+for(const name of['scripts','migrations','dist','test','prisma'])fs.cpSync(path.join(root,name),path.join(dest,name),{recursive:true});
+for(const name of['package.json','prisma.config.ts','.env.example','compose.mvp.yaml'])fs.copyFileSync(path.join(root,name),path.join(dest,name));
+fs.mkdirSync(path.join(dest,'local/mvp'),{recursive:true});fs.copyFileSync(path.join(root,'local/mvp/manual-login.sql'),path.join(dest,'local/mvp/manual-login.sql'));
+const docs=path.join(dest,'../docs/architecture/schema');fs.mkdirSync(docs,{recursive:true});for(const name of['draft-postgresql.sql','b1-draft-postgresql.sql','quote-content.schema.json','quote-hash-vectors.json'])fs.copyFileSync(path.join(root,'../docs/architecture/schema',name),path.join(docs,name));
+fs.symlinkSync(path.join(root,'node_modules'),path.join(dest,'node_modules'),process.platform==='win32'?'junction':'dir');
+const route=s=>s.replaceAll('55450','55470').replaceAll('mohammadstyle-mvp',project);
+const localSql=path.join(dest,'local/mvp/manual-login.sql');fs.writeFileSync(localSql,route(fs.readFileSync(localSql,'utf8')));
+for(const name of['local','infra','backup']){const file=path.join(dest,'scripts/mvp',name+'.mjs');fs.writeFileSync(file,route(fs.readFileSync(file,'utf8')));}
+function walk(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(dir,e.name)):[path.join(dir,e.name)]);}
+for(const file of walk(path.join(dest,'dist')).filter(f=>f.endsWith('.js')))fs.writeFileSync(file,route(fs.readFileSync(file,'utf8')));
+let yaml=route(fs.readFileSync(path.join(root,'compose.mvp.yaml'),'utf8')).replace('    volumes: ["mvp_pgdata:/var/lib/postgresql"]','    tmpfs: ["/var/lib/postgresql"]');yaml=yaml.slice(0,yaml.indexOf('\nvolumes:'))+'\n';if(!yaml.includes('tmpfs:')||yaml.includes('55450'))throw Error('UNSAFE_REGRESSION_COMPOSE');fs.writeFileSync(path.join(dest,'compose.mvp.yaml'),yaml);
+const sha=f=>createHash('sha256').update(fs.readFileSync(f)).digest('hex'),testBodies=['test','storage-test','schema-test','manual-login-test'].map(n=>'scripts/mvp/'+n+'.mjs'),hashes=Object.fromEntries(testBodies.map(f=>[f,sha(path.join(root,f))]));
+const commands=[['scripts/mvp/infra.mjs','env'],['scripts/mvp/infra.mjs','up'],['scripts/mvp/migrate.mjs'],['scripts/mvp/test.mjs'],['scripts/mvp/storage-test.mjs'],['scripts/mvp/schema-test.mjs'],['scripts/mvp/fixture.mjs'],['scripts/mvp/configure-login.mjs'],['scripts/mvp/manual-login-test.mjs']];
+let passed=false;try{for(const args of commands){console.log('RUN '+args[0]);const r=spawnSync(process.execPath,args,{cwd:dest,env:{...process.env,APP_ENV:'mvp-local'},encoding:'utf8',timeout:1200000,maxBuffer:20*1024*1024,windowsHide:true});process.stdout.write((r.stdout??'')+(r.stderr??''));if(r.status!==0)throw Error('Original MVP regression failed: '+args[0]);}
+ for(const f of testBodies)if(sha(path.join(dest,f))!==hashes[f])throw Error('Original test body changed');
+ const results=path.join(dest,'.local/mvp/results');for(const name of fs.readdirSync(results).filter(n=>n.endsWith('.json')))save('legacy-mvp-'+name,JSON.parse(fs.readFileSync(path.join(results,name))));
+ save('legacy-mvp-harness.json',{status:'PASS',originalTestBodies:hashes,originalDatabasesTouched:false,port:55470,storage:'dedicated tmpfs'});passed=true;
+ if(process.argv.includes('--keep-for-ui')){fs.writeFileSync(path.join(folder,'legacy-mvp-source.json'),JSON.stringify({dest,project,port:55470}));const target=path.join(root,'.local/mvp');fs.mkdirSync(target,{recursive:true});for(const name of['review-session.json','public-tenant.json','login-bridge.json','manual-login.json','owner-login.txt'])fs.copyFileSync(path.join(dest,'.local/mvp',name),path.join(target,name));console.log('Isolated legacy fixture ready for unchanged browser regression; credentials withheld.');}
+}finally{if(!passed||!process.argv.includes('--keep-for-ui')){const r=spawnSync(docker,['compose','-p',project,'-f',path.join(dest,'compose.mvp.yaml'),'--env-file',path.join(dest,'.env.mvp.local'),'down','--volumes'],{stdio:'inherit',windowsHide:true});if(r.status!==0)throw Error('Regression scratch cleanup failed');}}

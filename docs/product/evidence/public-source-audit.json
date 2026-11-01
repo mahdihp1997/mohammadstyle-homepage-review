@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "files": 1115,
+  "knownLocalSecretsChecked": 0,
+  "first15MigrationsUnchanged": true,
+  "allOriginalTestBodiesUnchanged": true,
+  "note": "Known-value/signature/path checks; not a universal proof of absence of every possible secret."
+}

@@ -1,0 +1,22 @@
+{
+  "kind": "ACTUAL_POSTGRES18_MIGRATION_TRANSACTIONS",
+  "passed": 4,
+  "tests": [
+    {
+      "name": "An actual failing final PostgreSQL statement rolls back the entire initial migration batch",
+      "passed": true
+    },
+    {
+      "name": "Two concurrent real migration clients serialize; each migration applies exactly once",
+      "passed": true
+    },
+    {
+      "name": "Changed historical content is rejected even when a replacement checksum is self-consistent",
+      "passed": true
+    },
+    {
+      "name": "Noncontiguous registry identity is rejected before executing SQL",
+      "passed": true
+    }
+  ]
+}

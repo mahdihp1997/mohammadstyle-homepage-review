@@ -7,7 +7,7 @@ export default defineConfig({
   timeout: 60_000,
   reporter: [["list"], ["json", { outputFile: "artifacts/codex-playwright-results.json" }]],
   use: {
-    baseURL: "http://127.0.0.1:3010",
+    baseURL: "http://127.0.0.1:3000",
     browserName: "chromium",
     channel: process.env.PLAYWRIGHT_CHANNEL || undefined,
     reducedMotion: "reduce",
@@ -22,9 +22,10 @@ export default defineConfig({
     { name: "mobile-small", use: { viewport: { width: 375, height: 812 }, hasTouch: true, isMobile: true } },
   ],
   webServer: {
-    command: "npm run dev -- --hostname 127.0.0.1 --port 3010",
-    url: "http://127.0.0.1:3010",
+    command: "npm run dev -- --hostname 127.0.0.1",
+    url: "http://127.0.0.1:3000",
     reuseExistingServer: !process.env.CI,
+    env:{MS_PRODUCT_ENABLED:'0',MS_PRIVATE_REVIEW_ASSETS:'1',MS_NEXT_DIST_DIR:'.next-review'},
     timeout: 120_000,
   },
 });

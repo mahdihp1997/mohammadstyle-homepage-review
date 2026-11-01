@@ -1,0 +1,178 @@
+name: mohammadstyle-product
+x-runtime: &runtime
+  APP_ENV: ${PRODUCT_ENV:?staging or production}
+  PUBLIC_ORIGIN: ${PUBLIC_ORIGIN:?HTTPS origin}
+  PRODUCT_BUSINESS_ID: ${PRODUCT_BUSINESS_ID:?business UUID}
+  PGHOST: postgres
+  PGPORT: "5432"
+  PGDATABASE: ${PGDATABASE:?explicit database}
+  PGSSL_CA_FILE: /run/secrets/pg_ca
+  PRODUCT_MEDIA_ROOT: /data/media
+  SMS_PROVIDER: ${SMS_PROVIDER:-none}
+  PAYMENT_PROVIDER: none
+  SMS_OTP_TEMPLATE: ${SMS_OTP_TEMPLATE:-}
+  SMS_SENDER: ${SMS_SENDER:-}
+services:
+  postgres:
+    image: postgres:18.6-bookworm@sha256:5c4783a8cc3f0074912164f94dfa1be4e043438f0f707cf968d7af9a0d31a2c8
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ms_b1a_admin
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/admin_password
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256 --auth-local=scram-sha-256
+    entrypoint: ["/bin/sh", "/opt/ms-postgres-entrypoint.sh"]
+    secrets: [admin_password, pg_cert, pg_key]
+    volumes:
+      - pgdata:/var/lib/postgresql
+      - ./postgres-entrypoint.sh:/opt/ms-postgres-entrypoint.sh:ro
+      - ./pg_hba.conf:/opt/ms-pg-hba.conf:ro
+    networks: [database]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U ms_b1a_admin -d postgres"]
+      interval: 5s
+      retries: 30
+  provision:
+    image: mohammadstyle-api:${RELEASE_TAG:-local}
+    build: {context: ../.., dockerfile: backend/Dockerfile.product}
+    profiles: [operator]
+    environment:
+      <<: *runtime
+      PRODUCT_ADMIN_PASSWORD_FILE: /run/secrets/admin_password
+      PRODUCT_MIGRATOR_PASSWORD_FILE: /run/secrets/migrator_password
+      PRODUCT_RUNTIME_PASSWORD_FILE: /run/secrets/runtime_password
+      PRODUCT_API_PASSWORD_FILE: /run/secrets/api_password
+      PRODUCT_AUTH_PASSWORD_FILE: /run/secrets/auth_password
+      PRODUCT_WORKER_PASSWORD_FILE: /run/secrets/worker_password
+    secrets: [pg_ca, admin_password, migrator_password, runtime_password, api_password, auth_password, worker_password]
+    command: [node, scripts/product/provision.mjs]
+    networks: [database]
+    depends_on: {postgres: {condition: service_healthy}}
+  migrate:
+    image: mohammadstyle-api:${RELEASE_TAG:-local}
+    build: {context: ../.., dockerfile: backend/Dockerfile.product}
+    environment:
+      <<: *runtime
+      PRODUCT_MIGRATOR_PASSWORD_FILE: /run/secrets/migrator_password
+      PRODUCT_IDENTITY_KEY_FILE: /run/secrets/identity_key
+    secrets: [pg_ca, migrator_password, identity_key]
+    command: [node, scripts/product/deploy-migrate.mjs]
+    networks: [database]
+    depends_on: {postgres: {condition: service_healthy}}
+  media-init:
+    image: mohammadstyle-api:${RELEASE_TAG:-local}
+    user: "0:0"
+    command: [sh, -c, "chown node:node /data/media && chmod 700 /data/media"]
+    volumes: [media:/data/media]
+    network_mode: none
+  api:
+    image: mohammadstyle-api:${RELEASE_TAG:-local}
+    restart: unless-stopped
+    read_only: true
+    tmpfs: ["/tmp:size=512m,mode=1777"]
+    environment:
+      <<: *runtime
+      PRODUCT_API_PASSWORD_FILE: /run/secrets/api_password
+      PRODUCT_AUTH_PASSWORD_FILE: /run/secrets/auth_password
+      PRODUCT_BRIDGE_KEY_FILE: /run/secrets/bridge_key
+      PRODUCT_ENCRYPTION_KEY_FILE: /run/secrets/encryption_key
+      PRODUCT_IDENTITY_KEY_FILE: /run/secrets/identity_key
+      PRODUCT_OTP_KEY_FILE: /run/secrets/otp_key
+    secrets: [pg_ca, api_password, auth_password, bridge_key, encryption_key, identity_key, otp_key]
+    volumes: [media:/data/media]
+    networks: [application, database]
+    depends_on: {migrate: {condition: service_completed_successfully}, media-init: {condition: service_completed_successfully}}
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:3116/health/live').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 15s
+      retries: 5
+  worker:
+    image: mohammadstyle-api:${RELEASE_TAG:-local}
+    restart: unless-stopped
+    read_only: true
+    tmpfs: ["/tmp:size=32m,mode=1777"]
+    environment:
+      <<: *runtime
+      PRODUCT_WORKER_PASSWORD_FILE: /run/secrets/worker_password
+      PRODUCT_ENCRYPTION_KEY_FILE: /run/secrets/encryption_key
+    secrets: [pg_ca, worker_password, encryption_key]
+    command: [node, dist/product/worker-main.js]
+    networks: [application, database]
+    depends_on: {migrate: {condition: service_completed_successfully}}
+    healthcheck:
+      test: [CMD, node, scripts/product/health.mjs]
+      interval: 30s
+      retries: 3
+  web:
+    image: mohammadstyle-web:${RELEASE_TAG:-local}
+    build: {context: ../.., dockerfile: Dockerfile.web}
+    restart: unless-stopped
+    read_only: true
+    tmpfs: ["/tmp:size=32m,mode=1777"]
+    environment:
+      MS_PRODUCT_ENABLED: "1"
+      PRODUCT_ENV: ${PRODUCT_ENV}
+      PUBLIC_ORIGIN: ${PUBLIC_ORIGIN}
+      PRODUCT_API_ORIGIN: http://api:3116
+      PRODUCT_BRIDGE_KEY_FILE: /run/secrets/bridge_key
+      MS_PRODUCT_PUBLISH: ${MS_PRODUCT_PUBLISH:-0}
+    secrets: [bridge_key]
+    networks: [application]
+    depends_on: {api: {condition: service_healthy}, worker: {condition: service_healthy}}
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:3000/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 20s
+      retries: 5
+  backup:
+    image: mohammadstyle-api:${RELEASE_TAG:-local}
+    profiles: [operator]
+    read_only: true
+    tmpfs: ["/tmp:size=32m,mode=1777"]
+    environment:
+      <<: *runtime
+      PRODUCT_MIGRATOR_PASSWORD_FILE: /run/secrets/migrator_password
+      BACKUP_ENCRYPTION_KEY_FILE: /run/secrets/backup_key
+      BACKUP_DIRECTORY: /backups/${BACKUP_SET:-new-backup}
+      RESTORE_TARGET_DATABASE: ${RESTORE_TARGET_DATABASE:-}
+    secrets: [pg_ca, migrator_password, backup_key]
+    volumes: [media:/data/media, '${BACKUP_ROOT:?private writable backup directory}:/backups']
+    networks: [database]
+    command: [node, scripts/product/backup.mjs, backup]
+  proxy:
+    image: mohammadstyle-proxy:${RELEASE_TAG:-local}
+    build: {context: ../.., dockerfile: deploy/product/Dockerfile.proxy}
+    restart: unless-stopped
+    environment:
+      PUBLIC_HOST: ${PUBLIC_HOST:?hostname only}
+      PUBLIC_ORIGIN: ${PUBLIC_ORIGIN}
+      NGINX_ENVSUBST_FILTER: PUBLIC_HOST|PUBLIC_ORIGIN
+    secrets: [https_cert, https_key]
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${HTTP_PORT:-8080}:80"
+      - "${BIND_ADDRESS:-127.0.0.1}:${HTTPS_PORT:-8443}:443"
+    volumes: [./nginx.conf.template:/etc/nginx/templates/default.conf.template:ro]
+    networks: [application]
+    depends_on: {web: {condition: service_healthy}}
+networks:
+  database: {internal: true}
+  application: {}
+volumes:
+  pgdata: {}
+  media: {}
+secrets:
+  admin_password: {file: '${SECRETS_DIR:?private absolute directory}/admin_password'}
+  migrator_password: {file: '${SECRETS_DIR}/migrator_password'}
+  runtime_password: {file: '${SECRETS_DIR}/runtime_password'}
+  api_password: {file: '${SECRETS_DIR}/api_password'}
+  auth_password: {file: '${SECRETS_DIR}/auth_password'}
+  worker_password: {file: '${SECRETS_DIR}/worker_password'}
+  bridge_key: {file: '${SECRETS_DIR}/bridge_key'}
+  encryption_key: {file: '${SECRETS_DIR}/encryption_key'}
+  identity_key: {file: '${SECRETS_DIR}/identity_key'}
+  otp_key: {file: '${SECRETS_DIR}/otp_key'}
+  backup_key: {file: '${SECRETS_DIR}/backup_key'}
+  pg_ca: {file: '${SECRETS_DIR}/pg_ca.crt'}
+  pg_cert: {file: '${SECRETS_DIR}/pg_server.crt'}
+  pg_key: {file: '${SECRETS_DIR}/pg_server.key'}
+  https_cert: {file: '${SECRETS_DIR}/https.crt'}
+  https_key: {file: '${SECRETS_DIR}/https.key'}
