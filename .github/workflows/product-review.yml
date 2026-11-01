@@ -43,6 +43,7 @@ jobs:
           npm --prefix backend run typecheck
           npm --prefix backend run build
           node backend/scripts/product/private-review-test.mjs
+          node backend/scripts/product/request-uuid-test.mjs
           npm --prefix backend run product:audit
       - name: Prepare isolated PostgreSQL and HTTP provider
         working-directory: backend

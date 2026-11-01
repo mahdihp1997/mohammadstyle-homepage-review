@@ -1,4 +1,5 @@
 "use client";
+import {requestUuid} from '@/lib/request-uuid';
 import { useRef, useState, type FormEvent } from "react";
 import type { Editor, PortalWrite } from "./types";
 import { api, text, statuses, type Row } from "@/lib/mvp/client";
@@ -42,7 +43,7 @@ export default function MediaPanel({
         r.onerror = () => reject(Error("خواندن فایل ممکن نشد."));
         r.readAsDataURL(file);
       });
-      key.current ||= crypto.randomUUID();
+      key.current ||= requestUuid();
       setProgress("در حال انتقال و تولید نسخه‌های بهینه روی سرور…");
       const result = await api<{ items: Row[] }>("admin/media/upload", {
         method: "POST",
@@ -245,7 +246,7 @@ export default function MediaPanel({
               disabled={busy}
               onChange={(e) => {
                 setFile(e.target.files?.[0]);
-                key.current = crypto.randomUUID();
+                key.current = requestUuid();
                 setError("");
               }}
             />

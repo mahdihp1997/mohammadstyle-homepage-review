@@ -1,4 +1,5 @@
 "use client";
+import {requestUuid} from '@/lib/request-uuid';
 import { useEffect, useRef, useState } from 'react';
 import Icon from '@/components/Icon';
 import BrandMark from '@/components/BrandMark';
@@ -84,7 +85,7 @@ export default function ServerBookingWizard({ product = false, rescheduleId = nu
         const body = JSON.stringify(data), mapKey = op + ':' + intent + ':' + body;
         let key = keys.current.get(mapKey);
         if (!key) {
-            key = crypto.randomUUID();
+            key = requestUuid();
             keys.current.set(mapKey, key);
         }
         return serverBooking.command(op, data, key);

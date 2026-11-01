@@ -1,4 +1,5 @@
 "use client";
+import {requestUuid} from '@/lib/request-uuid';
 import { useEffect, useRef, useState } from "react";
 import BrandMark from "@/components/BrandMark";
 import { AdminForm, type Field, type Option, type Values } from "./AdminForm";
@@ -1004,7 +1005,7 @@ export default function AdminDashboard({
                   await api("session/revoke", {
                     method: "POST",
                     data: {},
-                    key: crypto.randomUUID(),
+                    key: requestUuid(),
                   });
                   if (mobileMenu) closeMenu();
                   setWorkspace(undefined);

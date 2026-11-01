@@ -1,3 +1,4 @@
+import {requestUuid} from '@/lib/request-uuid';
 import type { AvailabilityResult, FinalQuote, ServerCatalog, ServerBooking, CancellationPreview } from '@/types/booking-server';
 import { csrfToken } from '@/lib/product/client';
 export class BookingApiError extends Error {
@@ -15,8 +16,8 @@ async function request<T>(path: string, data: unknown, key?: string, signal?: Ab
 }
 export const serverBooking = {
     catalog: (signal?: AbortSignal) => request<ServerCatalog>('read/catalog', { entityId: null, pageOffset: 0 }, undefined, signal),
-    availability: (data: unknown, signal?: AbortSignal) => request<AvailabilityResult>('commands/availability', data, crypto.randomUUID(), signal),
-    quote: (id: string, signal?: AbortSignal) => request<FinalQuote>('commands/quote', { planId: id }, crypto.randomUUID(), signal),
+    availability: (data: unknown, signal?: AbortSignal) => request<AvailabilityResult>('commands/availability', data, requestUuid(), signal),
+    quote: (id: string, signal?: AbortSignal) => request<FinalQuote>('commands/quote', { planId: id }, requestUuid(), signal),
     command: (op: string, data: unknown, key: string) => request<ServerBooking>('commands/' + op, data, key),
     history: () => request<{
         items: ServerBooking[];
