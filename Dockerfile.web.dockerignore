@@ -18,6 +18,7 @@ app/fonts/**
 !data/
 data/**
 !data/site.ts
+!data/salon.ts
 !data/booking-demo.ts
 !data/business-facts.json
 !public/

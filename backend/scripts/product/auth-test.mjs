@@ -52,7 +52,7 @@ try{
  });
  await test('verified OTP creates a single canonical customer and existing core session authorization accepts it',async()=>{
   const f=await customer(),a=(await api.query('SELECT ms_b1_design.b1b_session($1) r',[digest(f.result.session.token)])).rows[0].r;
-  assert.equal(a.userId,f.result.userId);assert.equal(a.businessId,cfg.businessId);assert.ok(a.assignments.every(x=>x.permission==='booking.customer'));
+  assert.equal(a.userId,f.result.userId);assert.equal(a.businessId,cfg.businessId);assert.deepEqual([...new Set(a.assignments.map(x=>x.permission))].sort(),['booking.customer','shop.customer']);assert.ok(a.assignments.every(x=>x.branchId===null&&x.role==='CUSTOMER'));
   const count=(await db.query("SELECT count(*)::int n FROM ms_b1_design.auth_identity WHERE provider='IRAN_MOBILE' AND subject_hash=$1",[keyed(cfg.identityKey,'mobile',normalizeMobile(f.mobile))])).rows[0].n;assert.equal(count,1);
  });
  await test('expired and consumed OTPs fail and consumed encrypted code material is erased',async()=>{

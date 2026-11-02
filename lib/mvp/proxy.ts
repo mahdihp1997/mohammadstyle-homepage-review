@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import {mvpReviewOrigin} from './review-origin';
 import { productEnabled } from '@/lib/product/config';
 import { productProxy } from '@/lib/product/proxy';
 const id = "[a-f0-9-]{36}",
@@ -88,7 +89,7 @@ export async function mvpProxy(
     body = Buffer.concat(chunks).toString("utf8");
   }
   const upstreamHeaders: Record<string, string> = {
-    origin: "http://127.0.0.1:3112",
+    origin: mvpReviewOrigin(),
     "sec-fetch-site": "same-origin",
   };
   if (!publicRoute) upstreamHeaders.cookie = "ms_session=" + cookies[0].value;
@@ -103,7 +104,7 @@ export async function mvpProxy(
     upstreamHeaders.range = req.headers.get("range")!;
   try {
     const r = await fetch(
-      "http://127.0.0.1:3112/api/v1/" + route + req.nextUrl.search,
+      mvpReviewOrigin()+"/api/v1/" + route + req.nextUrl.search,
       {
         method: req.method,
         headers: upstreamHeaders,

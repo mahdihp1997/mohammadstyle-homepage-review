@@ -1,5 +1,13 @@
 # VISUAL CONTRACT — محمد استایل (LOCKED v1)
 
+## Owner reaffirmed the product visual baseline — 2026-11-01
+
+Owner instruction: «همین ظاهر قبلی با عکس‌ها و قبل‌وبعد رو نگه دار، امکانات جدید رزرو و پنل مدیریت هم روی همین نسخه باشه. دیگه ظاهر تأییدشده رو تغییر نده.»
+
+The restored private Homepage at b8853e9231f8610a6d7f171ff801a0adc258bdeb is the visual baseline. Preserve photographs, before/after interaction, gallery/filters, service imagery, fonts, image crops, spacing, branding and dark/champagne styling. New Booking, accounts and admin remain integrated with this version. Functional fixes retain this appearance; a redesign requires an explicit new owner request.
+
+The sanitized public review must not replace the private product preview. Internal four-size reference captures at local outputs/product-final-review/restored-private-homepage contain private client photos and stay outside Git/public packages. This instruction does not grant public photo/font rights or deployment approval. Existing rights and production protections remain in force.
+
 ## Status
 - **APPROVED visual direction**: dark cinematic luxury; black/charcoal, champagne gold accents, authentic barbershop imagery, sophisticated RTL typography.
 - These references are **binding design targets**, not generic inspiration. No unapproved redesigns, pastel palettes, neon palettes, generic dashboards, floating decorative blobs, or interchangeable AI stock photos.
@@ -42,8 +50,38 @@ The owner explicitly requested generating relevant photographs for the remaining
 
 The owner also identified the person in `groom-look.webp` as the barber: label that asset as the barber's portrait, not a customer grooming result or groom-service sample. No staff name or credentials are inferred.
 
-## Owner-authorized Phase 02 and public export — 2026-10-29
+## Owner-authorized Phase 02 amendment — 2026-10-29
 
-The owner authorized the existing private Homepage as the visual baseline for the dedicated five-step `/booking` frontend. Explicitly labeled fictional fixtures demonstrate staff eligibility, demo times and opt-in prices/durations/policy arithmetic; default real values remain unknown. No real appointments, policy enforcement, transactions, APIs, database or messaging are implemented.
+The current user request identifies the existing internal Homepage as the approved baseline and authorizes only a dedicated five-step `/booking` frontend. Preserve the Homepage and locked visual language. Explicitly labeled fictional fixtures may demonstrate staff eligibility, appointment times, hypothetical prices/durations and policy arithmetic; they are not confirmed business data. Defaults must show unknown real values. No real appointments, policy enforcement, financial transactions, APIs, database or messaging. Existing private image/font restrictions remain. Stop for owner visual and technical review after Phase 02; do not merge or push internal history/assets to the public review export.
 
-This public review export intentionally retains sanitized Phase 01 placeholders and Tahoma/Arial/system fonts. Private photographs, font binaries, reference images and screenshot evidence are withheld. Placeholder alt text/captions disclose the substitution. Layout/color/booking CSS remain from the original implementation; do not infer pixel-level photographic or typographic fidelity from this copy. See `PHASE02_PUBLIC_REVIEW.md` for the exact differences. Stop at a draft review PR; no merge or Phase 03.
+
+## Owner supplied logo amendment — 2026-10-31
+
+The owner explicitly requested the supplied Mohammad Style identity board as the site logo. Use the isolated gold MS/hair/beard monogram beside the existing live brand text in header, footer, Booking, admin and portfolio, and as browser/Apple icons. This authorizes replacing the prior decorative crown brand mark only; preserve the approved layouts, typography, business facts and operational behavior. Do not infer the board badge's EST 2024 or other decorative statements as verified business facts. See BRAND_LOGO.md and data/brand-logo-provenance.json.
+
+
+## Owner requested local manual login — 2026-10-31
+
+The owner authorized a manual administrator login in an independently chosen browser for the current isolated development environment. /admin/login reuses the existing logo, typography, charcoal/champagne palette and accessible RTL controls. This authorizes the local review credential/session entry only; it does not approve production identity/authentication bypass, new commercial data or changes to Homepage/Booking. See backend/mvp-integration/LOCAL_REVIEW_LOGIN.md.
+
+## Owner-requested product refinements — 2026-11-01
+
+The owner explicitly requested the two supplied IMG_2779/2781 photos, a one-line “فراتر از یک آرایشگاه” hero phrase, manual photo choices pending a future background video, varied craft imagery, a larger Instagram-gradient CTA, removal of visible “تصویر مفهومی”/“ارسالی کارفرما” and prototype presentation labels, mobile-friendly Before/After with clipped endpoint labels, About/Contact/Barbers pages, decorative salon tools, a split login and an optional persistent light admin theme. These are authorized amendments to the photographic baseline; preserve all other layouts, six services, facts and Booking/authentication behavior. Generated service illustrations remain documented accurately in alt text and provenance and never become authentic portfolio results. Private original/derivative photos remain development-gated and excluded from public review/production packages. No staff names, credentials, phone or opening hours are supplied; do not invent them. No video has yet been supplied; the media component supports an optional approved source, reduced motion and pause, with real photos as the current fallback. Automatic customer OTP filling is an explicit, default-off isolated development/mock-SMS option, never production authentication.
+
+## Confirmed owner media and facts — 2026-11-01, later clarification
+
+The owner supplied two actual films and confirmed the unit (thousands of Toman) and photo-to-staff mapping. `IMG_2803/2804` depict Amir; `IMG_2805/2806` depict Mohammad. These are alternative portraits, never hair Before/After pairs. Mohammad/Amir contact numbers and three provider-specific haircut rates are recorded in `data/business-facts.json`; Amirhossein has no supplied portrait or phone. The four care prices and the massage's 60-minute duration are confirmed; the groom package remains consultation-only. Do not infer qualifications, service duration, staff branch assignment, working hours, deposit or refund rules from this update.
+
+Owner-authorized visual amendment: the closer work film becomes a short muted/blurred hero loop, the wider salon film a separate About chapter with text overlay; full original-length optimized films are available with native controls in the internal gallery. Posters, explicit pause, offscreen/tab pause, reduced-motion and save-data behavior are required. All originals are preserved unchanged; metadata-stripped derivatives remain internal review assets. This supersedes the earlier 'no video/staff data supplied' notes. Publication rights are still unconfirmed; none of these photos, movies, posters or screenshots may enter the public export or deployment package.
+
+## Later owner corrections — 2026-11-02
+
+This supersedes the hero/media and missing branch-name presentation above. The hero uses a restrained automatic three-photo crossfade, without a selection picker, video or “سالن ممتاز پونک” subtitle. Hover/offscreen/hidden-tab pause and a static reduced-motion first frame are implemented. The closer work film belongs behind “هنر ما در جزئیات است”; the owner explicitly requested removing its visible pause button. Reduced-motion/save-data retains the poster and offscreen/tab pause remains. The About film and full gallery videos retain their controls. Replace the decorative line-art comb/scissors with the generated photographic cutout in data/barber-tools-provenance.json. Remove repeated diagonal arrows and the three comparison preset buttons; retain the actual touch/keyboard Before/After slider. The portfolio title is “گالری تصاویر”.
+
+The owner confirmed the second branch name فرشته and requested removing synthetic business data from the active owner dataset. Only پونک and فرشته are seeded for new owner installations; no Fereshteh address, working hours, service assignment or commercial policy is inferred. Preserve supplied menu/contact/staff facts. Regression fixtures remain confined to disposable test databases, never the active owner database.
+
+The owner separately authorized a server-hosted employer review on a separate port, while preserving the other site. This permits an access-controlled private review instance, not public media publication or production activation. No private assets enter GitHub or the public source ZIP. Existing production/authentication guards remain unchanged.
+
+## Current owner-authorized refinements — 2026-11-02
+
+Later requests supersede the three-photo, photographic-tool and About-control descriptions above: four hero photos,3200ms rotation, horizontal swipe, bounded photo/copy columns, a refined hero-only vector watermark, restored original line-art tools and no About overlay pause button. Reduced motion, offscreen/tab pause and native gallery controls remain. Contact, sticky public navigation, common footer and editorial Journal refinements are explicitly owner requested; the remainder of the approved Homepage is preserved. Open-IP HTTPS8446 review access was explicitly requested; remove only the outer gate, preserve application authentication. No private photos/fonts/history in public Git/ZIP. See VISUAL_REVIEW.md and OWNER_REVIEW_SAMPLE.md for sample configuration boundaries.

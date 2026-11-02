@@ -2,15 +2,16 @@ import fs from "node:fs";
 import path from "node:path";
 import { randomBytes, randomUUID } from "node:crypto";
 import { spawnSync } from "node:child_process";
-import { root, folder, environmentFile, docker, readEnvironment, client, databases, marker } from "./local.mjs";
+import { root, folder, environmentFile, docker, readEnvironment, client, databases, marker, testProject } from "./local.mjs";
 if (process.env.NODE_ENV === "production" || ![undefined, "product-test"].includes(process.env.APP_ENV)) throw Error("Isolated product infrastructure only");
 const op = process.argv[2];
 if (op === "env") {
   fs.mkdirSync(folder, { recursive: true });
   if (fs.existsSync(environmentFile)) { readEnvironment(); console.log("Existing isolated product secrets preserved"); }
   else {
-    const values = { APP_ENV: "product-test", PGHOST: "127.0.0.1", PGPORT: "55460", PGDATABASE: "ms_product_test", PUBLIC_ORIGIN: "http://127.0.0.1:3006", PRODUCT_API_PORT: "3116",
-      PRODUCT_BUSINESS_ID: randomUUID(), PRODUCT_MEDIA_ROOT: path.join(folder, "media"), SMS_PROVIDER: "mock", PAYMENT_PROVIDER: "mock", MOCK_GATEWAY_ORIGIN: "http://127.0.0.1:3117" };
+    const manual=process.env.PRODUCT_TEST_PROFILE==='manual';
+    const values = { PRODUCT_TEST_PROFILE:manual?'manual':'default', APP_ENV: "product-test", PGHOST: "127.0.0.1", PGPORT: manual?"55461":"55460", PGDATABASE: "ms_product_test", PUBLIC_ORIGIN: manual?"http://127.0.0.1:3007":"http://127.0.0.1:3006", PRODUCT_API_PORT: manual?"3119":"3116",
+      PRODUCT_BUSINESS_ID: randomUUID(), PRODUCT_MEDIA_ROOT: path.join(folder, "media"), SMS_PROVIDER: "mock", PAYMENT_PROVIDER: "mock", MOCK_GATEWAY_ORIGIN: manual?"http://127.0.0.1:3120":"http://127.0.0.1:3117" };
     for (const role of ["ADMIN", "MIGRATOR", "RUNTIME", "API", "AUTH", "WORKER"]) values["PRODUCT_" + role + "_PASSWORD"] = randomBytes(32).toString("hex");
     for (const key of ["BRIDGE", "ENCRYPTION", "IDENTITY", "OTP"]) values["PRODUCT_" + key + "_KEY"] = randomBytes(32).toString("base64url");
     fs.writeFileSync(environmentFile, Object.entries(values).map(([k, v]) => k + "=" + v).join("\n") + "\n", { mode: 0o600 });
@@ -18,7 +19,7 @@ if (op === "env") {
   }
 } else if (op === "up" || op === "stop") {
   readEnvironment();
-  const result = spawnSync(docker, ["compose", "--env-file", environmentFile, "-f", path.join(root, "compose.product-test.yml"), "-p", "mohammadstyle-product-test", ...(op === "up" ? ["up", "-d", "--wait"] : ["stop"])], { cwd: root, stdio: "inherit", windowsHide: true });
+  const result = spawnSync(docker, ["compose", "--env-file", environmentFile, "-f", path.join(root, "compose.product-test.yml"), "-p", testProject(), ...(op === "up" ? ["up", "-d", "--wait"] : ["stop"])], { cwd: root, stdio: "inherit", windowsHide: true });
   if (result.status !== 0) throw Error("Product test container operation failed");
 } else if (op === "db") {
   const values = readEnvironment(), admin = client("ms_product_control", "admin");

@@ -1,3 +1,4 @@
+import {privateReviewAssets} from '@/lib/product/assets';
 import type { Metadata } from "next";
 import AdminLogin from "@/components/admin/AdminLogin";
 import { localLoginBridge } from "@/lib/mvp/local-login";
@@ -8,4 +9,4 @@ import "./login.css";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "ورود مدیریت | محمد استایل", robots: { index: false, follow: false } };
-export default async function LoginPage({searchParams}:{searchParams:Promise<{enroll?:string;next?:string}>}) { const query=await searchParams;return productEnabled()?<AuthForm mode="admin" next={query.next??"/admin"} enrollMfa={query.enroll==="1"}/>:<AdminLogin enabled={!!localLoginBridge()} />; }
+export default async function LoginPage({searchParams}:{searchParams:Promise<{enroll?:string;next?:string}>}) { const query=await searchParams;return productEnabled()?<AuthForm privateAssets={privateReviewAssets()} mode="admin" next={query.next??"/admin"} enrollMfa={query.enroll==="1"}/>:<AdminLogin enabled={!!localLoginBridge()} />; }

@@ -9,6 +9,7 @@ import {
   GetObjectCommand,
   GetBucketPolicyCommand,
   GetBucketAclCommand,
+  DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
 export interface ByteRange {
   start: number;
@@ -20,15 +21,17 @@ export interface MediaStorage {
   close?(): void;
   put(key: string, bytes: Buffer, mime: string): Promise<void>;
   read(key: string, range?: ByteRange): Promise<Readable>;
+  deleteReceipt?(key: string): Promise<void>;
 }
 const keyPattern =
   /^[a-f0-9-]{36}\/[a-f0-9-]{36}\/[a-f0-9]{64}\/(?:original\.(?:bin|mp4|mov|webm)|thumb\.webp|display\.webp|video\.mp4)$/;
 export const sha = (data: Buffer | string) =>
   createHash("sha256").update(data).digest("hex");
 export function validKey(key: string) {
-  if (!keyPattern.test(key)) throw Error("Invalid immutable storage key");
+  if (!keyPattern.test(key) && !receiptKeyPattern.test(key)) throw Error("Invalid immutable storage key");
   return key;
 }
+const receiptKeyPattern = /^receipts\/[a-f0-9-]{36}\/[a-f0-9-]{36}\/(?:original|display)\.aes$/;
 export class LocalMediaStorage implements MediaStorage {
   readonly kind = "LOCAL" as const;
   private readonly root: string;
@@ -70,6 +73,13 @@ export class LocalMediaStorage implements MediaStorage {
     if (!stat.isFile() || stat.isSymbolicLink())
       throw Error("Invalid media object");
     return createReadStream(full, range);
+  }
+  async deleteReceipt(key: string) {
+    if (!receiptKeyPattern.test(key)) throw Error("Receipt retention boundary");
+    try { const full=await this.file(key); const stat=await fs.lstat(full);
+      if(!stat.isFile()||stat.isSymbolicLink())throw Error("Receipt retention object boundary");
+      await fs.unlink(full);
+    } catch(e) { if((e as NodeJS.ErrnoException).code!=="ENOENT")throw e; }
   }
 }
 export interface S3Options {
@@ -199,6 +209,11 @@ export class S3MediaStorage implements MediaStorage {
     )
       throw Error("Private S3 range mismatch");
     return found.Body as Readable;
+  }
+  async deleteReceipt(key: string) {
+    if (!receiptKeyPattern.test(key)) throw Error("Receipt retention boundary");
+    await this.prepare();
+    await this.client.send(new DeleteObjectCommand({Bucket:this.options.bucket,Key:key}),{abortSignal:AbortSignal.timeout(30000)});
   }
 }
 export function byteRange(

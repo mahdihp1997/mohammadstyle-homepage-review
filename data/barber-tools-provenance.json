@@ -1,0 +1,8 @@
+{
+  "asset": "/brand/barber-tools-photo.webp",
+  "kind": "AI-generated decorative product photograph",
+  "tool": "built-in image_gen",
+  "prompt": "Use case: product-mockup. Create a photorealistic cutout asset for a charcoal and champagne men's salon website, 3:1 wide horizontal composition. Subject: one real professional brushed stainless-steel hair-cutting scissors with anatomically correct two finger rings and a single pivot, and one real matte black fine-tooth barber comb. Two objects only, placed beside each other with an understated slight overlap, full objects visible, large clean silhouette, no hands or people. True photographic materials, realistic fine scratches, soft warm champagne side lighting and restrained silver highlights, elegant natural studio product photography, not a vector drawing, not a 3D icon. Transparent background with clean alpha, no floor, no rectangle, no scenery, no text, no branding, no watermark. Objects arranged horizontally to be legible as a subtle decorative 220px-wide detail.",
+  "output": {"width":660,"height":220,"alpha":true,"format":"webp"},
+  "usage": "Decorative only; never evidence of actual salon equipment, clients or results. Generated specifically at owner's request; may accompany sanitized code review."
+}

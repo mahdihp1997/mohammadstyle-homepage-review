@@ -1,0 +1,6 @@
+"use client";
+import{useEffect,useState}from'react';import type{CartLine}from'@/types/shop';
+const key='mohammadstyle-product-cart-v1',event='ms-product-cart-updated';let memory:CartLine[]=[];
+export function readCart():CartLine[]{try{const raw=localStorage.getItem(key);if(raw){const value:unknown=JSON.parse(raw);if(Array.isArray(value)){const seen=new Set<string>();return value.slice(0,20).filter((x):x is CartLine=>!!x&&typeof x==='object'&&/^[a-f0-9-]{36}$/.test(x.id)&&typeof x.slug==='string'&&/^[a-z0-9][a-z0-9-]{2,99}$/.test(x.slug)&&Number.isInteger(x.quantity)&&x.quantity>0&&x.quantity<=99&&!seen.has(x.id)&&!!seen.add(x.id));}}return memory;}catch{return memory;}}
+export function writeCart(value:CartLine[]){memory=value;try{localStorage.setItem(key,JSON.stringify(value));}catch{}window.dispatchEvent(new Event(event));}
+export function useCart(){const[items,setItems]=useState<CartLine[]>([]),[ready,setReady]=useState(false);useEffect(()=>{const sync=()=>{setItems(readCart());setReady(true);};sync();window.addEventListener(event,sync);window.addEventListener('storage',sync);return()=>{window.removeEventListener(event,sync);window.removeEventListener('storage',sync);};},[]);return{items,ready,setItems:writeCart};}

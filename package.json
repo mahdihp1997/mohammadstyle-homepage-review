@@ -12,7 +12,8 @@
     "test:ui:mvp": "playwright test -c playwright.mvp.config.ts",
     "test:ui:login": "playwright test -c playwright.login.config.ts",
     "test:ui:product": "node backend/scripts/product/browser-product.mjs",
-    "brand:icons": "node backend/scripts/product/brand-icons.mjs"
+    "brand:icons": "node backend/scripts/product/brand-icons.mjs",
+    "test:ui:manual": "node backend/scripts/product/browser-manual-shop.mjs"
   },
   "dependencies": {
     "next": "^15.5.0",

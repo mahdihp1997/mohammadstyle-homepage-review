@@ -1,0 +1,9 @@
+{
+  "source": "public/brand/mohammadstyle-mark.svg",
+  "sourceSha256": "a1e53aaad1c797b052529650e793054163d912c14fd7fad9d2c4ed784e955977",
+  "asset": "public/brand/mohammadstyle-watermark.svg",
+  "purpose": "Hero-only decorative rendering of the same approved mark. Original header/footer mark remains unchanged.",
+  "method": "Simplified existing contours (1.25/256 units maximum) and tangent cubic curves; sharp monogram corners retained. Flat brand fill, no raster embedding.",
+  "beforeVertices": 664,
+  "afterVertices": 104
+}

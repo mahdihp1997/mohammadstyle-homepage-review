@@ -1,6 +1,9 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import BrandMark from "@/components/BrandMark";
+import Icon from "@/components/Icon";
+import {business,gallery} from "@/data/site";
+import {privateFilms} from "@/data/salon";
 type Asset = {
   id: string;
   kind: "IMAGE" | "VIDEO";
@@ -8,6 +11,8 @@ type Asset = {
   altText: string;
   categories: { id: string; name: string; slug: string }[];
   variants: { name: string; width: number; height: number }[];
+  privateUrl?: string;
+  privatePoster?: string;
 };
 type Gallery = {
   items: Asset[];
@@ -15,8 +20,9 @@ type Gallery = {
   limit: number;
   offset: number;
 };
-export default function PortfolioGallery({ enabled }: { enabled: boolean }) {
-  const [items, setItems] = useState<Asset[]>([]),
+export default function PortfolioGallery({ enabled, privateAssets=false }: { enabled: boolean; privateAssets?: boolean }) {
+  const internalItems: Asset[] = privateAssets ? [...gallery.map(g => ({ id:"private-"+g.id,kind:"IMAGE",title:g.title,altText:g.alt,privateUrl:g.image,categories:[],variants:[{name:"DISPLAY",width:1200,height:1600}] } as Asset)), ...privateFilms.map(f=>({id:"private-"+f.id,kind:"VIDEO",title:f.title,altText:f.alt,privateUrl:f.src,privatePoster:f.poster,categories:[],variants:[]} as Asset))] : [];
+  const [items, setItems] = useState<Asset[]>(internalItems),
     [categories, setCategories] = useState<Gallery["categories"]>([]),
     [category, setCategory] = useState(""),
     [kind, setKind] = useState("ALL"),
@@ -34,7 +40,7 @@ export default function PortfolioGallery({ enabled }: { enabled: boolean }) {
     const c = new AbortController();
     setLoading(true);
     setError("");
-    if (offset === 0) setItems([]);
+    if (offset === 0) setItems(category ? [] : internalItems);
     const q = new URLSearchParams({ offset: String(offset) });
     if (category) q.set("category", category);
     fetch("/api/portfolio?" + q, { cache: "no-store", signal: c.signal })
@@ -46,7 +52,7 @@ export default function PortfolioGallery({ enabled }: { enabled: boolean }) {
         if (!c.signal.aborted) {
           setItems((old) =>
             offset === 0
-              ? d.items
+              ? [...(category ? [] : internalItems), ...d.items]
               : [
                   ...old,
                   ...d.items.filter((x) => !old.some((o) => o.id === x.id)),
@@ -66,7 +72,7 @@ export default function PortfolioGallery({ enabled }: { enabled: boolean }) {
         if (!c.signal.aborted) setLoading(false);
       });
     return () => c.abort();
-  }, [category, offset, reload, enabled]);
+  }, [category, offset, reload, enabled, privateAssets]);
   useEffect(() => {
     if (!selected || !dialog.current) return;
     const d = dialog.current;
@@ -79,7 +85,7 @@ export default function PortfolioGallery({ enabled }: { enabled: boolean }) {
     };
   }, [selected]);
   const visible = items.filter((x) => kind === "ALL" || x.kind === kind),
-    assetUrl = (m: Asset, v: string) => "/api/portfolio/" + m.id + "/" + v;
+    assetUrl = (m: Asset, v: string) => (v === "THUMB" ? m.privatePoster : m.privateUrl) ?? "/api/portfolio/" + m.id + "/" + v;
   return (
     <div className="portfolio-page">
       <header className="portfolio-header">
@@ -94,13 +100,13 @@ export default function PortfolioGallery({ enabled }: { enabled: boolean }) {
       <main className="portfolio-main">
         <section className="portfolio-intro">
           <span className="portfolio-eyebrow">THE GALLERY</span>
-          <h1>نمونه‌کارهای تأییدشده</h1>
+          <h1>گالری تصاویر محمد استایل</h1>
           <p>
             عکس و ویدئو، با جزئیات و زاویهٔ کامل.
             <br />
-            این گالری فقط رسانهٔ دارای مجوز معتبر وب‌سایت را نمایش می‌دهد.
+
           </p>
-          {enabled && (
+          {enabled && !privateAssets && (
             <p className="portfolio-environment">
               محیط توسعهٔ جداگانه · دادهٔ آزمایشی، نمونه‌کار واقعی سالن محسوب
               نمی‌شود.
@@ -195,7 +201,7 @@ export default function PortfolioGallery({ enabled }: { enabled: boolean }) {
                           width={v?.width ?? 1000}
                           height={v?.height ?? 1000}
                         />
-                        <span>نمایش کامل ↗</span>
+                        <span>نمایش کامل</span>
                       </button>
                     )}
                   </figure>
@@ -215,7 +221,7 @@ export default function PortfolioGallery({ enabled }: { enabled: boolean }) {
                   ? "هنوز رسانهٔ مجازی در این انتخاب منتشر نشده است."
                   : "گالری هنوز منتشر نشده است."}
               </h2>
-              <p>تصویر جایگزین یا رسانهٔ بدون مجوز نمایش داده نمی‌شود.</p>
+              <p>{kind === "VIDEO" ? "ویدئوهای مجموعه را به‌زودی در همین صفحه ببینید." : "برای دیدن کارهای بیشتر، به اینستاگرام مجموعه سر بزنید."}</p>
             </div>
           )}
           {more && (
@@ -228,11 +234,12 @@ export default function PortfolioGallery({ enabled }: { enabled: boolean }) {
             </button>
           )}
         </section>
+        <div className="portfolio-instagram"><a className="instagram-cta" href={business.instagram} target="_blank" rel="noopener noreferrer"><Icon name="instagram" size={26}/><span>نمونه‌های بیشتر در اینستاگرام<small dir="ltr">@mohammadstyle1</small></span></a></div>
       </main>
       <footer className="portfolio-footer">
         <span>محمد استایل · سالن ممتاز پونک</span>
         <a href={enabled ? "/booking?mode=server" : "/booking"}>
-          انتخاب زمان و خدمت ↗
+          انتخاب زمان و خدمت
         </a>
       </footer>
       {selected && (

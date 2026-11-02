@@ -1,6 +1,7 @@
 import AdminDashboard from "@/components/admin/AdminDashboard";
 import { mvpEnabled } from "@/lib/mvp/proxy";
 import "./admin.css";
+import "../shop/shop.css";
 import '../product.css';
 import {productEnabled} from '@/lib/product/config';
 export const dynamic = "force-dynamic";

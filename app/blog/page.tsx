@@ -1,0 +1,8 @@
+import JournalGrid from '@/components/JournalGrid';import Link from '@/components/BrandLink';import SalonPage from '@/components/SalonPage';import BrandMark from '@/components/BrandMark';
+import {publicProductRead} from '@/lib/product/public';import type{ArticleSummary} from '@/types/article';import './blog.css';
+export const dynamic='force-dynamic';export const metadata={title:'مجلهٔ آراستگی | محمد استایل'};
+export default async function Blog({searchParams}:{searchParams:Promise<{offset?:string}>}){
+ const raw=(await searchParams).offset??'0',offset=/^\d{1,5}$/.test(raw)?Math.min(10000,Number(raw)):0;let data:{items:ArticleSummary[];limit:number}|null=null,unavailable=false;
+ try{data=await publicProductRead('articles',{offset:String(offset)});}catch{unavailable=true;}
+ return <SalonPage title="مجلهٔ آراستگی" eyebrow="THE JOURNAL"><p className="journal-lead">دربارهٔ استایل، مراقبت از مو و جزئیات آراستگی مردانه.</p>{unavailable?<div className="journal-empty"><p>دریافت مطالب در حال حاضر ممکن نیست.</p><a className="btn btn-ghost" href="/blog">تلاش دوباره</a></div>:!data?.items.length?<div className="journal-empty"><BrandMark/><p>یادداشت‌های تازهٔ مجموعه را به‌زودی در این صفحه بخوانید.</p><Link className="btn btn-ghost" href="/portfolio">دیدن نمونه‌کارها</Link></div>:<><JournalGrid articles={data.items}/><nav className="journal-pagination" aria-label="صفحات مجله">{offset>0&&<Link className="btn btn-ghost" href={'/blog?offset='+Math.max(0,offset-12)}>مطالب جدیدتر</Link>}{data.items.length===data.limit&&<Link className="btn btn-ghost" href={'/blog?offset='+(offset+12)}>مطالب قبلی</Link>}</nav></>}</SalonPage>;
+}

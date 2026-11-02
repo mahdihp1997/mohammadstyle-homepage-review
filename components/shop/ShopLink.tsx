@@ -1,0 +1,3 @@
+"use client";
+import Link from '@/components/BrandLink';import{useEffect,useState}from'react';
+export default function ShopLink({onClick}:{onClick?:()=>void}){const[enabled,setEnabled]=useState(false);useEffect(()=>{const c=new AbortController();const refresh=()=>{fetch('/api/product/public/shop?view=status',{cache:'no-store',signal:c.signal}).then(r=>r.ok?r.json():{enabled:false}).then(r=>{if(!c.signal.aborted)setEnabled(r.enabled===true);}).catch(()=>{});};refresh();window.addEventListener('focus',refresh);return()=>{c.abort();window.removeEventListener('focus',refresh);};},[]);return enabled?<Link href="/shop" onClick={onClick}>محصولات مو</Link>:null;}

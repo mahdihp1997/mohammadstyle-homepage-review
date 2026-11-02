@@ -1,0 +1,35 @@
+.admin-theme-shell{min-height:100dvh;background:var(--ink-950);color:var(--ivory)}
+.admin-appearance{display:flex;align-items:center;justify-content:flex-end;gap:14px;padding:8px 24px;border-bottom:1px solid var(--border-subtle);background:var(--ink-900);font-size:12px;color:var(--muted)}
+.admin-appearance button{display:flex;align-items:center;gap:8px;min-height:44px;border:1px solid var(--border-subtle);background:var(--ink-850);color:var(--ivory);border-radius:7px;padding:8px 16px;font:inherit}
+.admin-appearance button>span{font-size:21px;line-height:1}
+.admin-theme-shell[data-admin-theme=light]{color-scheme:light;--ink-950:#f6f5f1;--ink-925:#f3f1eb;--ink-900:#ffffff;--ink-850:#eeece5;--ink-800:#e2ded4;--ink-700:#c4beb1;--ivory:#23282b;--muted:#606464;--champagne-500:#876025;--champagne-400:#76521d;--champagne-300:#654516;--border-subtle:#b4a58a66;--admin-surface:#fff;--admin-raised:#f4f1eb;--admin-line:#d5d0c6;--admin-gold:#76521d}
+.admin-theme-shell[data-admin-theme=light] .admin-app{--admin-surface:#fff;--admin-raised:#f4f1eb;--admin-line:#d5d0c6;--admin-gold:#76521d;background:#f6f5f1}
+.admin-theme-shell[data-admin-theme=light] :is(.admin-sidebar,.admin-login-card,.product-card,.product-enrollment){background:#fff;border-color:#d5d0c6;box-shadow:none}
+.admin-theme-shell[data-admin-theme=light] :is(.admin-editor,.admin-record,.admin-media-card,.admin-day,.admin-upload,.admin-recovery-codes){background:#f8f6f0;border-color:#cfc5b4}
+.admin-theme-shell[data-admin-theme=light] :is(.admin-app input,.admin-app select,.admin-app textarea,.admin-login-card input,.admin-panel .product-card input,.admin-panel .product-card select,.admin-panel .product-card textarea){background:#fff;color:#23282b;border-color:#a7a399}
+.admin-theme-shell[data-admin-theme=light] :is(.admin-brand small,.admin-nav-caption,.admin-sidebar nav a,.admin-sidebar-footer,.admin-header p,.admin-toolbar>label,.admin-muted,.admin-metric small,.admin-metric>span,.admin-record>p,.admin-app dt,.admin-app dd,.admin-list-row p,.admin-list-row small,.admin-reservation-row small,.admin-field>label,.admin-window label,.admin-timeline time,.admin-footer,.admin-empty,.admin-login-intro,.admin-login-note,.admin-login-footnote,.admin-login-home){color:#535957}
+.admin-theme-shell[data-admin-theme=light] .admin-sidebar nav a[aria-current=page]{background:#efe5d0;border-color:#a1885c;color:#654516}
+.admin-theme-shell[data-admin-theme=light] .admin-sidebar nav a:hover{background:#edeae2;color:#23282b}
+.admin-theme-shell[data-admin-theme=light] .admin-button{background:#fff;color:#39403f;border-color:#a29783}
+.admin-theme-shell[data-admin-theme=light] .admin-button:not(:disabled):hover{background:#f1eadc;color:#302611}
+.admin-theme-shell[data-admin-theme=light] .admin-primary{background:linear-gradient(125deg,#d5ae73,#edcd98);color:#17120a}
+.admin-theme-shell[data-admin-theme=light] .admin-danger{color:#a52f20!important;border-color:#b96b5b}
+.admin-theme-shell[data-admin-theme=light] :is(.admin-error,.admin-login-error,.product-error){background:#fff0e9;color:#822c22;border-color:#be806c}
+.admin-theme-shell[data-admin-theme=light] .admin-error p.admin-muted{color:#822c22}
+.admin-theme-shell[data-admin-theme=light] .admin-environment{background:#fff4d9;color:#6b4c20;border-color:#bd9c65}
+.admin-theme-shell[data-admin-theme=light] .admin-environment strong{color:#654516}
+.admin-theme-shell[data-admin-theme=light] .admin-tag{background:#f6ecd9;color:#674c21;border-color:#b39b75}
+.admin-theme-shell[data-admin-theme=light] :is(.admin-status-confirmed,.admin-status-approved,.admin-status-published){background:#e8f4e9;color:#245337;border-color:#86ad91}
+.admin-theme-shell[data-admin-theme=light] :is(.admin-status-cancelled,.admin-status-rejected){background:#fff0e9;color:#8a3525;border-color:#c48a76}
+.admin-theme-shell[data-admin-theme=light] :is(.admin-status-expired,.admin-status-archived){background:#eee;color:#505a5e;border-color:#a3a8aa}
+.admin-theme-shell[data-admin-theme=light] .admin-shift{background:#eee3cc;border-color:#97713a}
+.admin-theme-shell[data-admin-theme=light] .admin-shift time{color:#5b4d34}
+.admin-theme-shell[data-admin-theme=light] .admin-shift-history{background:#e8ecec;border-color:#8b9696}
+.admin-theme-shell[data-admin-theme=light] .admin-status-bars>div>div{background:#ded9cf}
+.admin-theme-shell[data-admin-theme=light] :is(.admin-app fieldset,.admin-list-row,.admin-reservation-row,.admin-day>h3,.admin-category-list>div){border-color:#cfc5b4}
+.admin-theme-shell[data-admin-theme=light] .admin-media-preview{background:#e8e5dd}
+.admin-theme-shell[data-admin-theme=light] .product-enrollment code{color:#654516}
+.admin-theme-shell[data-admin-theme=light] .product-recovery-codes{background:#f5f2eb;border-color:#cfc5b4}
+@media(max-width:600px){.admin-appearance{padding-inline:16px}.admin-appearance button{min-height:44px}}
+
+.admin-theme-shell[data-admin-theme=light] .shop-public-terms details{background:#faf8f2;border-color:#cfc5b4}.admin-theme-shell[data-admin-theme=light] .shop-public-terms summary{color:#654516}

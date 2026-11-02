@@ -1,3 +1,4 @@
+import {mvpReviewOrigin} from '@/lib/mvp/review-origin';
 import { NextRequest, NextResponse } from 'next/server';
 import { productEnabled } from '@/lib/product/config';
 import { productProxy } from '@/lib/product/proxy';
@@ -26,7 +27,7 @@ export async function POST(req: NextRequest, { params }: {
     if (cookie.length !== 1 || !/^[A-Za-z0-9_-]{43}$/.test(cookie[0].value))
         return NextResponse.json({ code: 'UNAUTHENTICATED' }, { status: 401 });
     try {
-        const origin = process.env.MS_MVP_ENABLED === '1' && process.env.MS_BOOKING_SERVER_PROFILE === 'mvp-local' ? 'http://127.0.0.1:3112' : 'http://127.0.0.1:3110';
+        const origin = process.env.MS_MVP_ENABLED === '1' && process.env.MS_BOOKING_SERVER_PROFILE === 'mvp-local' ? mvpReviewOrigin() : 'http://127.0.0.1:3110';
         const upstream = await fetch(origin + '/api/v1/booking/' + route, { method: 'POST', cache: 'no-store', signal: AbortSignal.timeout(35000), headers: { 'content-type': 'application/json', origin, 'sec-fetch-site': 'same-origin', cookie: 'ms_session=' + cookie[0].value, 'x-csrf-token': req.headers.get('x-csrf-token') ?? '', 'idempotency-key': req.headers.get('idempotency-key') ?? '' }, body });
         const json = await upstream.json();
         return NextResponse.json(json, { status: upstream.status, headers: { 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' } });

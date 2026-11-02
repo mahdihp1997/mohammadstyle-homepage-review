@@ -6,6 +6,10 @@ import { AdminForm, type Field, type Option, type Values } from "./AdminForm";
 import type { Actor, Editor, Workspace } from "./types";
 import MediaPanel from "./MediaPanel";
 import PolicyPanel from "./PolicyPanel";
+import EditorialPanel from './EditorialPanel';
+import ShopPanel from './ShopPanel';
+import PaymentSettingsPanel from './PaymentSettingsPanel';
+import ManualPaymentsPanel from './ManualPaymentsPanel';
 import AdminOperations from '@/components/product/AdminOperations';
 import {
   api,
@@ -37,6 +41,12 @@ const tabs = [
   ["customers", "مشتریان و سابقه", "customer.read"],
   ["notifications", "پیامک و پیگیری", "notification.read"],
   ["settings", "تنظیمات عملیات", "booking.configure"],
+  ["payment-settings", "روش پرداخت و کارت‌ها", "payment.settings.read"],
+  ["manual-payments", "پرداخت‌های دستی", "payment.manual.read"],
+  ["editorial", "مجله و مقاله‌ها", "content.read"],
+  ["shop-settings", "تنظیمات فروشگاه", "shop.configure"],
+  ["shop-products", "محصولات و موجودی", "shop.catalog.read"],
+  ["shop-orders", "سفارش‌های فروشگاه", "shop.orders.read"],
 ] as const;
 const weekdays = [
   ["6", "شنبه"],
@@ -119,6 +129,7 @@ export default function AdminDashboard({
     [editor, setEditor] = useState<Editor>(),
     [mobileMenu, setMobileMenu] = useState(false),
     [detail, setDetail] = useState<Row>();
+  useEffect(()=>{const id=new URLSearchParams(location.search).get('branch');if(id&&/^[a-f0-9-]{36}$/i.test(id))setBranch(id);},[]);
   const sidebarRef = useRef<HTMLElement>(null),
     errorRef = useRef<HTMLDivElement>(null),
     menuRef = useRef<HTMLButtonElement>(null),
@@ -146,7 +157,7 @@ export default function AdminDashboard({
     api<Workspace>(
       "admin/portal/workspace" +
         query({
-          view: ['operations','customers','notifications','settings'].includes(view) ? 'overview' : view,
+          view: ['operations','customers','notifications','settings','payment-settings','manual-payments','editorial','shop-settings','shop-products','shop-orders'].includes(view) ? 'overview' : view,
           branchId: scope ? null : branch,
           from,
           to: addDays(from, 7),
@@ -992,10 +1003,10 @@ export default function AdminDashboard({
           ))}
         </nav>
         <div className="admin-sidebar-footer">
-          <a href="/portfolio">مشاهدهٔ گالری عمومی ↗</a>
-          <a href="/booking?mode=server">مسیر رزرو SERVER ↗</a>
-          <a href={product ? '/booking?mode=demo' : '/booking'}>مسیر رزرو DEMO ↗</a>
-          {product && <a href="/account/security">امنیت حساب و نشست‌ها ↗</a>}
+          <a href="/portfolio">مشاهدهٔ گالری عمومی</a>
+          <a href="/booking?mode=server">مسیر رزرو SERVER</a>
+          <a href={product ? '/booking?mode=demo' : '/booking'}>مسیر رزرو DEMO</a>
+          {product && <a href="/account/security">امنیت حساب و نشست‌ها</a>}
           <a href="/">بازگشت به خانه</a>
           {actor && (
             <button
@@ -1126,6 +1137,10 @@ export default function AdminDashboard({
                 />
               )}
               {product && ["operations","customers","notifications","settings"].includes(view) && <AdminOperations view={view} branch={scope ? null : branch} actor={actor}/>}
+              {product && ["shop-settings","shop-products","shop-orders"].includes(view) && <ShopPanel key={view} view={view.slice(5) as "settings"|"products"|"orders"} branchId={scope?null:branch} branches={branches} actor={actor}/>}
+              {product && view === "editorial" && <EditorialPanel actor={actor}/>}
+              {product && view === "payment-settings" && <PaymentSettingsPanel branchId={scope?null:branch} branches={branches} actor={actor}/>}
+              {product && view === "manual-payments" && <ManualPaymentsPanel branchId={scope?null:branch} actor={actor}/>}
               {view === "overview" && (
                 <>
                   <div className="admin-metrics">

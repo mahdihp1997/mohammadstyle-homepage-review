@@ -1,3 +1,4 @@
+import {mvpReviewOrigin} from '@/lib/mvp/review-origin';
 import { randomBytes, timingSafeEqual } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { localLoginBridge } from "@/lib/mvp/local-login";
@@ -38,8 +39,8 @@ export async function POST(req: NextRequest) {
     chunks.push(chunk.value);
   }
   try {
-    const upstream = await fetch("http://127.0.0.1:3112/api/v1/local-review/login", {
-      method: "POST", headers: { origin: "http://127.0.0.1:3112", "sec-fetch-site": "same-origin",
+    const upstream = await fetch(mvpReviewOrigin()+"/api/v1/local-review/login", {
+      method: "POST", headers: { origin: mvpReviewOrigin(), "sec-fetch-site": "same-origin",
         "content-type": "application/json", "x-local-login-bridge": bridge },
       body: Buffer.concat(chunks).toString("utf8"), cache: "no-store", redirect: "error", signal: AbortSignal.timeout(12000),
     });

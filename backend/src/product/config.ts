@@ -16,6 +16,7 @@ export interface ProductDatabaseOptions {
   ssl: PoolConfig["ssl"];
 }
 export interface ProductConfig {
+  reviewOtpAutofill?: boolean;
   environment: ProductEnvironment;
   origin: string;
   listenHost: "127.0.0.1" | "0.0.0.0";
@@ -61,7 +62,7 @@ export function assertProductDatabase(o: ProductDatabaseOptions) {
   if (origin.origin !== o.origin || origin.username || origin.password) throw Error("Invalid product origin");
   if (o.environment === "test") {
     if (process.env.APP_ENV !== "product-test" || process.env.NODE_ENV === "production" || o.host !== "127.0.0.1" ||
-        o.port !== 55460 || !["ms_product_test", "ms_product_restore", "ms_product_failure"].includes(o.database) ||
+        ![55460,55461].includes(o.port) || !(["ms_product_test", "ms_product_restore", "ms_product_failure"].includes(o.database) || (o.database==="ms_product_owner_review" && o.port===55461 && o.origin==="http://127.0.0.1:3006")) ||
         !["127.0.0.1", "localhost"].includes(origin.hostname)) throw Error("Product test isolation required");
   } else if (process.env.APP_ENV !== o.environment || origin.protocol !== "https:" ||
       /(?:test|synthetic|_dev|restore|failure)/i.test(o.database) || !o.ssl || typeof o.ssl !== "object" ||
@@ -98,14 +99,21 @@ export function loadProductConfig(env: NodeJS.ProcessEnv = process.env, purpose:
   const smsKey = secret(env, "SMS_API_KEY", sms === "kavenegar" && purpose==='worker');
   if (sms === "kavenegar" && (!/^[A-Za-z0-9_-]{1,80}$/.test(env.SMS_OTP_TEMPLATE ?? "")))
     throw Error("Approved SMS verification template required");
-  const mockGatewayOrigin = payment === "mock" ? env.MOCK_GATEWAY_ORIGIN ?? "http://127.0.0.1:3117" : null;
+  const mockGatewayOrigin = payment === "mock" || sms === "mock" ? env.MOCK_GATEWAY_ORIGIN ?? "http://127.0.0.1:3117" : null;
+  const reviewOtpAutofill = env.PRODUCT_REVIEW_OTP_AUTOFILL === "1";
+  if (env.PRODUCT_REVIEW_OTP_AUTOFILL && !["0", "1"].includes(env.PRODUCT_REVIEW_OTP_AUTOFILL)) throw Error("Invalid review OTP setting");
+  if (reviewOtpAutofill && (environment !== "test" || env.NODE_ENV !== "development" || sms !== "mock" ||
+      !((database.port===55460 && origin==="http://127.0.0.1:3006" && mockGatewayOrigin==="http://127.0.0.1:3117") ||
+        (database.port===55461 && origin==="http://127.0.0.1:3007" && mockGatewayOrigin==="http://127.0.0.1:3120") ||
+        (database.port===55461 && database.database==="ms_product_owner_review" && origin==="http://127.0.0.1:3006" && mockGatewayOrigin==="http://127.0.0.1:3117"))))
+    throw Error("Review OTP autofill requires the explicitly isolated development profile");
   if (mockGatewayOrigin && !/^http:\/\/127\.0\.0\.1:\d{4,5}$/.test(mockGatewayOrigin)) throw Error("Loopback mock gateway required");
   const sessionSeconds = integer(env.SESSION_ABSOLUTE_SECONDS, 3600, 900, 86400);
   const idleSeconds = integer(env.SESSION_IDLE_SECONDS, 900, 300, 3600);
   if (idleSeconds > sessionSeconds) throw Error("Idle expiry exceeds absolute expiry");
   const mediaRoot = path.resolve(env.PRODUCT_MEDIA_ROOT ?? "");
   if (!env.PRODUCT_MEDIA_ROOT || mediaRoot.split(path.sep).includes("public")) throw Error("Private media storage root required");
-  return { environment, origin, database, businessId: env.PRODUCT_BUSINESS_ID!, bridgeKey: key("PRODUCT_BRIDGE_KEY",purpose==='api'||(purpose==='worker'&&environment==='test')),
+  return { environment, origin, database, reviewOtpAutofill, businessId: env.PRODUCT_BUSINESS_ID!, bridgeKey: key("PRODUCT_BRIDGE_KEY",purpose==='api'||(purpose==='worker'&&environment==='test')),
     encryptionKey: key("PRODUCT_ENCRYPTION_KEY",purpose==='api'||purpose==='worker'), identityKey: key("PRODUCT_IDENTITY_KEY",purpose==='api'||purpose==='bootstrap'), otpKey: key("PRODUCT_OTP_KEY",purpose==='api'),
     authDatabasePassword: dbPassword("PRODUCT_AUTH_PASSWORD",purpose==='api'), workerDatabasePassword: dbPassword("PRODUCT_WORKER_PASSWORD",purpose==='worker'),
     sessionSeconds, idleSeconds, listenHost: environment === "test" ? "127.0.0.1" : "0.0.0.0",

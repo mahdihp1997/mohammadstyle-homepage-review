@@ -12,19 +12,63 @@
       "ماساژ",
       "مانیکور",
       "پدیکور"
-    ]
+    ],
+    "owner_update_2026_11_01": {
+      "price_unit": "TOMAN",
+      "input_shorthand_confirmed": "Every provided number was in thousands of Toman.",
+      "team": [
+        {
+          "id": "mohammad",
+          "name": "محمد",
+          "phone": "09128935598",
+          "haircut_price_toman": 1300000
+        },
+        {
+          "id": "amir",
+          "name": "امیر",
+          "phone": "09387556252",
+          "haircut_price_toman": 900000
+        },
+        {
+          "id": "amirhossein",
+          "name": "امیرحسین",
+          "phone": null,
+          "haircut_price_toman": 700000
+        }
+      ],
+      "service_prices_toman": {
+        "facial": 2000000,
+        "massage": 2500000,
+        "manicure": 800000,
+        "pedicure": 1000000
+      },
+      "confirmed_duration_minutes": {
+        "massage": 60
+      },
+      "groom_package": {
+        "price_toman": null,
+        "instruction": "جهت مشاوره تماس بگیرید"
+      },
+      "media_staff_mapping": {
+        "IMG_2803.jpeg": "amir",
+        "IMG_2804.jpeg": "amir",
+        "IMG_2805.png": "mohammad",
+        "IMG_2806.png": "mohammad"
+      }
+    },
+    "branch_2_name": "فرشته"
   },
   "requires_verification": [
     "legal_business_name",
     "brand_final_name",
-    "branch_2_name_and_address",
+    "branch_2_address",
     "branch_specific_images",
-    "staff_names_and_schedule",
     "services_by_branch",
-    "service_prices",
-    "service_durations",
     "deposit_and_cancellation_policies",
-    "phone_numbers",
-    "photo_publication_rights"
+    "photo_publication_rights",
+    "staff_schedules_and_branch_assignments",
+    "service_durations_except_massage",
+    "other_contact_numbers_and_working_hours",
+    "provider_price_configuration_before_live_booking"
   ]
 }
