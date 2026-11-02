@@ -458,3 +458,6 @@ body:has(.drawer-layer) .contact-float{display:none}
 @media(max-width:700px){.site-header{height:70px}.main-nav{top:70px;max-height:calc(100dvh - 70px)}.header-inner{gap:12px}.header-right{gap:8px}.site-footer .footer-main{gap:24px;padding-block:40px 24px}.site-footer .footer-brand,.site-footer .footer-contact{grid-column:1/-1}.site-footer .footer-links>a{font-size:12px}.site-footer .footer-bottom{padding-bottom:88px}.footer-contact p{max-width:300px}}
 .branch-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 body:has(.main-nav.nav-open) .contact-float{display:none}
+/* Tablet navigation uses a compact grid so it cannot cover the hero action. */
+@media(min-width:701px) and (max-width:1100px){.main-nav.nav-open{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.main-nav a{display:flex;align-items:center;min-height:48px}}
+@media(min-width:1281px){.main-nav a{font-size:13px}}
