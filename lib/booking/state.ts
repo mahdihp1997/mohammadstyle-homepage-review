@@ -7,10 +7,11 @@ import { availabilityKey, availabilityRequest, resolveSlot, snapshotSlots } from
 import { selectedPolicy } from "./policies";
 import { withinDates } from "./date-utils";
 import { policyPreviewSnapshot } from "./calculations";
+import {bookingEntryServices} from './entry';
 
-export function initialBookingState(serviceId: ServiceId | null): BookingState {
+export function initialBookingState(serviceId: ServiceId | null | readonly ServiceId[]): BookingState {
   return { step: 1, error: null, previewViewed: false, policyPreview: null, availability: { status: "idle", key: "", requestId: 0, slots: [] }, draft: {
-    branchId: null, serviceIds: serviceId ? [serviceId] : [], barberId: null, date: null, slot: null,
+    branchId: null, serviceIds: bookingEntryServices(serviceId), barberId: null, date: null, slot: null,
     pricingMode: "unconfirmed", policyId: null, optionalDeposit: false,
   } };
 }

@@ -22,3 +22,5 @@
 @media(max-width:600px){.manual-card-copy{flex-direction:column;align-items:stretch}.manual-destination{padding:18px}.manual-card-copy>input{font-size:18px!important;letter-spacing:0}.manual-upload fieldset{padding:16px}}
 
 .manual-copy-status{min-height:24px;color:var(--muted);font-size:12px;line-height:2}.manual-admin-summary{display:grid;grid-template-columns:minmax(100px,.7fr) minmax(0,1.3fr);gap:12px 20px}.manual-admin-summary dd{margin:0}.manual-review-form{margin-top:25px}.manual-review-form label{margin-block:16px}.manual-review-form fieldset{min-width:0}
+/* Shared mobile page-title scale; account content remains a utility layout. */
+@media(max-width:700px){.product-account h1{font-size:32px;line-height:1.5}}

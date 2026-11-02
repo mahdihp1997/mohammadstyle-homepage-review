@@ -18,10 +18,10 @@ import DateTimeSelection from "./DateTimeSelection";
 import BookingSummary, { BookingOverview } from "./BookingSummary";
 import BookingNavigation from "./BookingNavigation";
 
-export default function BookingWizard({ today, initialService }: { today: LocalDate; initialService: ServiceId | null }) {
+export default function BookingWizard({ today, initialService, initialServiceIds }: { today: LocalDate; initialService: ServiceId | null; initialServiceIds?:readonly ServiceId[] }) {
   const min = addDays(today, 1), max = addDays(today, 60);
   const reducer = useMemo(() => createBookingReducer(min, max), [min, max]);
-  const [state, dispatch] = useReducer(reducer, initialService, initialBookingState);
+  const [state, dispatch] = useReducer(reducer, initialServiceIds??initialService, initialBookingState);
   const [interactive, setInteractive] = useState(false);
   useEffect(() => { setInteractive(true); }, []);
   const { draft, step } = state;

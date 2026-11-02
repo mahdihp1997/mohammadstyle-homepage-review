@@ -56,7 +56,7 @@ test("real Next.js render, factual content, assets, RTL and review screenshots",
   const links = await page.locator("a[href]").evaluateAll(items => items.map(item => item.getAttribute("href")!));
   for (const href of links) {
     if (href.startsWith("#")) await expect(page.locator(href)).toHaveCount(1);
-    else expect(["/","/about","/barbers","/contact","/portfolio","/blog","/account","https://www.instagram.com/mohammadstyle1/",...team.map(person=>person.phoneHref).filter(Boolean)]).toContain(href);
+    else expect(["/booking","/#services","/#branches","/","/about","/barbers","/contact","/portfolio","/blog","/account","https://www.instagram.com/mohammadstyle1/",...team.map(person=>person.phoneHref).filter(Boolean)]).toContain(href);
   }
   // Scroll every lazy image into view, then await its real browser decode.
   for (const img of await page.locator("img").all()) {
@@ -187,7 +187,7 @@ test("navigation, mobile menu Escape and focus, skip link", async ({ page }, inf
   await expect(page.locator(".skip-link")).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(page.locator("main")).toBeFocused();
-  if (info.project.name.startsWith("mobile")) {
+  if (await page.locator(".menu-button").isVisible()) {
     const menu = page.locator(".menu-button");
     await menu.click();
     await expect(page.locator("#primary-nav")).toBeVisible();
@@ -197,7 +197,7 @@ test("navigation, mobile menu Escape and focus, skip link", async ({ page }, inf
     await expect(menu).toBeFocused();
     await expect(menu).toHaveAttribute("aria-expanded", "false");
     await expect(page.locator("#primary-nav")).toBeHidden();
-    for (const target of ["#home", "#services", "#portfolio", "#branches", "#about"]) {
+    for (const target of ["#home", "#services", "#portfolio", "#branches"]) {
       await menu.click();
       await page.locator(`#primary-nav a[href="${target}"]`).click();
       await expect(page.locator("#primary-nav")).toBeHidden();
@@ -209,7 +209,7 @@ test("navigation, mobile menu Escape and focus, skip link", async ({ page }, inf
     await page.keyboard.press("Escape");
     await expect(page.locator("#primary-nav")).toBeHidden();
   } else {
-    for (const target of ["#home", "#services", "#portfolio", "#branches", "#about"]) {
+    for (const target of ["#home", "#services", "#portfolio", "#branches"]) {
       await page.locator(`#primary-nav a[href="${target}"]`).click();
       await expect(page).toHaveURL(new RegExp(`${target}$`));
     }

@@ -1,0 +1,20 @@
+[
+  {
+    "asset": "public/images/journal/haircut-consultation.webp",
+    "source": "AI-generated editorial illustration, imagegen, 2026-11-02",
+    "sha256": "308479ec1879452b5e70753c0089783dae90645db59be65d319f4ad39f1e07b5",
+    "representsRealSalonOrClient": false
+  },
+  {
+    "asset": "public/images/journal/styling-finishes.webp",
+    "source": "AI-generated editorial illustration, imagegen, 2026-11-02",
+    "sha256": "433acfb3f97d4dd7821a6be07627e06fc86a88320c72cd25c9750c857e51a29b",
+    "representsRealSalonOrClient": false
+  },
+  {
+    "asset": "public/images/journal/groom-style-planning.webp",
+    "source": "AI-generated editorial illustration, imagegen, 2026-11-02",
+    "sha256": "6835b4c8a19afea1db671437bbb967c763261b538453cdab49f3bd69c009b1dd",
+    "representsRealSalonOrClient": false
+  }
+]

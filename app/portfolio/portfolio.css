@@ -285,7 +285,7 @@
     margin: 45px auto 30px;
   }
   .portfolio-intro h1 {
-    font-size: 35px;
+    font-size: 32px;
   }
   .portfolio-intro p {
     font-size: 15px;
@@ -358,3 +358,4 @@
 }
 
 .portfolio-instagram{display:flex;justify-content:center;margin-top:40px}
+
